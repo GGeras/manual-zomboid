@@ -33,3 +33,7 @@ desktop.ini
 # segredos (nunca commitar)
 .env
 *.key
+
+# automação: configuração pessoal (pasta do Drive de cada um)
+ferramentas/automacao.local.json
+payload.json

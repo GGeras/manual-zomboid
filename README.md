@@ -15,7 +15,7 @@ Dados validados do jogo, roteiros, padrões do canal, referências e a pipeline 
 | `referencias/` | marca, estilo, **prints de telas do jogo**, fichas de modelos, capas | imagens (LFS) |
 | `projeto/` | pipeline de vídeo + assets do jogo: `assets/items` (ícones), `moodles`, `pz` (modelos/texturas), `sfx` (sons), `music` | código + LFS |
 | `ferramentas/` | instalar, rodar, `validar.py`, skill de render `motionmaxxing` | scripts |
-| `videos/` | **só links** — vídeos ficam no Google Drive | Markdown |
+| `videos/` | **só links**: os vídeos ficam no Drive pessoal de quem renderizou, e os avisos saem no Slack | Markdown |
 
 - Regras para o Claude: **`CLAUDE.md`**.
 - Regras de trabalho em dupla: **`COLABORACAO.md`**.
@@ -80,6 +80,18 @@ Dados validados do jogo, roteiros, padrões do canal, referências e a pipeline 
   2. Marque `CLAUDE.md`, `README.md`, `info-validada/`, `roteiros/` e `canal/`.
   3. Use "Sync now" depois de cada mudança.
   - Imagens e sons do LFS não entram por esse caminho.
+
+## Automação Slack + Drive (cada pessoa, uma vez)
+1. No seu Claude, conecte o **Slack** e o **Google Drive** (Configurações > Conectores).
+2. Instale o **Google Drive para computador** (cria `G:\Meu Drive`) ou o **rclone** (`winget install -e --id Rclone.Rclone` + `rclone config`).
+3. Na raiz do repo: `python ferramentas/publicar.py --configurar --pessoa <seu-nome>`.
+
+Depois disso, cada prévia, final e atualização vira aviso automático:
+- `#links-rascunho`: prévias;
+- `#links-final`: vídeos finais;
+- `#atualizações-projeto`: GitHub.
+
+Regra completa: `canal/processo/automacao-slack-drive.md`.
 
 ## Rotina diária
 `git pull` → trabalho → `python ferramentas/validar.py` → linha no `CHANGELOG.md` → commit → `git push` (ou PR). Detalhes em `COLABORACAO.md`.

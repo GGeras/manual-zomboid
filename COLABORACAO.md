@@ -30,15 +30,19 @@ git push -u origin jose/ep20-sono           # 4. sobe a branch
 gh pr create --fill                         # 5. abre o Pull Request
 ```
 6. O outro revisa no GitHub ("Files changed") e aprova.
-7. Merge com **Squash and merge**. Depois apague a branch e volte para a main:
+7. Merge com **Squash and merge**. Na mensagem do squash, mantenha a linha `Por quê:`. Depois apague a branch e volte para a main:
    ```bash
    git switch main && git pull
    ```
 - **Commit direto na `main`** só para coisa pequena e sua: CHANGELOG, link de vídeo, ajuste no seu próprio roteiro.
+- **Todo push na `main`** (ou PR aceito) e todo PR aberto viram aviso no `#atualizações-projeto`, feito pelo seu Claude (`canal/processo/automacao-slack-drive.md`, fluxo C).
 - Fato novo e código compartilhado sempre via PR.
 
 ## 4. Mensagens de commit
-`tipo(escopo): o que mudou`, no presente e curto.
+`tipo(escopo): o que mudou`, no presente e curto. **No corpo, sempre uma linha `Por quê: ...`.** Ela vira a justificativa no aviso do Slack:
+```bash
+git commit -m "fato(animais): adiciona ani-cocho" -m "Por quê: evita mostrar água no mesmo cocho da ração"
+```
 
 | tipo | uso | exemplo |
 |---|---|---|

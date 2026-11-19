@@ -1,0 +1,17 @@
+{
+ "_ajuda": "Configuração COMPARTILHADA da automação Slack + Google Drive. Regras em canal/processo/automacao-slack-drive.md. A configuração pessoal (pasta do Drive de cada um) fica em ferramentas/automacao.local.json, que NÃO vai para o git.",
+ "slack": {
+  "rascunhos":    {"canal": "#links-rascunho",       "id": "C0CKETABYPN"},
+  "finais":       {"canal": "#links-final",          "id": "C0CK9K17H3Q"},
+  "atualizacoes": {"canal": "#atualizações-projeto", "id": "C0CK9F72TFG"}
+ },
+ "drive": {
+  "pasta_raiz": "Manual Zomboid",
+  "rascunhos": "rascunhos",
+  "finais": "finais",
+  "compartilhamento": "qualquer pessoa com o link: leitor"
+ },
+ "github": "https://github.com/GGeras/manual-zomboid",
+ "atualizacoes_via": "claude",
+ "_atualizacoes_via": "claude = o Claude de quem fez o push posta o resumo pelo conector do Slack | action = o GitHub Action posta sozinho (ver ferramentas/github-action-slack.yml). Nunca os dois."
+}
