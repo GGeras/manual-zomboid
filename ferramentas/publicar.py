@@ -26,7 +26,7 @@ def achar_drive_desktop():
     cands = []
     if os.name == 'nt':
         for L in string.ascii_uppercase[3:]:
-            cands += [f'{L}:/Meu Drive', f'{L}:/My Drive']
+            cands += [f'{L}:/Meu Drive', f'{L}:/O meu disco', f'{L}:/My Drive']
     home = os.path.expanduser('~')
     cands += glob.glob(f'{home}/Library/CloudStorage/GoogleDrive-*/Meu Drive') + glob.glob(f'{home}/Library/CloudStorage/GoogleDrive-*/My Drive')
     cands += [f'{home}/Google Drive/Meu Drive', f'{home}/Google Drive/My Drive', f'{home}/Google Drive']
