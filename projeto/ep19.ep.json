@@ -1,0 +1,72 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 19   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "19",
+ "nome": "Livros de Habilidade",
+ "vo": "audio/n19.mp3",
+ "vo_db": 1.5,
+ "musica": "where_is_everyone",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 8.0,
+  "opcoes": [],
+  "zoom": 1.05,
+  "pos": "50% 55%",
+  "tint": "rgba(0,0,0,.15)",
+  "linhas": [
+   [
+    "LIVRO NÃO",
+    "osso"
+   ],
+   [
+    "DÁ NÍVEL",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "pcts",
+   "itens": [
+    [
+     "×3",
+     "amarelo"
+    ],
+    [
+     "×16",
+     "verde"
+    ]
+   ],
+   "legenda": "VOLUME I · VOLUME V"
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Livros de habilidade: como funcionam de verdade (B42)",
+  "gancho": "Livro de habilidade não te dá nível nenhum. Ele multiplica a experiência. Entenda em 1 minuto.",
+  "pontos": [
+   "Livro multiplica a experiência ganha praticando",
+   "5 volumes, 2 níveis cada",
+   "Bônus ×3, ×5, ×8, ×12 e ×16 (Pontaria, Recarga e Lâminas Longas: metade)",
+   "Metade das páginas = metade do bônus",
+   "Sentado e de óculos lê mais rápido; Leitura Dinâmica −30%"
+  ],
+  "pergunta": "Qual livro você lê primeiro?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "Livro de habilidade não te dá nível nenhum. Ele multiplica a experiência, que é o que enche sua barra de nível, mas só a que você ganha praticando. Sem prática, o livro não faz nada. Cada habilidade tem cinco volumes. O volume um vale do nível zero ao dois, o dois do dois ao quatro, e assim vai até o dez. E o bônus cresce: três vezes no volume um, depois cinco, oito, doze, e dezesseis no volume cinco. Pontaria, Lâminas Longas e Recarga rendem a metade. Exemplo: Carpintaria nível zero. Sem livro, cada coisa que você constrói te dá um pouco de experiência. Leu o volume um? A mesma construção rende três vezes mais, até você chegar no nível dois. Leu metade das páginas? Ganha metade do bônus. Pulou volume? Livro muito acima do seu nível não funciona. E livro de um nível que você já passou não serve mais. Pra ler mais rápido: sentado e de óculos de leitura, cada um corta dez por cento do tempo. O traço Leitura Dinâmica corta trinta por cento; Leitura Lenta soma trinta. E depois de lido, o bônus fica com você. Não precisa carregar o livro. Lê antes, pratica depois.",
+ "fatos": [
+  "livro-nivel",
+  "livro-volumes",
+  "livro-mult",
+  "livro-parcial",
+  "livro-acima",
+  "livro-velocidade",
+  "livro-exemplo"
+ ]
+}

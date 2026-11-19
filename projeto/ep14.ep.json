@@ -1,0 +1,222 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 14   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "14",
+ "nome": "Cozinhar",
+ "vo": "audio/n14.mp3",
+ "vo_db": 1.5,
+ "musica": "where_is_everyone",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "PZ_OpenBag",
+   {
+    "f": 0,
+    "dt": 0.68
+   },
+   -16
+  ],
+  [
+   "lightswitch",
+   {
+    "f": 1,
+    "dt": 7.16
+   },
+   -14
+  ],
+  [
+   "campfire",
+   {
+    "f": 2,
+    "dt": 0.85
+   },
+   -24,
+   {
+    "trim": [
+     0,
+     4
+    ],
+    "fout": 0.6
+   }
+  ],
+  [
+   "PZ_Eating",
+   {
+    "f": 3,
+    "dt": 1.68
+   },
+   -18
+  ],
+  [
+   "PZ_GetWater",
+   {
+    "f": 4,
+    "dt": 1.1
+   },
+   -18
+  ],
+  [
+   "PZ_FoodSlicing",
+   {
+    "f": 4,
+    "dt": 2.91
+   },
+   -18,
+   {
+    "trim": [
+     0,
+     0.8
+    ]
+   }
+  ],
+  [
+   "PZ_FoodSlicing",
+   {
+    "f": 4,
+    "dt": 3.61
+   },
+   -18,
+   {
+    "trim": [
+     0,
+     0.8
+    ]
+   }
+  ],
+  [
+   "PZ_FoodSlicing",
+   {
+    "f": 4,
+    "dt": 4.31
+   },
+   -18,
+   {
+    "trim": [
+     0,
+     0.8
+    ]
+   }
+  ],
+  [
+   "PZ_FoodSlicing",
+   {
+    "f": 4,
+    "dt": 5.02
+   },
+   -18,
+   {
+    "trim": [
+     0,
+     0.8
+    ]
+   }
+  ],
+  [
+   "PZ_Fire",
+   {
+    "f": 5,
+    "dt": 0.28
+   },
+   -24,
+   {
+    "trim": [
+     0,
+     3
+    ],
+    "fout": 0.6
+   }
+  ],
+  [
+   "levelup",
+   {
+    "f": 6,
+    "dt": 4.95
+   },
+   -18,
+   {
+    "trim": [
+     0,
+     1.6
+    ],
+    "fout": 0.4
+   }
+  ],
+  [
+   "waterSplash",
+   {
+    "f": 7,
+    "dt": 1.62
+   },
+   -18
+  ],
+  [
+   "PZ_Drinking",
+   {
+    "f": 7,
+    "dt": 7.22
+   },
+   -18,
+   {
+    "trim": [
+     0,
+     1.5
+    ]
+   }
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 32.0,
+  "zoom": 1.1,
+  "pos": "50% 55%",
+  "tint": "rgba(0,0,0,.15)",
+  "linhas": [
+   [
+    "NÃO ESTRAGUE",
+    "osso"
+   ],
+   [
+    "SUA",
+    "osso"
+   ],
+   [
+    "COMIDA",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "selo",
+   "texto": "ATÉ 6 INGREDIENTES",
+   "cor": "#3fae2a"
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Como cozinhar sem estragar a comida (B42)",
+  "gancho": "Achou comida? Não estraga no fogo. O básico da cozinha no Project Zomboid B42.22.",
+  "pontos": [
+   "Fogão elétrico e micro-ondas precisam de energia",
+   "Sem luz: fogueira, lareira ou churrasqueira",
+   "Carne crua pode dar mal-estar: cozinhe antes",
+   "Ensopado: panela com água e até 6 ingredientes",
+   "Queimou não serve; podre só com Culinária 7; água contaminada: ferva"
+  ],
+  "pergunta": "Qual receita você quer ver?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "Você achou comida. Agora não estraga ela no fogo. Primeiro, onde cozinhar. Fogão elétrico e micro-ondas precisam de energia, e a luz da cidade cai em poucas semanas e não volta. Sem luz, sobra fogo de verdade: fogueira, lareira ou churrasqueira. Depois, o que vai pro fogo. Carne crua pode te dar mal-estar. Então carne sempre cozinha antes de comer. Vamos fazer um ensopado. Panela com água, e você junta até seis ingredientes: carne, batata, cebola, cenoura. Aí leva ao fogo, e tudo vira um prato só. Mas fica de olho: esqueceu no fogo, queima. E comida queimada não serve nem como ingrediente. Ficou pronta, tira do fogo. Comida podre só entra em receita quando sua habilidade de Culinária chega no nível sete. E mesmo assim, rende pouco. E água de rio e de lago vem contaminada. O próprio jogo diz: esterilize no forno ou sobre o fogo. Só bebe quando o aviso de contaminada sumir. Cozinhar bem é viver mais. Salva esse vídeo e comenta qual receita você quer ver.",
+ "fatos": [
+  "cozinha-energia",
+  "cozinha-fogo-sem-luz",
+  "cozinha-carne-crua",
+  "cozinha-panela",
+  "cozinha-queimada",
+  "cozinha-podre",
+  "cozinha-agua"
+ ]
+}

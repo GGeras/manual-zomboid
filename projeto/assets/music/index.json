@@ -1,0 +1,224 @@
+{
+ "BrassAmbient": {
+  "lufs": -35.5,
+  "lra": 12.8,
+  "dur": 88.0,
+  "clima": "calmo"
+ },
+ "CreepyAmbient": {
+  "lufs": -18.3,
+  "lra": 15.0,
+  "dur": 70.0,
+  "clima": "tenso"
+ },
+ "IntenseAmbient": {
+  "lufs": -31.4,
+  "lra": 12.5,
+  "dur": 56.0,
+  "clima": "tenso"
+ },
+ "PZ": {
+  "lufs": -26.5,
+  "lra": 8.2,
+  "dur": 176.0,
+  "clima": "tema"
+ },
+ "PercussiveAmbient": {
+  "lufs": -28.8,
+  "lra": 23.9,
+  "dur": 60.0,
+  "clima": "tenso"
+ },
+ "RhythmicAmbient": {
+  "lufs": -40.5,
+  "lra": 9.5,
+  "dur": 60.0,
+  "clima": "calmo"
+ },
+ "VoiceAmbient": {
+  "lufs": -44.8,
+  "lra": 17.8,
+  "dur": 74.0,
+  "clima": "calmo"
+ },
+ "ZombieAmbient": {
+  "lufs": -31.6,
+  "lra": 20.2,
+  "dur": 56.0,
+  "clima": "tenso"
+ },
+ "alone": {
+  "lufs": -22.9,
+  "lra": 4.3,
+  "dur": 39.9,
+  "clima": "calmo"
+ },
+ "ambient1": {
+  "lufs": -18.1,
+  "lra": 17.6,
+  "dur": 14.8,
+  "clima": "tenso"
+ },
+ "ambient2": {
+  "lufs": -22.6,
+  "lra": 10.3,
+  "dur": 11.2,
+  "clima": "tenso"
+ },
+ "barricading": {
+  "lufs": -17.6,
+  "lra": 8.8,
+  "dur": 57.0,
+  "clima": "trabalho"
+ },
+ "chase": {
+  "lufs": -16.7,
+  "lra": 2.2,
+  "dur": 61.7,
+  "clima": "acao"
+ },
+ "desperate_escape": {
+  "lufs": -17.1,
+  "lra": 7.2,
+  "dur": 76.5,
+  "clima": "acao"
+ },
+ "fight_or_flight": {
+  "lufs": -17.1,
+  "lra": 5.1,
+  "dur": 56.0,
+  "clima": "acao"
+ },
+ "guitar": {
+  "lufs": -20.2,
+  "lra": 8.6,
+  "dur": 85.2,
+  "clima": "triste"
+ },
+ "long_ambient": {
+  "lufs": -29.6,
+  "lra": 3.0,
+  "dur": 318.2,
+  "clima": "calmo"
+ },
+ "low": {
+  "lufs": -20.3,
+  "lra": 3.0,
+  "dur": 58.1,
+  "clima": "calmo"
+ },
+ "maybe_not": {
+  "lufs": -16.8,
+  "lra": 12.8,
+  "dur": 122.0,
+  "clima": "triste"
+ },
+ "maybe_we_can_win_this": {
+  "lufs": -15.2,
+  "lra": 2.5,
+  "dur": 121.7,
+  "clima": "trabalho"
+ },
+ "misc": {
+  "lufs": -17.6,
+  "lra": 10.8,
+  "dur": 129.7,
+  "clima": "tenso"
+ },
+ "piano": {
+  "lufs": -20.3,
+  "lra": 6.2,
+  "dur": 81.0,
+  "clima": "triste"
+ },
+ "preface": {
+  "lufs": -15.9,
+  "lra": 3.6,
+  "dur": 35.5,
+  "clima": "tema"
+ },
+ "raider": {
+  "lufs": -20.6,
+  "lra": 6.3,
+  "dur": 61.7,
+  "clima": "acao"
+ },
+ "run": {
+  "lufs": -15.2,
+  "lra": 1.9,
+  "dur": 45.6,
+  "clima": "acao"
+ },
+ "saying_goodbye": {
+  "lufs": -17.9,
+  "lra": 7.6,
+  "dur": 90.0,
+  "clima": "triste"
+ },
+ "the_horde": {
+  "lufs": -18.2,
+  "lra": 8.2,
+  "dur": 117.0,
+  "clima": "acao"
+ },
+ "the_inevitable": {
+  "lufs": -19.9,
+  "lra": 9.2,
+  "dur": 138.0,
+  "clima": "tenso"
+ },
+ "the_zombie_threat": {
+  "lufs": -20.4,
+  "lra": 9.3,
+  "dur": 79.7,
+  "clima": "tenso"
+ },
+ "theme2": {
+  "lufs": -19.1,
+  "lra": 11.7,
+  "dur": 93.0,
+  "clima": "tema"
+ },
+ "they_were_once_here": {
+  "lufs": -19.7,
+  "lra": 5.5,
+  "dur": 72.0,
+  "clima": "calmo"
+ },
+ "tunedeath": {
+  "lufs": -19.1,
+  "lra": 7.5,
+  "dur": 68.6,
+  "clima": "triste"
+ },
+ "what_was_lost": {
+  "lufs": -19.4,
+  "lra": 2.9,
+  "dur": 78.0,
+  "clima": "calmo"
+ },
+ "where_is_everyone": {
+  "lufs": -20.1,
+  "lra": 2.4,
+  "dur": 79.2,
+  "clima": "calmo"
+ },
+ "work_fast": {
+  "lufs": -17.6,
+  "lra": 7.6,
+  "dur": 135.1,
+  "clima": "trabalho"
+ },
+ "wwl_active": {
+  "lufs": -18.3,
+  "lra": 7.5,
+  "dur": 170.7,
+  "clima": "acao"
+ },
+ "wwl_tense": {
+  "lufs": -19.3,
+  "lra": 12.4,
+  "dur": 94.2,
+  "clima": "tenso"
+ }
+}

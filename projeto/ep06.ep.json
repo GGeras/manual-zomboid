@@ -1,0 +1,113 @@
+{
+ "_ajuda": "Manifesto do episódio. Rode: python3 pipeline/build.py 06  (etapas: audio render final check capa post)",
+ "num": "06",
+ "nome": "Comida",
+ "vo": "audio/n6.mp3",
+ "vo_db": 1.1,
+ "musica": "where_is_everyone",
+ "musica_lufs": -30,
+ "sfx": [
+  [
+   "PZ_Eating",
+   {
+    "c": 9,
+    "dt": 0.27
+   },
+   -16,
+   {
+    "trim": [
+     0,
+     1.6
+    ],
+    "fout": 0.3
+   }
+  ],
+  [
+   "PZ_Eating",
+   {
+    "c": 10,
+    "dt": 0.33
+   },
+   -16,
+   {
+    "trim": [
+     0,
+     1.6
+    ],
+    "fout": 0.3
+   }
+  ],
+  [
+   "fridgehum",
+   {
+    "c": 5,
+    "dt": 0.3
+   },
+   -24,
+   {
+    "ate": {
+     "c": 6,
+     "dt": 0
+    },
+    "fin": 0.3,
+    "fout": 0.4
+   }
+  ]
+ ],
+ "capa": {
+  "t": 13.6,
+  "zoom": 1.25,
+  "pos": "55% 50%",
+  "tint": "rgba(50,70,0,.25)",
+  "linhas": [
+   [
+    "COMIDA",
+    "osso"
+   ],
+   [
+    "TAMBÉM",
+    "osso"
+   ],
+   [
+    "MATA",
+    "verde"
+   ]
+  ],
+  "gancho": {
+   "tipo": "seq",
+   "itens": [
+    [
+     "FRESCO",
+     "verde"
+    ],
+    [
+     "VELHO",
+     "amarelo"
+    ],
+    [
+     "PODRE",
+     "vermelho"
+    ]
+   ]
+  }
+ },
+ "post": {
+  "titulo": "Comida que estraga (e te deixa doente)",
+  "gancho": "No Project Zomboid, comida também mata. 5 regras pra não passar fome nem ficar doente:",
+  "pontos": [
+   "Comida fresca fica velha e depois podre",
+   "Geladeira ligada: dura o dobro",
+   "Freezer: congelada não estraga",
+   "Luz caiu? Coma os perecíveis primeiro",
+   "Podre deixa doente, e cozinhar não resolve"
+  ],
+  "pergunta": "Você já morreu por comer comida podre?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "No Project Zomboid... comida também mata. Cinco regras pra não passar fome nem ficar doente. Um: comida fresca estraga. Primeiro fica velha... depois podre. Dois: geladeira ligada faz a comida durar o dobro. Três: o freezer congela. Congelada, ela para de estragar. Quatro: quando a luz cai, a geladeira para. Coma os perecíveis primeiro. Cinco: comida podre mata menos a fome e te deixa doente. Cozinhar não resolve. Lata fechada e comida seca não estragam. Guarde pra depois. Segue o canal. O próximo pode salvar sua run."
+}

@@ -1,0 +1,195 @@
+{
+ "_ajuda": "Jose: ouça cada faixa (pasta 07 Musicas Ambiente) e troque status para 'aprovada' ou 'vetada'. O build avisa quando um vídeo usa música não aprovada.",
+ "BrassAmbient": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "calmo"
+ },
+ "CreepyAmbient": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "tenso"
+ },
+ "IntenseAmbient": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "tenso"
+ },
+ "PZ": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "tema"
+ },
+ "PercussiveAmbient": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "tenso"
+ },
+ "RhythmicAmbient": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "calmo"
+ },
+ "VoiceAmbient": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "calmo"
+ },
+ "ZombieAmbient": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "tenso"
+ },
+ "alone": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "calmo"
+ },
+ "ambient1": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "tenso"
+ },
+ "ambient2": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "tenso"
+ },
+ "barricading": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "trabalho"
+ },
+ "chase": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "acao"
+ },
+ "desperate_escape": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "acao"
+ },
+ "fight_or_flight": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "acao"
+ },
+ "guitar": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "triste"
+ },
+ "long_ambient": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "calmo"
+ },
+ "low": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "calmo"
+ },
+ "maybe_not": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "triste"
+ },
+ "maybe_we_can_win_this": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "trabalho"
+ },
+ "misc": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "tenso"
+ },
+ "piano": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "triste"
+ },
+ "preface": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "tema"
+ },
+ "raider": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "acao"
+ },
+ "run": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "acao"
+ },
+ "saying_goodbye": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "triste"
+ },
+ "the_horde": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "acao"
+ },
+ "the_inevitable": {
+  "status": "a ouvir",
+  "usada_em": [
+   "10"
+  ],
+  "clima": "tenso"
+ },
+ "the_zombie_threat": {
+  "status": "a ouvir",
+  "usada_em": [
+   "08"
+  ],
+  "clima": "tenso"
+ },
+ "theme2": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "tema"
+ },
+ "they_were_once_here": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "calmo"
+ },
+ "tunedeath": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "triste"
+ },
+ "what_was_lost": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "calmo"
+ },
+ "where_is_everyone": {
+  "status": "a ouvir",
+  "usada_em": [
+   "07",
+   "09"
+  ],
+  "clima": "calmo"
+ },
+ "work_fast": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "trabalho"
+ },
+ "wwl_active": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "acao"
+ },
+ "wwl_tense": {
+  "status": "a ouvir",
+  "usada_em": [],
+  "clima": "tenso"
+ }
+}

@@ -1,0 +1,1 @@
+{ "name": "manual-zomboid-local", "private": true, "version": "1.0.0", "dependencies": { "playwright-core": "1.48.2" } }

@@ -1,0 +1,74 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 20   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "20",
+ "nome": "Sono",
+ "vo": "audio/n20.mp3",
+ "vo_db": 1.5,
+ "musica": "where_is_everyone",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "zombierand3",
+   {
+    "f": 4,
+    "dt": 0.4
+   },
+   -18
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 10.0,
+  "zoom": 1.15,
+  "pos": "50% 55%",
+  "tint": "rgba(0,0,0,.15)",
+  "linhas": [
+   [
+    "LINHA 1",
+    "osso"
+   ],
+   [
+    "LINHA 2",
+    "osso"
+   ],
+   [
+    "PALAVRA",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "selo",
+   "texto": "GANCHO CURTO",
+   "cor": "#e0263f"
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Titulo buscavel (ate ~75 caracteres)",
+  "gancho": "Frase de gancho (ate 125 caracteres).",
+  "pontos": [
+   "ponto 1",
+   "ponto 2",
+   "ponto 3",
+   "ponto 4",
+   "ponto 5"
+  ],
+  "pergunta": "Pergunta para comentarios?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "rascunho com voz provisória (Piper)",
+ "fatos": [
+  "sono-niveis",
+  "sono-descanso",
+  "sono-cama",
+  "sono-bloqueio",
+  "sono-remedio",
+  "sono-cafe"
+ ]
+}

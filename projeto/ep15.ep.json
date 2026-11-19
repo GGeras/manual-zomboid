@@ -1,0 +1,203 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 15   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "15",
+ "nome": "Medicina",
+ "vo": "audio/n15.mp3",
+ "vo_db": 1.5,
+ "musica": "where_is_everyone",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "zombiescratch",
+   {
+    "f": 0,
+    "dt": 1.04
+   },
+   -16,
+   {
+    "trim": [
+     0,
+     1.2
+    ]
+   }
+  ],
+  [
+   "PZ_MaleZombie_01",
+   {
+    "f": 1,
+    "dt": 5.59
+   },
+   -20
+  ],
+  [
+   "PZ_OpenBag",
+   {
+    "f": 4,
+    "dt": 0.79
+   },
+   -18
+  ],
+  [
+   "PZ_DuctTape",
+   {
+    "f": 4,
+    "dt": 1.82
+   },
+   -18
+  ],
+  [
+   "PZ_ClothesRipping",
+   {
+    "f": 5,
+    "dt": 0.79
+   },
+   -18,
+   {
+    "trim": [
+     0,
+     1
+    ]
+   }
+  ],
+  [
+   "PZ_DuctTape",
+   {
+    "f": 6,
+    "dt": 8.52
+   },
+   -18
+  ],
+  [
+   "PZ_ClothesRipping",
+   {
+    "f": 8,
+    "dt": 6.77
+   },
+   -20,
+   {
+    "trim": [
+     0,
+     1
+    ]
+   }
+  ],
+  [
+   "zombiebite",
+   {
+    "f": 10,
+    "dt": 0.13
+   },
+   -14,
+   {
+    "trim": [
+     0,
+     1.5
+    ]
+   }
+  ],
+  [
+   "BrokenGlass",
+   {
+    "f": 6,
+    "dt": 3.43
+   },
+   -24,
+   {
+    "trim": [
+     0,
+     0.8
+    ],
+    "fout": 0.3
+   }
+  ],
+  [
+   "PZ_DuctTape",
+   {
+    "f": 7,
+    "dt": 5.05
+   },
+   -18
+  ],
+  [
+   "PZ_Swallowing",
+   {
+    "f": 9,
+    "dt": 2.68
+   },
+   -18
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 27.0,
+  "zoom": 1.05,
+  "pos": "50% 55%",
+  "tint": "rgba(0,0,0,.15)",
+  "linhas": [
+   [
+    "ARRANHÃO",
+    "osso"
+   ],
+   [
+    "QUASE NUNCA",
+    "osso"
+   ],
+   [
+    "VIRA ZUMBI",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "pcts",
+   "itens": [
+    [
+     "7%",
+     "amarelo"
+    ],
+    [
+     "25%",
+     "amarelo"
+    ],
+    [
+     "100%",
+     "vermelho"
+    ]
+   ],
+   "legenda": "ARRANHÃO · CORTE · MORDIDA"
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Medicina: arranhão, vidro, bala e infecção (B42)",
+  "gancho": "Arranhão de zumbi quase nunca te transforma. O que complica é a ferida mal cuidada.",
+  "pontos": [
+   "Infecção zumbi: arranhão 7%, corte 25%, mordida 100%",
+   "A infecção zumbi não aparece no painel de saúde",
+   "Cacos de vidro e bala alojada: pinça primeiro",
+   "Ferida profunda: suturar e fazer curativo",
+   "Curativo sujo é o que mais infecciona: troque ou lave"
+  ],
+  "pergunta": "Já perdeu um personagem por ferida mal cuidada?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "Arranhão de zumbi, na maioria das vezes, não te transforma. O que complica é a ferida mal cuidada. Primeiro, existem duas infecções. A zumbi vem do ataque: arranhão tem sete por cento de chance, corte vinte e cinco, e mordida é cem por cento. Essa não tem cura. A outra é a infecção da ferida, que vem de ferida aberta e curativo sujo. Essa você evita e trata. Toda ferida aparece no painel de saúde, a tela do corpo do personagem. A infecção zumbi não aparece. Mas o tipo da ferida diz o que fazer. Arranhado, corte e queimadura: desinfeta e faz o curativo. Ferida profunda: sutura com agulha e linha, e faz o curativo. Fratura: tala, com pano e uma tábua ou um galho. Exemplo: no painel aparece cacos de vidro alojados. Remove com a pinça primeiro, porque com o vidro lá a ferida não fecha. Depois desinfeta e faz o curativo. Bala alojada também sai com a pinça. Mas ela deixa uma ferida profunda: aí sutura e faz o curativo. Todo curativo suja com o tempo, e curativo sujo é o que mais infecciona a ferida. Troca, ou lava e reaproveita. Se infeccionar, desinfetante, lenço com álcool e antibióticos tratam. Mas só a infecção da ferida. Mordida, ninguém cura. O resto, você resolve. Salva esse vídeo.",
+ "fatos": [
+  "med-gancho-infeccao-ferida",
+  "med-chance",
+  "med-knox-painel",
+  "med-tipos",
+  "med-limpa",
+  "med-profundo",
+  "med-fratura",
+  "med-vidro",
+  "med-bala",
+  "med-sujo",
+  "med-antibiotico"
+ ]
+}

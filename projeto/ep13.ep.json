@@ -1,0 +1,145 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 13   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "13",
+ "nome": "Tracos e Profissoes",
+ "vo": "audio/n13.mp3",
+ "vo_db": 1.5,
+ "musica": "where_is_everyone",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "zombierand3",
+   {
+    "f": 0,
+    "dt": 0.33
+   },
+   -18
+  ],
+  [
+   "lightswitch",
+   {
+    "f": 3,
+    "dt": 4.23
+   },
+   -20
+  ],
+  [
+   "lightswitch",
+   {
+    "f": 4,
+    "dt": 1.49
+   },
+   -20
+  ],
+  [
+   "lightswitch",
+   {
+    "f": 5,
+    "dt": 1.24
+   },
+   -20
+  ],
+  [
+   "levelup",
+   {
+    "f": 5,
+    "dt": 2.84
+   },
+   -18,
+   {
+    "trim": [
+     0,
+     1.6
+    ],
+    "fout": 0.4
+   }
+  ],
+  [
+   "lightswitch",
+   {
+    "f": 7,
+    "dt": 2.99
+   },
+   -20
+  ],
+  [
+   "lightswitch",
+   {
+    "f": 8,
+    "dt": 1.92
+   },
+   -20
+  ],
+  [
+   "zombie_footstep_m_01",
+   {
+    "f": 10,
+    "dt": 1.01
+   },
+   -22
+  ],
+  [
+   "zombierand5",
+   {
+    "f": 10,
+    "dt": 4.05
+   },
+   -16
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 28.5,
+  "zoom": 1.1,
+  "pos": "70% 50%",
+  "tint": "rgba(0,0,0,.15)",
+  "linhas": [
+   [
+    "MONTE SEU",
+    "osso"
+   ],
+   [
+    "PERSONAGEM",
+    "osso"
+   ],
+   [
+    "SEM ERRAR",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "selo",
+   "texto": "DESEMPREGADO = +8",
+   "cor": "#3fae2a"
+  },
+  "opcoes": [
+   52.5,
+   2.5
+  ]
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Como montar o personagem sem errar (B42)",
+  "gancho": "Você pode perder o jogo antes do primeiro zumbi: na criação do personagem. A conta de pontos explicada (B42.22).",
+  "pontos": [
+   "Desempregado (Profissão Personalizada) dá 8 pontos livres",
+   "Veterano tira 8, mas começa com Pontaria e Recarga",
+   "Lenhador fica no zero e começa com Machados e Força",
+   "Habilidade com bônus também ganha experiência mais rápido",
+   "Traço bom gasta pontos; traço ruim devolve (Surdo devolve 12, mas cuidado)"
+  ],
+  "pergunta": "Qual é o seu build favorito?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "Você pode perder o jogo antes do primeiro zumbi... na criação do personagem. A criação é uma conta de pontos, e o saldo começa em zero. A profissão mexe nesse saldo. Desempregado, que no jogo em português aparece como Profissão Personalizada, não custa nada e te dá oito pontos livres. Veterano faz o contrário: tira oito pontos, mas começa com Pontaria e Recarga. Lenhador fica no zero. Não dá nem tira, mas já começa com nível em machado e força. E esse bônus faz mais: a habilidade também ganha experiência mais rápido. Quanto mais nível de bônus, mais rápido ela sobe. Depois vêm os traços. Traço bom gasta pontos: Atlético custa dez. Traço ruim devolve pontos: Fumante devolve três. O próprio jogo avisa: o bom tem que ser pago com o ruim. Cuidado com o ponto fácil. Surdo devolve doze... mas você não ouve o zumbi chegando. Pegue traço ruim que não atrapalha o seu jeito de jogar. Segue o canal. Personagem bem montado... vive mais.",
+ "fatos": [
+  "criacao-pontos-v2",
+  "criacao-bonus-xp"
+ ]
+}

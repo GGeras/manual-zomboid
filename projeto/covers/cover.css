@@ -1,0 +1,23 @@
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+#c{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:"Inter",sans-serif}
+.bg{position:absolute;inset:0;background-size:cover}
+.tint{position:absolute;inset:0;mix-blend-mode:multiply}
+.shade{position:absolute;inset:0;background:linear-gradient(rgba(6,4,4,.92) 0,rgba(6,4,4,.78) 520px,rgba(6,4,4,0) 900px),linear-gradient(0deg,rgba(6,4,4,.95) 0,rgba(6,4,4,.6) 260px,rgba(6,4,4,0) 560px),radial-gradient(120% 70% at 50% 60%,transparent 55%,rgba(0,0,0,.55) 100%)}
+.logo{position:absolute;left:46px;top:70px;width:150px;filter:drop-shadow(0 6px 18px #000)}
+.ep{position:absolute;right:50px;top:104px;font:800 44px/1 ui-monospace,"DejaVu Sans Mono",monospace;letter-spacing:4px;color:#efe5cf;border:5px solid #e0263f;padding:14px 22px;background:rgba(0,0,0,.55)}
+.ep b{color:#ff3d55}
+.title{position:absolute;left:0;right:0;top:260px;text-align:center}
+.ln{font-weight:900;text-transform:uppercase;letter-spacing:-4px;line-height:.92;text-shadow:0 10px 0 rgba(0,0,0,.55),0 0 40px rgba(0,0,0,.8)}
+.badge{position:absolute;left:0;right:0;margin:0 auto;width:max-content;top:1480px;padding:24px 38px;border-radius:14px;background:rgba(10,8,8,.82);border:5px solid #efe5cf;color:#efe5cf;font:900 54px/1 "Inter";letter-spacing:-1px;box-shadow:0 12px 40px rgba(0,0,0,.6);transform:rotate(-2deg)}
+.badge.sm{font-size:40px;top:1530px}
+.pcts{position:absolute;left:0;right:0;top:1330px;display:flex;justify-content:center;gap:34px;font:900 120px/1 "Inter";letter-spacing:-5px;text-shadow:0 8px 0 rgba(0,0,0,.6),0 0 30px #000}
+.fresh{position:absolute;left:0;right:0;top:1480px;display:flex;justify-content:center;align-items:center;gap:14px}
+.fresh b{font:900 50px/1 "Inter";color:#0d0b0b;padding:20px 22px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.fresh em{font:900 54px/1 "Inter";color:#efe5cf;font-style:normal;text-shadow:0 4px 12px #000}
+.waves{position:absolute;left:540px;top:1180px}
+.waves i{position:absolute;border:8px solid #ff3d55;border-radius:50%;transform:translate(-50%,-50%) scaleY(.55);opacity:.75}
+.waves i:nth-child(1){width:260px;height:260px}.waves i:nth-child(2){width:520px;height:520px;opacity:.5}.waves i:nth-child(3){width:820px;height:820px;opacity:.28}
+.foot{position:absolute;left:0;right:0;bottom:70px;text-align:center}
+.foot img{width:560px;filter:drop-shadow(0 8px 20px #000)}
+.ln{white-space:nowrap;display:table;margin:0 auto}

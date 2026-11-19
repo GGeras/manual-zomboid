@@ -1,0 +1,114 @@
+{
+ "13": [
+  "Seu personagem pode morrer antes do jogo começar. Na tela de criação.",
+  "Funciona como uma conta. A profissão custa ou dá pontos. Depois vêm os traços: qualidade custa ponto, defeito devolve.",
+  "E o saldo final não pode ficar negativo. Se ficar, o botão de jogar trava.",
+  "Vamos montar um. Lenhador custa zero e já começa com machado nível dois. Saldo: zero.",
+  "Quero Aprende Rápido: menos seis. O saldo ficou negativo, o botão travou.",
+  "Pra pagar, pego três defeitos baratos: Sede Alta, Leitura Lenta e Estômago Fraco, mais dois cada. Saldo zero: dá pra jogar.",
+  "O erro clássico é o defeito que devolve muito. Surdo dá doze, mas você não ouve zumbi chegando. Desorganizado dá seis, e sua mochila carrega menos.",
+  "E tem traço que não combina: Atlético com Fumante, e Forte com Robusto, que são níveis da mesma força.",
+  "E na quarenta e dois ponto vinte e dois, o Ladrão força porta e janela com pé de cabra com mais sucesso e menos barulho.",
+  "Monta o seu com saldo zero e manda nos comentários."
+ ],
+ "14": [
+  "Você achou comida. Agora não estraga ela no fogo.",
+  "Primeiro, onde cozinhar. Fogão elétrico e micro-ondas precisam de energia, e a luz da cidade cai cedo.",
+  "Sem luz, sobra fogo de verdade: fogueira, lareira ou churrasqueira.",
+  "Depois, o que vai pro fogo. Carne crua pode te deixar doente. Carne sempre cozinha antes de comer.",
+  "Vamos fazer um ensopado. Panela com água no fogo. Você pode juntar até seis ingredientes: carne, batata, cebola, cenoura. Tudo vira um prato só.",
+  "Mas fica de olho: esqueceu no fogo, queima. E comida queimada não serve nem como ingrediente.",
+  "Comida podre? Só entra em receita com Culinária sete.",
+  "E água de rio e de lago vem contaminada. Enche a panela, ferve, e aí bebe.",
+  "Cozinhar bem é viver mais. Salva esse vídeo e comenta qual receita você quer ver."
+ ],
+ "15": [
+  "Arranhão de zumbi raramente te mata. O curativo sujo, sim.",
+  "Primeiro, existem duas infecções. A zumbi vem do ataque: arranhão tem sete por cento de chance, corte vinte e cinco, e mordida é cem por cento. Essa não tem cura.",
+  "A outra é a infecção da ferida, que vem da sujeira. Essa você evita e trata.",
+  "Toda ferida aparece no painel de saúde, e o tipo diz o que fazer.",
+  "Arranhão, corte e queimadura: desinfeta e enfaixa. Ferimento profundo: costura com agulha e linha, e enfaixa. Fratura: tala com tira de pano e tábua ou galho.",
+  "Exemplo: você pulou a janela quebrada sem tirar o vidro, e cortou o braço. No painel aparece vidro na ferida. Tira com a pinça primeiro, senão continua sangrando. Depois desinfeta e enfaixa.",
+  "Bala é igual: pinça, desinfeta e enfaixa. Se ficou fundo, costura.",
+  "Todo curativo suja com o tempo, e curativo sujo infecciona a ferida. Troca, ou lava e reaproveita.",
+  "Se infeccionar, antibiótico cura. Mas só a infecção da ferida.",
+  "Mordida, ninguém cura. O resto, você resolve. Salva esse vídeo."
+ ],
+ "16": [
+  "A versão quarenta e dois trouxe animais de fazenda. E eles morrem fácil.",
+  "Você acha vaca, ovelha e galinha em fazendas e celeiros, longe da cidade. Pra levar perto, amarra na corda. Pra longe, usa o reboque de animais no carro.",
+  "Animal vivo precisa de três coisas: comida, água e calma.",
+  "Cocho guarda comida ou água, nunca os dois. Então cada cercado precisa de dois. Sem comida ou água, ele perde vida até morrer.",
+  "Calma é o estresse. Zumbi não ataca animal, mas zumbi por perto estressa. Tiro, grito e gente correndo também. E animal estressado foge.",
+  "Exemplo: um galinheiro. Galinhas, um galo e dois cochos. Elas botam ovo. E um galo só já basta pra várias galinhas.",
+  "Vaca e ovelha são diferentes: leite só aparece depois que a fêmea emprenha. Sem macho, sem leite. A ovelha também dá lã.",
+  "E fazer carinho acalma o animal e ainda tira a sua tristeza.",
+  "Comida, água e calma. Fazenda bem cuidada é comida pra sempre."
+ ],
+ "17": [
+  "Sua janela é a porta de entrada da horda.",
+  "Barricada funciona como vida extra. O zumbi bate, a vida cai, e quando zera, ele entra.",
+  "Pra barricar com tábua: martelo, tábua e dois pregos por tábua. Marreta não serve. E caixa de pregos fechada não conta: abre antes.",
+  "Cada tábua aguenta mil. E você põe até quatro de cada lado, dentro e fora.",
+  "Faz a conta: quatro tábuas por dentro, quatro mil. Fechou por fora também? Oito mil.",
+  "Chapa de metal aguenta cinco mil sozinha, mas precisa ser soldada, com maçarico e máscara de solda. Barras de metal aguentam três mil e deixam ver lá fora. Só que o zumbi também te vê.",
+  "À noite, fecha a cortina. Tábua deixa a luz da casa vazar. Chapa de metal, não.",
+  "E sempre deixa uma saída: corda de lençol presa com prego na janela do segundo andar.",
+  "Base fechada sem saída é caixão."
+ ],
+ "18": [
+  "Frio e calor derrubam seu personagem sem zumbi nenhum.",
+  "O jogo tem dois termômetros: o do clima e o do seu corpo. E quem decide se você fica bem é o do corpo.",
+  "A roupa decide quanto o clima mexe nele.",
+  "Quando o corpo esfria, primeiro suas feridas param de sarar sozinhas. Depois, você luta e corre mais devagar.",
+  "Se continuar esfriando, vem a hipotermia: quase sem força pra lutar, e sem correr.",
+  "O calor também cobra. Primeiro, mais sede e mais cansaço. No extremo, hipertermia: mesmo castigo, e você começa a perder vida.",
+  "Exemplo: inverno, você sai na chuva de casaco. A roupa molha, e roupa molhada gela o corpo. Volta, troca por roupa seca e veste em camadas.",
+  "No verão, o contrário: tira o casaco e bebe água.",
+  "Antes de sair, olha o clima e se veste pra ele."
+ ],
+ "19": [
+  "Livro de habilidade não te dá nível nenhum.",
+  "Ele multiplica a experiência que você ganha praticando. Sem prática, o livro não faz nada.",
+  "Cada habilidade tem cinco volumes. O volume um vale do nível zero ao dois, o dois do dois ao quatro, e assim vai até o dez.",
+  "E o bônus cresce: três vezes no volume um, depois cinco, oito, doze, e dezesseis no volume cinco. Mira, Lâmina Longa e Recarga rendem a metade.",
+  "Exemplo: Carpintaria nível zero. Sem livro, serrar uma tábua te dá um pouco de experiência. Leu o volume um? A mesma tábua rende três vezes mais, até o nível dois.",
+  "Leu metade das páginas? Ganha metade do bônus. Pulou volume? Livro muito acima do seu nível falha, e a leitura zera.",
+  "Pra ler mais rápido: sentado e de óculos de leitura. Leitura Rápida acelera trinta por cento; Leitura Lenta atrasa trinta.",
+  "E depois de lido, o bônus fica com você. Não precisa carregar o livro.",
+  "Lê antes, pratica depois."
+ ],
+ "20": [
+  "Dormir mal te mata devagar.",
+  "O cansaço sobe o dia inteiro, e vai piorando até Ridiculamente Cansado. Cansado, você erra mais.",
+  "Sentar e descansar só recupera o fôlego, aquele de correr e lutar. Cansaço, só dormindo.",
+  "E onde você dorme muda tudo. Cama boa recupera rápido: menos horas dormindo. Banco de carro ou chão: dorme muito mais, e acorda com dor no pescoço.",
+  "Às vezes o jogo nem deixa dormir: zumbi por perto, pânico ou dor forte.",
+  "E na quarenta e dois ponto vinte e dois, mau cheiro também bloqueia: fumaça ou cheiro de cadáver por perto.",
+  "Exemplo: noite, você está com dor e com medo. Toma analgésico pra dor. Se o pânico ainda não deixa, remédio pra dormir, em dose alta, resolve.",
+  "Café só compra um tempinho. Não substitui a cama.",
+  "Achou uma cama boa, longe de cadáver? Ali é a sua base."
+ ],
+ "21": [
+  "O mato tem comida. Você só não está vendo.",
+  "Item do mato não aparece sozinho. Você liga o modo de busca: clica na luneta, no menu da esquerda.",
+  "Os itens aparecem no chão, dentro de um círculo ao seu redor. Esse círculo começa com três quadrados do chão e chega a dez com Forrageamento no máximo.",
+  "E muita coisa encolhe ele: chuva, neblina, escuro, cansaço e pânico. Correndo, você quase não acha nada. Agachado, acha mais.",
+  "Exemplo: dia de sol, descansado e agachado: círculo grande. Noite de chuva e cansado: o círculo encolhe muito.",
+  "Desde o começo dá pra achar galho, pedra e frutinha.",
+  "Mas cuidado: frutinha e cogumelo podem vir envenenados, mesmo iguais a um que você já comeu. Com o traço Herbalista, ou a revista certa, você reconhece o veneno.",
+  "No inverno, a neve esconde a comida.",
+  "Anda devagar, de dia, e olha o chão."
+ ],
+ "22": [
+  "Na versão quarenta e dois, seu braço cansa de bater.",
+  "É a fadiga muscular. Cada parte do corpo acumula tensão separado: braço quando você bate, perna quando corre, costas quando carrega peso demais. E cama ruim pega o pescoço.",
+  "Tensão alta deixa você mais lento e dá dor.",
+  "Arma longa e pesada cansa mais o braço. Curta e leve, menos.",
+  "Exemplo: dez zumbis, e você só no machado. Golpe atrás de golpe, a barra do braço enche, o ataque fica lento, e o último te pega.",
+  "Agora o certo: derrubou, em vez de outro golpe, pisa. Pisar usa a perna e divide o esforço. E puxa poucos zumbis por vez.",
+  "Analgésico alivia a dor, mas não devolve a velocidade. E a tensão continua subindo.",
+  "Força alta e prática com a arma fazem a tensão subir mais devagar.",
+  "Descansa pra passar. Lutar cansado é morrer cansado."
+ ]
+}

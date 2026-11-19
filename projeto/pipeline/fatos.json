@@ -1,0 +1,460 @@
+{
+ "_ajuda": "GERADO por ferramentas/validar.py a partir de info-validada/*.md. NÃO edite à mão. Todo roteiro lista em epNN.ep.json -> \"fatos\" só ids daqui.",
+ "fatos": {
+  "agua-coletor-b42": {
+   "texto": "Coletor de chuva: Carpintaria 3 (caixote) ou 5 (barril), tábuas, pregos e sacos de lixo ou lona; a chuva entra contaminada",
+   "build": "B42.21",
+   "fonte": "pzfans rain collector B42",
+   "eps": [
+    "09"
+   ]
+  },
+  "ani-barulho-atrai": {
+   "texto": "Barulho dos animais atrai zumbis (padrão Apocalipse)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: lua/shared/Sandbox/Apocalypse.lua AnimalSoundAttractZombies = true",
+   "eps": [
+    "16"
+   ]
+  },
+  "ani-carinho": {
+   "texto": "Acariciar (ContextMenu_PetAnimal) reduz o estresse do animal",
+   "build": "B42",
+   "fonte": "itemlevel.net + slashskill B42; nome: PTBR ContextMenu_PetAnimal",
+   "eps": [
+    "16"
+   ]
+  },
+  "ani-cocho": {
+   "texto": "Cocho com itens não aceita água (\"Os itens devem ser removidos do recipiente para adicionar água.\"); cocho fica ligado à zona do animal; logo 2 por cercado",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: Translate/PTBR ContextMenu_FeedingTrough_RemoveItemForWater + IGUI_Animal_TroughLinkedTo + pindrop B42.22.2",
+   "eps": [
+    "16"
+   ]
+  },
+  "ani-corda": {
+   "texto": "Corda guia o animal; reboque leva longe (menu do jogo: \"Colocar Animal no Reboque\")",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: Translate/PTBR ContextMenu_AddAnimalInTrailer + pinehosting B42",
+   "eps": [
+    "16"
+   ]
+  },
+  "ani-estresse": {
+   "texto": "Zumbi não ataca animal; zumbi perto, tiro, grito e correria estressam; animal estressado/faminto foge da área",
+   "build": "B42.22.2",
+   "fonte": "pindrop.gg animals (B42.22.2) + slashskill B42",
+   "eps": [
+    "16"
+   ]
+  },
+  "ani-fome": {
+   "texto": "Sem comida ou água o animal perde vida até morrer",
+   "build": "B42",
+   "fonte": "slashskill B42 husbandry + pzwiki Animal",
+   "eps": [
+    "16"
+   ]
+  },
+  "ani-ovo": {
+   "texto": "Galinha bota ovo sem galo; só ovo fecundado choca; um galo atende várias galinhas",
+   "build": "B42.22.2",
+   "fonte": "pindrop.gg animals (B42.22.2) + slashskill B42",
+   "eps": [
+    "16"
+   ]
+  },
+  "ani-produto": {
+   "texto": "Leite (vaca/ovelha) só alguns dias depois de emprenhar; sem ordenhar seca; lã: Tosquiar com Tesoura de Tosquia",
+   "build": "B42.22.2",
+   "fonte": "pindrop.gg animals + animals/sheep (B42.22.2) + PTBR ContextMenu_Milk/ContextMenu_Shear, ItemName SheepShears",
+   "eps": [
+    "16"
+   ]
+  },
+  "ani-zona": {
+   "texto": "Vaca, ovelha e galinha aparecem em zonas rurais: fazendas, celeiros, longe da cidade",
+   "build": "B42.22.2",
+   "fonte": "pindrop.gg/project-zomboid/animals (B42.22.2) + pinehosting B42 husbandry",
+   "eps": [
+    "16"
+   ]
+  },
+  "arma-fogo-barulho": {
+   "texto": "Raio do som do tiro (SoundRadius): pistola M9 100 quadrados, escopeta JS-2000 200; zumbis no raio ouvem",
+   "build": "B42",
+   "fonte": "media/scripts/generated/items/weapon.txt (arquivos do jogo do Jose, 09/11/2026); projectzomboid.wiki aiming-reloading (escopeta ~200)",
+   "eps": [
+    "11"
+   ]
+  },
+  "arma-fogo-municao": {
+   "texto": "Pistola M9 usa 9mm num pente de 15; escopeta JS-2000 usa cartucho, 5 no tubo, sem pente",
+   "build": "B42",
+   "fonte": "media/scripts/generated/items/weapon.txt (arquivos do jogo do Jose, 09/11/2026) + normal.txt (9mmClip MaxAmmo 15)",
+   "eps": [
+    "11"
+   ]
+  },
+  "arma-fogo-pontaria": {
+   "texto": "Cada nível de Pontaria dá +4 de chance de acerto (pistola e escopeta); pânico reduz a precisão; mira na cabeça conta",
+   "build": "B42",
+   "fonte": "media/scripts/generated/items/weapon.txt (arquivos do jogo do Jose, 09/11/2026) (AimingPerkHitChanceModifier 4); projectzomboid.wiki aiming-reloading",
+   "eps": [
+    "11"
+   ]
+  },
+  "arma-fogo-recarga": {
+   "texto": "Pistola recarrega pelo pente (encher o pente antes); escopeta põe cartucho por cartucho; recarregar perto de zumbi é quando agarram",
+   "build": "B42",
+   "fonte": "media/scripts/generated/items/weapon.txt (arquivos do jogo do Jose, 09/11/2026) (WeaponReloadType handgun/shotgun, InsertAmmoStart/Stop); projectzomboid.wiki aiming-reloading",
+   "eps": [
+    "11"
+   ]
+  },
+  "arma-fogo-trava": {
+   "texto": "Pistola e escopeta podem travar (JamGunChance 1 e 2); levar arma corpo a corpo de reserva",
+   "build": "B42",
+   "fonte": "media/scripts/generated/items/weapon.txt (arquivos do jogo do Jose, 09/11/2026); projectzomboid.wiki aiming-reloading",
+   "eps": [
+    "11"
+   ]
+  },
+  "barr-barras-visao": {
+   "texto": "Barras deixam frestas: dá pra ver lá fora",
+   "build": "42.20.4",
+   "fonte": "pzfans barricade 42.20.4",
+   "eps": [
+    "17"
+   ]
+  },
+  "barr-ferr": {
+   "texto": "Tábua: martelo (CanBarricade) + tábua + pregos soltos, clique direito \"Barricar (Tábuas)\"; Marreta NÃO tem CanBarricade (Marreta Pequena tem); caixa de pregos fechada não conta",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: scripts/generated/items/weapon.txt (Hammer/ClubHammer CanBarricade = true; Sledgehammer sem) + PTBR ContextMenu_Barricade + pzfans 42.20.4 (caixa fechada)",
+   "eps": [
+    "17"
+   ]
+  },
+  "barr-lados": {
+   "texto": "Até 4 tábuas por lado, dentro e fora",
+   "build": "42.20.4",
+   "fonte": "pzfans barricade (42.20.4) + pzfans board-up (42.19)",
+   "eps": [
+    "17"
+   ]
+  },
+  "barr-luz": {
+   "texto": "À noite com luz acesa, fechar cortina/lençol antes: zumbi é atraído por te ver pela janela",
+   "build": "42.21",
+   "fonte": "pzfans B42 lighting (42.21)",
+   "eps": [
+    "17"
+   ]
+  },
+  "barr-ordem": {
+   "texto": "Chapa de metal aguenta muito mais que tábua; barras de metal ficam no meio; metal é soldado com maçarico (máscara não exigida). SEM números na tela/fala",
+   "build": "42.20.4",
+   "fonte": "pzfans barricade 42.20.4 (única fonte de valores → só comparação) + PTBR ContextMenu_MetalBarricade/MetalBarBarricade",
+   "eps": [
+    "17"
+   ]
+  },
+  "barr-saida": {
+   "texto": "Corda de Lençol presa com martelo + prego em janela SEM barricada; 1 por andar",
+   "build": "B42.22",
+   "fonte": "projectzomboid.wiki/guides/sheet-ropes (42.22) + PTBR ItemName SheetRope",
+   "eps": [
+    "17"
+   ]
+  },
+  "barr-vida": {
+   "texto": "Barricada tem durabilidade (\"Durabilidade da Barricada\"); zumbi bate e gasta; zerou, entra",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: PTBR ContextMenu_BarricadeHealth + pzfans barricade 42.20.4",
+   "eps": [
+    "17"
+   ]
+  },
+  "carro-chave-ligacao": {
+   "texto": "Chave na ignição, porta-luvas, chão ou zumbi perto; ligação direta exige Elétrica 1 + Mecânica 2; sem bateria/gasolina não liga; atropelar estraga; de ré destrói o porta-malas",
+   "build": "B42",
+   "fonte": "pzfans car key / hotwire; xgamingserver vehicles",
+   "eps": [
+    "07"
+   ]
+  },
+  "combate-empurrao": {
+   "texto": "Empurrão (espaço) afasta e pode derrubar; pisar em zumbi caído não gasta a arma",
+   "build": "B42",
+   "fonte": "projectzomboid.wiki combat-basics",
+   "eps": [
+    "08"
+   ]
+  },
+  "cozinha-agua": {
+   "texto": "Água contaminada: 'Imprópria para consumo. Esterilize em um forno ou sobre o fogo.' Beber quando o aviso sumir",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo do Jose (B42.22): lua/shared/Translate/PTBR/Tooltip.json (Tooltip_item_TaintedWater)",
+   "eps": [
+    "14"
+   ]
+  },
+  "cozinha-carne-crua": {
+   "texto": "Carne crua é perigosa crua (DangerousUncooked) e pode dar Mal-estar; cozinhar antes",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo do Jose (B42.22): scripts/generated/items/food.txt (Steak/Chicken DangerousUncooked = true) + PTBR Moodles_Sick = Mal-estar",
+   "eps": [
+    "14"
+   ]
+  },
+  "cozinha-energia": {
+   "texto": "Fogão elétrico e micro-ondas precisam de energia; a rede cai em semanas no padrão Apocalipse e não volta",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo do Jose (B42.22): lua/shared/Sandbox/Apocalypse.lua (ElecShut/ElecShutModifier 14) + pzfans cooking B42.20.4",
+   "eps": [
+    "14"
+   ]
+  },
+  "cozinha-fogo-sem-luz": {
+   "texto": "Sem energia: fogueira, lareira e churrasqueira cozinham",
+   "build": "B42.22",
+   "fonte": "pzfans cooking (B42.20.4); lareira confirmada pelo Jose (18/11)",
+   "eps": [
+    "14"
+   ]
+  },
+  "cozinha-panela": {
+   "texto": "Ensopado: panela com água, até 6 ingredientes, cozinha no fogo (Panela de Ensopado)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo do Jose (B42.22): scripts/generated/evolvedrecipes.txt (Stew MaxItems 6, MinimumWater, Cookable) + PTBR ItemName",
+   "eps": [
+    "14"
+   ]
+  },
+  "cozinha-podre": {
+   "texto": "Comida podre só entra em receita com Culinária 7 e rende pouco",
+   "build": "B42.20.4",
+   "fonte": "pzfans cooking (B42.20.4) + pzwiki Cooking (concorda no nível 7)",
+   "eps": [
+    "14"
+   ]
+  },
+  "cozinha-queimada": {
+   "texto": "Comida que passa do tempo no fogo queima; queimada não serve como ingrediente; tirar quando pronta",
+   "build": "B42.20.4",
+   "fonte": "arquivos do jogo do Jose (B42.22): food.txt (MinutesToCook/MinutesToBurn) + pzfans cooking B42.20.4",
+   "eps": [
+    "14"
+   ]
+  },
+  "criacao-bonus-xp": {
+   "texto": "Habilidade que começa com bônus (profissão/traço) também ganha experiência mais rápido; mais nível de bônus = mais rápido. Percentuais NÃO usados: tela do jogo mostra +75/+100/+125%, mas a PZwiki (42.13.1) diz que o valor real é outro (bug de exibição).",
+   "build": "B42.22",
+   "fonte": "PTBR IG_UI 'Bônus de XP: +%1' + PZwiki Trait via gamever.io (42.20.4) + pzfans B42",
+   "eps": [
+    "13"
+   ]
+  },
+  "criacao-pontos-v2": {
+   "texto": "Criação é conta de pontos (Pontos Disponíveis). Profissão: Desempregado/Profissão Personalizada +8 sem bônus; Veterano −8 com Pontaria 2 e Recarga 2; Lenhador 0 com Machado 2 e Força 1. Traços: Atlético custa 10, Fumante devolve 3, Surdo devolve 12. Texto do jogo: positivos e negativos devem ser equilibrados.",
+   "build": "B42.22",
+   "fonte": "media/scripts/generated/characters/character_professions.txt e character_traits.txt + lua/shared/Translate/PTBR/UI.json (arquivos do jogo do Jose, B42.22)",
+   "eps": [
+    "13"
+   ]
+  },
+  "livro-acima": {
+   "texto": "Livro muito acima do nível não funciona; livro de faixa já passada não serve",
+   "build": "B42.22",
+   "fonte": "pindrop.gg skills/carpentry (B42 06/11/2026)",
+   "eps": [
+    "19"
+   ]
+  },
+  "livro-exemplo": {
+   "texto": "Construir coisas de Carpintaria dá XP de Carpintaria",
+   "build": "B42.22",
+   "fonte": "pindrop.gg skills/carpentry (142 receitas dão XP)",
+   "eps": [
+    "19"
+   ]
+  },
+  "livro-mult": {
+   "texto": "Multiplicadores ×3/×5/×8/×12/×16; Pontaria, Recarga e Lâminas Longas ×1,5/×2,5…",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: lua/server/XpSystem/XPSystem_SkillBook.lua (maxMultiplier1..5)",
+   "eps": [
+    "19"
+   ]
+  },
+  "livro-nivel": {
+   "texto": "Livro não dá nível; multiplica a XP ganha praticando na faixa do volume; o bônus fica no personagem",
+   "build": "B42.22",
+   "fonte": "pindrop.gg skills (arquivos B42 06/11/2026)",
+   "eps": [
+    "19"
+   ]
+  },
+  "livro-parcial": {
+   "texto": "Cada 10% das páginas = 10% do multiplicador",
+   "build": "B42.22",
+   "fonte": "pindrop.gg skills/carpentry (B42 06/11/2026) + pzfans 42.19",
+   "eps": [
+    "19"
+   ]
+  },
+  "livro-velocidade": {
+   "texto": "Tempo de leitura: Leitura Dinâmica ×0,7 (−30%); Leitura Lenta ×1,3 (+30%); Óculos de Leitura ×0,9 (−10%); sentado ×0,9 (−10%)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: lua/shared/TimedActions/ISReadABook.lua + PTBR UI_trait_FastReader/SlowReader, ItemName Glasses_Reading",
+   "eps": [
+    "19"
+   ]
+  },
+  "livro-volumes": {
+   "texto": "5 volumes por habilidade, 2 níveis cada (BookCarpentry1: LvlSkillTrained 1, NumLevelsTrained 2); nomes Carpintaria I…V",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: scripts/generated/items/literature.txt + PTBR ItemName BookCarpentry1-5",
+   "eps": [
+    "19"
+   ]
+  },
+  "med-antibiotico": {
+   "texto": "Infecção da ferida: desinfetante, lenço com álcool e antibiótico reduzem (somam); nada cura a infecção zumbi",
+   "build": "B42.22",
+   "fonte": "pindrop.gg/project-zomboid/injuries (B42, 06/11/2026) + pzfans.com/first-aid (42.19) + nomes PT-BR: lua/shared/Translate/PTBR (IG_UI/ItemName/ContextMenu) do jogo B42.22",
+   "eps": [
+    "15"
+   ]
+  },
+  "med-bala": {
+   "texto": "Bala alojada: tirar com pinça; a retirada deixa ferimento profundo → costurar e enfaixar",
+   "build": "B42.22",
+   "fonte": "pindrop.gg/project-zomboid/injuries (B42, 06/11/2026) + nomes PT-BR: lua/shared/Translate/PTBR (IG_UI/ItemName/ContextMenu) do jogo B42.22",
+   "eps": [
+    "15"
+   ]
+  },
+  "med-chance": {
+   "texto": "Infecção zumbi (Knox), padrão: arranhão 7%, corte 25%, mordida 100%; sorteada uma vez, na hora do ferimento; sem cura",
+   "build": "B42.22",
+   "fonte": "pindrop.gg/project-zomboid/injuries (arquivos do servidor B42, 06/11/2026) + pzwiki.net/wiki/Zombie_virus (B41, mesmos valores) + nomes PT-BR: lua/shared/Translate/PTBR (IG_UI/ItemName/ContextMenu) do jogo B42.22",
+   "eps": [
+    "15"
+   ]
+  },
+  "med-fratura": {
+   "texto": "Fratura: tala pronta ou tira de pano + tábua ou galho; com tala cura bem mais rápido (não é instantâneo)",
+   "build": "B42.22",
+   "fonte": "pindrop.gg/project-zomboid/injuries (B42, 06/11/2026) + pzfans.com/first-aid (42.19) + nomes PT-BR: lua/shared/Translate/PTBR (IG_UI/ItemName/ContextMenu) do jogo B42.22",
+   "eps": [
+    "15"
+   ]
+  },
+  "med-knox-painel": {
+   "texto": "A infecção zumbi não aparece no painel de saúde",
+   "build": "B42.22",
+   "fonte": "pindrop.gg/project-zomboid/injuries (arquivos do servidor B42, 06/11/2026) + nomes PT-BR: lua/shared/Translate/PTBR (IG_UI/ItemName/ContextMenu) do jogo B42.22",
+   "eps": [
+    "15"
+   ]
+  },
+  "med-limpa": {
+   "texto": "Arranhão, corte e queimadura: enfaixar; desinfetar reduz a chance de infecção; queimadura precisa de curativo novo de tempos em tempos",
+   "build": "B42.22",
+   "fonte": "pindrop.gg/project-zomboid/injuries (B42, 06/11/2026) + pzfans.com/first-aid (42.19) + nomes PT-BR: lua/shared/Translate/PTBR (IG_UI/ItemName/ContextMenu) do jogo B42.22",
+   "eps": [
+    "15"
+   ]
+  },
+  "med-profundo": {
+   "texto": "Ferimento profundo: costurar com agulha de sutura ou agulha e linha, e enfaixar; sem costura, só com bandagem fecha devagar",
+   "build": "B42.22",
+   "fonte": "pindrop.gg/project-zomboid/injuries (B42, 06/11/2026) + nomes PT-BR: lua/shared/Translate/PTBR (IG_UI/ItemName/ContextMenu) do jogo B42.22",
+   "eps": [
+    "15"
+   ]
+  },
+  "med-sujo": {
+   "texto": "Curativo sujo é o fator que mais aumenta a chance de infecção da ferida; trocar, ou limpar com água e reusar (42.21: máquina de lavar também limpa)",
+   "build": "B42.22",
+   "fonte": "pindrop.gg/project-zomboid/injuries (B42, 06/11/2026) + pzfans.com/first-aid (42.19) + notas 42.21 (patched.gg) + nomes PT-BR: lua/shared/Translate/PTBR (IG_UI/ItemName/ContextMenu) do jogo B42.22",
+   "eps": [
+    "15"
+   ]
+  },
+  "med-tipos": {
+   "texto": "Tipos de ferida: arranhão, corte, mordida, ferimento profundo, vidro alojado, bala alojada, queimadura, fratura",
+   "build": "B42.22",
+   "fonte": "pindrop.gg/project-zomboid/injuries (arquivos do servidor B42, 06/11/2026) + nomes PT-BR: lua/shared/Translate/PTBR (IG_UI/ItemName/ContextMenu) do jogo B42.22",
+   "eps": [
+    "15"
+   ]
+  },
+  "med-vidro": {
+   "texto": "Vidro alojado: tirar com pinça; com o vidro lá a ferida não fecha; depois enfaixar ou costurar",
+   "build": "B42.22",
+   "fonte": "pindrop.gg/project-zomboid/injuries (B42, 06/11/2026) + pzfans.com/first-aid (42.19) + nomes PT-BR: lua/shared/Translate/PTBR (IG_UI/ItemName/ContextMenu) do jogo B42.22",
+   "eps": [
+    "15"
+   ]
+  },
+  "temp-calor": {
+   "texto": "Calor: mais sede (\"Você sente mais sede\") e cansaço; depois lento; hipertermia perde vida (\"O calor está consumindo sua vida\")",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: PTBR Moodles_Hyperthermia_desc_lvl1/lvl4 + pzfans 42.19",
+   "eps": [
+    "18"
+   ]
+  },
+  "temp-corpo": {
+   "texto": "Moodles de frio/calor seguem a temperatura do corpo; a do ar só empurra",
+   "build": "42.19/B42.20",
+   "fonte": "pzfans heat moodle (42.19) + build42guide moodles (B42.20)",
+   "eps": [
+    "18"
+   ]
+  },
+  "temp-frio": {
+   "texto": "Frio: cura natural para; depois luta/corrida mais lentas; hipotermia: quase sem ataque, sem correr, perde vida",
+   "build": "B42.20",
+   "fonte": "build42guide moodles (B42.20) + projectzomboid.wiki weather + PTBR Moodles_Hypothermia_desc_lvl4",
+   "eps": [
+    "18"
+   ]
+  },
+  "temp-moodles": {
+   "texto": "Nomes dos níveis: Um Pouco de Frio, Frio, Congelando, Hipotermia; Calor Desconfortável, Superaquecimento, Insolação, Hipertermia; Úmido, Molhado, Ensopado, Encharcado; Sensação de Frio (vento)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: lua/shared/Translate/PTBR/Moodles.json",
+   "eps": [
+    "18"
+   ]
+  },
+  "temp-previsao": {
+   "texto": "Rádio (AEBS) e TV dão a previsão do tempo",
+   "build": "B42",
+   "fonte": "projectzomboid.wiki weather-systems (B42)",
+   "eps": [
+    "18"
+   ]
+  },
+  "temp-roupa": {
+   "texto": "Roupa isola e corta vento; molhada perde isolamento; camadas finas somam; no calor tirar camadas, sombra e água",
+   "build": "B42",
+   "fonte": "projectzomboid.wiki clothing-weather (B42) + pzfans 42.19",
+   "eps": [
+    "18"
+   ]
+  }
+ },
+ "nao_usar": {
+  "juntar-agua-dia1": "Encher garrafas cedo NÃO é prioridade: o corte é tardio e pias/banheiras guardam água (corrigido no ep02)",
+  "zumbi-verde": "Zumbi do jogo não é verde: usar as cores de pele reais (ver engine.js)",
+  "taco-nao-quebra": "Taco quebra (ep08 diz que toda arma quebra)",
+  "habilidade-recarga-b42": "Habilidade de Recarga e arma travando mudaram na B42: não citar sem conferir",
+  "tracos-b42": "Traços e profissões mudaram na B42 e a wiki ainda mostra valores da B41: conferir antes"
+ }
+}

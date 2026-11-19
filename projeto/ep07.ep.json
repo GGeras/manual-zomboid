@@ -1,0 +1,275 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 07   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "07",
+ "nome": "Carros",
+ "vo": "audio/n7.mp3",
+ "vo_db": 1.5,
+ "musica": "where_is_everyone",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "vehicle_engine_1",
+   {
+    "c": 0,
+    "dt": 0.1
+   },
+   -23,
+   {
+    "ate": {
+     "c": 1,
+     "dt": 0
+    },
+    "fin": 0.2,
+    "fout": 0.3
+   }
+  ],
+  [
+   "zombierand1",
+   {
+    "c": 0,
+    "dt": 1.2
+   },
+   -23
+  ],
+  [
+   "vehicle_key",
+   {
+    "f": 4,
+    "dt": 0.5
+   },
+   -18
+  ],
+  [
+   "vehicle_door_open",
+   {
+    "c": 5,
+    "dt": 0.2
+   },
+   -17
+  ],
+  [
+   "vehicle_door_close",
+   {
+    "c": 5,
+    "dt": 0.75
+   },
+   -17
+  ],
+  [
+   "vehicle_start",
+   {
+    "c": 5,
+    "dt": 3.6
+   },
+   -15
+  ],
+  [
+   "vehicle_failing_to_start",
+   {
+    "c": 7,
+    "dt": 1.3
+   },
+   -16,
+   {
+    "trim": [
+     0,
+     1.25
+    ],
+    "fout": 0.25
+   }
+  ],
+  [
+   "zombierand2",
+   {
+    "c": 8,
+    "dt": 0.4
+   },
+   -21
+  ],
+  [
+   "zombierand3",
+   {
+    "c": 8,
+    "dt": 1.1
+   },
+   -22
+  ],
+  [
+   "zombierand1",
+   {
+    "c": 8,
+    "dt": 1.7
+   },
+   -22
+  ],
+  [
+   "vehicle_failing_to_start",
+   {
+    "f": 10,
+    "dt": 0.5
+   },
+   -16,
+   {
+    "trim": [
+     0,
+     1.25
+    ],
+    "fout": 0.25
+   }
+  ],
+  [
+   "vehicle_failing_to_start",
+   {
+    "f": 10,
+    "dt": 1.85
+   },
+   -16,
+   {
+    "trim": [
+     0,
+     1.25
+    ],
+    "fout": 0.25
+   }
+  ],
+  [
+   "vehicle_engine_1",
+   {
+    "c": 11,
+    "dt": 0.0
+   },
+   -23,
+   {
+    "ate": {
+     "c": 14,
+     "dt": 0
+    },
+    "fin": 0.2,
+    "fout": 0.3
+   }
+  ],
+  [
+   "VehicleCrash1",
+   {
+    "c": 11,
+    "dt": 0.87
+   },
+   -19
+  ],
+  [
+   "VehicleCrash1",
+   {
+    "c": 11,
+    "dt": 1.8
+   },
+   -19
+  ],
+  [
+   "VehicleCrash1",
+   {
+    "c": 11,
+    "dt": 2.6
+   },
+   -19
+  ],
+  [
+   "VehicleCrash1",
+   {
+    "c": 11,
+    "dt": 3.27
+   },
+   -19
+  ],
+  [
+   "VehicleCrash1",
+   {
+    "c": 13,
+    "dt": 0.73
+   },
+   -18
+  ],
+  [
+   "VehicleCrash1",
+   {
+    "c": 13,
+    "dt": 1.53
+   },
+   -18
+  ],
+  [
+   "VehicleCrash1",
+   {
+    "c": 13,
+    "dt": 2.37
+   },
+   -18
+  ],
+  [
+   "zombierand2",
+   {
+    "c": 14,
+    "dt": 0.5
+   },
+   -21
+  ],
+  [
+   "zombierand3",
+   {
+    "c": 15,
+    "dt": 0.9
+   },
+   -22
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 32.6,
+  "zoom": 1.1,
+  "pos": "50% 50%",
+  "tint": "rgba(120,0,10,.15)",
+  "linhas": [
+   [
+    "5 REGRAS",
+    "osso"
+   ],
+   [
+    "PRA TER UM",
+    "osso"
+   ],
+   [
+    "CARRO",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "selo",
+   "texto": "SEM CHAVE? LIGAÇÃO DIRETA",
+   "cor": "#e0263f"
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Como pegar um carro (com ou sem chave)",
+  "gancho": "Um carro pode salvar sua run no Project Zomboid... ou acabar com ela. 5 regras:",
+  "pontos": [
+   "Chave: ignição, porta-luvas, chão ou zumbi por perto",
+   "Sem chave: ligação direta (Elétrica 1 + Mecânica 2)",
+   "Se a ligação falhar, o alarme pode disparar",
+   "Sem bateria ou gasolina, o carro não liga",
+   "Não atropele zumbis: de ré você destrói o porta-malas"
+  ],
+  "pergunta": "Qual carro mais salvou sua run?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "[sério] Um carro pode salvar sua run... [pausa curta] ou acabar com ela. [confiante] Cinco regras pra ter um carro no Project Zomboid. [calmo] Um: procure a chave. Ela pode estar na ignição, no porta-luvas, no chão ou num zumbi por perto. [confiante] Dois: sem chave, faça ligação direta. Precisa de Elétrica um e Mecânica dois. [tenso] Três: se a ligação falhar, o alarme pode disparar... e a rua INTEIRA vem. [calmo] Quatro: confira o painel antes de sair. Sem bateria ou sem gasolina, ele não liga. [urgente] Cinco: não atropele zumbis. Cada batida estraga o carro RÁPIDO. [sério] E de ré é pior: você destrói o porta-malas. [confiante] Segue o canal. [pausa curta] Carro quebrado não foge de horda.",
+ "fatos": [
+  "alarme-carro",
+  "carro-chave-ligacao"
+ ]
+}

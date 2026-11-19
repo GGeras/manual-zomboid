@@ -1,0 +1,66 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 18   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "18",
+ "nome": "Frio e Calor",
+ "vo": "audio/n18.mp3",
+ "vo_db": 1.5,
+ "musica": "the_inevitable",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 8.0,
+  "opcoes": [],
+  "zoom": 1.05,
+  "pos": "50% 55%",
+  "tint": "rgba(0,0,0,.15)",
+  "linhas": [
+   [
+    "O FRIO",
+    "osso"
+   ],
+   [
+    "TE MATA",
+    "vermelho"
+   ],
+   [
+    "SEM ZUMBI",
+    "osso"
+   ]
+  ],
+  "gancho": {
+   "tipo": "selo",
+   "texto": "ROUPA MOLHADA GELA",
+   "cor": "#d33"
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Frio e calor: como não morrer de clima (B42)",
+  "gancho": "Frio e calor derrubam seu personagem sem zumbi nenhum. Entenda o termômetro do corpo.",
+  "pontos": [
+   "Quem manda é a temperatura do corpo, não a do ar",
+   "Frio: ferida para de sarar, depois fica lento",
+   "Hipotermia e hipertermia tiram vida",
+   "Roupa molhada perde o calor: troque por seca, em camadas",
+   "No verão: menos roupa, sombra e água"
+  ],
+  "pergunta": "Já perdeu personagem pro frio?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "Frio e calor derrubam seu personagem sem zumbi nenhum. O jogo tem dois termômetros: o do clima e o do seu corpo. E quem decide se você fica bem é o do corpo. Quando o corpo sai do normal, aparece um moodle, que é o ícone de estado na lateral da tela. Quanto mais forte o moodle, pior. A roupa decide quanto o clima mexe nele: cada peça segura calor e corta o vento. Quando o corpo esfria, primeiro suas feridas param de sarar sozinhas. Depois, você luta e corre mais devagar. Se continuar esfriando, vem a hipotermia, o corpo gelado demais: quase sem força pra lutar, sem correr, e você começa a perder vida. O calor também cobra. Primeiro, mais sede e mais cansaço. Depois, fica lento como no frio. No extremo, hipertermia, o corpo quente demais: o mesmo castigo, perdendo vida. Exemplo: inverno, você sai na chuva de casaco. A roupa molha, e roupa molhada perde o calor e gela o corpo. Volta pra casa, troca por roupa seca e veste em camadas. No verão, o contrário: tira as camadas, fica na sombra e bebe água pra matar a sede. Antes de sair, ouve a previsão do tempo no rádio e se veste pra ela.",
+ "fatos": [
+  "temp-corpo",
+  "temp-moodles",
+  "temp-frio",
+  "temp-calor",
+  "temp-roupa",
+  "temp-previsao"
+ ]
+}

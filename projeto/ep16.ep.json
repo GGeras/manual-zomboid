@@ -1,0 +1,77 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 16   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "16",
+ "nome": "Animais",
+ "vo": "audio/n16.mp3",
+ "vo_db": 1.5,
+ "musica": "where_is_everyone",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 8.0,
+  "opcoes": [],
+  "zoom": 1.05,
+  "pos": "50% 55%",
+  "tint": "rgba(0,0,0,.15)",
+  "linhas": [
+   [
+    "SEU ANIMAL",
+    "osso"
+   ],
+   [
+    "VAI MORRER",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "seq",
+   "itens": [
+    [
+     "COMIDA",
+     "verde"
+    ],
+    [
+     "ÁGUA",
+     "verde"
+    ],
+    [
+     "CALMA",
+     "verde"
+    ]
+   ]
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Animais de fazenda: como não deixar morrer (B42)",
+  "gancho": "A versão 42 trouxe animais de fazenda. Se você descuidar, eles morrem. O básico em 1 minuto.",
+  "pontos": [
+   "Animal precisa de comida, água e calma",
+   "Cocho com ração não aceita água: use 2 por cercado",
+   "Barulho dos animais atrai zumbis",
+   "Galinha bota ovo sem galo; pintinho só com galo",
+   "Leite só depois da fêmea emprenhar; ordenhe ou seca"
+  ],
+  "pergunta": "Qual animal você cria primeiro?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "A versão quarenta e dois trouxe animais de fazenda. E se você descuidar, eles morrem. Você acha vaca, ovelha e galinha em fazendas e celeiros, longe da cidade. Pra levar perto, amarra na corda. Pra longe, coloca o animal no reboque do carro. Animal vivo precisa de três coisas: comida, água e calma. Comida e água vão no cocho, o comedouro dos animais. Mas cocho com ração não aceita água: o próprio jogo manda tirar os itens antes. Então cada cercado precisa de dois cochos, ligados à área do animal. Sem comida ou água, o animal perde vida até morrer. Calma é estresse baixo. Zumbi não ataca animal, mas o barulho do bicho atrai zumbi, e zumbi por perto estressa. Tiro, grito e gente correndo também. E animal estressado foge do cercado. Exemplo: um galinheiro. Galinhas, um galo e dois cochos, um de ração e um de água. Galinha bota ovo mesmo sem galo. O galo serve pra fecundar: só ovo fecundado vira pintinho. E um galo só já basta pra várias galinhas. Vaca e ovelha são diferentes: o leite só aparece alguns dias depois que a fêmea emprenha. Sem macho, sem leite. E se ninguém ordenha, o leite seca. A ovelha também dá lã: é só tosquiar com a tesoura de tosquia. E acariciar acalma o animal. Comida, água e calma. Fazenda bem cuidada é comida pra sempre.",
+ "fatos": [
+  "ani-zona",
+  "ani-corda",
+  "ani-cocho",
+  "ani-fome",
+  "ani-estresse",
+  "ani-barulho-atrai",
+  "ani-ovo",
+  "ani-produto",
+  "ani-carinho"
+ ]
+}

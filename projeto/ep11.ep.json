@@ -1,0 +1,456 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 11   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "11",
+ "nome": "Armas de fogo",
+ "vo": "audio/n11.mp3",
+ "vo_db": 1.5,
+ "musica": "the_horde",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "zombierand1",
+   {
+    "c": 0,
+    "dt": 0.2
+   },
+   -22
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "c": 0,
+    "dt": 0.867
+   },
+   -10
+  ],
+  [
+   "zombieImpact",
+   {
+    "c": 0,
+    "dt": 1.667
+   },
+   -17
+  ],
+  [
+   "zombierand2",
+   {
+    "c": 1,
+    "dt": 0.333
+   },
+   -21
+  ],
+  [
+   "zombierand3",
+   {
+    "c": 1,
+    "dt": 1.0
+   },
+   -22
+  ],
+  [
+   "PZ_MaleZombie_01",
+   {
+    "c": 1,
+    "dt": 1.6
+   },
+   -23
+  ],
+  [
+   "stormyShotgunPump",
+   {
+    "c": 2,
+    "dt": 0.333
+   },
+   -14
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "c": 3,
+    "dt": 1.867
+   },
+   -10
+  ],
+  [
+   "shotgun",
+   {
+    "c": 3,
+    "dt": 3.933
+   },
+   -9
+  ],
+  [
+   "zombierand4",
+   {
+    "c": 6,
+    "dt": 0.267
+   },
+   -21
+  ],
+  [
+   "zombierand5",
+   {
+    "c": 6,
+    "dt": 0.933
+   },
+   -21
+  ],
+  [
+   "zombierand6",
+   {
+    "c": 6,
+    "dt": 1.667
+   },
+   -21
+  ],
+  [
+   "zombierand7",
+   {
+    "c": 6,
+    "dt": 2.4
+   },
+   -21
+  ],
+  [
+   "stormy9mmRack",
+   {
+    "c": 7,
+    "dt": 0.467
+   },
+   -15
+  ],
+  [
+   "stormyShotgunPump",
+   {
+    "c": 7,
+    "dt": 4.2
+   },
+   -14
+  ],
+  [
+   "stormy9mmClipLoad",
+   {
+    "c": 10,
+    "dt": 1.367
+   },
+   -13
+  ],
+  [
+   "stormy9mmRack",
+   {
+    "c": 10,
+    "dt": 1.9
+   },
+   -14
+  ],
+  [
+   "stormyShotgunInsertRound",
+   {
+    "c": 10,
+    "dt": 3.4
+   },
+   -13
+  ],
+  [
+   "stormyShotgunInsertRound",
+   {
+    "c": 10,
+    "dt": 3.867
+   },
+   -13
+  ],
+  [
+   "stormyShotgunInsertRound",
+   {
+    "c": 10,
+    "dt": 4.333
+   },
+   -13
+  ],
+  [
+   "stormyShotgunInsertRound",
+   {
+    "c": 10,
+    "dt": 4.8
+   },
+   -13
+  ],
+  [
+   "stormyShotgunInsertRound",
+   {
+    "c": 10,
+    "dt": 5.267
+   },
+   -13
+  ],
+  [
+   "stormyShotgunInsertRound",
+   {
+    "c": 12,
+    "dt": 0.267
+   },
+   -14
+  ],
+  [
+   "stormyShotgunInsertRound",
+   {
+    "c": 12,
+    "dt": 0.8
+   },
+   -14
+  ],
+  [
+   "stormyShotgunInsertRound",
+   {
+    "c": 12,
+    "dt": 1.333
+   },
+   -14
+  ],
+  [
+   "stormyShotgunInsertRound",
+   {
+    "c": 12,
+    "dt": 1.867
+   },
+   -14
+  ],
+  [
+   "zombierand5",
+   {
+    "c": 12,
+    "dt": 2.467
+   },
+   -19
+  ],
+  [
+   "zombiescratch",
+   {
+    "c": 12,
+    "dt": 3.067
+   },
+   -13,
+   {
+    "trim": [
+     0,
+     1.2
+    ],
+    "fout": 0.3
+   }
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "c": 14,
+    "dt": 0.933
+   },
+   -10
+  ],
+  [
+   "zombieImpact",
+   {
+    "c": 14,
+    "dt": 1.667
+   },
+   -17
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "c": 14,
+    "dt": 1.533
+   },
+   -12
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "c": 14,
+    "dt": 2.067
+   },
+   -12
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "c": 14,
+    "dt": 2.6
+   },
+   -12
+  ],
+  [
+   "male_heavybreathpanic",
+   {
+    "c": 14,
+    "dt": 3.633
+   },
+   -19,
+   {
+    "trim": [
+     0,
+     1.4
+    ],
+    "fout": 0.4
+   }
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "c": 14,
+    "dt": 4.767
+   },
+   -11
+  ],
+  [
+   "stormy9mmClick",
+   {
+    "c": 17,
+    "dt": 0.4
+   },
+   -11
+  ],
+  [
+   "stormy9mmClick",
+   {
+    "c": 17,
+    "dt": 0.867
+   },
+   -11
+  ],
+  [
+   "batSwing",
+   {
+    "c": 17,
+    "dt": 2.267
+   },
+   -15
+  ],
+  [
+   "bathit",
+   {
+    "c": 17,
+    "dt": 2.433
+   },
+   -13
+  ],
+  [
+   "zombieImpact",
+   {
+    "c": 17,
+    "dt": 3.167
+   },
+   -17
+  ],
+  [
+   "zombierand1",
+   {
+    "c": 19,
+    "dt": 0.267
+   },
+   -22
+  ],
+  [
+   "shotgun",
+   {
+    "c": 19,
+    "dt": 1.367
+   },
+   -9
+  ],
+  [
+   "zombierand2",
+   {
+    "c": 19,
+    "dt": 2.033
+   },
+   -21
+  ],
+  [
+   "zombierand6",
+   {
+    "c": 19,
+    "dt": 2.633
+   },
+   -21
+  ],
+  [
+   "PZ_MaleZombie_02",
+   {
+    "c": 19,
+    "dt": 3.233
+   },
+   -21
+  ],
+  [
+   "zombierand3",
+   {
+    "c": 19,
+    "dt": 3.7
+   },
+   -21
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 13.0,
+  "zoom": 1.0,
+  "pos": "50% 50%",
+  "tint": "rgba(120,0,10,.15)",
+  "linhas": [
+   [
+    "SEU TIRO",
+    "osso"
+   ],
+   [
+    "CHAMA A",
+    "osso"
+   ],
+   [
+    "HORDA",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "pcts",
+   "itens": [
+    [
+     "100",
+     "amarelo"
+    ],
+    [
+     "200",
+     "vermelho"
+    ]
+   ],
+   "legenda": "QUADRADOS DE SOM (B42)"
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Arma de fogo no Project Zomboid: 5 regras pra não chamar a horda",
+  "gancho": "No Project Zomboid um tiro resolve um zumbi... e chama todos os outros. 5 regras de arma de fogo (B42):",
+  "pontos": [
+   "Barulho: pistola ouvida a 100 quadrados, escopeta a 200",
+   "Munição certa: pistola M9 usa 9mm no pente; escopeta usa cartucho",
+   "Encha os pentes antes; a escopeta carrega um cartucho por vez",
+   "Recarregue longe dos zumbis",
+   "Mire na cabeça: Pontaria aumenta o acerto, pânico atrapalha; a arma pode travar"
+  ],
+  "pergunta": "Você usa arma de fogo ou só corpo a corpo?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "[sério] Um tiro resolve um zumbi... [pausa curta] e chama todos os outros. [confiante] Cinco regras pra usar arma de fogo no Project Zomboid. [tenso] Um: barulho. A pistola é ouvida a cem quadrados. A escopeta, a DUZENTOS. [sério] Todo zumbi nesse raio vem atrás de você. [confiante] Dois: munição certa. A pistola usa nove milímetros, no pente. A escopeta usa cartucho. [calmo] Três: encha os pentes antes da briga. A escopeta carrega um cartucho por vez. [tenso] Quatro: recarregue longe deles. É na recarga que eles te agarram. [confiante] Cinco: mire na cabeça. Cada nível de Pontaria aumenta o acerto... [sério] e o pânico atrapalha. [urgente] E a arma pode TRAVAR. Leve sempre uma reserva corpo a corpo. [confiante] Segue o canal. [pausa curta] Atirar é fácil... sobreviver ao barulho, não.",
+ "fatos": [
+  "arma-fogo-barulho",
+  "arma-fogo-municao",
+  "arma-fogo-recarga",
+  "arma-fogo-pontaria",
+  "arma-fogo-trava"
+ ]
+}

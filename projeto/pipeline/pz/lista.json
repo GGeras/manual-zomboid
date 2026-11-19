@@ -1,0 +1,175 @@
+{
+ "skel": {
+  "M": "Skinned/MaleBody.x",
+  "F": "Skinned/FemaleBody.x"
+ },
+ "mesh": {
+  "M_body": "Skinned/MaleBody.x",
+  "F_body": "Skinned/FemaleBody.x",
+  "M_jacket": "Skinned/Clothes/Bob_Jacket.x",
+  "F_jacket": "Skinned/Clothes/Kate_Jacket.x",
+  "M_hoodie": "Skinned/Clothes/Bob_HoodieDOWN.x",
+  "F_hoodie": "Skinned/Clothes/Kate_HoodieDOWN.x",
+  "M_trousers": "Skinned/Clothes/Bob_Trousers.x",
+  "F_trousers": "Skinned/Clothes/Kate_Trousers.x",
+  "M_schoolbag": "Skinned/BackPacks/M_SchoolBag.x",
+  "F_schoolbag": "Skinned/BackPacks/F_SchoolBag.x",
+  "M_hikingbag": "Skinned/BackPacks/M_BigHikingBag.x",
+  "F_hikingbag": "Skinned/BackPacks/F_BigHikingBag.x",
+  "gascan": [
+   "GasCan.x"
+  ],
+  "waterbottle": [
+   "WaterBottle.x"
+  ],
+  "cookingpot": [
+   "CookingPot.x"
+  ],
+  "M_hair_baldspot": "Skinned/Hair/Bob_Hair_Baldspot.x",
+  "M_hair_crewcut": "Skinned/Hair/Bob_Hair_CrewCut.x",
+  "M_hair_messy": "Skinned/Hair/Bob_Hair_Messy.x",
+  "M_hair_mullet": "Skinned/Hair/Bob_Hair_Mullet.x",
+  "M_hair_ponytail": "Skinned/Hair/Bob_Hair_PonyTail.x",
+  "M_hair_short": "Skinned/Hair/Bob_Hair_Short.x",
+  "F_hair_bob": "Skinned/Hair/Kate_Hair_Bob.x",
+  "F_hair_bun": "Skinned/Hair/Kate_Hair_Bun.x",
+  "F_hair_kate": "Skinned/Hair/Kate_Hair_Kate.x",
+  "F_hair_long": "Skinned/Hair/Kate_Hair_Long.x",
+  "F_hair_long2": "Skinned/Hair/Kate_Hair_Long2.x",
+  "F_hair_overeye": "Skinned/Hair/Kate_Hair_OverEye.x",
+  "F_hair_ponytail": "Skinned/Hair/Kate_Hair_PonyTail.x",
+  "w_bat": [
+   "weapons/2handed/Baseballbat.x"
+  ],
+  "w_hammer": [
+   "weapons/1handed/Hammer.x"
+  ],
+  "w_knife": [
+   "weapons/1handed/HuntingKnife.x"
+  ],
+  "w_handgun": [
+   "weapons/firearm/Handgun.x"
+  ],
+  "w_shotgun": [
+   "weapons/firearm/Shotgun.x"
+  ],
+  "w_axe": [
+   "weapons/2handed/FireAxe.x"
+  ]
+ },
+ "tex": {
+  "hair_blonde": "textures/Hair_Blonde.png",
+  "hairshort": "textures/HairShort.png",
+  "clothingjeanstint": "textures/ClothingJeansTINT.png",
+  "f_hair_brown": "textures/F_Hair_Brown.png",
+  "clothingvest": "textures/ClothingVest.png",
+  "waterbottle": "textures/WaterBottle.png",
+  "gascan": "textures/GasCan.png",
+  "cookingpot": "textures/CookingPot.png",
+  "f_hair_white": "textures/F_Hair_White.png",
+  "tshirt_white": "textures/Clothes/Shirt_Tshirt_Textures/Tshirt_White.png",
+  "tshirt_longsleeve_white": "textures/Clothes/Shirt_Tshirt_Textures/Tshirt_LongSleeve_White.png",
+  "tshirt_black": "textures/Clothes/Shirt_Tshirt_Textures/Tshirt_Black.png",
+  "shirt_lumberjackgreen": "textures/Clothes/Shirt_Tshirt_Textures/Shirt_LumberjackGreen.png",
+  "shirt_formal": "textures/Clothes/Shirt_Tshirt_Textures/Shirt_Formal.png",
+  "shirt_lumberjackblue": "textures/Clothes/Shirt_Tshirt_Textures/Shirt_LumberjackBlue.png",
+  "hoodieup_white": "textures/Clothes/Hoodie/HoodieUP_White.png",
+  "trousersmesh_denim": "textures/Clothes/Trousers_Mesh/TrousersMesh_Denim.png",
+  "jacket_white": "textures/Clothes/Jacket/Jacket_White.png",
+  "schoolbag_black": "textures/Clothes/Bag/SchoolBag_Black.png",
+  "bighikingbagblue": "textures/Clothes/Bag/BigHikingBagBlue.png",
+  "schoolbag_blue": "textures/Clothes/Bag/SchoolBag_Blue.png",
+  "bighikingbaggreen": "textures/Clothes/Bag/BigHikingBagGreen.png",
+  "bighikingbagred": "textures/Clothes/Bag/BigHikingBagRed.png",
+  "trainers_red": "textures/Clothes/Shoes_Socks_Textres/Trainers_Red.png",
+  "blackshoes": "textures/Clothes/Shoes_Socks_Textres/BlackShoes.png",
+  "trainers_white": "textures/Clothes/Shoes_Socks_Textres/Trainers_White.png",
+  "brownshoes": "textures/Clothes/Shoes_Socks_Textres/BrownShoes.png",
+  "trainers_blue": "textures/Clothes/Shoes_Socks_Textres/Trainers_Blue.png",
+  "armyboots": "textures/Clothes/Shoes_Socks_Textres/ArmyBoots.png",
+  "dressknees": "textures/Clothes/Dress_Textures/DressKnees.png",
+  "skirtknees": "textures/Clothes/Dress_Textures/SkirtKnees.png",
+  "dresssmall": "textures/Clothes/Dress_Textures/DressSmall.png",
+  "dress_straps": "textures/Clothes/Dress_Textures/Dress_Straps.png",
+  "skirt": "textures/Clothes/Dress_Textures/Skirt.png",
+  "dress": "textures/Clothes/Dress_Textures/Dress.png",
+  "f_zedbody01_level1": "textures/Body/F_ZedBody01_level1.png",
+  "m_zedbody03_level1": "textures/Body/M_ZedBody03_level1.png",
+  "f_zedbody02_level3": "textures/Body/F_ZedBody02_level3.png",
+  "f_zedbody04_level3": "textures/Body/F_ZedBody04_level3.png",
+  "m_zedbody04": "textures/Body/M_ZedBody04.png",
+  "f_zedbody01": "textures/Body/F_ZedBody01.png",
+  "m_zedbody01_level1": "textures/Body/M_ZedBody01_level1.png",
+  "m_zedbody01_level2": "textures/Body/M_ZedBody01_level2.png",
+  "f_zedbody03_level3": "textures/Body/F_ZedBody03_level3.png",
+  "m_zedbody04_level3": "textures/Body/M_ZedBody04_level3.png",
+  "m_zedbody01_level3": "textures/Body/M_ZedBody01_level3.png",
+  "f_zedbody02": "textures/Body/F_ZedBody02.png",
+  "m_zedbody02_level3": "textures/Body/M_ZedBody02_level3.png",
+  "f_zedbody01_level3": "textures/Body/F_ZedBody01_level3.png",
+  "m_zedbody02_level2": "textures/Body/M_ZedBody02_level2.png",
+  "f_zedbody01_level2": "textures/Body/F_ZedBody01_level2.png",
+  "malebody01": "textures/Body/MaleBody01.png",
+  "m_zedbody04_level2": "textures/Body/M_ZedBody04_level2.png",
+  "malebody04": "textures/Body/MaleBody04.png",
+  "femalebody01": "textures/Body/FemaleBody01.png",
+  "m_zedbody03": "textures/Body/M_ZedBody03.png",
+  "malebody02": "textures/Body/MaleBody02.png",
+  "f_zedbody04_level2": "textures/Body/F_ZedBody04_level2.png",
+  "m_zedbody02": "textures/Body/M_ZedBody02.png",
+  "m_zedbody01": "textures/Body/M_ZedBody01.png",
+  "f_zedbody03_level2": "textures/Body/F_ZedBody03_level2.png",
+  "femalebody03": "textures/Body/FemaleBody03.png",
+  "rightleg": "textures/Body/Masks/RightLeg.png",
+  "rightarm": "textures/Body/Masks/RightArm.png",
+  "leftarm": "textures/Body/Masks/LeftArm.png",
+  "chest": "textures/Body/Masks/Chest.png",
+  "waist": "textures/Body/Masks/Waist.png",
+  "leftleg": "textures/Body/Masks/LeftLeg.png",
+  "m_zeddmg_shoulderslashleft": "textures/BodyDmg/M_ZedDmg_ShoulderSlashLeft.png",
+  "m_zeddmg_bellyslashleft": "textures/BodyDmg/M_ZedDmg_BellySlashLeft.png",
+  "m_zeddmg_chestslashleft": "textures/BodyDmg/M_ZedDmg_ChestSlashLeft.png",
+  "vehicle_taxi_mask": "textures/Vehicles/vehicle_taxi_mask.png",
+  "vehicle_carnormal_lights": "textures/Vehicles/vehicle_carnormal_lights.png",
+  "vehicle_carnormal_mask": "textures/Vehicles/vehicle_carnormal_mask.png",
+  "vehicle_taxi_lights": "textures/Vehicles/vehicle_taxi_lights.png",
+  "vehicle_carnormalshell": "textures/Vehicles/vehicle_carnormalshell.png",
+  "vehicle_pickuptruck_mask": "textures/Vehicles/vehicle_pickuptruck_mask.png",
+  "vehicle_wheel": "textures/Vehicles/vehicle_wheel.png",
+  "vehicle_vanshell": "textures/Vehicles/vehicle_vanshell.png",
+  "vehicle_van_lights": "textures/Vehicles/vehicle_van_lights.png",
+  "vehicle_van_mask": "textures/Vehicles/vehicle_van_mask.png",
+  "vehicle_taxi_yellow": "textures/Vehicles/vehicle_taxi_yellow.png",
+  "vehicle_pickupshell": "textures/Vehicles/vehicle_pickupshell.png",
+  "vehicle_pickuplights": "textures/Vehicles/vehicle_pickuplights.png",
+  "huntingknife": "textures/weapons/1handed/HuntingKnife.png",
+  "hammer": "textures/weapons/1handed/Hammer.png",
+  "baseballbat": "textures/weapons/2handed/BaseballBat.png",
+  "handgun": "textures/weapons/firearm/Handgun.png",
+  "shotgun": "textures/weapons/firearm/Shotgun.png",
+  "fireaxe": "textures/weapons/2handed/FireAxe.png"
+ },
+ "fbx": {
+  "car_normal": [
+   "vehicles/Vehicles_CarNormal.fbx",
+   4.7
+  ],
+  "car_pickup": [
+   "vehicles/Vehicles_PickUpTruck.fbx",
+   5.0
+  ],
+  "car_taxi": [
+   "vehicles/Vehicles_CarTaxi.fbx",
+   4.7
+  ]
+ },
+ "clips": {
+  "z_walk": "Zombie_Walk.x",
+  "z_walk2": "Zombie_Walk2.x",
+  "z_idle": "Zombie_Idle.x",
+  "z_lunge": "Zombie_Lunge.x",
+  "z_death": "Zombie_HitDeath_HeadTop.x",
+  "z_hit": "Zombie_HitReact_HeadTop.x",
+  "z_shovefall": "Zombie_ShoveStaggerFall_2m.x"
+ }
+}

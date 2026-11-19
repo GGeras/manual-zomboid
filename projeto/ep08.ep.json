@@ -1,0 +1,334 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 08   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "08",
+ "nome": "Combate",
+ "vo": "audio/n8.mp3",
+ "vo_db": 1.5,
+ "musica": "the_zombie_threat",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "zombierand1",
+   {
+    "c": 0,
+    "dt": 1.3
+   },
+   -22
+  ],
+  [
+   "zombierand2",
+   {
+    "c": 2,
+    "dt": 0.5
+   },
+   -21
+  ],
+  [
+   "zombierand3",
+   {
+    "c": 2,
+    "dt": 1.6
+   },
+   -22
+  ],
+  [
+   "zombiehit1",
+   {
+    "c": 3,
+    "dt": 0.6
+   },
+   -17
+  ],
+  [
+   "zombiehit2",
+   {
+    "f": 4,
+    "dt": 1.67
+   },
+   -15
+  ],
+  [
+   "zombierand1",
+   {
+    "f": 4,
+    "dt": 1.9
+   },
+   -22
+  ],
+  [
+   "zombiehit3",
+   {
+    "c": 5,
+    "dt": 0.87
+   },
+   -15
+  ],
+  [
+   "zombiehit2",
+   {
+    "c": 5,
+    "dt": 1.87
+   },
+   -15
+  ],
+  [
+   "zombiehit3",
+   {
+    "c": 5,
+    "dt": 2.87
+   },
+   -15
+  ],
+  [
+   "zombiehit2",
+   {
+    "c": 5,
+    "dt": 3.7
+   },
+   -15
+  ],
+  [
+   "zombierand2",
+   {
+    "c": 7,
+    "dt": 0.4
+   },
+   -21
+  ],
+  [
+   "zombierand3",
+   {
+    "c": 7,
+    "dt": 1.1
+   },
+   -22
+  ],
+  [
+   "male_outofbreath_01",
+   {
+    "c": 11,
+    "dt": 0.2
+   },
+   -17,
+   {
+    "trim": [
+     0,
+     2.3
+    ],
+    "fout": 0.5
+   }
+  ],
+  [
+   "zombierand1",
+   {
+    "c": 11,
+    "dt": 1.2
+   },
+   -21
+  ],
+  [
+   "male_outofbreath_01",
+   {
+    "c": 12,
+    "dt": 0.2
+   },
+   -20,
+   {
+    "trim": [
+     0,
+     2.5
+    ],
+    "fout": 0.8
+   }
+  ],
+  [
+   "zombierand2",
+   {
+    "c": 16,
+    "dt": 0.5
+   },
+   -21
+  ],
+  [
+   "zombierand3",
+   {
+    "c": 17,
+    "dt": 0.6
+   },
+   -22
+  ],
+  [
+   "batSwing",
+   {
+    "c": 0,
+    "dt": 0.5
+   },
+   -15
+  ],
+  [
+   "bathit",
+   {
+    "c": 0,
+    "dt": 0.67
+   },
+   -13
+  ],
+  [
+   "batSwing",
+   {
+    "c": 8,
+    "dt": 0.83
+   },
+   -15
+  ],
+  [
+   "bathit",
+   {
+    "c": 8,
+    "dt": 1.0
+   },
+   -13
+  ],
+  [
+   "batSwing",
+   {
+    "c": 8,
+    "dt": 1.9
+   },
+   -15
+  ],
+  [
+   "bathit",
+   {
+    "c": 8,
+    "dt": 2.07
+   },
+   -13
+  ],
+  [
+   "batSwing",
+   {
+    "c": 9,
+    "dt": 0.5
+   },
+   -15
+  ],
+  [
+   "bathit",
+   {
+    "c": 9,
+    "dt": 0.67
+   },
+   -13
+  ],
+  [
+   "batSwing",
+   {
+    "f": 10,
+    "dt": 1.9
+   },
+   -15
+  ],
+  [
+   "bathit",
+   {
+    "f": 10,
+    "dt": 2.07
+   },
+   -20
+  ],
+  [
+   "batSwing",
+   {
+    "c": 14,
+    "dt": 0.43
+   },
+   -15
+  ],
+  [
+   "bathit",
+   {
+    "c": 14,
+    "dt": 0.6
+   },
+   -13
+  ],
+  [
+   "batSwing",
+   {
+    "c": 15,
+    "dt": 0.7
+   },
+   -15
+  ],
+  [
+   "bathit",
+   {
+    "c": 15,
+    "dt": 0.87
+   },
+   -13
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 7.9,
+  "zoom": 1.15,
+  "pos": "50% 52%",
+  "tint": "rgba(120,0,10,.2)",
+  "linhas": [
+   [
+    "LUTE SEM",
+    "osso"
+   ],
+   [
+    "VIRAR",
+    "osso"
+   ],
+   [
+    "ZUMBI",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "pcts",
+   "itens": [
+    [
+     "−50%",
+     "amarelo"
+    ],
+    [
+     "−95%",
+     "vermelho"
+    ]
+   ],
+   "legenda": "DANO QUANDO VOCÊ CANSA"
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Como lutar corpo a corpo sem morrer",
+  "gancho": "No Project Zomboid você não morre pro primeiro zumbi. Morre pro terceiro. 5 regras:",
+  "pontos": [
+   "Empurre (barra de espaço): afasta e pode derrubar",
+   "Caiu? Pise na cabeça: não gasta a arma",
+   "Um de cada vez: use portas pra virem em fila",
+   "Fôlego: 1º aviso corta o dano pela metade, exausto -95%",
+   "Descanse sentado e leve arma reserva"
+  ],
+  "pergunta": "Qual sua arma favorita pra começar?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "[sério] Você não morre pro primeiro zumbi... [pausa curta] morre pro terceiro. [confiante] Cinco regras pra lutar corpo a corpo no Project Zomboid. [confiante] Um: empurre. A barra de espaço empurra o zumbi e pode derrubar. [animado] Dois: caiu? Pise na cabeça. Pisar não gasta a sua arma. [tenso] Três: lute com um de cada vez. Recue e use portas pra eles virem em fila. [sério] Quatro: olhe o fôlego. No primeiro aviso de esforço, seu dano cai pela METADE. [tenso] Exausto, cai noventa e cinco por cento. [calmo] Cinco: descanse. Sentado no chão, o fôlego volta mais rápido. [urgente] E toda arma quebra. Leve sempre uma reserva. [confiante] Segue o canal. [pausa curta] Quem luta cansado... vira zumbi.",
+ "fatos": [
+  "combate-empurrao",
+  "combate-folego",
+  "arma-quebra"
+ ]
+}

@@ -1,0 +1,35 @@
+# vídeos e pacotes: ficam no Google Drive (links em videos/LINKS.md)
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.zip
+*.rar
+*.7z
+
+# saídas da pipeline (geradas a cada render)
+projeto/out/
+projeto/raw*
+projeto/log*.txt
+projeto/*.render.log
+projeto/look/
+projeto/inspecao/
+projeto/stills*/
+projeto/versoes_rasc/
+projeto/covers/_w*/
+projeto/audio/final*.wav
+retorno-*/
+
+# dependências
+node_modules/
+__pycache__/
+*.pyc
+
+# sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# segredos (nunca commitar)
+.env
+*.key

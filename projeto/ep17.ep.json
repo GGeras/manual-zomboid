@@ -1,0 +1,67 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 17   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "17",
+ "nome": "Barricadas",
+ "vo": "audio/n17.mp3",
+ "vo_db": 1.5,
+ "musica": "barricading",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 8.0,
+  "opcoes": [],
+  "zoom": 1.05,
+  "pos": "50% 55%",
+  "tint": "rgba(0,0,0,.15)",
+  "linhas": [
+   [
+    "SUA JANELA",
+    "osso"
+   ],
+   [
+    "CHAMA A",
+    "osso"
+   ],
+   [
+    "HORDA",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "selo",
+   "texto": "SEMPRE DEIXE UMA SAÍDA",
+   "cor": "#3fae2a"
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Barricadas: como fechar a base sem virar caixão (B42)",
+  "gancho": "Sua janela é a porta de entrada da horda. Barricada é vida extra: entenda como funciona.",
+  "pontos": [
+   "Barricada é vida extra: o zumbi bate até zerar",
+   "Martelo, tábua e pregos soltos; marreta grande não serve",
+   "Até 4 tábuas de cada lado",
+   "Chapa de metal aguenta muito mais (solda com maçarico)",
+   "Deixe sempre uma corda de lençol numa janela sem barricada"
+  ],
+  "pergunta": "Você barrica tudo ou deixa saída?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "Sua janela é a porta de entrada da horda. Barricada funciona como vida extra. O zumbi bate, a vida cai, e quando zera, ele entra. Pra barricar com tábua, carrega martelo, tábua e pregos soltos, e clica com o botão direito na janela: Barricar, Tábuas. Marreta grande não serve. E caixa de pregos fechada não conta: abre antes. Cada tábua soma vida. E você põe até quatro de cada lado, dentro e fora. Chapa de metal aguenta muito mais que tábua, mas precisa ser soldada com maçarico. Barras de metal ficam no meio do caminho, e deixam ver lá fora. À noite, antes de acender a luz, fecha a cortina ou pendura um lençol: zumbi que te vê pela janela vem atrás. E sempre deixa uma saída: uma corda de lençol, presa com martelo e prego numa janela sem barricada do andar de cima. Base fechada sem saída é caixão.",
+ "fatos": [
+  "barr-vida",
+  "barr-ferr",
+  "barr-lados",
+  "barr-ordem",
+  "barr-barras-visao",
+  "barr-luz",
+  "barr-saida"
+ ]
+}

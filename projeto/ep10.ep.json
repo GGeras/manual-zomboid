@@ -1,0 +1,361 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 10   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "10",
+ "nome": "Gerador",
+ "vo": "audio/n10.mp3",
+ "vo_db": 1.5,
+ "musica": "the_inevitable",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "fridgehum",
+   {
+    "c": 0,
+    "dt": 0.0
+   },
+   -24,
+   {
+    "ate": {
+     "c": 0,
+     "dt": 0.73
+    },
+    "fin": 0.1,
+    "fout": 0.08
+   }
+  ],
+  [
+   "lightswitch",
+   {
+    "c": 0,
+    "dt": 0.73
+   },
+   -14
+  ],
+  [
+   "startGeneratorFail",
+   {
+    "c": 3,
+    "dt": 0.8
+   },
+   -15
+  ],
+  [
+   "levelup",
+   {
+    "f": 4,
+    "dt": 2.0
+   },
+   -18,
+   {
+    "trim": [
+     0,
+     1.6
+    ],
+    "fout": 0.4
+   }
+  ],
+  [
+   "startGenerator",
+   {
+    "f": 4,
+    "dt": 3.6
+   },
+   -14
+  ],
+  [
+   "generator",
+   {
+    "f": 4,
+    "dt": 4.2
+   },
+   -22,
+   {
+    "ate": {
+     "c": 5,
+     "dt": 0
+    },
+    "fin": 0.3,
+    "fout": 0.2
+   }
+  ],
+  [
+   "generator",
+   {
+    "c": 5,
+    "dt": 0
+   },
+   -21,
+   {
+    "ate": {
+     "c": 7,
+     "dt": 0
+    },
+    "fin": 0.2,
+    "fout": 0.2
+   }
+  ],
+  [
+   "male_heavybreathpanic",
+   {
+    "c": 5,
+    "dt": 0.5
+   },
+   -17,
+   {
+    "trim": [
+     0,
+     1.95
+    ],
+    "fout": 0.3
+   }
+  ],
+  [
+   "heart",
+   {
+    "c": 6,
+    "dt": 0.1
+   },
+   -17
+  ],
+  [
+   "PZ_MaleDeath_01",
+   {
+    "c": 6,
+    "dt": 0.73
+   },
+   -16
+  ],
+  [
+   "generator",
+   {
+    "c": 7,
+    "dt": 0
+   },
+   -22,
+   {
+    "ate": {
+     "c": 11,
+     "dt": 0.67
+    },
+    "fin": 0.2,
+    "fout": 0.15
+   }
+  ],
+  [
+   "zombierand1",
+   {
+    "c": 9,
+    "dt": 0.8
+   },
+   -21
+  ],
+  [
+   "zombierand2",
+   {
+    "c": 10,
+    "dt": 0.3
+   },
+   -21
+  ],
+  [
+   "zombierand3",
+   {
+    "c": 10,
+    "dt": 1.0
+   },
+   -22
+  ],
+  [
+   "stopGenerator",
+   {
+    "c": 11,
+    "dt": 0.67
+   },
+   -15
+  ],
+  [
+   "PZ_GetWater",
+   {
+    "f": 12,
+    "dt": 0.25
+   },
+   -19,
+   {
+    "trim": [
+     0,
+     1.3
+    ],
+    "fout": 0.3
+   }
+  ],
+  [
+   "generator",
+   {
+    "c": 13,
+    "dt": 0
+   },
+   -20,
+   {
+    "ate": {
+     "c": 14,
+     "dt": 0.2
+    },
+    "fin": 0.2,
+    "fout": 0.05
+   }
+  ],
+  [
+   "PZ_Fire",
+   {
+    "c": 13,
+    "dt": 1.53
+   },
+   -17,
+   {
+    "ate": {
+     "c": 15,
+     "dt": 0
+    },
+    "fin": 0.3,
+    "fout": 0.5
+   }
+  ],
+  [
+   "bigExplosion",
+   {
+    "c": 14,
+    "dt": 0.2
+   },
+   -7,
+   {
+    "livre": true
+   }
+  ],
+  [
+   "generator",
+   {
+    "c": 15,
+    "dt": 0
+   },
+   -24,
+   {
+    "fin": 0.4,
+    "fout": 1.0
+   }
+  ],
+  [
+   "hammernail",
+   {
+    "f": 12,
+    "dt": 1.83
+   },
+   -21,
+   {
+    "trim": [
+     0,
+     0.25
+    ],
+    "fout": 0.06
+   }
+  ],
+  [
+   "hammernail",
+   {
+    "f": 12,
+    "dt": 2.16
+   },
+   -21,
+   {
+    "trim": [
+     0,
+     0.25
+    ],
+    "fout": 0.06
+   }
+  ],
+  [
+   "hammernail",
+   {
+    "f": 12,
+    "dt": 2.49
+   },
+   -21,
+   {
+    "trim": [
+     0,
+     0.25
+    ],
+    "fout": 0.06
+   }
+  ],
+  [
+   "hammernail",
+   {
+    "f": 12,
+    "dt": 2.82
+   },
+   -21,
+   {
+    "trim": [
+     0,
+     0.25
+    ],
+    "fout": 0.06
+   }
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 33.9,
+  "zoom": 1.12,
+  "pos": "55% 55%",
+  "tint": "rgba(120,30,0,.15)",
+  "linhas": [
+   [
+    "SEU",
+    "osso"
+   ],
+   [
+    "GERADOR",
+    "osso"
+   ],
+   [
+    "EXPLODE",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "selo",
+   "texto": "NUNCA DENTRO DE CASA",
+   "cor": "#e0263f"
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Gerador: 5 regras pra não morrer (nem explodir a base)",
+  "gancho": "A luz caiu no Project Zomboid? Um gerador resolve, se você não cometer esses erros:",
+  "pontos": [
+   "Só liga quem é eletricista ou leu a revista de gerador",
+   "Nunca dentro de casa: a fumaça mata rápido",
+   "Alimenta 20 quadrados em volta: deixe fora, colado na parede",
+   "Faz barulho e atrai zumbis por perto",
+   "Abasteça desligado e conserte com sucata eletrônica: abaixo de 20% pode pegar fogo ou explodir"
+  ],
+  "pergunta": "Você já perdeu a base por causa de um gerador?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "[sério] A luz caiu... [pausa curta] mas sua base não precisa ficar no escuro. [confiante] Cinco regras pra usar gerador no Project Zomboid. [calmo] Um: aprenda antes. Só eletricista, ou quem leu a revista sobre geradores, consegue ligar. [urgente] Dois: NUNCA dentro de casa. A fumaça do gerador mata rápido. [confiante] Três: ele alimenta vinte quadrados em volta. Deixe do lado de fora, colado na parede. [tenso] Quatro: ele faz barulho. Zumbis por perto vão ouvir. [calmo] Cinco: cuide dele. Abasteça só desligado e conserte com sucata eletrônica. [sério] Abaixo de vinte por cento, ele pode pegar fogo... ou EXPLODIR. [confiante] Segue o canal. [pausa curta] Gerador bem cuidado é base acesa.",
+ "fatos": [
+  "gerador-barulho-20",
+  "gerador-aprender",
+  "gerador-dentro",
+  "gerador-alcance",
+  "gerador-cuidar"
+ ]
+}

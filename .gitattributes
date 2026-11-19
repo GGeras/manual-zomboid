@@ -1,0 +1,39 @@
+# ---------- Arquivos pesados -> Git LFS ----------
+# imagens
+*.png   filter=lfs diff=lfs merge=lfs -text
+*.jpg   filter=lfs diff=lfs merge=lfs -text
+*.jpeg  filter=lfs diff=lfs merge=lfs -text
+*.gif   filter=lfs diff=lfs merge=lfs -text
+*.webp  filter=lfs diff=lfs merge=lfs -text
+*.psd   filter=lfs diff=lfs merge=lfs -text
+# áudio (sons do jogo, músicas, vozes)
+*.wav   filter=lfs diff=lfs merge=lfs -text
+*.ogg   filter=lfs diff=lfs merge=lfs -text
+*.mp3   filter=lfs diff=lfs merge=lfs -text
+# modelos 3D / texturas / voz provisória / documentos
+*.x     filter=lfs diff=lfs merge=lfs -text
+*.fbx   filter=lfs diff=lfs merge=lfs -text
+*.glb   filter=lfs diff=lfs merge=lfs -text
+*.onnx  filter=lfs diff=lfs merge=lfs -text
+*.pdf   filter=lfs diff=lfs merge=lfs -text
+# fontes
+*.ttf   filter=lfs diff=lfs merge=lfs -text
+*.otf   filter=lfs diff=lfs merge=lfs -text
+*.woff  filter=lfs diff=lfs merge=lfs -text
+*.woff2 filter=lfs diff=lfs merge=lfs -text
+
+# ---------- Texto ----------
+*.md    text eol=lf
+*.json  text eol=lf
+*.js    text eol=lf
+*.mjs   text eol=lf
+*.py    text eol=lf
+*.css   text eol=lf
+*.html  text eol=lf
+*.sh    text eol=lf
+*.txt   text eol=lf
+*.bat   text eol=crlf
+# modelos e texturas do jogo convertidos (JS gigante gerado) — DEPOIS do *.js para valer o LFS
+projeto/assets/pz/*.js filter=lfs diff=lfs merge=lfs -text
+# changelog: as duas pessoas só ACRESCENTAM linhas -> junta as duas versões sem conflito
+CHANGELOG.md merge=union

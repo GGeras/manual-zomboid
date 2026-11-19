@@ -1,0 +1,301 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 09   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "09",
+ "nome": "Agua",
+ "vo": "audio/n9.mp3",
+ "vo_db": 1.5,
+ "musica": "where_is_everyone",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "PZ_GetWater",
+   {
+    "c": 0,
+    "dt": 0.15
+   },
+   -16,
+   {
+    "trim": [
+     0,
+     0.9
+    ],
+    "fout": 0.3
+   }
+  ],
+  [
+   "lightswitch",
+   {
+    "f": 4,
+    "dt": 0.1
+   },
+   -14
+  ],
+  [
+   "PZ_GetWater",
+   {
+    "c": 5,
+    "dt": 0.7
+   },
+   -15,
+   {
+    "trim": [
+     0,
+     1.4
+    ],
+    "fout": 0.3
+   }
+  ],
+  [
+   "PZ_Drinking",
+   {
+    "c": 7,
+    "dt": 0.4
+   },
+   -15
+  ],
+  [
+   "campfire",
+   {
+    "c": 9,
+    "dt": 0.0
+   },
+   -20,
+   {
+    "ate": {
+     "c": 11,
+     "dt": 0
+    },
+    "fin": 0.3,
+    "fout": 0.4
+   }
+  ],
+  [
+   "ambientOutsideHeavyRain",
+   {
+    "c": 13,
+    "dt": 0.0
+   },
+   -18,
+   {
+    "ate": {
+     "c": 15,
+     "dt": 0
+    },
+    "fin": 0.4,
+    "fout": 0.5
+   }
+  ],
+  [
+   "rumbleThunder1",
+   {
+    "c": 13,
+    "dt": 0.3
+   },
+   -18,
+   {
+    "trim": [
+     0,
+     3.6
+    ],
+    "fout": 0.8
+   }
+  ],
+  [
+   "PZ_Drinking",
+   {
+    "c": 15,
+    "dt": 0.35
+   },
+   -15
+  ],
+  [
+   "hammernail",
+   {
+    "c": 11,
+    "dt": 0.7
+   },
+   -17,
+   {
+    "trim": [
+     0,
+     0.35
+    ],
+    "fout": 0.08
+   }
+  ],
+  [
+   "hammernail",
+   {
+    "c": 11,
+    "dt": 1.17
+   },
+   -17,
+   {
+    "trim": [
+     0,
+     0.35
+    ],
+    "fout": 0.08
+   }
+  ],
+  [
+   "hammernail",
+   {
+    "c": 11,
+    "dt": 1.63
+   },
+   -17,
+   {
+    "trim": [
+     0,
+     0.35
+    ],
+    "fout": 0.08
+   }
+  ],
+  [
+   "hammernail",
+   {
+    "c": 11,
+    "dt": 2.1
+   },
+   -17,
+   {
+    "trim": [
+     0,
+     0.35
+    ],
+    "fout": 0.08
+   }
+  ],
+  [
+   "hammernail",
+   {
+    "c": 11,
+    "dt": 2.57
+   },
+   -17,
+   {
+    "trim": [
+     0,
+     0.35
+    ],
+    "fout": 0.08
+   }
+  ],
+  [
+   "hammernail",
+   {
+    "c": 11,
+    "dt": 3.03
+   },
+   -17,
+   {
+    "trim": [
+     0,
+     0.35
+    ],
+    "fout": 0.08
+   }
+  ],
+  [
+   "hammernail",
+   {
+    "c": 11,
+    "dt": 3.5
+   },
+   -17,
+   {
+    "trim": [
+     0,
+     0.35
+    ],
+    "fout": 0.08
+   }
+  ],
+  [
+   "hammernail",
+   {
+    "c": 11,
+    "dt": 3.97
+   },
+   -17,
+   {
+    "trim": [
+     0,
+     0.35
+    ],
+    "fout": 0.08
+   }
+  ],
+  [
+   "hammernail",
+   {
+    "c": 11,
+    "dt": 4.43
+   },
+   -17,
+   {
+    "trim": [
+     0,
+     0.35
+    ],
+    "fout": 0.08
+   }
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 26.4,
+  "zoom": 1.1,
+  "pos": "50% 55%",
+  "tint": "rgba(0,30,60,.15)",
+  "linhas": [
+   [
+    "SUA ÁGUA",
+    "osso"
+   ],
+   [
+    "VAI",
+    "osso"
+   ],
+   [
+    "ACABAR",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "selo",
+   "texto": "FERVA ANTES DE BEBER",
+   "cor": "#5aa62a"
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Sua água vai acabar: 5 regras pra não morrer de sede",
+  "gancho": "No Project Zomboid a torneira para um dia e o jogo não avisa. 5 regras:",
+  "pontos": [
+   "Água e luz caem entre o dia 0 e o 30 (padrão)",
+   "Depois do corte, pia, banheira e vaso guardam um resto",
+   "Rio e lago: água contaminada, deixa doente",
+   "Ferva até sumir o aviso de contaminada",
+   "Coletor de chuva: tábuas, pregos e sacos de lixo (ferva a água)"
+  ],
+  "pergunta": "Em que dia a água caiu na sua run?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "[sério] Um dia a torneira para... [pausa curta] e você precisa estar pronto. [confiante] Cinco regras pra nunca faltar água no Project Zomboid. [calmo] Um: a água e a luz caem entre o dia zero e o dia trinta. O jogo não avisa quando. [confiante] Dois: depois do corte, pias e banheiras ainda guardam um resto. Use esse primeiro. [tenso] Três: água de rio e de lago é contaminada. Beber assim te deixa DOENTE. [calmo] Quatro: ferva. Panela no fogão ou na fogueira, até sumir o aviso de contaminada. [confiante] Cinco: construa um coletor de chuva. Tábuas, pregos e sacos de lixo. [sério] Mas a chuva também cai contaminada... ferva antes de beber. [confiante] Segue o canal. [pausa curta] Sede mata mais rápido que zumbi.",
+ "fatos": [
+  "agua-corte-0-30",
+  "agua-resto-pias",
+  "agua-rio-contaminada",
+  "agua-ferver",
+  "agua-coletor-b42"
+ ]
+}
