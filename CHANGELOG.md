@@ -3,6 +3,11 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-19 · jose · Automação Slack + Drive:
+  - `ferramentas/publicar.py` envia prévias e finais ao Drive pessoal, com link público;
+  - `ferramentas/resumo_push.py` gera o resumo do GitHub;
+  - regra em `canal/processo/automacao-slack-drive.md`, canais em `ferramentas/automacao.json`;
+  - modelo de GitHub Action (desligado).
 - 2026-11-19 · jose · Repositório criado a partir de `Manual Zomboid - Post` e dos zips v2/v3/v4. Estrutura:
   - `info-validada/`: 56 fatos B42 em 11 temas, `nomes-ptbr.md` e `_nao-usar.md`;
   - `rascunho/`: B41, B42.19, EP20–22, ideias e roteiros antigos;

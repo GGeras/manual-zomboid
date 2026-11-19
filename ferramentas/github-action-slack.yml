@@ -1,0 +1,27 @@
+# MODELO (desligado). Posta sozinho o resumo de cada push na main no #atualizações-projeto.
+# Para ligar:
+#  1. Slack: api.slack.com/apps > Create New App > From scratch > Incoming Webhooks > On > Add New Webhook > canal #atualizações-projeto > copie a URL.
+#  2. GitHub: repo > Settings > Secrets and variables > Actions > New repository secret: SLACK_WEBHOOK_ATUALIZACOES = URL copiada.
+#  3. Copie este arquivo para .github/workflows/slack-atualizacoes.yml e faça commit.
+#  4. Em ferramentas/automacao.json troque "atualizacoes_via": "claude" por "action" (senão sai mensagem duplicada).
+name: slack-atualizacoes
+on:
+  push:
+    branches: [main]
+jobs:
+  avisar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 50
+          lfs: false
+      - name: Resumo no Slack
+        env:
+          WEBHOOK: ${{ secrets.SLACK_WEBHOOK_ATUALIZACOES }}
+          BASE: ${{ github.event.before }}
+        run: |
+          if [ -z "$WEBHOOK" ]; then echo "sem webhook: nada a fazer"; exit 0; fi
+          if [ "$BASE" = "0000000000000000000000000000000000000000" ]; then BASE="HEAD~1"; fi
+          python3 ferramentas/resumo_push.py "$BASE..HEAD" --webhook > payload.json
+          curl -sS -X POST -H 'Content-type: application/json' --data @payload.json "$WEBHOOK"

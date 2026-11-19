@@ -64,7 +64,7 @@ Leia este arquivo inteiro, depois `README.md` e `COLABORACAO.md`, antes de qualq
 | `canal/` | padrões do canal (marca, capas, zumbis, voz, descrições, checklist, critérios de aceite, métricas); `canal/processo/` = método de produção |
 | `referencias/` | imagens de referência: marca, estilo, prints de telas do jogo, fichas dos modelos, capas |
 | `projeto/` | pipeline de vídeo (Three.js + render) e assets do jogo (`assets/items`, `moodles`, `pz`, `sfx`, `music`, `logo`). Guia: `projeto/README.md` |
-| `ferramentas/` | `instalar.bat`, `rodar.bat`, `env.sh`, `validar.py`, skill `motionmaxxing` (render) |
+| `ferramentas/` | `instalar.bat`, `rodar.bat`, `env.sh`, `validar.py`, `publicar.py` + `resumo_push.py` (Slack/Drive), skill `motionmaxxing` (render) |
 | `videos/` | só links (Drive) — vídeo nunca entra no repo |
 
 ## 6. Produzir um vídeo (resumo)
@@ -82,7 +82,7 @@ Leia este arquivo inteiro, depois `README.md` e `COLABORACAO.md`, antes de qualq
   py3 pipeline/build.py NN                                # final
   ```
   O `env.sh` já entra em `projeto/`. Rode o final em segundo plano.
-- A saída vai para `projeto/out/` (ignorado pelo git). O vídeo vai para o Drive e o link para `videos/README.md`.
+- A saída vai para `projeto/out/` (ignorado pelo git). Depois de cada prévia ou final, faça a seção 8.
 
 ## 7. Antes de cada commit
 1. `git pull` (comece sempre atualizado).
@@ -91,3 +91,22 @@ Leia este arquivo inteiro, depois `README.md` e `COLABORACAO.md`, antes de qualq
 4. Commit pequeno, mensagem no padrão de `COLABORACAO.md`.
 - Nunca commite vídeo, zip, `projeto/out/` ou segredos. O `.gitignore` já bloqueia.
 - Arquivo pesado novo (imagem, som, modelo): confira com `git lfs ls-files` que entrou no LFS.
+
+## 8. Automação Slack + Google Drive (obrigatória)
+Regra completa: `canal/processo/automacao-slack-drive.md`. Canais e IDs: `ferramentas/automacao.json`.
+- **Prévia renderizada:**
+  1. `python ferramentas/publicar.py NN previa`.
+  2. Link público pelo conector **Google Drive** (`share_file`, `anyoneWithLink`, leitor).
+  3. Mensagem pelo conector **Slack** no `#links-rascunho`.
+- **Final renderizado:**
+  1. `python ferramentas/publicar.py NN final` (vídeo + capa).
+  2. Links públicos dos dois.
+  3. Mensagem no `#links-final`.
+  4. Link na tabela de `videos/README.md`.
+- **Push na `main`, ou PR aceito:**
+  1. Antes do push: `BASE=$(git rev-parse origin/main)`.
+  2. Depois: `python ferramentas/resumo_push.py $BASE..origin/main`.
+  3. Revise (o que — por quê, curto) e envie no `#atualizações-projeto`.
+- **PR aberto:** `python ferramentas/resumo_push.py --pr N`, no mesmo canal.
+- Os vídeos vão para o **Drive pessoal** de quem renderizou, nunca para o repo. Configuração pessoal: `python ferramentas/publicar.py --configurar`.
+- Um aviso por evento. Conector ou Drive falhou: avise a pessoa em uma linha e pare. Não poste em outros canais.
