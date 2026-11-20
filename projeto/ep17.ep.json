@@ -7,11 +7,353 @@
  "musica": "barricading",
  "musica_lufs": -30,
  "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
- "sfx": [],
+ "sfx": [
+  [
+   "zombierand3",
+   {
+    "f": 0,
+    "dt": 0.3
+   },
+   -14,
+   {}
+  ],
+  [
+   "thump1",
+   {
+    "f": 0,
+    "dt": 0.9
+   },
+   -12,
+   {}
+  ],
+  [
+   "thump2",
+   {
+    "f": 0,
+    "dt": 1.63
+   },
+   -12,
+   {}
+  ],
+  [
+   "thump1",
+   {
+    "f": 0,
+    "dt": 2.37
+   },
+   -12,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 2,
+    "dt": 4.1
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 2,
+    "dt": 6.3
+   },
+   -15,
+   {}
+  ],
+  [
+   "PZ_OpenBag",
+   {
+    "f": 2,
+    "dt": 12.55
+   },
+   -12,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 3,
+    "dt": 0.49
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 3,
+    "dt": 1.02
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 3,
+    "dt": 1.55
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 3,
+    "dt": 2.08
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 3,
+    "dt": 2.85
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 3,
+    "dt": 3.38
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 3,
+    "dt": 3.91
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 3,
+    "dt": 4.44
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 4,
+    "dt": 1.63
+   },
+   -15,
+   {}
+  ],
+  [
+   "zombierand1",
+   {
+    "f": 5,
+    "dt": 2.47
+   },
+   -16,
+   {}
+  ],
+  [
+   "lightswitch",
+   {
+    "f": 6,
+    "dt": 0.37
+   },
+   -12,
+   {}
+  ],
+  [
+   "zombierand2",
+   {
+    "f": 6,
+    "dt": 2.27
+   },
+   -13,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 7,
+    "dt": 2.72
+   },
+   -15,
+   {}
+  ],
+  [
+   "thump2",
+   {
+    "f": 8,
+    "dt": 0.3
+   },
+   -13,
+   {}
+  ],
+  [
+   "Thumpdistant01",
+   {
+    "f": 8,
+    "dt": 1.5
+   },
+   -14,
+   {}
+  ],
+  [
+   "object_barricade_plank_hit_01",
+   {
+    "f": 1,
+    "dt": 2.0
+   },
+   -10,
+   {}
+  ],
+  [
+   "object_barricade_plank_break_01",
+   {
+    "f": 1,
+    "dt": 2.3
+   },
+   -9,
+   {}
+  ],
+  [
+   "object_barricade_plank_hit_03",
+   {
+    "f": 1,
+    "dt": 3.25
+   },
+   -10,
+   {}
+  ],
+  [
+   "object_barricade_plank_break_01",
+   {
+    "f": 1,
+    "dt": 3.54
+   },
+   -9,
+   {}
+  ],
+  [
+   "object_barricade_plank_hit_01",
+   {
+    "f": 1,
+    "dt": 4.5
+   },
+   -10,
+   {}
+  ],
+  [
+   "object_barricade_plank_break_01",
+   {
+    "f": 1,
+    "dt": 4.77
+   },
+   -9,
+   {}
+  ],
+  [
+   "zombierand5",
+   {
+    "f": 1,
+    "dt": 5.5
+   },
+   -12,
+   {}
+  ],
+  [
+   "zombierand1",
+   {
+    "f": 0,
+    "dt": 1.2
+   },
+   -14,
+   {}
+  ],
+  [
+   "object_barricade_metal_place_01",
+   {
+    "f": 4,
+    "dt": 1.8
+   },
+   -10,
+   {}
+  ],
+  [
+   "object_barricade_metal_hit_01",
+   {
+    "f": 5,
+    "dt": 1.2
+   },
+   -13,
+   {}
+  ],
+  [
+   "Player_Sheet_Rope_Start_01",
+   {
+    "f": 7,
+    "dt": 0.5
+   },
+   -12,
+   {}
+  ],
+  [
+   "Player_Sheet_Rope_Loop_01",
+   {
+    "f": 7,
+    "dt": 1.6
+   },
+   -14,
+   {
+    "trim": [
+     0,
+     3
+    ]
+   }
+  ],
+  [
+   "object_barricade_plank_break_01",
+   {
+    "f": 8,
+    "dt": 0.9
+   },
+   -9,
+   {}
+  ],
+  [
+   "object_barricade_plank_break_01",
+   {
+    "f": 8,
+    "dt": 1.7
+   },
+   -9,
+   {}
+  ],
+  [
+   "object_barricade_plank_hit_03",
+   {
+    "f": 8,
+    "dt": 2.4
+   },
+   -10,
+   {}
+  ]
+ ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
  "capa": {
-  "t": 8.0,
-  "opcoes": [],
+  "t": 9.36,
+  "opcoes": [
+   3.3,
+   63.16
+  ],
   "zoom": 1.05,
   "pos": "50% 55%",
   "tint": "rgba(0,0,0,.15)",
@@ -63,5 +405,6 @@
   "barr-barras-visao",
   "barr-luz",
   "barr-saida"
- ]
+ ],
+ "_sfx_k": "dt = fração k da frase (k igual ao visual). Voz Piper: recalcular quando chegar n17 do ElevenLabs."
 }

@@ -7,11 +7,257 @@
  "musica": "the_inevitable",
  "musica_lufs": -30,
  "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
- "sfx": [],
+ "sfx": [
+  [
+   "ambientOutsideWindyNight",
+   {
+    "f": 0,
+    "dt": 0.1
+   },
+   -20,
+   {
+    "trim": [
+     0,
+     5
+    ],
+    "fin": 0.5,
+    "fout": 0.6
+   }
+  ],
+  [
+   "ambientOutsideWindyNight",
+   {
+    "f": 3,
+    "dt": 0.1
+   },
+   -20,
+   {
+    "trim": [
+     5,
+     11
+    ],
+    "fin": 0.5,
+    "fout": 0.6
+   }
+  ],
+  [
+   "ambientOutsideWindyNight",
+   {
+    "f": 4,
+    "dt": 0.1
+   },
+   -24,
+   {
+    "trim": [
+     11,
+     18
+    ],
+    "fin": 0.5,
+    "fout": 0.6
+   }
+  ],
+  [
+   "heart",
+   {
+    "f": 5,
+    "dt": 6.58
+   },
+   -12,
+   {}
+  ],
+  [
+   "heart",
+   {
+    "f": 5,
+    "dt": 7.35
+   },
+   -12,
+   {}
+  ],
+  [
+   "heart",
+   {
+    "f": 5,
+    "dt": 8.11
+   },
+   -12,
+   {}
+  ],
+  [
+   "male_outofbreath_01",
+   {
+    "f": 6,
+    "dt": 3.66
+   },
+   -16,
+   {
+    "trim": [
+     0,
+     3
+    ],
+    "fout": 0.5
+   }
+  ],
+  [
+   "heart",
+   {
+    "f": 6,
+    "dt": 10.17
+   },
+   -12,
+   {}
+  ],
+  [
+   "heart",
+   {
+    "f": 6,
+    "dt": 11.17
+   },
+   -12,
+   {}
+  ],
+  [
+   "ambientOutsideHeavyRain",
+   {
+    "f": 7,
+    "dt": 0.1
+   },
+   -20,
+   {
+    "trim": [
+     0,
+     9
+    ],
+    "fin": 0.6,
+    "fout": 0.6
+   }
+  ],
+  [
+   "PZ_PutInBag",
+   {
+    "f": 8,
+    "dt": 0.95
+   },
+   -14,
+   {}
+  ],
+  [
+   "ambientOutsideDayBirds",
+   {
+    "f": 9,
+    "dt": 0.1
+   },
+   -24,
+   {
+    "trim": [
+     0,
+     7
+    ],
+    "fin": 0.5,
+    "fout": 0.6
+   }
+  ],
+  [
+   "PZ_Drinking",
+   {
+    "f": 9,
+    "dt": 4.09
+   },
+   -14,
+   {}
+  ],
+  [
+   "doorclose",
+   {
+    "f": 10,
+    "dt": 3.3
+   },
+   -14,
+   {}
+  ],
+  [
+   "BH_MalePlayer_FreezingShivers_01",
+   {
+    "f": 0,
+    "dt": 1.0
+   },
+   -12,
+   {}
+  ],
+  [
+   "BH_MalePlayer_FreezingShivers_03",
+   {
+    "f": 5,
+    "dt": 1.5
+   },
+   -11,
+   {}
+  ],
+  [
+   "world_ext_wildlife_insects_cicadas_dense_01",
+   {
+    "f": 6,
+    "dt": 0.1
+   },
+   -22,
+   {
+    "trim": [
+     0,
+     11
+    ],
+    "fin": 0.6,
+    "fout": 0.8
+   }
+  ],
+  [
+   "ext_world_rain_puddle_moderate",
+   {
+    "f": 7,
+    "dt": 0.0
+   },
+   -17,
+   {
+    "trim": [
+     0,
+     9
+    ],
+    "fin": 0.4,
+    "fout": 0.6
+   }
+  ],
+  [
+   "world_ext_os_thunder_distant_01",
+   {
+    "f": 7,
+    "dt": 3.0
+   },
+   -15,
+   {}
+  ],
+  [
+   "world_ext_wildlife_insects_cicadas_dense_01",
+   {
+    "f": 9,
+    "dt": 0.1
+   },
+   -24,
+   {
+    "trim": [
+     0,
+     7
+    ],
+    "fin": 0.5,
+    "fout": 0.8
+   }
+  ]
+ ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
  "capa": {
-  "t": 8.0,
-  "opcoes": [],
+  "t": 36.87,
+  "opcoes": [
+   3.8,
+   59.94
+  ],
   "zoom": 1.05,
   "pos": "50% 55%",
   "tint": "rgba(0,0,0,.15)",
@@ -62,5 +308,6 @@
   "temp-calor",
   "temp-roupa",
   "temp-previsao"
- ]
+ ],
+ "_sfx_k": "dt = fração k da frase (k igual ao visual). Voz Piper: recalcular quando chegar n18 do ElevenLabs."
 }

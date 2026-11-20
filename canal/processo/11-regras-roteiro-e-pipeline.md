@@ -50,6 +50,30 @@ Vale para todo vídeo novo. Em conflito com docs antigos, este manda no ROTEIRO 
 - Número na tela só se confirmado. Sem número: barras sem escala (ex.: EP17 = barra de vida das barricadas comparando, sem valores).
 - Animação: se a ação 3D fica duvidosa, preferir tela simulada/ícone a uma animação ruim.
 
+## 4.2 REGRA DO CENÁRIO, DOS MODAIS E DA ANIMAÇÃO (20/11, revisão do Jose dos EP16–19)
+Revisão completa: `canal/processo/revisoes/2026-11-20-ep16-19.md`. Vale para todo vídeo novo.
+- **Lugar nunca vazio.** Casa tem móveis, eletrodomésticos e plantas; rua tem casas, árvores, grama, calçada e postes; fazenda tem
+  cercados, feno e cocho. Tudo com os **sprites originais do jogo** (`projeto/tiles.js` + `projeto/cenarios.js`, pasta `assets/tiles`).
+  - Prontos para usar: `rua(x, z, 'verao'|'inverno'|'chuva')`, `fazenda()`, `casaDentro()`, `sobrado()`.
+  - Um lugar por vídeo sempre que der (mesmo lugar do começo ao fim, como pediu o EP19).
+- **Clima de verdade.** Frio = neve no chão, neve caindo e bordas geladas (`neve()`, `clima('gelo')`); calor = sol forte de verão
+  (`clima('sol')`); chuva = poças no chão (`pocas()`, `chuvaChao()`).
+- **Modal nunca cobre o personagem nem a animação.** O personagem fica na faixa de baixo (`camOn(c, x, z, h, .74)`) e os modais na
+  faixa de cima (até y ≈ 1260). A inspeção avisa `MODAL COBRINDO O PERSONAGEM`.
+- **Modal harmônico:** caixa do tamanho do conteúdo, centrada, elementos grandes, sem sobra de espaço vazio (ex.: "Como levar" do EP16,
+  "Clique direito na janela" do EP17).
+- **Personagem não afunda no chão** (sentado, em pé, ajoelhado). Sentar só em cadeira do jogo com a animação original
+  (Bob_SatChairIn / Bob_SatChair). A inspeção avisa `PERSONAGEM AFUNDANDO NO CHÃO`.
+- **Animações originais do jogo** (`pipeline/pz/add_clips.py`, lista em `pipeline/pz/lista.json`): andar, martelar, ler, sentar,
+  acariciar, ordenhar, tosquiar, tremer de frio, enxugar o suor, beber, gritar, descer corda; zumbi entrando pela janela (espreme, cai,
+  levanta) e batendo. Andar sempre com deslocamento real (`rota()`), nunca "andando no lugar".
+  - Item na mão = malha do jogo presa no osso de item (`PZ.attach(S, 'Bip01_Prop1', PZ.propMesh('w_hammer', 'hammer'))`).
+  - Sempre conferir a qualidade da animação do personagem principal na folha da inspeção.
+- **Sons do jogo B42** extraídos do `ZomboidSound.bank` (pasta `assets/sfx/Jogo B42`): grito "Hey!" do jogador, animais estressados,
+  cerca batendo, barricada (tábua/metal), corda de lençol, leitura etc.
+- **Fidelidade:** barricadas, cortinas, corda de lençol e móveis são os sprites do jogo, na posição do jogo. A saída de emergência só
+  funciona do 2º andar para cima, em janela sem barricada, descendo pela corda.
+
 ## 4.1 REGRA DAS TELAS (18/11, pedido do Jose) — tela do jogo = RÉPLICA
 - Toda tela/menu do jogo que aparece no vídeo é **réplica fiel da tela real**: mesmo layout, mesmas colunas, cores, fonte simples do jogo, botões e ordem dos elementos.
   - Nada de painel genérico "estilo jogo".

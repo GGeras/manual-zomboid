@@ -3,6 +3,11 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-20 · bruno · Revisão do Jose dos EP16–19 aplicada (v2):
+  - cenários com os sprites ORIGINAIS do jogo (`projeto/tiles.js`, `projeto/cenarios.js`, `assets/tiles`): rua, fazenda, casa mobiliada, sobrado;
+  - 26 animações originais novas (ler sentado, martelar, acariciar, ordenhar, tosquiar, frio, calor, grito, corda, zumbi entrando pela janela);
+  - sons B42 do `ZomboidSound.bank` (`assets/sfx/Jogo B42`); inspeção nova: modal cobrindo o personagem e personagem afundando;
+  - regra 4.2 em `canal/processo/11-regras-roteiro-e-pipeline.md`.
 - 2026-11-19 · jose · `publicar.py` reconhece a pasta "O meu disco" (Drive em português de Portugal).
 - 2026-11-19 · jose · Automação Slack + Drive:
   - `ferramentas/publicar.py` envia prévias e finais ao Drive pessoal, com link público;
