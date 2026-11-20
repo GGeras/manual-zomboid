@@ -100,12 +100,12 @@ window.EP = {
     tag(5, 'COLOCAR TALA', G, P(5, .80), null, 1100);
     // 6 — vidro: pinça primeiro
     healthPanel(6, C(6) + 2, 'Dano muito leve', [['Mão Direita', ['Cacos de Vidro Alojados'], C(6) + 10, P(6, .42)], ['Mão Direita', ['Corte'], P(6, .42) + 1]]);
-    H.item(6, 'Item_Tweezers', 'PINÇA', P(6, .30), { left: 60, top: 1160, size: 130, off: P(6, .74) });
+    H.item(6, 'Item_Tweezers', 'PINÇA', P(6, .30), { left: 850, top: 600, size: 150, off: P(6, .74) });
     tag(6, 'COM VIDRO NÃO FECHA', RD, P(6, .50), P(6, .74), 1160);
     tag(6, 'DESINFETA + CURATIVO', G, P(6, .78), null, 1160);
     // 7 — bala
     healthPanel(7, C(7) + 2, 'Dano leve', [['Braço Direito', ['Bala Alojada'], C(7) + 10, P(7, .40)], ['Braço Direito', ['Ferida Profunda'], P(7, .40) + 1]]);
-    H.item(7, 'Item_Tweezers', 'PINÇA', P(7, .22), { left: 60, top: 1160, size: 130, off: P(7, .55) });
+    H.item(7, 'Item_Tweezers', 'PINÇA', P(7, .22), { left: 850, top: 600, size: 150, off: P(7, .55) });
     tag(7, 'VIRA FERIDA PROFUNDA', Y, P(7, .45), P(7, .62), 1160);
     tag(7, 'SUTURAR + CURATIVO', G, P(7, .66), null, 1160);
     // 8 — curativo sujo
