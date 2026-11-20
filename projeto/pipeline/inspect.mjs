@@ -50,11 +50,21 @@ for (let t = 0; t < dur; t += STEP) {
     if (S) { const pts = S.scr.map(([x, y]) => [x * 1080, y * 1920]);
       [...document.querySelectorAll('.ui,.aw,.tw,.chip,.pzitem,.mb,.moodle,.stamp,.big,.ins,.panel')].filter(vis).forEach(e => { const b = e.getBoundingClientRect(); if (b.width > 1000 && b.height > 1500) return;
         const n = pts.filter(([x, y]) => x > b.left && x < b.right && y > b.top && y < b.bottom).length; if (n >= 2) res.cover.push((e.innerText || e.className).trim().slice(0, 28)); }); }
+    // regra da revisão 2026-11-20 (EP14/15): texto NUNCA vaza da caixa; rótulo de item/cartão/chip sem quebra de linha (padroniza o tamanho)
+    res.leak = []; res.wrap = []; const BOX = '.pzitem,.chip,.card,.ui,.aw,.tw,.hp,.pt,.stamp,.bm,.ex,.bt,.slot';
+    const tw = document.createTreeWalker(document.getElementById('main') || document.body, NodeFilter.SHOW_TEXT);
+    for (let nd = tw.nextNode(); nd; nd = tw.nextNode()) { if (!nd.textContent.trim()) continue; const pe = nd.parentElement; if (!pe || !vis(pe)) continue;
+      const box = pe.closest(BOX); if (!box) continue; const rg = document.createRange(); rg.selectNodeContents(nd); const rs = [...rg.getClientRects()].filter(r => r.width > 1); if (!rs.length) continue;
+      const B = box.getBoundingClientRect(); const out = rs.some(r => r.left < B.left - 2 || r.right > B.right + 2 || r.top < B.top - 2 || r.bottom > B.bottom + 2);
+      if (out) res.leak.push(nd.textContent.trim().slice(0, 28));
+      if (pe.matches('.pzitem b,.card div,.chip') && !pe.innerHTML.includes('<br') && new Set(rs.map(r => Math.round(r.top))).size > 1) res.wrap.push(nd.textContent.trim().slice(0, 28)); }
     return res;
   }, { TEXT, IMPORTANT, SAFE });
   r.over.forEach(m => add(t, 'TEXTO SOBREPOSTO: ' + m));
   r.wide.forEach(m => add(t, 'TEXTO ESTOURA A TELA: ' + m));
   r.safe.forEach(m => add(t, 'ÁREA DOS BOTÕES DO APP: ' + m));
+  [...new Set(r.leak)].forEach(m => add(t, 'TEXTO VAZANDO DA CAIXA: ' + m));
+  [...new Set(r.wrap)].forEach(m => add(t, 'QUEBRA DE LINHA NO RÓTULO (padronizar): ' + m));
   const p = r.p && r.p.S;
   if (p && t > 1.35) { const c = p.scr[1]; if (c[0] < .04 || c[0] > .96 || c[1] < .2 || c[1] > .98) add(t, 'PERSONAGEM FORA DO QUADRO');
     if (p.hid >= 2) add(t, 'PERSONAGEM ESCONDIDO atrás de algo (' + p.hid + '/3 pontos)');

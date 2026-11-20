@@ -69,6 +69,9 @@ Revisão completa: `canal/processo/revisoes/2026-11-20-ep16-19.md`. Vale para to
   levanta) e batendo. Andar sempre com deslocamento real (`rota()`), nunca "andando no lugar".
   - Item na mão = malha do jogo presa no osso de item (`PZ.attach(S, 'Bip01_Prop1', PZ.propMesh('w_hammer', 'hammer'))`).
   - Sempre conferir a qualidade da animação do personagem principal na folha da inspeção.
+- **Texto nunca vaza da caixa** e **rótulo sem quebra de linha** (item, cartão, chip): padronizar o tamanho dos elementos; se não cabe,
+  aumentar a caixa de todos ou encurtar o texto. A inspeção avisa `TEXTO VAZANDO DA CAIXA` e `QUEBRA DE LINHA NO RÓTULO`.
+- **Sentar em cadeira:** `C.assento(sprite, i, j, { encosto: 'N'|'W' })` (assento baixo + encosto fino), nunca `C.obj`.
 - **Sons do jogo B42** extraídos do `ZomboidSound.bank` (pasta `assets/sfx/Jogo B42`): grito "Hey!" do jogador, animais estressados,
   cerca batendo, barricada (tábua/metal), corda de lençol, leitura etc.
 - **Fidelidade:** barricadas, cortinas, corda de lençol e móveis são os sprites do jogo, na posição do jogo. A saída de emergência só

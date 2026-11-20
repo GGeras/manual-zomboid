@@ -196,6 +196,19 @@
   "s_climbrope": "Bob/Bob_ClimbRope.x",
   "s_climbwin": "Bob/Bob_ClimbWindow.x",
   "s_satchair": "Bob/Bob_SatChair.x",
-  "s_satchairin": "Bob/Bob_SatChairIn.x"
+  "s_satchairin": "Bob/Bob_SatChairIn.x",
+  "s_lootlow": "Bob/Bob_IdleLooting_Low.x",
+  "s_makinglow": "Bob/Bob_IdleMakingLow.x",
+  "s_eatbowl": "Bob/Bob_IdleEatingFromBowl.x",
+  "s_eatcan": "Bob/Bob_IdleEatingFromCan.x",
+  "s_fillpot": "Bob/Bob_IdleFill_CookingPot.x",
+  "s_seatedext": "Bob/Bob_IdleSeatedExt01.x",
+  "s_lightfire": "Bob/Bob_LightFire_NotchedPlank_LOOP.x",
+  "z_bite": "Zombie/Zombie_Bite.x",
+  "s_bitedefend": "Bob/Bob_BiteDefend.x",
+  "s_hitreact": "Bob/Bob_AimHitReact_01.x",
+  "s_band_up": "Bob/Bob_BandageUpperBody.x",
+  "s_band_larm": "Bob/Bob_BandageLeftArm.x",
+  "s_band_rleg": "Bob/Bob_BandageRightLeg.x"
  }
 }

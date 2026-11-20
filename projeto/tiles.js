@@ -53,6 +53,13 @@ export function cena(x0, z0) {
     obj(name, i, j, o = {}) { const w = o.w || .9, d = o.d || .9, dx = o.dx || 0, dz = o.dz || 0, h = o.h || autoH(name, w, d, dx, dz);
       const g = new THREE.BoxGeometry(w, h, d); g.translate(dx, h / 2, dz); project(g, name);
       const m = put(new THREE.Mesh(g, mat(name, o)), i, j, 0, name); m.userData.h = h; return m; },
+    // cadeira/sofá onde o personagem SENTA: assento baixo (caixa até a altura do assento) + encosto fino atrás.
+    // Assim quem está sentado fica na frente do encosto e em cima do assento (sem o encosto "passar na frente" do corpo).
+    // encosto: 'N' (encosto ao norte; cadeira virada para o sul, ry 0) ou 'W' (encosto a oeste; virada para o leste, ry π/2)
+    assento(name, i, j, o = {}) { const g = new THREE.Group(), side = o.encosto || 'N', hs = o.hs || .5, H = autoH(name, .9, .9);
+      const seat = new THREE.BoxGeometry(.9, hs, .9); seat.translate(0, hs / 2, 0); project(seat, name);
+      const back = side === 'N' ? new THREE.BoxGeometry(.9, H, .14) : new THREE.BoxGeometry(.14, H, .9); back.translate(side === 'W' ? -.38 : 0, H / 2, side === 'N' ? -.38 : 0); project(back, name);
+      const m = mat(name, o); g.add(new THREE.Mesh(seat, m), new THREE.Mesh(back, m)); g.children.forEach(c => { c.userData.tile = name; }); return put(g, i, j, 0, name); },
     // sprite em pé, de frente para a câmera (árvores, postes, plantas finas), com a âncora no ponto (i, j) do chão
     placa(name, i, j, o = {}) { const [, , , , w, h] = META[name]; const g = new THREE.PlaneGeometry(w * K, h * K);
       const m = new THREE.Mesh(g, mat(name, o)); m.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(RT, UP, D));

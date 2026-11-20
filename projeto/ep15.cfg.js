@@ -25,8 +25,8 @@ window.EP = {
   extras(H) {
     const { F, C, M, el } = H, G = '#8fe04a', RD = '#ff3d55', B = '#efe5cf', Y = '#ffb020';
     const P = (i, k) => Math.round(C(i) + k * ((i + 1 < F.length ? F[i + 1] : window.__VO_END) - F[i]));
-    const tag = (k, txt, col, at, end, top = 1560) => { const id = H.chip(k, txt, at, `left:0;right:0;margin:0 auto;width:max-content;top:${top}px;color:${col};font:800 50px/1 var(--mono);padding:18px 34px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
-    const row = (k, list, o = {}) => H.items(k, list, Object.assign({ top: 1290, size: 190, gap: 22 }, o));
+    const tag = (k, txt, col, at, end, top = 1100) => { const id = H.chip(k, txt, at, `left:0;right:0;margin:0 auto;width:max-content;top:${top}px;color:${col};font:800 50px/1 var(--mono);padding:18px 34px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
+    const row = (k, list, o = {}) => H.items(k, list, Object.assign({ top: 860, size: 190, gap: 22 }, o));
     let n = 0; const nid = p => 'k' + p + (n++);
     el('style', null, `
       .ui{position:absolute;background:rgba(16,14,13,.94);border:3px solid rgba(239,229,207,.45);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.7);overflow:hidden;color:var(--bone)}
@@ -46,7 +46,7 @@ window.EP = {
     const line = (par, y, left, right, colR, at) => { const e = el('div', 'ins', `<span>${left}</span><span style="margin-left:auto;color:${colR}">${right}</span>`, par, `position:absolute;left:30px;right:30px;top:${y}px;display:flex;font:800 38px/1 var(--mono)`); e.id = nid('l'); M.enter('#' + e.id, { at, frames: 8, ease: 'snapSettle', from: { x: 60, opacity: 0 } }); return e.id; };
     // RÉPLICA da janela do personagem, aba Saúde (layout do print do jogo; textos de IG_UI/ContextMenu PTBR 42.22)
     el('style', null, `
-      .hp{position:absolute;left:156px;top:560px;width:480px;height:560px;transform:scale(1.6);transform-origin:0 0;background:#080808;border:1px solid #5a5a5a;font-family:'Noto Sans','DejaVu Sans',Arial,sans-serif;color:#fff}
+      .hp{position:absolute;left:252px;top:470px;width:480px;height:560px;transform:scale(1.2);transform-origin:0 0;background:#080808;border:1px solid #5a5a5a;font-family:'Noto Sans','DejaVu Sans',Arial,sans-serif;color:#fff}
       .hp .tb{height:26px;border-bottom:1px solid #333;position:relative}
       .hp .tb i{position:absolute;top:4px;width:16px;height:16px;border:1.5px solid #ddd;border-radius:50%;font:700 11px/16px Arial;text-align:center;font-style:normal;color:#ddd}
       .hp .tabs{display:flex;height:28px;border-bottom:1px solid #444}
@@ -72,52 +72,52 @@ window.EP = {
         if (!(parts[pi + 1] && parts[pi + 1][0] === part)) y += 30 + inj.length * 20; });
       return p; };
     // 0 — gancho
-    tag(0, 'ARRANHÃO DE ZUMBI', B, P(0, .12), P(0, .5), 1480);
-    tag(0, 'O PERIGO É A FERIDA', Y, P(0, .55), null, 1480);
+    tag(0, 'ARRANHÃO DE ZUMBI', B, P(0, .12), P(0, .5), 1000);
+    tag(0, 'O PERIGO É A FERIDA', Y, P(0, .55), null, 1000);
     // 1 — infecção zumbi: chance sorteada pelo tipo do ataque
-    const p1 = panel(1, 'INFECÇÃO ZUMBI · CHANCE', C(1) + 2, 'left:60px;top:620px;width:960px;height:600px');
+    const p1 = panel(1, 'INFECÇÃO ZUMBI · CHANCE', C(1) + 2, 'left:60px;top:480px;width:960px;height:560px');
     [['ARRANHADO', .07, '7%', P(1, .30)], ['CORTE', .25, '25%', P(1, .45)], ['MORDIDO', 1, '100%', P(1, .60)]].forEach(([t, v, txt, at], i) => {
       line(p1, 110 + i * 150, t, txt, i === 2 ? RD : Y, at);
       const br = el('div', 'bar', `<i style="background:${i === 2 ? RD : Y}"></i>`, p1, `left:30px;top:${160 + i * 150}px;width:900px;height:36px`); br.id = nid('b');
       M.kf('#' + br.id + ' i', 'scaleX', [[0, 0], [at, 0], [at + 14, v, 'softInOut']]); });
-    tag(1, 'SEM CURA', RD, P(1, .86), null, 1300);
+    tag(1, 'SEM CURA', RD, P(1, .86), null, 1060);
     // 2 — infecção da ferida
-    row(2, [['Item_BandageDirty', 'CURATIVO SUJO', P(2, .35)]], { size: 220, top: 1150, left: 420 });
-    tag(2, 'ESSA TEM TRATAMENTO', G, P(2, .75), null, 1480);
+    row(2, [['Item_BandageDirty', 'CURATIVO SUJO', P(2, .35)]], { size: 240, top: 780, left: 420 });
+    tag(2, 'ESSA TEM TRATAMENTO', G, P(2, .75), null, 1100);
     // 3 — painel de saúde (tela do corpo)
     healthPanel(3, C(3) + 2, 'Dano leve', [['Antebraço Esquerdo', ['Arranhado'], P(3, .18)], ['Coxa Direita', ['Corte', 'Sangrando'], P(3, .28)], ['Mão Direita', ['Cacos de Vidro Alojados'], P(3, .38)]]);
-    tag(3, 'ZUMBI NÃO APARECE', RD, P(3, .50), P(3, .78), 1500);
-    tag(3, 'TIPO = TRATAMENTO', G, P(3, .80), null, 1500);
+    tag(3, 'ZUMBI NÃO APARECE', RD, P(3, .50), P(3, .78), 1160);
+    tag(3, 'TIPO = TRATAMENTO', G, P(3, .80), null, 1160);
     // 4 — tratamentos
-    H.item(4, 'Item_Alcohol', 'DESINFETAR', P(4, .12), { left: 220, top: 1080, size: 180, off: P(4, .58) });
-    H.item(4, 'Item_Bandage', 'CURATIVO', P(4, .24), { left: 640, top: 1080, size: 180, off: P(4, .58) });
-    tag(4, 'ARRANHÃO, CORTE, QUEIMA', B, P(4, .30), P(4, .55), 1420);
-    H.item(4, 'Item_Needle', 'AGULHA', P(4, .62), { left: 220, top: 1080, size: 180 });
-    H.item(4, 'Item_Thread', 'LINHA', P(4, .70), { left: 640, top: 1080, size: 180 });
-    tag(4, 'PROFUNDA: SUTURAR', Y, P(4, .82), null, 1420);
+    H.item(4, 'Item_Alcohol', 'DESINFETAR', P(4, .12), { left: 230, top: 800, size: 200, off: P(4, .58) });
+    H.item(4, 'Item_Bandage', 'CURATIVO', P(4, .24), { left: 650, top: 800, size: 200, off: P(4, .58) });
+    tag(4, 'ARRANHÃO, CORTE, QUEIMA', B, P(4, .30), P(4, .55), 1100);
+    H.item(4, 'Item_Needle', 'AGULHA', P(4, .62), { left: 230, top: 800, size: 200 });
+    H.item(4, 'Item_Thread', 'LINHA', P(4, .70), { left: 650, top: 800, size: 200 });
+    tag(4, 'PROFUNDA: SUTURAR', Y, P(4, .82), null, 1100);
     // 5 — fratura
-    row(5, [['Item_Rag', 'PANO', P(5, .25)], ['Item_Plank', 'TÁBUA', P(5, .45)], ['Item_Branch', 'GALHO', P(5, .60)]], { size: 160, gap: 60, top: 1150 });
-    tag(5, 'COLOCAR TALA', G, P(5, .80), null, 1450);
+    row(5, [['Item_Rag', 'PANO', P(5, .25)], ['Item_Plank', 'TÁBUA', P(5, .45)], ['Item_Branch', 'GALHO', P(5, .60)]], { size: 180, gap: 60, top: 820 });
+    tag(5, 'COLOCAR TALA', G, P(5, .80), null, 1100);
     // 6 — vidro: pinça primeiro
     healthPanel(6, C(6) + 2, 'Dano muito leve', [['Mão Direita', ['Cacos de Vidro Alojados'], C(6) + 10, P(6, .42)], ['Mão Direita', ['Corte'], P(6, .42) + 1]]);
-    H.item(6, 'Item_Tweezers', 'PINÇA', P(6, .30), { left: 760, top: 1180, size: 150, off: P(6, .74) });
-    tag(6, 'COM VIDRO NÃO FECHA', RD, P(6, .50), P(6, .74), 1500);
-    tag(6, 'DESINFETA + CURATIVO', G, P(6, .78), null, 1500);
+    H.item(6, 'Item_Tweezers', 'PINÇA', P(6, .30), { left: 60, top: 1160, size: 130, off: P(6, .74) });
+    tag(6, 'COM VIDRO NÃO FECHA', RD, P(6, .50), P(6, .74), 1160);
+    tag(6, 'DESINFETA + CURATIVO', G, P(6, .78), null, 1160);
     // 7 — bala
     healthPanel(7, C(7) + 2, 'Dano leve', [['Braço Direito', ['Bala Alojada'], C(7) + 10, P(7, .40)], ['Braço Direito', ['Ferida Profunda'], P(7, .40) + 1]]);
-    H.item(7, 'Item_Tweezers', 'PINÇA', P(7, .22), { left: 760, top: 1180, size: 150, off: P(7, .55) });
-    tag(7, 'VIRA FERIDA PROFUNDA', Y, P(7, .45), P(7, .62), 1500);
-    tag(7, 'SUTURAR + CURATIVO', G, P(7, .66), null, 1500);
+    H.item(7, 'Item_Tweezers', 'PINÇA', P(7, .22), { left: 60, top: 1160, size: 130, off: P(7, .55) });
+    tag(7, 'VIRA FERIDA PROFUNDA', Y, P(7, .45), P(7, .62), 1160);
+    tag(7, 'SUTURAR + CURATIVO', G, P(7, .66), null, 1160);
     // 8 — curativo sujo
-    row(8, [['Item_Bandage', 'LIMPO', C(8) + 8], ['Item_BandageDirty', 'SUJO', P(8, .20)]], { size: 180, gap: 160, top: 1000 });
-    H.cross(8, P(8, .45), 700, 990);
-    tag(8, 'O QUE MAIS INFECCIONA', RD, P(8, .52), P(8, .73), 1400);
-    tag(8, 'TROCA OU LAVA', G, P(8, .75), null, 1400);
+    row(8, [['Item_Bandage', 'LIMPO', C(8) + 8], ['Item_BandageDirty', 'SUJO', P(8, .20)]], { size: 200, gap: 160, top: 800 });
+    H.cross(8, P(8, .45), 720, 800);
+    tag(8, 'O QUE MAIS INFECCIONA', RD, P(8, .52), P(8, .73), 1100);
+    tag(8, 'TROCA OU LAVA', G, P(8, .75), null, 1100);
     // 9 — tratar a infecção da ferida
-    row(9, [['Item_Alcohol', 'DESINFETANTE', P(9, .15)], ['Item_AlcoholWipes', 'LENÇO C/ ÁLCOOL', P(9, .28)], ['Item_Antibiotics', 'ANTIBIÓTICOS', P(9, .42)]], { size: 150, gap: 50, top: 1050 });
-    tag(9, 'SÓ A DA FERIDA', Y, P(9, .75), null, 1420);
+    row(9, [['Item_Alcohol', 'DESINFETANTE', P(9, .15)], ['Item_AlcoholWipes', 'LENÇO C/ ÁLCOOL', P(9, .28)], ['Item_Antibiotics', 'ANTIBIÓTICOS', P(9, .42)]], { size: 250, gap: 20, top: 800 });
+    tag(9, 'SÓ A DA FERIDA', Y, P(9, .75), null, 1110);
     // 10 — mordida
-    tag(10, 'MORDIDO = SEM CURA', RD, C(10) + 10, null, 1300);
-    tag(10, 'SALVA ESSE VÍDEO', G, P(10, .65), null, 1480);
+    tag(10, 'MORDIDO = SEM CURA', RD, C(10) + 10, null, 1000);
+    tag(10, 'SALVA ESSE VÍDEO', G, P(10, .65), null, 1100);
   }
 };

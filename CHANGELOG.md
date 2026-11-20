@@ -3,6 +3,10 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-20 · bruno · EP14 e EP15 finais refeitos com o padrão novo (revisão do Jose):
+  - EP14: cozinha mobiliada + quintal da mesma casa (sprites do jogo), fim do chão piscando verde, animações originais (acender fogo, mexer ajoelhado, comer sentado na cadeira), modais no padrão novo;
+  - EP15: ataque na rua (zumbi arranha/morde com as animações do jogo), tratamento sentado na cadeira, sem texto vazando e rótulos sem quebra de linha;
+  - inspeção nova: `TEXTO VAZANDO DA CAIXA` e `QUEBRA DE LINHA NO RÓTULO`; cadeira onde se senta (`C.assento`) sem o encosto passar na frente do corpo.
 - 2026-11-20 · bruno · Revisão do Jose dos EP16–19 aplicada (v2):
   - cenários com os sprites ORIGINAIS do jogo (`projeto/tiles.js`, `projeto/cenarios.js`, `assets/tiles`): rua, fazenda, casa mobiliada, sobrado;
   - 26 animações originais novas (ler sentado, martelar, acariciar, ordenhar, tosquiar, frio, calor, grito, corda, zumbi entrando pela janela);

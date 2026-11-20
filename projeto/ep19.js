@@ -7,7 +7,7 @@ const { clamp, lerp, easeOut, T } = U;
 // na cadeira do jogo (sem afundar no chão). Prática = construir um CAIXOTE de madeira (Carpintaria) ajoelhado martelando (Bob hammer low):
 // tábuas no chão → base → paredes → caixote pronto (sprite original carpentry_01_16) + serragem a cada martelada.
 const CASA = casaDentro(-60, 80), C = CASA.C;
-const CHAIR = C.obj('furniture_seating_indoor_01_57', 3, 3, { w: .6, d: .6 }); const SEAT = C.at(3, 3);
+const CHAIR = C.assento('furniture_seating_indoor_01_57', 3, 3, { encosto: 'N' }); const SEAT = C.at(3, 3);
 // livro aberto na mão (Carpintaria = capa vermelha/marrom), preso no osso de item do jogo
 const BOOK = new THREE.Group(); { const cv = box(.15, .01, .2, '#7a2a1e'); BOOK.add(cv); const pg = box(.135, .015, .185, '#efe6cf'); pg.position.y = .01; BOOK.add(pg); const sp = box(.004, .018, .185, '#9a8f78'); sp.position.y = .012; BOOK.add(sp); }
 BOOK.rotation.set(0, 0, Math.PI / 2); PZ.attach(S, 'Bip01_Prop1', BOOK);
