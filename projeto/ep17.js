@@ -106,7 +106,7 @@ run([
   (lf, f, len, c) => { inside('dark'); const k = lf / len; planks(Math.max(0, 3 - Math.floor(k * 10)), Math.max(0, 4 - Math.floor(k * 6)), Math.max(0, 3 - Math.floor(k * 8)), 1, f);
     bang(Z[1], lf, JX, 1, 17, .1); bang(Z[5], lf, KX, 1, 30, .1); bang(Z[6], lf, JX, 2, 40, .05); bangW(Z[3], lf, 0, 5); bangW(Z[4], lf, -.4, 22);
     if (k < .2) bang(Z[2], lf, KX, 0, 9); else climb(Z[2], (lf - len * .2) * 2.2, KX);
-    const b = C.at(4.3, 3.9), look = face(b.x, b.z, JX, JZ), CL = 38, LAND = C.at(3, 1.25), HIT = len - 4;   // HIT = quadro do toque (último do vídeo)
+    const b = C.at(4.3, 3.9), look = face(b.x, b.z, JX, JZ), CL = 38, LAND = C.at(3, .7)   /* = onde a animação de entrar pela janela termina (sem pulo) */, HIT = len - 4;   // HIT = quadro do toque (último do vídeo)
     // ele já está encurralado no canto, tremendo; quando o zumbi corre, ele se encolhe
     clip(S, lf < HIT - 30 ? 's_shiver' : 's_walkslow', lf < HIT - 30 ? lf : -(lf - HIT + 30) * .6, { x: b.x + (lf < HIT - 30 ? 0 : -Math.sin(look) * Math.min(.25, (lf - HIT + 30) * .01)), z: b.z - (lf < HIT - 30 ? 0 : Math.cos(look) * Math.min(.25, (lf - HIT + 30) * .01)), ry: look });
     // Z0: termina de entrar pela janela (já está no vão), levanta e dispara correndo até ele

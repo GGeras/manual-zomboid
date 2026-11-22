@@ -105,6 +105,6 @@ window.EP = {
     tag(7, 'ANDAR DE CIMA', Y, P(7, .76), null, 940);
 
     // 8 — fecho
-    tag(8, 'SALVA E COMENTA', G, P(8, .40), null, 880);
+    tag(8, 'SALVA E COMENTA', G, P(8, .40), null, 640);   // acima do caminho do zumbi
   }
 };
