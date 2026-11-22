@@ -28,7 +28,7 @@ window.EP = {
     const { F, C, M, el } = H, G = '#8fe04a', RD = '#ff3d55', B = '#efe5cf', Y = '#ffb020', BL = '#5aa9ff';
     const P = (i, k) => Math.round(C(i) + k * ((i + 1 < F.length ? F[i + 1] : window.__VO_END) - F[i]));
     let n = 0; const nid = p => 'k' + p + (n++);
-    const tag = (k, txt, col, at, end, top = 1130) => { const id = H.chip(k, txt, at, `left:0;right:0;margin:0 auto;width:max-content;top:${top}px;color:${col};font:800 50px/1 var(--mono);padding:18px 34px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
+    const tag = (k, txt, col, at, end, top = 1130, fs = 50) => { const id = H.chip(k, txt, at, `left:0;right:0;margin:0 auto;width:max-content;top:${top}px;color:${col};font:800 ${fs}px/1 var(--mono);padding:18px 34px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
     const row = (k, list, o = {}) => H.items(k, list, Object.assign({ top: 900, size: 190, gap: 22 }, o));
     const pop = (id, at, from = { y: 50, opacity: 0 }) => M.enter('#' + id, { at, frames: 8, ease: 'snapSettle', from });
     const span = (id, at, end) => { M.hide('#' + id, 0); M.show('#' + id, at); if (end != null) M.hide('#' + id, end); };
@@ -36,10 +36,10 @@ window.EP = {
       .ui{position:absolute;background:rgba(16,14,13,.94);border:3px solid rgba(239,229,207,.45);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.7);overflow:hidden;color:var(--bone)}
       .ui .hd{height:66px;font:800 28px/66px var(--mono);letter-spacing:4px;padding-left:24px;background:rgba(239,229,207,.08);border-bottom:2px solid rgba(239,229,207,.25)}
       .ui img{image-rendering:pixelated}
-      .card{position:absolute;width:300px;height:330px;text-align:center;font:800 32px/1 var(--mono)}
+      .card{position:absolute;width:240px;height:330px;text-align:center;font:800 32px/1 var(--mono)}
       .card img{width:150px;height:150px;margin:40px auto 24px;display:block}
       .gt{font:700 36px/1.35 var(--mono);padding:24px 28px}
-      .mb{position:absolute;left:90px;width:900px;height:100px}
+      .mb{position:absolute;left:140px;width:800px;height:100px}
       .mb b{position:absolute;left:0;top:0;font:800 30px/1 var(--mono);letter-spacing:2px}
       .mb div{position:absolute;left:0;right:0;top:44px;height:48px;border-radius:8px;background:rgba(13,11,11,.85);border:2px solid rgba(239,229,207,.35);overflow:hidden}
       .mb i{position:absolute;left:0;top:0;bottom:0;width:100%;transform-origin:left center}
@@ -49,8 +49,8 @@ window.EP = {
       .bm>*{position:absolute;left:0;top:0;width:100%;height:100%}
       .bm .bg{left:12px;top:12px;width:206px;height:206px;border-radius:50%}
       .bm img{image-rendering:pixelated}
-      .bml{position:absolute;left:0;right:0;margin:0 auto;width:max-content;font:900 54px/1 var(--mono)}
-      .tw{position:absolute;left:228px;top:470px;width:480px;height:620px;transform:scale(1.3);transform-origin:0 0;background:#0b0b0b;border:1px solid #5a5a5a;font-family:'Noto Sans','DejaVu Sans',Arial,sans-serif;color:#fff}
+      .bml{position:absolute;left:0;right:0;margin:0 auto;width:max-content;font:900 48px/1 var(--mono)}
+      .tw{position:absolute;left:288px;top:490px;width:480px;height:620px;transform:scale(1.05);transform-origin:0 0;background:#0b0b0b;border:1px solid #5a5a5a;font-family:'Noto Sans','DejaVu Sans',Arial,sans-serif;color:#fff}
       .tw .tb{height:24px;border-bottom:1px solid #333;position:relative}
       .tw .tb i{position:absolute;top:4px;width:15px;height:15px;border:1.5px solid #ddd;border-radius:50%;font:700 10px/15px Arial;text-align:center;font-style:normal;color:#ddd}
       .tw .tabs{display:flex;height:28px;border-bottom:1px solid #444}
@@ -70,7 +70,7 @@ window.EP = {
     // moodle grande do jogo com o nome do nível mudando: names = [[at, 'Nome', corDoFundo], ...]
     const bigMood = (k, icon, names, top = 1080, end) => { const m = el('div', 'bm', `<i class="bg" style="background:${names[0][2]}"></i><img src="./assets/moodles/${icon}.png"><img src="./assets/moodles/_Moodles_BGoutline.png">`, H.sc(k), `top:${top}px`); m.id = nid('bm');
       M.enter('#' + m.id, { at: names[0][0], frames: 9, ease: 'crashIn', from: { scale: 2.2 } }); M.kf('#' + m.id + ' .bg', 'backgroundColor', [[0, names[0][2]], ...names.map(([a, , c]) => [a, c])]); if (end != null) M.hide('#' + m.id, end);
-      names.forEach(([a, txt, c], i) => { const l = el('div', 'bml ins', txt, H.sc(k), `top:${top + 250}px;color:${B}`); l.id = nid('ml'); span(l.id, a, i + 1 < names.length ? names[i + 1][0] : end); M.kf('#' + l.id, 'scale', [[a, 1.4], [a + 7, 1, 'snapSettle']]); M.kf('#' + m.id, 'scale', [[a, 1.18], [a + 7, 1, 'snapSettle']]); });
+      names.forEach(([a, txt, c], i) => { const l = el('div', 'bml ins', txt, H.sc(k), `top:${top + 262}px;color:${B}`); l.id = nid('ml'); span(l.id, a, i + 1 < names.length ? names[i + 1][0] : end); M.kf('#' + l.id, 'scale', [[a, 1.4], [a + 7, 1, 'snapSettle']]); M.kf('#' + m.id, 'scale', [[a, 1.18], [a + 7, 1, 'snapSettle']]); });
       return m.id; };
     // fundo do moodle no jogo: verde = bom; vermelho mais forte = pior
     const LV = ['#c9a1a1', '#c96a6a', '#b8323e', '#8e0f1f'];
@@ -94,11 +94,12 @@ window.EP = {
       return w.id; };
 
     // 0 — gancho
-    H.moodle(0, 'pz:Status_TemperatureLow', 'FRIO', P(0, .28));
-    tag(0, 'SEM ZUMBI NENHUM', Y, P(0, .62), null, 1000);
+    H.moodle(0, 'pz:Status_TemperatureLow', 'FRIO', P(0, .16), false, P(0, .50) - 3);
+    H.moodle(0, 'pz:Status_TemperatureHot', 'CALOR', P(0, .50) + 3);
+    tag(0, 'SEM ZUMBI NENHUM', Y, P(0, .74), null, 1000);
 
     // 1 — dois termômetros: clima e corpo; quem decide é o do corpo
-    const p1 = panel(1, 'DOIS TERMÔMETROS', C(1) + 2, 'left:140px;top:480px;width:800px;height:640px');
+    const p1 = panel(1, 'DOIS TERMÔMETROS', C(1) + 2, 'left:140px;top:480px;width:800px;height:610px');
     [['CLIMA', 140, BL, .06], ['CORPO', 510, G, .20]].forEach(([nm, x, col, k0], i) => { const t = el('div', 'th ins', `<i style="background:${col}"></i>`, p1, `left:${x}px;top:110px`); t.id = nid('th'); pop(t.id, P(1, k0));
       const l = el('div', 'ins', nm, p1, `position:absolute;left:${x - 75}px;width:300px;top:470px;text-align:center;font:900 46px/1 var(--mono);color:${col}`); l.id = nid('tl'); pop(l.id, P(1, k0));
       M.kf('#' + t.id + ' i', 'scaleY', i ? [[0, .55], [P(1, .45), .55], [P(1, .62), .44, 'softInOut']] : [[0, .55], [P(1, .30), .55], [P(1, .45), .12, 'softInOut']]); });
@@ -107,14 +108,14 @@ window.EP = {
 
     // 2 — moodle = ícone de estado na lateral; quanto mais forte, pior (nomes do jogo)
     H.moodle(2, 'pz:Status_TemperatureLow', 'NA LATERAL', C(2) + 4, false, P(2, .28));
-    tag(2, 'MOODLE = ÍCONE DE ESTADO', B, P(2, .10), P(2, .28), 900);
+    tag(2, 'MOODLE = ÍCONE DE ESTADO', B, P(2, .10), P(2, .28), 900, 42);
     bigMood(2, 'Status_TemperatureLow', [[P(2, .30), 'Um Pouco de Frio', LV[0]], [P(2, .46), 'Frio', LV[1]], [P(2, .62), 'Congelando', LV[2]], [P(2, .78), 'Hipotermia', LV[3]]], 640);
     tag(2, 'MAIS FORTE = PIOR', RD, P(2, .82), null, 1010);
 
     // 3 — roupa: cada peça segura calor e corta o vento
     row(3, [['Item_JacketPaddedGeneric', 'CASACO', P(3, .08)], ['Item_WinterHatBlack', 'GORRO', P(3, .16)], ['Item_ScarfGeneric', 'CACHECOL', P(3, .24)]], { top: 860, size: 170, gap: 90 });
     tag(3, 'SEGURA CALOR ✓', G, P(3, .36), P(3, .60), 1110);
-    H.moodle(3, 'pz:Status_Windchill', 'SENSAÇÃO DE FRIO', P(3, .55));
+    H.moodle(3, 'pz:Status_Windchill', 'VENTO FRIO', P(3, .55));
     tag(3, 'CORTA O VENTO ✓', G, P(3, .62), null, 1110);
 
     // 4 — esfriou: ferida não sara; depois luta e corrida mais lentas (réplica: Temperatura Central indo pro frio)
@@ -133,11 +134,11 @@ window.EP = {
     // 6 — calor: sede e cansaço → lento → hipertermia perde vida (nomes e textos do jogo)
     bigMood(6, 'Status_TemperatureHot', [[C(6) + 4, 'Calor Desconfortável', LV[0]], [P(6, .42), 'Superaquecimento', LV[1]], [P(6, .56), 'Insolação', LV[2]], [P(6, .70), 'Hipertermia', LV[3]]], 520);
     const t6 = el('div', 'ui gt ins', '"Você sente mais sede."', H.sc(6), 'left:140px;top:860px;width:800px;text-align:center'); t6.id = nid('t'); span(t6.id, P(6, .10), P(6, .24));
-    row(6, [['Item_WaterBottle_Full', 'SEDE', P(6, .24)]], { top: 940, size: 160, left: 300, off: P(6, .42) });
+    row(6, [['Item_WaterBottle_Full', 'SEDE', P(6, .24)]], { top: 900, size: 130, off: P(6, .42) });
     H.moodle(6, 'pz:Mood_Sleepy', 'CANSAÇO', P(6, .30), false, P(6, .56));
     tag(6, 'MAIS LENTO', RD, P(6, .46), P(6, .70), 900);
-    const t6b = el('div', 'ui gt ins', '"O calor está consumindo sua vida."', H.sc(6), `left:90px;top:860px;width:900px;text-align:center;color:${RD}`); t6b.id = nid('t'); span(t6b.id, P(6, .74));
-    mbar(6, 'VIDA', 1000, P(6, .80), [[0, 1], [P(6, .82), 1], [P(6, .98), .4, 'softInOut']], RD);
+    const t6b = el('div', 'ui gt ins', '"O calor está consumindo sua vida."', H.sc(6), `left:140px;top:860px;width:800px;text-align:center;font-size:31px;color:${RD}`); t6b.id = nid('t'); span(t6b.id, P(6, .74), P(6, .86));
+    mbar(6, 'VIDA', 860, P(6, .86), [[0, 1], [P(6, .87), 1], [P(6, .99), .4, 'softInOut']], RD);
 
     // 7 — exemplo: inverno, chuva, casaco molhado gela o corpo
     H.item(7, 'Item_JacketPaddedGeneric', 'CASACO', P(7, .06), { left: 445, top: 760, size: 190, off: P(7, .22) });
@@ -146,8 +147,8 @@ window.EP = {
     tag(7, 'PERDE O CALOR ✗', RD, P(7, .78), null, 1030);
 
     // 8 — em casa: roupa seca, em camadas
-    const p8 = panel(8, 'TROCA A ROUPA', C(8) + 2, 'left:40px;top:520px;width:1000px;height:430px');
-    card(p8, 20, 'Item_Longjohns', 'CEROULA', P(8, .14), G); card(p8, 350, 'Item_Sweater_Black', 'SUÉTER', P(8, .34), G); card(p8, 680, 'Item_JacketPaddedGeneric', 'CASACO SECO', P(8, .54), G);
+    const p8 = panel(8, 'TROCA A ROUPA', C(8) + 2, 'left:140px;top:520px;width:800px;height:430px');
+    card(p8, 20, 'Item_Longjohns', 'CEROULA', P(8, .14), G); card(p8, 280, 'Item_Sweater_Black', 'SUÉTER', P(8, .34), G); card(p8, 540, 'Item_JacketPaddedGeneric', 'CASACO SECO', P(8, .54), G);
     tag(8, 'CAMADAS ✓', G, P(8, .72), null, 1000);
 
     // 9 — verão: tira camadas, sombra, água

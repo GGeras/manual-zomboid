@@ -77,6 +77,27 @@ Revisão completa: `canal/processo/revisoes/2026-11-20-ep16-19.md`. Vale para to
 - **Fidelidade:** barricadas, cortinas, corda de lençol e móveis são os sprites do jogo, na posição do jogo. A saída de emergência só
   funciona do 2º andar para cima, em janela sem barricada, descendo pela corda.
 
+## 4.3 REVISÃO FINAL: HARMONIA DA TELA E ÁREAS DOS APPS (22/11, pedido do Bruno) — vale para TODO vídeo novo
+Antes de qualquer render (rascunho ou final), o vídeo passa por esta revisão. `node pipeline/inspect.mjs NN` confere sozinho e o relatório TEM de sair com 0 avisos.
+
+**A. Nada importante embaixo da interface do TikTok / Reels / Shorts (tela 1080×1920)**
+- Direita (curtir, comentar, salvar, compartilhar, disco): x > 940 e y entre 860 e 1720 → nenhum texto, modal, ícone, barra ou moodle ali.
+- Base (@canal, descrição, música, barra de navegação): y > 1560 → nenhum elemento de texto, e o **personagem inteiro (até os pés) acima de 1580**.
+- Topo (abas "Seguindo / Para você", busca): y < 190 → só a etiqueta pequena do canal, nada que precise ser lido.
+- Área segura para o conteúdo = x 40–1040, y 190–1560 (é a moldura verde da folha `zonas.png`).
+- Personagem nunca embaixo dos botões da direita. Câmera padrão dos episódios novos: personagem um pouco mais alto (`camOn(..., sy ≈ .67–.70)`), não .74.
+
+**B. Harmonia (tamanho, posição, espaçamento)**
+- Respiro mínimo de 40 px até a borda da tela (moodle lateral, rótulos, cartões, tags).
+- Bloco largo (> 300 px) que é centralizado fica **exatamente** no centro (folga máx. 14 px). Nada "quase centralizado".
+- Itens da mesma linha (cartões, ícones de item) com o mesmo tamanho e o mesmo espaçamento entre si.
+- Blocos empilhados com pelo menos 12 px de respiro (nada colado). Modal largo: no máximo 800 px (x 140–940).
+- Texto cabe na caixa e em UMA linha (diminui a fonte ou encurta o texto; nunca quebra de linha em rótulo, tag, moodle lateral ou fala).
+- Modal nunca cobre o personagem (cabeça incluída): se a tela simulada é grande, ela sobe/encolhe ou a câmera abre.
+- Só vale o elemento parado: animação de entrada (escala/opacidade) não conta, mas o estado final tem de estar certo.
+
+**C. Conferência no olho**: abrir `inspecao/zonas.png` (meio de cada cena com os textos e as áreas dos apps pintadas de vermelho) e `inspecao/folha.png` (ações). Se algo importante encosta no vermelho, mexe antes de renderizar.
+
 ## 4.1 REGRA DAS TELAS (18/11, pedido do Jose) — tela do jogo = RÉPLICA
 - Toda tela/menu do jogo que aparece no vídeo é **réplica fiel da tela real**: mesmo layout, mesmas colunas, cores, fonte simples do jogo, botões e ordem dos elementos.
   - Nada de painel genérico "estilo jogo".

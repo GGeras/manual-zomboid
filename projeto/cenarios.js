@@ -32,12 +32,12 @@ function vidro(C, i, j, lado, y = 0, luz = null) { const g = new THREE.Mesh(new 
 export function arvore(C, i, j, est = 'verao', k = 0) { if (est === 'inverno') return C.placa(k % 2 ? 'e_redmaple_1_6' : 'e_redmaple_1_7', i, j);
   C.placa(k % 2 ? 'e_redmaple_1_2' : 'e_redmaple_1_3', i, j); return C.placa(est === 'outono' ? 'e_redmaple_1_19' : k % 2 ? 'e_redmaple_1_14' : 'e_redmaple_1_15', i, j, { fz: .55 }); }
 
-// ---------- RUA DE BAIRRO (EP18): estação = 'verao' | 'inverno' | 'chuva' ----------
+// ---------- RUA DE BAIRRO (EP18): estação = 'verao' | 'inverno' | 'chuva' | 'calor' (verão de seca: grama queimada, asfalto desbotado, sombras duras) ----------
 // estrada ao longo de x nas linhas j = 0..1, calçadas j = -1 e j = 2, jardins e duas casas ao fundo, grama, árvores e postes na frente.
 export function rua(x0, z0, est = 'verao') {
-  const C = cena(x0, z0), inv = est === 'inverno', chu = est === 'chuva';
-  const gr = inv ? PISO.neve : PISO.grama, tA = inv ? '#e9eef6' : chu ? '#a9b2bc' : null, tR = inv ? '#d8dde6' : null;
-  C.chao(gr, -16, -14, 16, 12, { seed: 3 });
+  const C = cena(x0, z0), inv = est === 'inverno', chu = est === 'chuva', cal = est === 'calor';
+  const gr = inv ? PISO.neve : PISO.grama, tA = inv ? '#e9eef6' : chu ? '#a9b2bc' : cal ? '#efe4cf' : null, tR = inv ? '#d8dde6' : cal ? '#fff4e2' : null;
+  C.chao(gr, -16, -14, 16, 12, { seed: 3, tint: cal ? '#f2cf7e' : null });   // calor: grama do jogo queimada pelo sol (tinta amarelada)
   C.chao(PISO.asfalto, -16, 0, 16, 1, { y: .02, tint: tA });
   C.chao(PISO.calcada, -16, -1, 16, -1, { y: .025, tint: tR }); C.chao(PISO.calcada, -16, 2, 16, 2, { y: .025, tint: tR });
   C.chao(PISO.calcada, -6, -4, -6, -2, { y: .025, tint: tR }); C.chao(PISO.calcada, 5, -4, 5, -2, { y: .025, tint: tR });   // caminhos até as portas
@@ -47,13 +47,17 @@ export function rua(x0, z0, est = 'verao') {
   // cerquinhas brancas na frente das casas
   for (let i = -11; i <= -2; i++) if (i !== -6) C.parede('N', 'fencing_01_5', i, -1, { tint: tR });
   // árvores (verão: verde cheio; inverno: galhos com neve) e arbustos
-  [[-13, -3], [0, -3], [12, -3], [-8, 5], [7, 6], [14, 4], [-15, 7]].forEach(([i, j], k) => arvore(C, i, j, inv ? 'inverno' : 'verao', k));
+  const TREES = [[-13, -3], [0, -3], [12, -3], [-8, 5], [7, 6], [14, 4], [-15, 7], ...(cal ? [[-5, 4]] : [])];   // calor: árvore extra na frente = a sombra para onde se foge
+  TREES.forEach(([i, j], k) => arvore(C, i, j, inv ? 'inverno' : 'verao', k));
+  // sol a pino: sombra dura e escura de cada árvore no chão (é ali que se foge do calor)
+  if (cal) TREES.forEach(([i, j]) => { const m = new THREE.Mesh(new THREE.CircleGeometry(1, 32), sombraMat); m.rotation.x = -Math.PI / 2; m.scale.set(1.9, 1.5, 1);
+    m.position.set(C.x(i) - C.G.position.x + .55, .035, C.z(j) - C.G.position.z + .75); C.G.add(m); });
   const ar = inv ? ['f_bushes_1_28', 'f_bushes_1_29', 'f_bushes_1_30'] : ['f_bushes_1_100', 'f_bushes_1_101', 'f_bushes_1_103', 'f_bushes_1_105'];
-  [[-10, -4], [-3, -4], [3, -4], [9, -4], [-3, 4], [3, 4], [10, 3], [-12, 4]].forEach(([i, j], k) => C.obj(ar[k % ar.length], i, j, { w: .6, d: .6 }));
+  [[-10, -4], [-3, -4], [3, -4], [9, -4], [cal ? 12 : -3, cal ? 6 : 4], [3, 4], [10, 3], [-12, 4]].forEach(([i, j], k) => C.obj(ar[k % ar.length], i, j, { w: .6, d: .6 }));
   if (!inv) [[-1, 6], [5, 9], [-6, 8]].forEach(([i, j], k) => C.obj('f_bushes_1_' + (64 + k * 3), i, j, { w: .5, d: .5 }));
   // postes de rua na calçada
   [[-9, 2], [6, 2]].forEach(([i, j]) => C.obj('lighting_outdoor_01_1', i, j, { w: .3, d: .3 }));
-  C.obj('street_decoration_01_0', -4, 2, { w: .5, d: .5 });
+  if (!cal) C.obj('street_decoration_01_0', -4, 2, { w: .5, d: .5 });   // calor: sem a placa (ficava atrás dos textos)
   // carro estacionado (modelo original do jogo)
   const car = PZ.vehicle('normal', inv ? '#5a6f8a' : '#7a1f1c'); car.position.set(-11, 0, 1.15); car.scale.setScalar(1); C.G.add(car);
   return { C, at: C.at, chao: { x: x0, z: z0 } };
@@ -121,6 +125,7 @@ export function rota(pts, t, v) { let d = t * v; for (let i = 0; i + 1 < pts.len
   const n = pts.length, [ax, az] = pts[n - 2], [bx, bz] = pts[n - 1]; return { x: bx, z: bz, ry: Math.atan2(bx - ax, bz - az), fim: true }; }
 export const VEL = { s_walk: 1.35, s_walkslow: .75, z_walk: .55 };
 
+const sombraMat = new THREE.MeshBasicMaterial({ color: '#1f1608', transparent: true, opacity: .42, depthWrite: false });
 // ---------- clima ----------
 // neve caindo: flocos (pontos) numa caixa em volta do ponto (x, z)
 const NF = 700, snowGeo = new THREE.BufferGeometry(), snowPos = new Float32Array(NF * 3); snowGeo.setAttribute('position', new THREE.BufferAttribute(snowPos, 3));
@@ -139,7 +144,31 @@ export function chuvaChao(f) { POCAS.visible = true; rings.forEach(g => { const 
 // 'gelo': bordas congeladas; 'sol': brilho forte e quente de verão; 'chuva': tela mais fria e escura
 const LAYER = {}; function layer(k, css) { if (LAYER[k]) return LAYER[k]; const d = document.createElement('div'); d.style.cssText = 'position:absolute;inset:0;pointer-events:none;opacity:0;' + css;
   const gl = document.getElementById('gl'); gl.parentNode.insertBefore(d, gl.nextSibling); return LAYER[k] = d; }
+// ---------- CALOR (EP18 v3): ar tremendo (miragem), cor queimada, sol estourando com raios, borda quente que pulsa ----------
+// calor(f, k): k 0..1.4 (1 = sol forte; >1 = insolação/hipertermia). pulse 0..1 = batida do coração na borda vermelha.
+let HZ = null;
+function hazeSvg() { if (HZ) return HZ; const ns = 'http://www.w3.org/2000/svg', sv = document.createElementNS(ns, 'svg'); sv.setAttribute('width', 0); sv.setAttribute('height', 0); sv.style.position = 'absolute';
+  sv.innerHTML = `<filter id="pzHaze" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" x="0" y="0" width="1080" height="2600" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.006 0.035" numOctaves="2" seed="7" stitchTiles="stitch" x="0" y="0" width="540" height="540" result="n"/>
+    <feTile in="n" x="0" y="0" width="1080" height="2600" result="t"/>
+    <feOffset in="t" dx="0" dy="0" result="o"/>
+    <feDisplacementMap in="SourceGraphic" in2="o" scale="0" xChannelSelector="R" yChannelSelector="G"/></filter>`;
+  document.body.appendChild(sv); HZ = { off: sv.querySelector('feOffset'), dis: sv.querySelector('feDisplacementMap') }; return HZ; }
+export function calor(f, k = 1, pulse = 0, tilt = 0) { const h = hazeSvg(), gl = document.getElementById('gl');
+  gl.style.transform = tilt ? `scale(${1 + .05 * Math.abs(tilt) + .02}) rotate(${(tilt * Math.sin(f * .045)).toFixed(3)}deg)` : '';
+  h.off.setAttribute('dy', -((f * 2.4) % 540)); h.dis.setAttribute('scale', (5 + 9 * Math.max(0, k - .4)).toFixed(1));
+  gl.style.filter = `url(#pzHaze) saturate(${1.12 + .18 * k}) sepia(${.1 + .14 * k}) brightness(${1.02 + .06 * k}) contrast(1.06)`;
+  const L = layer('calor', ''), a = (f * .25) % 360, glow = .75 + .25 * Math.sin(f * .21) * Math.sin(f * .13);
+  L.style.background = `radial-gradient(circle at 86% 4%, rgba(255,255,236,${.98 * glow}) 0, rgba(255,226,140,${.7 * glow}) 9%, rgba(255,190,80,.28) 26%, rgba(255,160,60,0) 52%),
+    repeating-conic-gradient(from ${a}deg at 86% 4%, rgba(255,236,170,.16) 0deg 4deg, rgba(255,236,170,0) 4deg 13deg),
+    radial-gradient(ellipse at 50% 55%, rgba(255,120,30,0) 50%, rgba(255,120,30,${.18 * k}) 80%, rgba(220,60,20,${.28 * k + .35 * pulse}) 100%)`;
+  L.style.mixBlendMode = 'screen'; L.style.opacity = Math.min(1, .55 + .4 * k);
+  const V = layer('calorV', ''); V.style.background = `radial-gradient(ellipse at 50% 50%, rgba(120,0,0,0) 55%, rgba(150,10,10,${.45 * pulse}) 100%)`; V.style.opacity = pulse > 0 ? 1 : 0; }
+export function calorOff() { if (HZ) { const gl = document.getElementById('gl'); gl.style.filter = ''; gl.style.transform = ''; } ['calor', 'calorV'].forEach(n => { if (LAYER[n]) LAYER[n].style.opacity = 0; }); }
+// clarão branco de corte/raio (k 0..1)
+export function clarao(k) { const L = layer('clarao', 'background:#fff;'); L.style.opacity = Math.max(0, Math.min(1, k)); }
 export function clima(kind, k = 1) {
+  if (kind !== 'calor') calorOff();
   const css = { gelo: 'background:radial-gradient(ellipse at center, rgba(220,235,255,0) 52%, rgba(214,232,255,.55) 78%, rgba(240,248,255,.92) 100%);box-shadow:inset 0 0 120px 30px rgba(230,242,255,.65)',
     sol: 'background:radial-gradient(circle at 88% 6%, rgba(255,250,215,.95) 0, rgba(255,214,120,.55) 14%, rgba(255,190,80,.18) 38%, rgba(255,170,60,0) 60%);mix-blend-mode:screen',
     chuva: 'background:linear-gradient(180deg, rgba(40,55,75,.35), rgba(20,30,45,.25))' };

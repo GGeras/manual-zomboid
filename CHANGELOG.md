@@ -3,6 +3,10 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-22 · bruno · EP18 v3 + regra 4.3 (revisão final de harmonia e áreas dos apps):
+  - Regra 4.3 em `canal/processo/11-regras-roteiro-e-pipeline.md`; `pipeline/inspect.mjs` agora confere áreas do TikTok/Reels/Shorts (direita, base, topo) para TODOS os elementos, personagem acima da descrição, margem de 40 px, centralização, mesma linha = mesmo tamanho/espaço, blocos colados, quebra de linha em falas/tags laterais, e gera `inspecao/zonas.png`.
+  - EP18: take do calor refeito (seca com grama queimada e sombras duras, ar tremendo/miragem, sol estourando com raios, suor, insolação com câmera balançando e tela inclinando, hipertermia com borda vermelha batendo junto do coração e ele cambaleando até a sombra); gancho mostra frio E calor; relâmpago antes do trovão na chuva; sem casaco depois do "TIRA"; modais encolhidos/realinhados para fora da área dos botões; personagem mais alto no quadro.
+  - `ep.css`: moodle lateral 30 px para dentro (respiro da borda).
 - 2026-11-22 · bruno · EP17 v3 (revisão do Jose): mais zumbis em todos os exemplos (entram pela janela da sala e da cozinha), tábuas por fora com ele do lado de fora, chapa e barras com maçarico + máscara de solda (malhas e animação originais), sobrado fechado com 2º andar de verdade, cortina visível, descida da corda sincronizada e final com ele recuando com medo.
   - `tiles.js`: parede de 2º andar agora aparece (antes ficava invisível) e sem risco entre paredes; `pipeline/pz/add_meshes.py` junta malhas/texturas do jogo.
 - 2026-11-20 · bruno · EP14 e EP15 finais refeitos com o padrão novo (revisão do Jose):
