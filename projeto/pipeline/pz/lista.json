@@ -55,6 +55,12 @@
   ],
   "w_axe": [
    "weapons/2handed/FireAxe.x"
+  ],
+  "w_blowtorch": [
+   "Blowtorch.x"
+  ],
+  "weldermask": [
+   "Static/Clothes/M_WelderMask.x"
   ]
  },
  "tex": {
@@ -147,7 +153,9 @@
   "baseballbat": "textures/weapons/2handed/BaseballBat.png",
   "handgun": "textures/weapons/firearm/Handgun.png",
   "shotgun": "textures/weapons/firearm/Shotgun.png",
-  "fireaxe": "textures/weapons/2handed/FireAxe.png"
+  "fireaxe": "textures/weapons/2handed/FireAxe.png",
+  "blowtorch": "textures/Blowtorch.png",
+  "weldermask": "textures/Clothes/Hat/WelderMask.png"
  },
  "fbx": {
   "car_normal": [
@@ -209,6 +217,7 @@
   "s_hitreact": "Bob/Bob_AimHitReact_01.x",
   "s_band_up": "Bob/Bob_BandageUpperBody.x",
   "s_band_larm": "Bob/Bob_BandageLeftArm.x",
-  "s_band_rleg": "Bob/Bob_BandageRightLeg.x"
+  "s_band_rleg": "Bob/Bob_BandageRightLeg.x",
+  "s_blowtorch": "Bob/Bob_IdleBlowtorch_High.x"
  }
 }

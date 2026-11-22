@@ -91,7 +91,8 @@ export function casaDentro(x0, z0, o = {}) {
   C.chao(PISO.madeira, 0, 0, 5, 7, { y: .02 }); C.chao(PISO.cozinha, 6, 0, 9, 7, { y: .02 });
   C.chao('floors_rugs_01_0', 2, 4, 2, 4, { y: .03 });
   const winN = o.janelaN ?? 3, winW = o.janelaW ?? 3;
-  for (let i = 0; i <= 9; i++) C.parede('N', P[i === winN ? 4 : 1], i, 0);
+  const win2 = o.janelaN2 ?? -1;   // 2ª janela na parede do fundo (cozinha), opcional
+  for (let i = 0; i <= 9; i++) C.parede('N', P[i === winN || i === win2 ? 4 : 1], i, 0);
   for (let j = 0; j <= 7; j++) C.parede('W', P[j === winW ? 3 : 0], 0, j);
   C.parede('N', P[2], 0, 0);
   // lado de fora da janela N: grama, cerca e árvore (aparecem pelo vão)
@@ -154,7 +155,12 @@ export function sobrado(x0, z0, o = {}) {
     if (w) vidro(C, i, 0, 'N', 0, i === jan[0] ? o.luz : null); if (wc) vidro(C, i, 0, 'N', WALL_H, o.luzCima); }
   for (let j = -6; j <= -1; j++) { C.parede('W', P[0], 5, j); C.parede('W', P[j === -3 ? 3 : 0], 5, j, { y: WALL_H }); if (j === -3) vidro(C, 5, j, 'W', WALL_H); }
   C.parede('N', P[2], 5, 0); C.parede('N', P[2], 5, 0, { y: WALL_H });
-  C.chao(PISO.telhado, -4, -6, 4, -1, { y: WALL_H * 2 + .02, tint: o.tetoTint });
+  // casa FECHADA (revisão 22/11): paredes de trás (N em j = -6) e do lado oeste (W em i = -4) nos dois andares, piso do térreo e do 2º andar
+  for (let i = -4; i <= 4; i++) { C.parede('N', P[1], i, -6); C.parede('N', P[1], i, -6, { y: WALL_H }); }
+  for (let j = -6; j <= -1; j++) { C.parede('W', P[0], -4, j); C.parede('W', P[0], -4, j, { y: WALL_H }); }
+  C.parede('N', P[2], -4, -6); C.parede('N', P[2], -4, -6, { y: WALL_H });
+  C.chao(PISO.madeira, -4, -6, 4, -1, { y: .02 }); C.chao(PISO.madeira, -4, -6, 4, -1, { y: WALL_H + .02 });
+  C.chao(PISO.telhado, -4, -6, 4, -1, { y: WALL_H * 2 + .02, tint: o.tetoTint || '#8a7464' });
   C.obj('fixtures_doors_01_1', -1, 0, { w: .9, d: .2, dz: -.4, h: 2.2 });
   [[-6, 2], [7, 3], [-9, -4], [9, -6]].forEach(([i, j], k) => arvore(C, i, j, 'verao', k));
   [[-3, 1], [1, 1], [4, 1]].forEach(([i, j], k) => C.obj('f_bushes_1_' + [100, 103, 105][k], i, j, { w: .5, d: .5 }));

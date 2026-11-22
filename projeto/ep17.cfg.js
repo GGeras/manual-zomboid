@@ -6,7 +6,7 @@
 const LAB = 'PROJECT ZOMBOID · <b>BARRICADAS</b>';
 window.EP = {
   pz: true, versao: 'BUILD 42.22',
-  itens: ['Item_Hammer', 'Item_Plank', 'Item_Nails', 'Item_Sledgehamer', 'Item_NailsBox', 'Item_SheetMetal', 'Item_BlowTorch', 'Item_MetalBar', 'Item_Sheet', 'Item_SheetRope'],
+  itens: ['Item_WeldingMask', 'Item_Hammer', 'Item_Plank', 'Item_Nails', 'Item_Sledgehamer', 'Item_NailsBox', 'Item_SheetMetal', 'Item_BlowTorch', 'Item_MetalBar', 'Item_Sheet', 'Item_SheetRope'],
   OFF: 1.3,
   T: [0.0, 2.99, 10.68, 27.32, 33.22, 39.0, 43.68, 51.57, 59.86], END: 63.21,
   scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6, lab: LAB }, { at: 7, lab: LAB }, { at: 8 }],
@@ -76,19 +76,20 @@ window.EP = {
       const at = q === 0 ? C(3) + 4 : P(3, k0 + (q - 1) * .09); span(e.id, at, q < 4 ? P(3, k0 + q * .09) : null); } });
     const steps = [[0, .1]]; for (let q = 0; q < 8; q++) { const at = P(3, (q < 4 ? .10 : .50) + (q % 4) * .09); steps.push([at, .1 + (q) * .1125], [at + 3, .1 + (q + 1) * .1125, 'snapSettle']); }
     bar(3, DUR, 880, C(3) + 6, steps, G);
+    tag(3, 'PREGA DO LADO DE FORA', B, P(3, .10), P(3, .46), 1000); tag(3, 'PREGA DO LADO DE DENTRO', G, P(3, .50), null, 1000);
 
     // 4 — chapa de metal x tábua (só comparação) + maçarico
     bar(4, 'TÁBUA', 700, C(4) + 4, [[0, 0], [C(4) + 4, 0], [P(4, .14), .2, 'softInOut']], B);
     bar(4, 'CHAPA DE METAL', 830, P(4, .22), [[0, 0], [P(4, .22), 0], [P(4, .44), 1, 'softInOut']], G);
-    row(4, [['Item_SheetMetal', 'CHAPA DE AÇO', P(4, .30)], ['Item_BlowTorch', 'MAÇARICO', P(4, .62)]], { top: 990, size: 160, gap: 120 });
-    tag(4, 'SOLDADA ✓', G, P(4, .72), null, 560);
+    row(4, [['Item_SheetMetal', 'CHAPA', P(4, .26)], ['Item_BlowTorch', 'MAÇARICO', P(4, .40)], ['Item_WeldingMask', 'MÁSCARA', P(4, .54)]], { top: 960, size: 150, gap: 70 });
+    tag(4, 'MAÇARICO + MÁSCARA', Y, P(4, .62), P(4, .80), 560); tag(4, 'SOLDADA ✓', G, P(4, .80), null, 560);
 
     // 5 — barras de metal: no meio + dá pra ver lá fora
     bar(5, 'TÁBUA', 560, C(5) + 2, [[0, .2]], B);
     bar(5, 'BARRAS DE METAL', 660, P(5, .08), [[0, 0], [P(5, .08), 0], [P(5, .30), .55, 'softInOut']], Y);
     bar(5, 'CHAPA DE METAL', 760, C(5) + 6, [[0, 1]], G);
     H.item(5, 'Item_MetalBar', 'BARRAS', P(5, .20), { left: 445, top: 880, size: 170 });
-    tag(5, 'VÊ LÁ FORA ✓', G, P(5, .62), null, 1130);
+    tag(5, 'MAÇARICO + MÁSCARA', Y, C(5) + 4, P(5, .20), 900); tag(5, 'VÊ LÁ FORA ✓', G, P(5, .62), null, 1130);
 
     // 6 — noite: luz acesa → zumbi vê e vem; lençol → passa reto
     tag(6, 'LUZ ACESA', Y, P(6, .06), P(6, .30), 600);

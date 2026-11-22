@@ -46,9 +46,13 @@ export function cena(x0, z0) {
         const M = new THREE.Matrix4(); by[n].forEach(([i, j], k) => m.setMatrixAt(k, M.makeTranslation(i, o.y ?? .012, j))); m.renderOrder = -1; G.add(m); }
       return C; },
     // parede (ou qualquer coisa colada numa parede: janela, cortina, tábuas) na borda N (atrás, ao longo de x) ou W (atrás, ao longo de z)
-    parede(lado, name, i, j, o = {}) { const off = o.off || 0, H = o.h || WALL_H + .2; const g = new THREE.PlaneGeometry(1, H); g.translate(0, H / 2 + (o.y || 0), 0);
+    // o.y = andar (WALL_H = 2º andar): o sprite é projetado como no chão do andar e depois a peça sobe (antes o 2º andar ficava invisível)
+    parede(lado, name, i, j, o = {}) { const off = o.off || 0, H = o.h || WALL_H + .2;
+      // o desenho da parede N do jogo começa 4 px antes do ladrilho (lado oeste) e termina 2 px antes do fim: a peça cobre essa sobra,
+      // senão fica uma fresta entre as paredes (aparecia um risco laranja do piso de trás). A parede W sobra 2 px para o norte.
+      const g = new THREE.PlaneGeometry(lado === 'N' ? 1.07 : 1.035, H); g.translate(lado === 'N' ? -.035 : .0175, H / 2, 0);
       if (lado === 'N') g.translate(0, 0, -.5 + off); else { g.rotateY(Math.PI / 2); g.translate(-.5 + off, 0, 0); }
-      project(g, name); return put(new THREE.Mesh(g, mat(name, o)), i, j, 0, name); },
+      project(g, name); g.translate(0, o.y || 0, 0); return put(new THREE.Mesh(g, mat(name, o)), i, j, 0, name); },
     // objeto: caixa com o sprite projetado; w/d = base (1 = ladrilho inteiro), dx/dz = deslocamento da base dentro do ladrilho
     obj(name, i, j, o = {}) { const w = o.w || .9, d = o.d || .9, dx = o.dx || 0, dz = o.dz || 0, h = o.h || autoH(name, w, d, dx, dz);
       const g = new THREE.BoxGeometry(w, h, d); g.translate(dx, h / 2, dz); project(g, name);
