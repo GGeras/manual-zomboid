@@ -98,6 +98,16 @@ Antes de qualquer render (rascunho ou final), o vídeo passa por esta revisão. 
 
 **C. Conferência no olho**: abrir `inspecao/zonas.png` (meio de cada cena com os textos e as áreas dos apps pintadas de vermelho) e `inspecao/folha.png` (ações). Se algo importante encosta no vermelho, mexe antes de renderizar.
 
+## 4.4 DIREÇÃO DOS ELEMENTOS (SPRITES E PROPS) — frente, lado, costas (22/11, pedido do Bruno) — vale para TODO cenário
+No jogo cada móvel, cortina, tábua e janela tem um desenho para cada direção. Usar o desenho errado deixa o fogão de lado, a cortina atravessada na janela, o móvel no meio da sala. Antes de qualquer rascunho:
+- **Móvel que encosta** (fogão, geladeira, bancada, pia, estante, cômoda) fica **colado na parede** e com as **costas para a parede**: na parede N (fundo à direita) usa o desenho com **frente S**; na parede W (fundo à esquerda) o de **frente E**. Linha j = 0 encosta na parede N; coluna i = 0 encosta na parede W.
+- **Nenhum móvel de frente para a parede**. Cadeira virada para a mesa; poltrona virada para o cômodo.
+- **Cortina, tábua, chapa, barras**: o desenho tem de ser o da **mesma borda** da janela (parede N → desenho da borda N; parede W → borda W). Cortina da janela N: fechada `_26` (azul) / `_10` (branca); aberta `_30` / `_14`.
+- **Janela livre**: nada na frente da janela por onde o zumbi entra ou por onde o personagem trabalha.
+- **Itens na mão / no corpo** (martelo, maçarico, máscara, garrafa): conferir na `folha.png` que estão virados certo (cabeça do martelo para a frente, máscara no rosto), nunca de costas.
+- A tabela `projeto/assets/tiles/orient.js` diz a direção de cada desenho (conferido olhando os 4 desenhos do jogo). Sprite novo entra na tabela antes de ser usado.
+- `inspect.mjs` confere sozinho (aviso **DIREÇÃO DO SPRITE**: móvel solto/virado errado, de frente para a parede, cortina/tábua com desenho de outra borda). Relatório tem de dar 0 avisos.
+
 ## 4.1 REGRA DAS TELAS (18/11, pedido do Jose) — tela do jogo = RÉPLICA
 - Toda tela/menu do jogo que aparece no vídeo é **réplica fiel da tela real**: mesmo layout, mesmas colunas, cores, fonte simples do jogo, botões e ordem dos elementos.
   - Nada de painel genérico "estilo jogo".
@@ -119,6 +129,9 @@ Antes de qualquer render (rascunho ou final), o vídeo passa por esta revisão. 
   - Pedir print ao Jose ou buscar print online da B42 antes de montar.
 
 ## 5. Pipeline
+
+**Render SEMPRE na placa de vídeo do Bruno (22/11)**: prévias, finais, imagens de teste e inspeção rodam no PC (`Vídeos\\rodar-job (GPU).bat` executa o `_gpu\\job.bat` preparado; `PZ_GPU=1`). A nuvem só prepara arquivos, áudio e confere números.
+
 1. Pesquisa (ordem do item 0) → `fatos.json`.
 2. Roteiro com coluna VISUAL por frase → Jose aprova.
 3. Rascunho com voz provisória (Piper) + telas réplica → prévia cedo.

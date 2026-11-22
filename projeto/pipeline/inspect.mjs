@@ -3,16 +3,17 @@
 // Saídas em out/Video NN - Nome/inspecao/:
 //   relatorio.txt   avisos: texto sobreposto/estourando, área ocupada pelos botões do app, personagem fora do quadro ou escondido, trechos parados
 //   folha.png       quadros seguidos de cada ação (sem HUD), para conferir a animação
+//   (regra 4.4) direção dos sprites: móvel de lado/solto do canto, cortina/tábua desenhada para outra borda da janela
 //   zonas.png       meio de cada cena COM textos + áreas da interface dos apps (vermelho) e área segura (verde) — regra 4.3
 import { createRequire } from 'node:module';
 const { chromium } = (() => { const r = createRequire(import.meta.url); try { return r('playwright'); } catch { return r('playwright-core'); } })();
 import fs from 'node:fs';
 import path from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { pathToFileURL, fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
 const ep = process.argv[2]; if (!ep) { console.error('uso: node pipeline/inspect.mjs NN'); process.exit(1); }
-const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..'); process.chdir(root);
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'); process.chdir(root);   // fileURLToPath: funciona no Windows (PC com a placa)
 const man = JSON.parse(fs.readFileSync(`ep${ep}.ep.json`, 'utf8'));
 const out = `out/Video ${ep} - ${man.nome}/inspecao`; fs.mkdirSync(out, { recursive: true });
 const STEP = 10 / 30;                      // sonda a cada 10 frames
@@ -22,7 +23,8 @@ const LIMIT = +(process.argv[3] || 0);       // opcional: inspeciona só até es
 const SAFE = [{ n: 'botões curtir/comentar/compartilhar (direita)', x0: 940, x1: 1080, y0: 860, y1: 1720 },
   { n: 'descrição/@canal/música (base)', x0: 0, x1: 1080, y0: 1560, y1: 1920 },
   { n: 'abas e busca do app (topo)', x0: 0, x1: 1080, y0: 0, y1: 190 }];
-const MARGEM = 40;                          // nenhum elemento importante encosta na borda da tela (respiro mínimo)
+const MARGEM = 40;
+const TXT = process.platform !== 'win32';   // ffmpeg do Windows sem fontconfig cai no drawtext: lá as folhas saem sem os rótulos de tempo                          // nenhum elemento importante encosta na borda da tela (respiro mínimo)
 const BOXES = '.ui,.panel,.tw,.chip,.stamp,.pzitem,.card,.mb,.big,.bm,.bml,.moodle,.mtag,.ver';   // elementos que entram na conferência de harmonia
 const IMPORTANT = '.chip,.panel,.bar,.bartag,.stamp,.big,.pct,.pzitem';
 const TEXT = '.t1,.t2,.chip,.panel,.bartag,.stamp,.big,.pct,.mtag,.pzitem,.ins,.ver';   // .ins = elemento de tela simulada que conta para o ritmo
@@ -36,11 +38,15 @@ await page.evaluate(async () => { if (window.__ready) await window.__ready; awai
 const dur = LIMIT || await page.evaluate(() => window.__DUR || 40);
 
 const warn = []; const add = (t, msg) => warn.push([t, msg]);
+// regra 4.4: direção dos sprites (móvel virado/solto, cortina ou tábua no lado errado da janela) — conferido na montagem das cenas
+for (const m of await page.evaluate(() => window.__ORIENT ? window.__ORIENT() : [])) add(0, 'DIREÇÃO DO SPRITE: ' + m);
 let lastNew = 0, prevIds = new Set(), prevCut = -1, prevH = new Set();
 for (let t = 0; t < dur; t += STEP) {
   await page.evaluate(t => window.__seek(t), t);
   const r = await page.evaluate(({ TEXT, IMPORTANT, SAFE, MARGEM, BOXES }) => {
     const vis = el => { let e = el; while (e && e !== document.body) { const cs = getComputedStyle(e); if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity < .08) return false; e = e.parentElement; } return true; };
+    const parado = el => { for (let e = el; e && e !== document.body; e = e.parentElement) { const cs = getComputedStyle(e); if (+cs.opacity < .98) return false;
+      if (cs.transform && cs.transform !== 'none') { const m = cs.transform.match(/matrix\(([^)]+)\)/); if (m) { const v = m[1].split(',').map(Number); if (Math.abs(Math.hypot(v[0], v[1]) - 1) > .01 || Math.abs(Math.hypot(v[2], v[3]) - 1) > .01) return false; } } } return true; };
     const items = [...document.querySelectorAll(TEXT)].filter(vis).map(e => { const b = e.getBoundingClientRect(); return { id: e.id || e.className, txt: (e.innerText || '').trim().slice(0, 28), b: [b.left, b.top, b.right, b.bottom], imp: e.matches(IMPORTANT), el: e }; }).filter(i => i.b[2] - i.b[0] > 4 && i.b[3] - i.b[1] > 4);
     const res = { over: [], wide: [], safe: [], ids: items.map(i => i.id + ':' + i.txt) };
     for (let a = 0; a < items.length; a++) {
@@ -48,6 +54,7 @@ for (let t = 0; t < dur; t += STEP) {
       if (A.b[0] < -2 || A.b[2] > 1082) res.wide.push(A.txt);
       if (A.imp) SAFE.forEach(z => { const ix = Math.min(A.b[2], z.x1) - Math.max(A.b[0], z.x0), iy = Math.min(A.b[3], z.y1) - Math.max(A.b[1], z.y0); if (ix > 20 && iy > 20) res.safe.push(A.txt + ' → ' + z.n); });
       for (let b = a + 1; b < items.length; b++) { const B = items[b]; if (A.el.contains(B.el) || B.el.contains(A.el)) continue;
+        if (!parado(A.el) || !parado(B.el)) continue;   // entrada animada (pop/escala) não conta; o estado parado é conferido na sondagem seguinte
         const ix = Math.min(A.b[2], B.b[2]) - Math.max(A.b[0], B.b[0]), iy = Math.min(A.b[3], B.b[3]) - Math.max(A.b[1], B.b[1]);
         const small = Math.min((A.b[2] - A.b[0]) * (A.b[3] - A.b[1]), (B.b[2] - B.b[0]) * (B.b[3] - B.b[1]));
         if (ix > 0 && iy > 0 && ix * iy > small * .12) res.over.push(A.txt + ' × ' + B.txt); } }
@@ -56,7 +63,8 @@ for (let t = 0; t < dur; t += STEP) {
     res.cover = []; const S = res.p && res.p.S;
     if (S) { const pts = S.scr.map(([x, y]) => [x * 1080, y * 1920]);
       [...document.querySelectorAll('.ui,.aw,.tw,.chip,.pzitem,.mb,.moodle,.stamp,.big,.ins,.panel')].filter(vis).forEach(e => { const b = e.getBoundingClientRect(); if (b.width > 1000 && b.height > 1500) return;
-        const n = pts.filter(([x, y]) => x > b.left && x < b.right && y > b.top && y < b.bottom).length; if (n >= 2) res.cover.push((e.innerText || e.className).trim().slice(0, 28)); }); }
+        if (!parado(e)) return; const den = ([x, y]) => x > b.left && x < b.right && y > b.top && y < b.bottom;
+        const n = pts.slice(0, 3).filter(den).length; if (n >= 2 || (pts[3] && den(pts[3]))) res.cover.push((e.innerText || e.className).trim().slice(0, 28)); }); }   // 2 pontos do corpo OU o topo da cabeça
     // regra da revisão 2026-11-20 (EP14/15): texto NUNCA vaza da caixa; rótulo de item/cartão/chip sem quebra de linha (padroniza o tamanho)
     res.leak = []; res.wrap = []; const BOX = '.pzitem,.chip,.card,.ui,.aw,.tw,.hp,.pt,.stamp,.bm,.ex,.bt,.slot,.mtag';
     const tw = document.createTreeWalker(document.getElementById('main') || document.body, NodeFilter.SHOW_TEXT);
@@ -67,9 +75,7 @@ for (let t = 0; t < dur; t += STEP) {
       if (pe.matches('.pzitem b,.card div,.chip,.gt,.mtag') && !pe.innerHTML.includes('<br') && new Set(rs.map(r => Math.round(r.top))).size > 1) res.wrap.push(nd.textContent.trim().slice(0, 28)); }
     // REGRA 4.3 — harmonia: margem da tela, centralização, mesma linha = mesmo tamanho e mesmo espaçamento, respiro entre blocos
     res.edge = []; res.cen = []; res.row = []; res.gap = []; res.tight = [];
-    // só confere elemento PARADO (fora da animação de entrada/pulso): escala 1 e opacidade cheia nele e nos pais
-    const parado = el => { for (let e = el; e && e !== document.body; e = e.parentElement) { const cs = getComputedStyle(e); if (+cs.opacity < .98) return false;
-      if (cs.transform && cs.transform !== 'none') { const m = cs.transform.match(/matrix\(([^)]+)\)/); if (m) { const v = m[1].split(',').map(Number); if (Math.abs(Math.hypot(v[0], v[1]) - 1) > .01 || Math.abs(Math.hypot(v[2], v[3]) - 1) > .01) return false; } } } return true; };
+    // só confere elemento PARADO (fora da animação de entrada/pulso): escala 1 e opacidade cheia nele e nos pais (parado(), lá em cima)
     const bx = [...document.querySelectorAll(BOXES)].filter(vis).map(e => { const b = e.getBoundingClientRect(); return { e, b, txt: (e.innerText || e.className).trim().replace(/\s+/g, ' ').slice(0, 26) }; })
       .filter(o => o.b.width > 8 && o.b.height > 8 && o.b.width < 1060 && o.b.bottom > 0 && o.b.top < 1920 && parado(o.e));
     bx.forEach(o => { const { b } = o, top = !o.e.parentElement.closest(BOXES); if (top && (b.left < MARGEM - 1 || b.right > 1080 - MARGEM + 1)) res.edge.push(o.txt);
@@ -134,13 +140,13 @@ for (const a of acts) { const row = []; for (const d of [-.3, -.13, 0, .1, .23, 
   const ov = SAFE.map(z => box(z, 'red')).join(',') + `,drawbox=x=${MARGEM}:y=190:w=${1080 - 2 * MARGEM}:h=1370:color=lime@0.9:t=4`;
   const cols = Math.min(6, shots.length), list = shots.map(s => s[1]);
   execFileSync('ffmpeg', ['-v', 'error', '-y', ...list.flatMap(f => ['-i', f]), '-filter_complex',
-    list.map((_, i) => `[${i}]${ov},scale=270:480,drawtext=text='${shots[i][0].toFixed(1)}s':x=6:y=6:fontsize=22:fontcolor=yellow:box=1:boxcolor=black@0.6[v${i}]`).join(';') + ';' +
+    list.map((_, i) => `[${i}]${ov},scale=270:480${TXT ? `,drawtext=text='${shots[i][0].toFixed(1)}s':x=6:y=6:fontsize=22:fontcolor=yellow:box=1:boxcolor=black@0.6` : ''}[v${i}]`).join(';') + ';' +
     list.map((_, i) => `[v${i}]`).join('') + (list.length > 1 ? `xstack=inputs=${list.length}:layout=` + list.map((_, i) => `${(i % cols) * 270}_${Math.floor(i / cols) * 480}`).join('|') + ':fill=black' : 'null'), `${out}/zonas.png`]);
   fs.rmSync(out + '/z', { recursive: true, force: true }); }
 await browser.close();
 if (rows.length) {
   const list = rows.flatMap(r => r[1]);
-  const lab = rows.map(([a], i) => `drawtext=text='${a.toFixed(1)}s':x=8:y=${i * 260 + 8}:fontsize=26:fontcolor=yellow:box=1:boxcolor=black@0.6`).join(',');
+  const lab = !TXT ? '' : rows.map(([a], i) => `drawtext=text='${a.toFixed(1)}s':x=8:y=${i * 260 + 8}:fontsize=26:fontcolor=yellow:box=1:boxcolor=black@0.6`).join(',');
   execFileSync('ffmpeg', ['-v', 'error', '-y', ...list.flatMap(f => ['-i', f]), '-filter_complex',
     list.map((_, i) => `[${i}]scale=180:260[v${i}]`).join(';') + ';' + list.map((_, i) => `[v${i}]`).join('') + `xstack=inputs=${list.length}:layout=` +
     list.map((_, i) => `${(i % 6) * 180}_${Math.floor(i / 6) * 260}`).join('|') + (lab ? ',' + lab : ''), `${out}/folha.png`]);

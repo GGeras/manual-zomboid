@@ -18,7 +18,7 @@ const PAR = { siding: [32, 33, 34, 40, 41].map(i => 'walls_exterior_house_01_' +
 // fachada de casa vista da rua: parede da frente (N do ladrilho j0) + lateral (W do ladrilho i1+1) + telhado plano. Janela nas posições dadas.
 function casaFora(C, i0, i1, j0, j1, o = {}) { const P = PAR[o.parede || 'siding'], jan = o.janelas || [], tint = o.tint;
   for (let i = i0; i <= i1; i++) { const w = jan.includes(i); C.parede('N', P[w ? 4 : 1], i, j1 + 1, { tint });
-    if (w) { vidro(C, i, j1 + 1, 'N'); C.parede('N', o.cortina || 'fixtures_windows_curtains_01_9', i, j1 + 1, { off: -.06, tint }); } }
+    if (w) { vidro(C, i, j1 + 1, 'N'); C.parede('N', o.cortina || 'fixtures_windows_curtains_01_10', i, j1 + 1, { off: -.06, tint }); } }   // regra 4.4: cortina da parede N = desenho da borda N
   for (let j = j0; j <= j1; j++) { const w = jan.includes('w' + j); C.parede('W', P[w ? 3 : 0], i1 + 1, j, { tint }); if (w) vidro(C, i1 + 1, j, 'W'); }
   C.parede('N', P[2], i1 + 1, j1 + 1, { tint });
   C.chao(o.telhado || PISO.telhado, i0, j0, i1, j1, { y: WALL_H + .02, tint: o.tetoTint || tint });
@@ -42,8 +42,8 @@ export function rua(x0, z0, est = 'verao') {
   C.chao(PISO.calcada, -16, -1, 16, -1, { y: .025, tint: tR }); C.chao(PISO.calcada, -16, 2, 16, 2, { y: .025, tint: tR });
   C.chao(PISO.calcada, -6, -4, -6, -2, { y: .025, tint: tR }); C.chao(PISO.calcada, 5, -4, 5, -2, { y: .025, tint: tR });   // caminhos até as portas
   const tetoNeve = inv ? '#f4f7fb' : null;
-  casaFora(C, -11, -2, -12, -5, { parede: 'siding', janelas: [-9, -4, 'w-7', 'w-10'], tetoTint: tetoNeve, cortina: 'fixtures_windows_curtains_01_25' });
-  casaFora(C, 2, 10, -12, -5, { parede: 'tijolo', janelas: [3, 8, 'w-8'], tetoTint: tetoNeve, cortina: 'fixtures_windows_curtains_01_9' });
+  casaFora(C, -11, -2, -12, -5, { parede: 'siding', janelas: [-9, -4, 'w-7', 'w-10'], tetoTint: tetoNeve, cortina: 'fixtures_windows_curtains_01_26' });
+  casaFora(C, 2, 10, -12, -5, { parede: 'tijolo', janelas: [3, 8, 'w-8'], tetoTint: tetoNeve, cortina: 'fixtures_windows_curtains_01_10' });
   // cerquinhas brancas na frente das casas
   for (let i = -11; i <= -2; i++) if (i !== -6) C.parede('N', 'fencing_01_5', i, -1, { tint: tR });
   // árvores (verão: verde cheio; inverno: galhos com neve) e arbustos
@@ -102,14 +102,21 @@ export function casaDentro(x0, z0, o = {}) {
   // lado de fora da janela N: grama, cerca e árvore (aparecem pelo vão)
   for (let i = -3; i <= 12; i++) C.parede('N', 'fencing_01_5', i, -5);
   arvore(C, 2, -4, 'verao', 0); arvore(C, 8, -6, 'verao', 1); C.obj('f_bushes_1_101', 4, -2, { w: .6, d: .6 });
-  // cozinha (fundo à direita): geladeira, fogão, balcões com pia
-  C.obj('appliances_refrigeration_01_0', 9, 1, { w: .85, d: .85 }); C.obj('appliances_cooking_01_12', 8, 1); C.obj('fixtures_counters_01_40', 7, 1); C.obj('fixtures_counters_01_41', 6, 1);
-  C.obj('fixtures_sinks_01_0', 7, 1, { w: .6, d: .6, h: 1.05 });
-  C.obj('furniture_tables_high_01_8', 7, 4); C.obj('furniture_seating_indoor_01_56', 7, 5); C.obj('furniture_seating_indoor_01_58', 8, 4);
-  // sala: sofá, poltrona, TV, estante, abajur, planta
-  C.obj('furniture_seating_indoor_01_9', 1, 5); C.obj('furniture_seating_indoor_01_8', 1, 4);
-  if (!o.janelaLivre) { C.obj('appliances_television_01_0', 4, 1, { w: .7, d: .7 }); C.obj('vegetation_indoor_01_0', 5, 1, { w: .5, d: .5 }); } else { C.obj('appliances_television_01_0', 5, 2, { w: .7, d: .7 }); }
-  C.obj('furniture_storage_01_12', 2, 1); C.obj('furniture_shelving_01_40', 1, 1); C.obj('lighting_indoor_01_0', 1, 3, { w: .4, d: .4 });
+  // REGRA 4.4 (22/11): móvel ENCOSTADO na parede e com o desenho virado para dentro do cômodo (frente S na parede N, frente E na parede W).
+  // Linha j = 0 encosta na parede N; coluna i = 0 encosta na parede W. Janelas (N em winN e win2, W em winW) ficam livres.
+  // cozinha (fundo à direita): bancada com pia, [janela], fogão, geladeira — todos de frente para o cômodo (S)
+  const livreN = i => i === winN || i === win2;
+  [[6, 'fixtures_counters_01_45'], [7, 'fixtures_counters_01_45'], [8, 'appliances_cooking_01_13'], [9, 'appliances_refrigeration_01_1']].forEach(([i, n]) => {
+    if (!livreN(i)) C.obj(n, i, 0, n.includes('refrigeration') ? { w: .85, d: .85 } : {}); });
+  if (!livreN(6)) C.obj('fixtures_sinks_01_1', 6, 0, { w: .6, d: .6, h: 1.05 });
+  // mesa da cozinha com cadeiras viradas PARA a mesa (ao sul da mesa = frente N; a leste = frente W)
+  C.obj('furniture_tables_high_01_8', 7, 4); C.obj('furniture_seating_indoor_01_58', 7, 5); C.obj('furniture_seating_indoor_01_59', 8, 4);
+  // sala: estante e cômoda na parede N (frente S), TV na parede N, duas poltronas na parede W (frente E), abajur, planta, tapete
+  C.obj('furniture_shelving_01_40', 0, 0); C.obj('furniture_storage_01_13', 1, 0);
+  if (!o.janelaLivre && !livreN(2)) C.obj('vegetation_indoor_01_0', 2, 0, { w: .5, d: .5 });
+  if (!livreN(5)) C.obj('appliances_television_01_1', 5, 0, { w: .7, d: .7 });
+  C.obj('lighting_indoor_01_0', 0, 2, { w: .4, d: .4 });
+  [4, 5].forEach(j => { if (j !== winW) C.obj('furniture_seating_indoor_01_8', 0, j); });
   return { C, at: C.at, P };
 }
 
@@ -123,7 +130,7 @@ export function camOn(c, x, z, h, sy = .74, y = 1) { const k = (sy - .5) * h * .
 export function rota(pts, t, v) { let d = t * v; for (let i = 0; i + 1 < pts.length; i++) { const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az);
     if (d <= L) { const k = d / L; return { x: ax + (bx - ax) * k, z: az + (bz - az) * k, ry: Math.atan2(bx - ax, bz - az), fim: false }; } d -= L; }
   const n = pts.length, [ax, az] = pts[n - 2], [bx, bz] = pts[n - 1]; return { x: bx, z: bz, ry: Math.atan2(bx - ax, bz - az), fim: true }; }
-export const VEL = { s_walk: 1.35, s_walkslow: .75, z_walk: .55 };
+export const VEL = { s_walk: 1.35, s_walkslow: .75, z_walk: .55, s_sneak: .55 };   // s_sneak = andar agachado (Bob_WalkLowSneak) tocado a .8
 
 const sombraMat = new THREE.MeshBasicMaterial({ color: '#1f1608', transparent: true, opacity: .42, depthWrite: false });
 // ---------- clima ----------
@@ -166,7 +173,7 @@ export function calor(f, k = 1, pulse = 0, tilt = 0) { const h = hazeSvg(), gl =
   const V = layer('calorV', ''); V.style.background = `radial-gradient(ellipse at 50% 50%, rgba(120,0,0,0) 55%, rgba(150,10,10,${.45 * pulse}) 100%)`; V.style.opacity = pulse > 0 ? 1 : 0; }
 export function calorOff() { if (HZ) { const gl = document.getElementById('gl'); gl.style.filter = ''; gl.style.transform = ''; } ['calor', 'calorV'].forEach(n => { if (LAYER[n]) LAYER[n].style.opacity = 0; }); }
 // clarão branco de corte/raio (k 0..1)
-export function clarao(k) { const L = layer('clarao', 'background:#fff;'); L.style.opacity = Math.max(0, Math.min(1, k)); }
+export function clarao(k, cor = '#fff') { const L = layer('clarao', ''); L.style.background = cor; L.style.opacity = Math.max(0, Math.min(1, k)); }
 export function clima(kind, k = 1) {
   if (kind !== 'calor') calorOff();
   const css = { gelo: 'background:radial-gradient(ellipse at center, rgba(220,235,255,0) 52%, rgba(214,232,255,.55) 78%, rgba(240,248,255,.92) 100%);box-shadow:inset 0 0 120px 30px rgba(230,242,255,.65)',

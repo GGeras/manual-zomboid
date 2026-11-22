@@ -57,7 +57,7 @@ run([
   // 8 — sentado lê mais rápido
   (lf, f, len, c) => { room(); readSit(lf + 200); camOn(c, SEAT.x, SEAT.z, lerp(7.2, 6.2, lf / len)); },
   // 9 — o bônus fica: livro guardado na estante, ele sem nada na mão
-  (lf, f, len, c) => { room(); const s = C.at(1, 1); SHELFBOOK.visible = true; SHELFBOOK.position.set(s.x + .1, 1.05, s.z + .25); const p = C.at(2.2, 2.6); clip('s_idle', lf, { x: p.x, z: p.z, ry: .8 }); camOn(c, p.x - .3, p.z - .3, 7.4); },
+  (lf, f, len, c) => { room(); const s = C.at(0, 0); SHELFBOOK.visible = true; SHELFBOOK.position.set(s.x + .1, 1.05, s.z + .25); const p = C.at(2.2, 2.6); clip('s_idle', lf, { x: p.x, z: p.z, ry: .8 }); camOn(c, p.x - .3, p.z - .3, 7.4); },
   // 10 — lê antes, pratica depois: caixote fica pronto
   (lf, f, len, c) => { room(); hammer(lf, clamp(.55 + lf / len * .6), f); camOn(c, SPOT.x + .3, SPOT.z, lerp(6.8, 7.6, lf / len)); }
 ]);

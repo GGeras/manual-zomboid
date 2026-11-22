@@ -218,6 +218,8 @@
   "s_band_up": "Bob/Bob_BandageUpperBody.x",
   "s_band_larm": "Bob/Bob_BandageLeftArm.x",
   "s_band_rleg": "Bob/Bob_BandageRightLeg.x",
-  "s_blowtorch": "Bob/Bob_IdleBlowtorch_High.x"
+  "s_blowtorch": "Bob/Bob_IdleBlowtorch_High.x",
+  "s_sneak": "Bob/Bob_WalkLowSneak.x",
+  "z_sprint": "Zombie_Sprint.x"
  }
 }

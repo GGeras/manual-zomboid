@@ -30,6 +30,7 @@ export function run(shots) {
     if (!h.g.visible || cv.style.visibility === 'hidden') return null; h.g.updateMatrixWorld(true);
     const pts = [h.neck, h.spine, h.hips].map(o => o.getWorldPosition(new THREE.Vector3()));
     let hid = 0; const scr = pts.map(p => { v.copy(p).project(cam); return [(v.x + 1) / 2, (1 - v.y) / 2]; });
+    { v.copy(pts[0]).add(new THREE.Vector3(0, .12, 0)).project(cam); scr.push([(v.x + 1) / 2, (1 - v.y) / 2]); }   // scr[3] = meio da cabeça (rosto) — regra 4.3: modal não cobre a cabeça
     pts.forEach(p => { const d = p.clone().sub(cam.position).normalize(); ray.set(cam.position, d); ray.camera = cam; ray.far = cam.position.distanceTo(p) - .05;
       const hit = ray.intersectObjects(scene.children, true).find(x => x.object.isMesh && seen(x.object) && !inside(x.object, h.g) && !x.object.userData.tile && !x.object.isInstancedMesh && !x.object.material.transparent && x.object.geometry.type !== 'PlaneGeometry');
       if (hit) hid++; });

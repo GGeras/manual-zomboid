@@ -22,7 +22,7 @@ const yard = (f, kind = 'dawn') => { light(kind); tileLuz(kind === 'dawn' ? '#f4
 // ajoelhado ao lado da fogueira, de frente para ela
 const NEAR = { x: FX - .85, z: FZ + .55 }; const atFire = (name, lf, o = {}) => clip(name, lf, Object.assign({ x: NEAR.x, z: NEAR.z, ry: face(NEAR.x, NEAR.z, FX, FZ) }, o));
 const camYard = (c, h, lf, len) => camOn(c, FX - .5, FZ + .3, lerp(h, h - .5, easeOut(lf / len)), .74);
-const K = C.at(7.6, 2.3);   // na cozinha, de frente para o fogão/balcão
+const K = C.at(7.6, 1.35);   // na cozinha, de frente para o fogão/balcão
 run([
   // 0 — achou a comida (cozinha mobiliada)
   (lf, f, len, c) => { light('day'); tileLuz('#ffffff'); clima('', 0); C.show(); clip('s_lootlow', lf, { x: K.x, z: K.z, ry: Math.PI * .95 }); camOn(c, K.x, K.z, lerp(7.4, 6.8, lf / len)); },
