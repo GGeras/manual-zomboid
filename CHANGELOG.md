@@ -12,6 +12,7 @@ Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima.
   - EP23–30 novos: Carga, Pânico e Estresse, Tédio e Tristeza, Fome e Peso, Resfriado e Doença, Helicóptero, Fogo, Cadáveres;
   - 83 fatos novos em `info-validada/`, `nomes-ptbr.md` ampliado;
   - o que não foi confirmado está em `rascunho/ep20-30-nao-confirmados.md`.
+- 2026-11-19 · bruno · `rodar.bat` e `env.sh` detectam a placa de vídeo (dedicada, integrada ou nenhuma) e ajustam `PZ_GPU` e `RENDER_JOBS`; dá para forçar com `PZ_GPU=1` ou `PZ_GPU=0`.
 - 2026-11-19 · jose · `publicar.py` reconhece a pasta "O meu disco" (Drive em português de Portugal).
 - 2026-11-19 · jose · Automação Slack + Drive:
   - `ferramentas/publicar.py` envia prévias e finais ao Drive pessoal, com link público;
