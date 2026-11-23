@@ -76,7 +76,7 @@ if __name__ == '__main__':
         models['mesh'][k] = fbx(MX + '/' + f, ln); print(f"{k:22s} tris {len(models['mesh'][k]['idx'])//3:5d} tamanho {models['mesh'][k]['ext']}")
     models['clips'] = {}
     for k, f in L.get('clips', {}).items():
-        r = xparse.parse(SRC + '/media/anims_X/Zombie/' + f, anims=True); c = [v for n, v in r['clips'].items() if n != '_tps'][0]; out = {}; nf = 1
+        r = xparse.parse(SRC + '/media/anims_X/' + (f if '/' in f else 'Zombie/' + f), anims=True); c = [v for n, v in r['clips'].items() if n != '_tps'][0]; out = {}; nf = 1
         for bn, keys in c.items():
             if bn in ('Translation_Data',) or 0 not in keys: continue
             R = keys[0]; T = keys.get(2, []); nf = max(nf, len(R), len(T))

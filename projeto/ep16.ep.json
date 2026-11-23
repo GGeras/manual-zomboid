@@ -7,11 +7,267 @@
  "musica": "where_is_everyone",
  "musica_lufs": -30,
  "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
- "sfx": [],
+ "sfx": [
+  [
+   "ambientOutsideDayBirds",
+   {
+    "f": 0,
+    "dt": 0.2
+   },
+   -24,
+   {
+    "trim": [
+     0,
+     6
+    ],
+    "fin": 0.8,
+    "fout": 0.8
+   }
+  ],
+  [
+   "vehicle_engine_1",
+   {
+    "f": 1,
+    "dt": 8.54
+   },
+   -18,
+   {
+    "trim": [
+     0,
+     3
+    ],
+    "fout": 0.6
+   }
+  ],
+  [
+   "PZ_PutInBag",
+   {
+    "f": 3,
+    "dt": 2.84
+   },
+   -14,
+   {}
+  ],
+  [
+   "waterSplash",
+   {
+    "f": 3,
+    "dt": 11.16
+   },
+   -14,
+   {}
+  ],
+  [
+   "zombierand3",
+   {
+    "f": 4,
+    "dt": 0.83
+   },
+   -14,
+   {}
+  ],
+  [
+   "pistol",
+   {
+    "f": 4,
+    "dt": 7.5
+   },
+   -12,
+   {}
+  ],
+  [
+   "PZ_FootSteps_Concrete_01",
+   {
+    "f": 4,
+    "dt": 10.28
+   },
+   -12,
+   {}
+  ],
+  [
+   "PZ_FootSteps_Concrete_01",
+   {
+    "f": 4,
+    "dt": 10.58
+   },
+   -12,
+   {}
+  ],
+  [
+   "PZ_FootSteps_Concrete_01",
+   {
+    "f": 4,
+    "dt": 10.88
+   },
+   -12,
+   {}
+  ],
+  [
+   "ambientOutsideDayBirds",
+   {
+    "f": 5,
+    "dt": 0.2
+   },
+   -24,
+   {
+    "trim": [
+     6,
+     14
+    ],
+    "fin": 0.8,
+    "fout": 0.8
+   }
+  ],
+  [
+   "PZ_GetWater",
+   {
+    "f": 6,
+    "dt": 5.21
+   },
+   -14,
+   {}
+  ],
+  [
+   "ambientOutsideDayBirds",
+   {
+    "f": 8,
+    "dt": 0.1
+   },
+   -24,
+   {
+    "trim": [
+     14,
+     19
+    ],
+    "fin": 0.6,
+    "fout": 1.0
+   }
+  ],
+  [
+   "player_rope_animal_attach_01",
+   {
+    "f": 1,
+    "dt": 0.3
+   },
+   -12,
+   {}
+  ],
+  [
+   "animal_cow_vocal_idle_04",
+   {
+    "f": 1,
+    "dt": 4.0
+   },
+   -16,
+   {}
+  ],
+  [
+   "animal_cow_vocal_idle_04",
+   {
+    "f": 2,
+    "dt": 1.2
+   },
+   -18,
+   {}
+  ],
+  [
+   "BH_MalePlayer_ShoutingHey_01",
+   {
+    "f": 4,
+    "dt": 8.6
+   },
+   -6,
+   {}
+  ],
+  [
+   "animal_cow_vocal_stressed_01",
+   {
+    "f": 4,
+    "dt": 9.0
+   },
+   -12,
+   {}
+  ],
+  [
+   "animal_vocal_sheep_stressed_01",
+   {
+    "f": 4,
+    "dt": 9.35
+   },
+   -13,
+   {}
+  ],
+  [
+   "animal_chicken_vocal_stressed_01",
+   {
+    "f": 4,
+    "dt": 9.6
+   },
+   -14,
+   {}
+  ],
+  [
+   "object_fence_wood_thump_high_damage_01",
+   {
+    "f": 4,
+    "dt": 9.9
+   },
+   -11,
+   {}
+  ],
+  [
+   "object_fence_wood_thump_high_damage_04",
+   {
+    "f": 4,
+    "dt": 11.0
+   },
+   -11,
+   {}
+  ],
+  [
+   "animal_cow_vocal_stressed_04",
+   {
+    "f": 4,
+    "dt": 11.6
+   },
+   -13,
+   {}
+  ],
+  [
+   "object_fence_wood_thump_low_damage_02",
+   {
+    "f": 4,
+    "dt": 12.1
+   },
+   -12,
+   {}
+  ],
+  [
+   "player_farming_milk_animal_start_01",
+   {
+    "f": 6,
+    "dt": 1.0
+   },
+   -12,
+   {}
+  ],
+  [
+   "player_pet_sheep_01",
+   {
+    "f": 7,
+    "dt": 0.4
+   },
+   -10,
+   {}
+  ]
+ ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
  "capa": {
-  "t": 8.0,
-  "opcoes": [],
+  "t": 5.7,
+  "opcoes": [
+   60.45,
+   93.44
+  ],
   "zoom": 1.05,
   "pos": "50% 55%",
   "tint": "rgba(0,0,0,.15)",
@@ -73,5 +329,6 @@
   "ani-ovo",
   "ani-produto",
   "ani-carinho"
- ]
+ ],
+ "_sfx_k": "dt = fração k da frase (k igual ao visual). Voz Piper: recalcular quando chegar n16 do ElevenLabs."
 }

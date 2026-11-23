@@ -7,5 +7,6 @@ Regra: tela do jogo no vídeo = réplica fiel deste print, com os textos PT-BR d
 | aba-saude-ok.png | janela do personagem, aba Saúde (sem ferida) | EP15 (`healthPanel`) |
 | aba-saude-ferido.png | aba Saúde com ferida (tradução antiga: o certo é "Estado Geral do Corpo") | EP15 |
 | criacao-profissao-e-tracos-en.png | SELECIONE PROFISSÃO E TRAÇOS (print em inglês, TheGamer) | EP13 |
+| janela-animal-simmental-en.png | Informações do Animal (vaca Simmental, "Morrendo de Sede", úbere pronto + botão Ordenhar; sem debug) | EP16 (revisão 20/11) |
 
 **Faltam:** janela do animal (EP16), menu de botão direito / Barricar (EP17), aba Temperatura (EP18), aba Habilidades (EP19), receitas. Nome do arquivo: `<tela>-<detalhe>.png`.

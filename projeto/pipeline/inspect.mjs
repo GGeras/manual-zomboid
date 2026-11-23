@@ -45,6 +45,11 @@ for (let t = 0; t < dur; t += STEP) {
         const small = Math.min((A.b[2] - A.b[0]) * (A.b[3] - A.b[1]), (B.b[2] - B.b[0]) * (B.b[3] - B.b[1]));
         if (ix > 0 && iy > 0 && ix * iy > small * .12) res.over.push(A.txt + ' × ' + B.txt); } }
     res.p = window.__probe();
+    // regra da revisão 2026-11-20: modal nunca cobre o personagem (2 dos 3 pontos do corpo dentro de uma caixa de texto/tela simulada)
+    res.cover = []; const S = res.p && res.p.S;
+    if (S) { const pts = S.scr.map(([x, y]) => [x * 1080, y * 1920]);
+      [...document.querySelectorAll('.ui,.aw,.tw,.chip,.pzitem,.mb,.moodle,.stamp,.big,.ins,.panel')].filter(vis).forEach(e => { const b = e.getBoundingClientRect(); if (b.width > 1000 && b.height > 1500) return;
+        const n = pts.filter(([x, y]) => x > b.left && x < b.right && y > b.top && y < b.bottom).length; if (n >= 2) res.cover.push((e.innerText || e.className).trim().slice(0, 28)); }); }
     return res;
   }, { TEXT, IMPORTANT, SAFE });
   r.over.forEach(m => add(t, 'TEXTO SOBREPOSTO: ' + m));
@@ -52,7 +57,9 @@ for (let t = 0; t < dur; t += STEP) {
   r.safe.forEach(m => add(t, 'ÁREA DOS BOTÕES DO APP: ' + m));
   const p = r.p && r.p.S;
   if (p && t > 1.35) { const c = p.scr[1]; if (c[0] < .04 || c[0] > .96 || c[1] < .2 || c[1] > .98) add(t, 'PERSONAGEM FORA DO QUADRO');
-    if (p.hid >= 2) add(t, 'PERSONAGEM ESCONDIDO atrás de algo (' + p.hid + '/3 pontos)'); }
+    if (p.hid >= 2) add(t, 'PERSONAGEM ESCONDIDO atrás de algo (' + p.hid + '/3 pontos)');
+    if (p.feet != null && p.feet < -.07 && p.y < .05) add(t, 'PERSONAGEM AFUNDANDO NO CHÃO (pés ' + p.feet.toFixed(2) + ')');
+    [...new Set(r.cover)].forEach(m => add(t, 'MODAL COBRINDO O PERSONAGEM: ' + m)); }
   const ids = new Set(r.ids); let fresh = false; ids.forEach(i => { if (!prevIds.has(i)) fresh = true; }); prevIds = ids;
   if (fresh) lastNew = t; else if (t - lastNew > 3.2 && t > 2) { add(t, 'NADA NOVO NA TELA há mais de 3 s (ritmo)'); lastNew = t; }
 }

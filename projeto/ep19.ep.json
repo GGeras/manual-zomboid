@@ -7,11 +7,144 @@
  "musica": "where_is_everyone",
  "musica_lufs": -30,
  "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
- "sfx": [],
+ "sfx": [
+  [
+   "PZ_OpenBag",
+   {
+    "f": 0,
+    "dt": 0.26
+   },
+   -12,
+   {}
+  ],
+  [
+   "PZ_Hammer",
+   {
+    "f": 1,
+    "dt": 3.46
+   },
+   -14,
+   {
+    "trim": [
+     0,
+     2.5
+    ],
+    "fout": 0.3
+   }
+  ],
+  [
+   "PZ_PutInBag",
+   {
+    "f": 2,
+    "dt": 0.9
+   },
+   -16,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 5,
+    "dt": 1.67
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 5,
+    "dt": 6.09
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 5,
+    "dt": 6.98
+   },
+   -15,
+   {}
+  ],
+  [
+   "levelup",
+   {
+    "f": 5,
+    "dt": 11.11
+   },
+   -14,
+   {}
+  ],
+  [
+   "PZ_PutInBag",
+   {
+    "f": 9,
+    "dt": 0.2
+   },
+   -14,
+   {}
+  ],
+  [
+   "PZ_Hammer",
+   {
+    "f": 10,
+    "dt": 0.1
+   },
+   -14,
+   {
+    "trim": [
+     0,
+     2
+    ],
+    "fout": 0.3
+   }
+  ],
+  [
+   "player_reading_book_open_01",
+   {
+    "f": 0,
+    "dt": 0.4
+   },
+   -13,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 2,
+    "dt": 1.8
+   },
+   -14,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 6,
+    "dt": 1.2
+   },
+   -14,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 8,
+    "dt": 2.0
+   },
+   -14,
+   {}
+  ]
+ ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
  "capa": {
-  "t": 8.0,
-  "opcoes": [],
+  "t": 2.5,
+  "opcoes": [
+   39.96,
+   66.21
+  ],
   "zoom": 1.05,
   "pos": "50% 55%",
   "tint": "rgba(0,0,0,.15)",
@@ -68,5 +201,6 @@
   "livro-acima",
   "livro-velocidade",
   "livro-exemplo"
- ]
+ ],
+ "_sfx_k": "dt = fração k da frase (k igual ao visual). Voz Piper: recalcular quando chegar n19 do ElevenLabs."
 }

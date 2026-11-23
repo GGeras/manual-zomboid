@@ -31,10 +31,11 @@ export function run(shots) {
     const pts = [h.neck, h.spine, h.hips].map(o => o.getWorldPosition(new THREE.Vector3()));
     let hid = 0; const scr = pts.map(p => { v.copy(p).project(cam); return [(v.x + 1) / 2, (1 - v.y) / 2]; });
     pts.forEach(p => { const d = p.clone().sub(cam.position).normalize(); ray.set(cam.position, d); ray.camera = cam; ray.far = cam.position.distanceTo(p) - .05;
-      const hit = ray.intersectObjects(scene.children, true).find(x => x.object.isMesh && seen(x.object) && !inside(x.object, h.g) && !x.object.material.transparent && x.object.geometry.type !== 'PlaneGeometry');
+      const hit = ray.intersectObjects(scene.children, true).find(x => x.object.isMesh && seen(x.object) && !inside(x.object, h.g) && !x.object.userData.tile && !x.object.isInstancedMesh && !x.object.material.transparent && x.object.geometry.type !== 'PlaneGeometry');
       if (hit) hid++; });
-    return { scr, hid };
+    let feet = null; if (h.pz && h.pz.bones.Bip01_L_Toe0) feet = Math.min(...['Bip01_L_Toe0', 'Bip01_R_Toe0', 'Bip01_L_Foot', 'Bip01_R_Foot'].map(n => h.pz.bones[n].getWorldPosition(new THREE.Vector3()).y)) - h.g.position.y;
+    return { scr, hid, feet, y: h.g.position.y };
   }
   window.__probe = () => ({ S: probe(S), Z: Z.filter(z => z.g.visible).length });
-  const orig = window.__seek; window.__seek = t => { orig(t); render(t); }; render(0); window.__resolveWorld();
+  const orig = window.__seek; window.__seek = t => { orig(t); render(t); }; Promise.all(window.__TILES || []).then(() => { render(0); window.__resolveWorld(); });   // espera os sprites do jogo (tiles.js)
 }

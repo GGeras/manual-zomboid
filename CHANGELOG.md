@@ -12,6 +12,14 @@ Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima.
   - EP23–30 novos: Carga, Pânico e Estresse, Tédio e Tristeza, Fome e Peso, Resfriado e Doença, Helicóptero, Fogo, Cadáveres;
   - 83 fatos novos em `info-validada/`, `nomes-ptbr.md` ampliado;
   - o que não foi confirmado está em `rascunho/ep20-30-nao-confirmados.md`.
+- 2026-11-21 · jose · EP16 v3 (revisão do Jose): animais com esqueleto e animações originais do jogo (andar, correr, comer, carinho), de frente e sem patinar; galinheiro do jogo + 2 cochos no cercado C; ordenha colada na vaca com balde; tosquia troca para a ovelha tosquiada.
+- 2026-11-21 · jose · EP16: voz final do ElevenLabs (82 s, silêncio inicial cortado), tempos das cenas pelas pausas reais; ajustes de sobreposição no gancho e no card TIRO.
+- 2026-11-21 · jose · EP16 final renderizado no PC do Jose (6 pedaços em paralelo, ~10 min). Capa no Windows corrigida (`cover.py` aceita playwright-core + Chrome do sistema).
+- 2026-11-20 · bruno · Revisão do Jose dos EP16–19 aplicada (v2):
+  - cenários com os sprites ORIGINAIS do jogo (`projeto/tiles.js`, `projeto/cenarios.js`, `assets/tiles`): rua, fazenda, casa mobiliada, sobrado;
+  - 26 animações originais novas (ler sentado, martelar, acariciar, ordenhar, tosquiar, frio, calor, grito, corda, zumbi entrando pela janela);
+  - sons B42 do `ZomboidSound.bank` (`assets/sfx/Jogo B42`); inspeção nova: modal cobrindo o personagem e personagem afundando;
+  - regra 4.2 em `canal/processo/11-regras-roteiro-e-pipeline.md`.
 - 2026-11-19 · bruno · `rodar.bat` e `env.sh` detectam a placa de vídeo (dedicada, integrada ou nenhuma) e ajustam `PZ_GPU` e `RENDER_JOBS`; dá para forçar com `PZ_GPU=1` ou `PZ_GPU=0`.
 - 2026-11-19 · jose · `publicar.py` reconhece a pasta "O meu disco" (Drive em português de Portugal).
 - 2026-11-19 · jose · Automação Slack + Drive:
