@@ -45,7 +45,8 @@ for n, bg in enumerate(order):
     <div class="foot"><img src="../../assets/logo/logo-horizontal-3x1.png"></div></div>
     <script>document.fonts.ready.then(() => {{ document.querySelectorAll('.ln').forEach(e => {{ let s = +e.dataset.max; e.style.fontSize = s + 'px'; while (e.offsetWidth > 1000 && s > 60) e.style.fontSize = (s -= 4) + 'px'; }}); document.body.dataset.ok = 1; }});</script></body></html>'''
     open(f'{W}/cover{n}.html', 'w', encoding='utf-8').write(page)
-    js = "const {pathToFileURL}=require('url');let pw;try{pw=require('playwright')}catch(e){pw=require('playwright-core')}const {chromium}=pw;(async()=>{const b=await chromium.launch(process.env.PZ_CHROME?{executablePath:process.env.PZ_CHROME}:{});const p=await b.newPage({viewport:{width:1080,height:1920}});await p.goto(pathToFileURL(process.argv[2]).href);await p.waitForSelector('body[data-ok]');await p.waitForTimeout(300);await p.screenshot({path:process.argv[3]});await b.close();})();"
+    # playwright OU playwright-core (o instalador do Windows só traz o core); Chrome do sistema via PZ_CHROME; URL de arquivo válida no Windows
+    js = "const r=require('module').createRequire(require('path').resolve('package.json'));let pw;try{pw=r('playwright')}catch(e){pw=r('playwright-core')}const {chromium}=pw;const {pathToFileURL}=require('url');(async()=>{const b=await chromium.launch(process.env.PZ_CHROME?{executablePath:process.env.PZ_CHROME}:{});const p=await b.newPage({viewport:{width:1080,height:1920}});await p.goto(pathToFileURL(process.argv[2]).href);await p.waitForSelector('body[data-ok]');await p.waitForTimeout(300);await p.screenshot({path:process.argv[3]});await b.close();})();"
     open(f'{W}/shot.js', 'w').write(js)
     subprocess.run(['node', f'{W}/shot.js', os.path.abspath(f'{W}/cover{n}.html'), os.path.abspath(f'{W}/capa{n}.png')], check=True)
     from PIL import Image

@@ -8,6 +8,15 @@ Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima.
   - `cenarios.js`: `casaDentro({completa:true})` (batente + porta, rodapé, quadros, relógio, poltrona de leitura com abajur de pé e mesinha) e `luzInterior()` (facho de sol com poeira, poça do abajur, vinheta); novos desenhos do jogo em `assets/tiles` (+ `orient.js`).
   - EP19: senta andando até a frente da poltrona e recuando (sem atravessar), livro com página virando, serrote e martelo com lascas e caixote montado prego a prego, anda da bancada ao caixote (sem teleporte), tempos da voz final, HUD dentro da área segura (painéis de 800 px acima da cabeça).
 - 2026-11-23 · bruno · EP18 FINAL (voz ElevenLabs): tempos da voz (tools/align.py agora aceita até 14 trechos por frase), sons retimados (coração casado com a borda vermelha), painel "DOIS TERMÔMETROS" simétrico (termômetros a ±200 px do centro, rótulos e selo centrados), cena 3 com itens/tags acima da cabeça, sem casaco = corpo com braços (textura sem a máscara de braço), sombra das árvores do tamanho da copa.
+- 2026-11-23 · jose · Plataforma: arquitetura e plano de etapas da Central e do site, com as chaves de cada etapa (`plataforma/arquitetura.md`, `plataforma/plano.md`).
+- 2026-11-23 · jose · Rascunho v2 EP20–30: zumbis à vista nas cenas de rua, cama nas cenas de sono, Coleta no mato (não no asfalto), casa pegando fogo + zumbi em chamas, personagem enquadrado na pilha de corpos, moodle maior e fora da área dos botões; `inspect.mjs` corrigido no Windows.
+- 2026-11-23 · jose · Rascunho automático EP20–30: `auto3d.js` (tomadas 3D), `ep20–30.cfg.js/.js/.html`, `pipeline/rascunho_auto.py` (voz Piper → tempos → prévia) e `ferramentas/rascunhos-20-30.bat` (roda os 11 de uma vez).
+- 2026-11-23 · jose · Roteiros EP20–30 v6: 5 fatos novos (perna ao correr, espirro atrai, helicóptero segue, areia/água apagam, doença = quantidade+decomposição+tempo); manifestos `ep20–30.ep.json` prontos; seção "Arquivos para o vídeo" em cada roteiro; 26 vozes/sons B42 do personagem (espirro, tosse, suspiros, fogo); cenas antigas EP20–22 → `rascunho/projeto-antigo/`.
+- 2026-11-23 · jose · Roteiros EP20–30 (ideia + dados confirmados, sem rascunho de vídeo):
+  - EP20–22 revisados nos arquivos do jogo;
+  - EP23–30 novos: Carga, Pânico e Estresse, Tédio e Tristeza, Fome e Peso, Resfriado e Doença, Helicóptero, Fogo, Cadáveres;
+  - 83 fatos novos em `info-validada/`, `nomes-ptbr.md` ampliado;
+  - o que não foi confirmado está em `rascunho/ep20-30-nao-confirmados.md`.
 - 2026-11-22 · bruno · EP17 FINAL (voz ElevenLabs) + regra 4.4 (direção dos elementos):
   - Regra 4.4 em `canal/processo/11-regras-roteiro-e-pipeline.md`; `assets/tiles/orient.js` (direção de cada desenho) + conferência automática em `tiles.js` → `inspect.mjs` (móvel solto/virado, de frente para a parede, cortina/tábua com desenho de outra borda).
   - `casaDentro`: móveis encostados e virados para o cômodo (fogão `_13`, geladeira `_1`, bancada `_45`, pia `_1`, TV `_1`, estante/cômoda na parede N, poltronas na parede W); cortinas das casas com o desenho da borda N. EP14/EP19 ajustados às novas posições.
@@ -19,6 +28,9 @@ Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima.
   - `ep.css`: moodle lateral 30 px para dentro (respiro da borda).
 - 2026-11-22 · bruno · EP17 v3 (revisão do Jose): mais zumbis em todos os exemplos (entram pela janela da sala e da cozinha), tábuas por fora com ele do lado de fora, chapa e barras com maçarico + máscara de solda (malhas e animação originais), sobrado fechado com 2º andar de verdade, cortina visível, descida da corda sincronizada e final com ele recuando com medo.
   - `tiles.js`: parede de 2º andar agora aparece (antes ficava invisível) e sem risco entre paredes; `pipeline/pz/add_meshes.py` junta malhas/texturas do jogo.
+- 2026-11-21 · jose · EP16 v3 (revisão do Jose): animais com esqueleto e animações originais do jogo (andar, correr, comer, carinho), de frente e sem patinar; galinheiro do jogo + 2 cochos no cercado C; ordenha colada na vaca com balde; tosquia troca para a ovelha tosquiada.
+- 2026-11-21 · jose · EP16: voz final do ElevenLabs (82 s, silêncio inicial cortado), tempos das cenas pelas pausas reais; ajustes de sobreposição no gancho e no card TIRO.
+- 2026-11-21 · jose · EP16 final renderizado no PC do Jose (6 pedaços em paralelo, ~10 min). Capa no Windows corrigida (`cover.py` aceita playwright-core + Chrome do sistema).
 - 2026-11-20 · bruno · EP14 e EP15 finais refeitos com o padrão novo (revisão do Jose):
   - EP14: cozinha mobiliada + quintal da mesma casa (sprites do jogo), fim do chão piscando verde, animações originais (acender fogo, mexer ajoelhado, comer sentado na cadeira), modais no padrão novo;
   - EP15: ataque na rua (zumbi arranha/morde com as animações do jogo), tratamento sentado na cadeira, sem texto vazando e rótulos sem quebra de linha;
@@ -28,6 +40,7 @@ Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima.
   - 26 animações originais novas (ler sentado, martelar, acariciar, ordenhar, tosquiar, frio, calor, grito, corda, zumbi entrando pela janela);
   - sons B42 do `ZomboidSound.bank` (`assets/sfx/Jogo B42`); inspeção nova: modal cobrindo o personagem e personagem afundando;
   - regra 4.2 em `canal/processo/11-regras-roteiro-e-pipeline.md`.
+- 2026-11-19 · bruno · `rodar.bat` e `env.sh` detectam a placa de vídeo (dedicada, integrada ou nenhuma) e ajustam `PZ_GPU` e `RENDER_JOBS`; dá para forçar com `PZ_GPU=1` ou `PZ_GPU=0`.
 - 2026-11-19 · jose · `publicar.py` reconhece a pasta "O meu disco" (Drive em português de Portugal).
 - 2026-11-19 · jose · Automação Slack + Drive:
   - `ferramentas/publicar.py` envia prévias e finais ao Drive pessoal, com link público;
