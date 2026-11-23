@@ -3,6 +3,10 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-23 · bruno · EP19 FINAL (voz ElevenLabs) + regras 4.5 (iluminação por ambiente) e 4.6 (não atravessar móvel / casa com sentido):
+  - Regras 4.5 e 4.6 em `canal/processo/11-regras-roteiro-e-pipeline.md`; `inspect.mjs` mede a luz por ambiente (`window.EP.luz`), acusa personagem atravessando móvel e pé abaixo do piso (medida absoluta), grava `inspecao/sonda.json`.
+  - `cenarios.js`: `casaDentro({completa:true})` (batente + porta, rodapé, quadros, relógio, poltrona de leitura com abajur de pé e mesinha) e `luzInterior()` (facho de sol com poeira, poça do abajur, vinheta); novos desenhos do jogo em `assets/tiles` (+ `orient.js`).
+  - EP19: senta andando até a frente da poltrona e recuando (sem atravessar), livro com página virando, serrote e martelo com lascas e caixote montado prego a prego, anda da bancada ao caixote (sem teleporte), tempos da voz final, HUD dentro da área segura (painéis de 800 px acima da cabeça).
 - 2026-11-23 · bruno · EP18 FINAL (voz ElevenLabs): tempos da voz (tools/align.py agora aceita até 14 trechos por frase), sons retimados (coração casado com a borda vermelha), painel "DOIS TERMÔMETROS" simétrico (termômetros a ±200 px do centro, rótulos e selo centrados), cena 3 com itens/tags acima da cabeça, sem casaco = corpo com braços (textura sem a máscara de braço), sombra das árvores do tamanho da copa.
 - 2026-11-22 · bruno · EP17 FINAL (voz ElevenLabs) + regra 4.4 (direção dos elementos):
   - Regra 4.4 em `canal/processo/11-regras-roteiro-e-pipeline.md`; `assets/tiles/orient.js` (direção de cada desenho) + conferência automática em `tiles.js` → `inspect.mjs` (móvel solto/virado, de frente para a parede, cortina/tábua com desenho de outra borda).
