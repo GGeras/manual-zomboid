@@ -32,10 +32,25 @@ function project(geo, name) { if (!META[name]) throw new Error('tiles: sprite au
 function autoH(name, w, d, dx = 0, dz = 0) { if (!META[name]) throw new Error('tiles: sprite ausente: ' + name); const [, y0, , , , h] = META[name]; const back = new THREE.Vector3(dx - w / 2, 0, dz - d / 2).dot(UP);
   return Math.max(.04, ((h - 32 - y0) * K - back) / UP.y + .03); }
 
+// REGRA 4.4 (22/11): direção dos sprites. Cada móvel/cortina tem 4 desenhos no jogo (um por direção); usar o errado deixa o fogão de lado,
+// a cortina atravessada na janela etc. orient.js diz a direção de cada sprite; aqui cada cena confere e window.__ORIENT() devolve os avisos
+// (a inspeção mostra no relatório). Móvel "encosta" precisa ter parede ATRÁS dele; nenhum móvel fica de frente para a parede.
+import ORIENT from './assets/tiles/orient.js';
+const CENAS = [], OPP = { N: 'S', S: 'N', E: 'W', W: 'E' };
+window.__ORIENT = () => CENAS.flatMap(c => c.validar());
 export function cena(x0, z0) {
   const G = prop(new THREE.Group()); G.position.set(x0, 0, z0);
   const put = (m, i, j, y = 0, name = '') => { m.position.set(i, y, j); m.userData.tile = name; G.add(m); return m; };
+  const WALL = new Set(), OBJS = [], AV = [], key = (l, i, j) => l + Math.round(i) + ',' + Math.round(j);
+  // existe parede na borda b (N, S, E, W) do ladrilho (i, j)? (S de j = N de j+1; E de i = W de i+1)
+  const temParede = (b, i, j) => b === 'N' ? WALL.has(key('N', i, j)) : b === 'S' ? WALL.has(key('N', i, j + 1)) : b === 'W' ? WALL.has(key('W', i, j)) : WALL.has(key('W', i + 1, j));
   const C = {
+    validar() { const out = [...AV]; OBJS.forEach(([name, i, j]) => { const o = ORIENT[name]; if (!o || !o.frente) return; const atras = OPP[o.frente];
+        if (temParede(o.frente, i, j)) out.push(`${name} em (${i},${j}) está DE FRENTE PARA A PAREDE (frente ${o.frente})`);
+        else if (o.encosta && !temParede(atras, i, j)) { const lados = ['N', 'S', 'E', 'W'].filter(b => temParede(b, i, j));
+          out.push(lados.length ? `${name} em (${i},${j}) VIRADO ERRADO: parede em ${lados.join('/')}, mas as costas estão para ${atras} (use o desenho com frente ${OPP[lados[0]]})`
+            : `${name} em (${i},${j}) SOLTO NO MEIO DO CÔMODO (tem que encostar na parede)`); } });
+      return out.map(m => `cena (${x0},${z0}): ${m}`); },
     G, x: i => x0 + i, z: j => z0 + j, at: (i, j) => ({ x: x0 + i, z: z0 + j }),
     show() { G.visible = true; return C; },
     // piso: retângulo de ladrilhos (i0..i1, j0..j1); nomes = um sprite ou lista sorteada por ladrilho
@@ -48,6 +63,8 @@ export function cena(x0, z0) {
     // parede (ou qualquer coisa colada numa parede: janela, cortina, tábuas) na borda N (atrás, ao longo de x) ou W (atrás, ao longo de z)
     // o.y = andar (WALL_H = 2º andar): o sprite é projetado como no chão do andar e depois a peça sobe (antes o 2º andar ficava invisível)
     parede(lado, name, i, j, o = {}) { const off = o.off || 0, H = o.h || WALL_H + .2;
+      if (!/^(fixtures_windows_curtains|carpentry|constructedobjects|crafted|fencing|walls_decoration|walls_interior_detailing|fixtures_doors)/.test(name) && !(o.y > 0) && Math.abs(off) < .2) WALL.add(key(lado, i, j));   // parede de verdade (não cortina/tábua/cerca)
+      const ob = ORIENT[name] && ORIENT[name].borda; if (ob && ob !== lado) AV.push(`${name} colado na parede ${lado}, mas o desenho é da borda ${ob} (fica de lado/atravessado)`);
       // o desenho da parede N do jogo começa 4 px antes do ladrilho (lado oeste) e termina 2 px antes do fim: a peça cobre essa sobra,
       // senão fica uma fresta entre as paredes (aparecia um risco laranja do piso de trás). A parede W sobra 2 px para o norte.
       const g = new THREE.PlaneGeometry(lado === 'N' ? 1.07 : 1.035, H); g.translate(lado === 'N' ? -.035 : .0175, H / 2, 0);
@@ -56,7 +73,7 @@ export function cena(x0, z0) {
     // objeto: caixa com o sprite projetado; w/d = base (1 = ladrilho inteiro), dx/dz = deslocamento da base dentro do ladrilho
     obj(name, i, j, o = {}) { const w = o.w || .9, d = o.d || .9, dx = o.dx || 0, dz = o.dz || 0, h = o.h || autoH(name, w, d, dx, dz);
       const g = new THREE.BoxGeometry(w, h, d); g.translate(dx, h / 2, dz); project(g, name);
-      const m = put(new THREE.Mesh(g, mat(name, o)), i, j, 0, name); m.userData.h = h; return m; },
+      const m = put(new THREE.Mesh(g, mat(name, o)), i, j, 0, name); m.userData.h = h; OBJS.push([name, i, j]); return m; },
     // cadeira/sofá onde o personagem SENTA: assento baixo (caixa até a altura do assento) + encosto fino atrás.
     // Assim quem está sentado fica na frente do encosto e em cima do assento (sem o encosto "passar na frente" do corpo).
     // encosto: 'N' (encosto ao norte; cadeira virada para o sul, ry 0) ou 'W' (encosto a oeste; virada para o leste, ry π/2)
@@ -70,5 +87,5 @@ export function cena(x0, z0) {
       const c = new THREE.Vector3(i, 0, j).addScaledVector(UP, (h / 2 - 32) * K).addScaledVector(D, o.fz ?? .5);   // fz: puxa para a frente (não afundar no chão)
       m.position.copy(c); G.add(m); return m; },
   };
-  return C;
+  CENAS.push(C); return C;
 }
