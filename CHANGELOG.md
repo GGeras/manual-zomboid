@@ -21,3 +21,6 @@ Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima.
   - `canal/`, `referencias/`, `projeto/` (pipeline + assets do jogo) e `ferramentas/`.
 - 2026-11-19 · jose · Modelos do jogo unidos (animais B42 + pistola M9, escopeta e quedas de tiro do EP11). Fatos de arma de fogo trocados pela versão B42 (`weapon.txt`).
 - 2026-11-19 · jose · EP16–19 com roteiro validado. Produção no PC do amigo com GPU (pacote `ManualZomboid-Render-EP16-19`).
+- 2026-11-21 · jose · EP16 v3 (revisão do Jose): animais com esqueleto e animações originais do jogo (andar, correr, comer, carinho), de frente e sem patinar; galinheiro do jogo + 2 cochos no cercado C; ordenha colada na vaca com balde; tosquia troca para a ovelha tosquiada.
+- 2026-11-21 · jose · EP16: voz final do ElevenLabs (82 s, silêncio inicial cortado), tempos das cenas pelas pausas reais; ajustes de sobreposição no gancho e no card TIRO.
+- 2026-11-21 · jose · EP16 final renderizado no PC do Jose (6 pedaços em paralelo, ~10 min). Capa no Windows corrigida (`cover.py` aceita playwright-core + Chrome do sistema).

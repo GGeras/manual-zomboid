@@ -10,7 +10,7 @@ window.EP = {
     'Item_AnimalFeed', 'Item_Bucket_Water', 'Item_FeedingTrough', 'Item_Chicken_HenWhite', 'Item_Chicken_HenBrown', 'Item_Chicken_RoosterBrown', 'Item_Egg',
     'Item_Chicken_Chick', 'Item_Head_CowMale_Brown', 'Item_Bucket_Milk', 'Item_SheepShears', 'Item_WoolRaw', 'Item_HandGun'],
   OFF: 1.3,
-  T: [0.0, 6.24, 18.44, 22.47, 42.76, 56.65, 74.85, 91.14, 93.79], END: 98.65,
+  T: [0.0, 7.85, 17.44, 20.79, 35.25, 45.49, 59.89, 72.47, 74.55], END: 78.73,   // voz final ElevenLabs (Jhony Tygas), tempos pelas pausas reais
   scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6, lab: LAB }, { at: 7, lab: LAB }, { at: 8 }],
   titles: [
     { i: 0, a: 'Animais da B42', b: 'podem morrer', aSize: 92, size: 120 },
@@ -73,7 +73,7 @@ window.EP = {
 
     // 0 — gancho: animais da B42; descuidou, morreram
     tag(0, 'VERSÃO 42', Y, P(0, .08), P(0, .30), 1000);
-    const h0 = row(0, [['Item_Head_CowFemale_Brown', 'VACA', P(0, .32)], ['Item_Head_Sheep_White', 'OVELHA', P(0, .40)], ['Item_Head_Chicken_Hen', 'GALINHA', P(0, .48)]], { gap: 46, off: P(0, .74) });
+    const h0 = row(0, [['Item_Head_CowFemale_Brown', 'VACA', P(0, .32)], ['Item_Head_Sheep_White', 'OVELHA', P(0, .41)], ['Item_Head_Chicken_Hen', 'GALINHA', P(0, .50)]], { gap: 46, off: P(0, .74) });
     row(0, [['Item_CowBrown_Dead', 'MORTA', P(0, .76)], ['Item_Chicken_HenBrown_Dead', 'MORTA', P(0, .84)]], { gap: 80 });
 
     // 1 — onde achar (mapa sem escala) e como levar (corda / reboque)
@@ -133,7 +133,7 @@ window.EP = {
     tag(4, 'BARULHO ATRAI ZUMBI', RD, P(4, .26), P(4, .40), 1150);
     H.moodle(4, 'pz:Mood_Stressed', 'ESTRESSE', P(4, .40), false, P(4, .84));
     mirror(4, 'CALMA', 1020, P(4, .42), [[0, 1], [P(4, .44), 1], [P(4, .54), .55, 'softInOut'], [P(4, .64), .35, 'softInOut'], [P(4, .74), .12, 'softInOut']], Y);
-    H.item(4, 'Item_HandGun', 'TIRO', P(4, .54), { left: 140, top: 820, size: 180, off: P(4, .64) });
+    H.item(4, 'Item_HandGun', 'TIRO', P(4, .54), { left: 140, top: 590, size: 180, off: P(4, .64) });
     tag(4, 'GRITO', RD, P(4, .64), P(4, .74), 880);
     tag(4, 'CORRIDA', RD, P(4, .74), P(4, .84), 880);
     H.stamp(4, 'FUGIU', P(4, .86), 860);

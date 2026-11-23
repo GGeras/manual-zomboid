@@ -241,3 +241,24 @@ export function animal(name, s = 1.94) { const m = MODELS.mesh[name], [cb, cl, l
   g0.setAttribute('color', new THREE.BufferAttribute(col, 3));
   const me = new THREE.Mesh(g0, new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: true })); if (m.frame) me.applyMatrix4(M4(m.frame)); me.castShadow = true;
   const k = new THREE.Group(); k.scale.set(-s, s, s); k.add(me); const o = new THREE.Group(); o.add(k); return o; }
+
+// ---------- animais da B42 COM esqueleto e animações originais (pipeline/pz/add_animais.py) ----------
+// key: 'A_cow' | 'A_sheep' | 'A_sheared' | 'A_hen' | 'A_rooster'. Frente do animal = +z (a malha do jogo olha para -z: giramos 180°).
+// Animação: animalClip(a, 'cow_walk', quadro) a cada frame (30 fps, como as do personagem). Sem clip = pose de repouso.
+const A_COR = { A_cow: 'a_cow', A_sheep: 'a_sheep', A_sheared: 'a_sheep', A_hen: 'a_hen', A_rooster: 'a_rooster' };
+export function animalPZ(key, s = 1.94) { const [cb, cl, lh] = ANIMAL[A_COR[key]], m = MODELS.mesh[key]; if (!m) throw new Error('pz: animal ausente: ' + key);
+  const g0 = geom(key).clone(), p = g0.attributes.position; let ymax = 0; for (let i = 0; i < p.count; i++) ymax = Math.max(ymax, p.getY(i));
+  const col = new Float32Array(p.count * 3), A = new THREE.Color(key === 'A_sheared' ? '#d9cdb4' : cb), B = new THREE.Color(cl);
+  for (let i = 0; i < p.count; i++) { const c = p.getY(i) < ymax * lh ? B : A; col.set([c.r, c.g, c.b], i * 3); } g0.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  const k = new THREE.Group(); k.scale.set(-s, s, s); k.rotation.y = Math.PI; const bones = {}, order = [];
+  for (const b of MODELS.skel[key]) { const bn = new THREE.Bone(); bn.name = b.n; M4(b.m).decompose(bn.position, bn.quaternion, bn.scale); bones[b.n] = bn; order.push(bn); (b.p && bones[b.p] ? bones[b.p] : k).add(bn); }
+  const me = new THREE.SkinnedMesh(g0, new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: true })); me.frustumCulled = false; me.castShadow = true; k.add(me);
+  k.updateMatrixWorld(true); me.bind(new THREE.Skeleton(m.bones.map(n => bones[n]), m.inv.map(M4)), new THREE.Matrix4());
+  const o = new THREE.Group(); o.add(k); o.userData.anim = { key, bones, order, k }; return o; }
+export function animalClip(o, name, f, loop = true) { const c = MODELS.clips[name]; if (!c) throw new Error('pz: animação ausente: ' + name);
+  f = frameOf(c, f, loop); const i0 = Math.floor(f), t = f - i0;
+  for (const b of o.userData.anim.order) { const d = c.b[b.name]; if (!d) continue; const nr = d.r.length / 4, a = Math.min(i0, nr - 1), a2 = Math.min(i0 + 1, nr - 1);
+    _qa.fromArray(d.r, a * 4); _qb.fromArray(d.r, a2 * 4); b.quaternion.copy(_qa).slerp(_qb, t).conjugate();
+    const nt = d.t.length / 3; if (nt) { const i = Math.min(i0, nt - 1), j = Math.min(i0 + 1, nt - 1); b.position.set(d.t[i * 3] + (d.t[j * 3] - d.t[i * 3]) * t, d.t[i * 3 + 1] + (d.t[j * 3 + 1] - d.t[i * 3 + 1]) * t, d.t[i * 3 + 2] + (d.t[j * 3 + 2] - d.t[i * 3 + 2]) * t); }
+    b.scale.setScalar(1); } }
+export const clipLen = name => (MODELS.clips[name] || { n: 1 }).n;

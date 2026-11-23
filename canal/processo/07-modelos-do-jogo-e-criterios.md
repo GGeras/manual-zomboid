@@ -21,6 +21,10 @@ Ligar no cfg do episódio: `window.EP = { pz: true, itens: ['Item_Hammer', ...],
   - O personagem do jogo é mais fino que o boneco antigo. Em ação, câmera mais perto (`h <= 5.6`).
 - **Veículos:** `car(x, z, cor, ry, 'normal' | 'pickup' | 'taxi')`.
 - **Animais B42:** `PZ.animal('a_cow' | 'a_sheep' | 'a_hen' | 'a_rooster')`. São malhas do jogo em pose de repouso, com cores aproximadas.
+- **Animais B42 animados (use estes):** `PZ.animalPZ('A_cow' | 'A_sheep' | 'A_sheared' | 'A_hen' | 'A_rooster', escala)` + `PZ.animalClip(obj, 'cow_walk', quadro)`.
+  - Malhas com esqueleto e animações ORIGINAIS (`anims_X/Cow`, `Sheep`, `Chicken`): `_walk`, `_run`, `_idle`, `_eat`, `_pet` (vaca/ovelha). Gerado por `pipeline/pz/add_animais.py`.
+  - Frente do animal = +z. A malha do jogo olha para -z; o `PZ.animal` antigo ficava de costas.
+  - Para não patinar: quadro da animação = distância andada ÷ velocidade natural (`NAT` em `ep16.js`, medida no pé) × 30.
 - **Itens**
   - 4.453 ícones originais (32×32, do `UI2.pack`) em `assets/items` (lista em `assets/items/index.json`).
   - **Todo item citado no vídeo aparece com o ícone original.**
