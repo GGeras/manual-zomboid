@@ -4,7 +4,7 @@
  "nome": "Fadiga Muscular",
  "vo": "audio/n22.mp3",
  "vo_db": 1.5,
- "musica": "where_is_everyone",
+ "musica": "maybe_we_can_win_this",
  "musica_lufs": -30,
  "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
  "sfx": [
@@ -17,60 +17,73 @@
    -14
   ],
   [
-   "bathit",
+   "male_outofbreath_01",
    {
-    "f": 1,
-    "dt": 0.5
+    "f": 2,
+    "dt": 1.2
    },
-   -14
+   -16
   ],
   [
-   "zombierand3",
+   "JL_MalePlayer_ExerciseGrunts_01",
    {
-    "f": 8,
+    "f": 6,
     "dt": 0.3
    },
-   -18
+   -16
   ]
  ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
  "capa": {
-  "t": 10.0,
-  "zoom": 1.15,
+  "t": 8.0,
+  "opcoes": [],
+  "zoom": 1.05,
   "pos": "50% 55%",
   "tint": "rgba(0,0,0,.15)",
   "linhas": [
    [
-    "LINHA 1",
+    "SEU BRAÇO",
     "osso"
    ],
    [
-    "LINHA 2",
+    "CANSA DE",
     "osso"
    ],
    [
-    "PALAVRA",
+    "BATER",
     "vermelho"
    ]
   ],
   "gancho": {
-   "tipo": "selo",
-   "texto": "GANCHO CURTO",
-   "cor": "#e0263f"
+   "tipo": "seq",
+   "itens": [
+    [
+     "BRAÇO",
+     "vermelho"
+    ],
+    [
+     "PERNA",
+     "amarelo"
+    ],
+    [
+     "COSTAS",
+     "vermelho"
+    ]
+   ]
   }
  },
  "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
  "post": {
-  "titulo": "Titulo buscavel (ate ~75 caracteres)",
-  "gancho": "Frase de gancho (ate 125 caracteres).",
+  "titulo": "Distensão muscular no Project Zomboid B42: como evitar",
+  "gancho": "Na B42 cada parte do corpo cansa: bater cansa o braço, correr cansa a perna, peso cansa as costas.",
   "pontos": [
-   "ponto 1",
-   "ponto 2",
-   "ponto 3",
-   "ponto 4",
-   "ponto 5"
+   "Aparece na aba Saúde: Distensão Muscular",
+   "Arma pesada cansa mais; pisão cansa menos",
+   "Força e habilidade da arma reduzem",
+   "Analgésico tira a dor, não a distensão",
+   "Exercício demais = dor no dia seguinte"
   ],
-  "pergunta": "Pergunta para comentarios?",
+  "pergunta": "Você alterna golpe e pisão?",
   "tags": [
    "pzdicas",
    "projectzomboidbr",
@@ -78,13 +91,20 @@
    "survivalgame"
   ]
  },
- "roteiro": "rascunho com voz provisória (Piper)",
+ "roteiro": "[sério] Na versão quarenta e dois, seu braço cansa de bater. [calmo] Isso é a Distensão Muscular. Ela aparece no painel de saúde, na parte do corpo que cansou. [confiante] Bater cansa o braço. Correr cansa as pernas. E carregar peso demais cansa as costas. [calmo] Arma pesada cansa mais. Pisar em zumbi caído cansa menos que um golpe. [confiante] Força alta e nível na habilidade da arma diminuem a distensão. [sério] Analgésico tira a dor, mas a distensão continua lá. [tenso] E se exercitar demais tem preço: o jogo avisa que no dia seguinte você vai sentir dores terríveis. [confiante] Golpe, pisão, caminhada, descanso. Divide o esforço e o corpo aguenta.",
  "fatos": [
-  "fad-mecanica",
+  "fad-nome",
+  "fad-perna",
+  "fad-carga",
   "fad-arma",
-  "fad-partes",
-  "fad-analgesico",
+  "fad-pisao",
   "fad-reduz",
-  "fad-dicas"
+  "fad-analgesico",
+  "fad-exercicio"
+ ],
+ "itens": [
+  "Item_Axe",
+  "Item_Sledgehammer2",
+  "Item_PillsPainkiller"
  ]
 }

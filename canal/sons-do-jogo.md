@@ -181,3 +181,38 @@ FALTAM (não existem como arquivo solto; estão no banco FMOD do jogo): alarme d
   zombierand7                         2.4s  gemido de zumbi (masc.)
   zombiescratch                       1.7s  arranhão de zumbi
 ```
+
+## Personagem — vozes B42 (extraídas em 23/11/2026 do `media/sound/banks/ZomboidSoundMP.bank`, B42.22)
+Pasta `projeto/assets/sfx/Personagem`. Voz masculina JL (BH onde JL não tem).
+```
+  BH_MalePlayer_FreezingShivers_01     1.7s
+  BH_MalePlayer_FreezingShivers_02     2.6s
+  BH_MalePlayer_PainLoopFire_01       11.0s
+  BH_MalePlayer_PainLoopFire_02       12.3s
+  BH_MalePlayer_SubtleBoredSigh_01     1.4s
+  BH_MalePlayer_SubtleBoredSigh_02     1.4s
+  BH_MalePlayer_SubtleReliefSigh_01    1.2s
+  BH_MalePlayer_SubtleReliefSigh_02    2.3s
+  BH_MalePlayer_SubtleSadSigh_01       1.2s
+  BH_MalePlayer_SubtleSadSigh_02       1.8s
+  JL_MalePlayer_Coughing_01            1.4s
+  JL_MalePlayer_Coughing_02            1.6s
+  JL_MalePlayer_ExerciseGrunts_01      1.2s
+  JL_MalePlayer_ExerciseGrunts_02      1.3s
+  JL_MalePlayer_Muffled_Cough_01       1.4s
+  JL_MalePlayer_Muffled_Cough_02       1.8s
+  JL_MalePlayer_PainFromBite_01        1.4s
+  JL_MalePlayer_PainFromBite_02        1.5s
+  JL_MalePlayer_SleepingNoises_01     14.5s
+  JL_MalePlayer_SleepingNoises_02     16.4s
+  JL_MalePlayer_SneezingHeavy_01       1.2s
+  JL_MalePlayer_SneezingHeavy_02       1.1s
+  JL_MalePlayer_SneezingLight_01       0.7s
+  JL_MalePlayer_SneezingLight_02       0.4s
+  JL_MalePlayer_Vomiting_01            2.1s
+  JL_MalePlayer_Vomiting_02            2.1s
+  explosives_fire_flesh_01            10.0s
+  player_on_fire_start_01              1.3s
+  player_use_lighter_01                0.4s
+```
+Sons de extintor, moscas, rádio e páginas não estão nos arquivos soltos nem no MP.bank; devem estar no `ZomboidSound.bank` (735 MB, acima do limite de cópia remota): extrair no PC se precisar.
