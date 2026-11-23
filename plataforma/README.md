@@ -2,6 +2,8 @@
 
 Sistema interno do Jose e do sócio. Arquitetura: `arquitetura.md`. Etapas: `plano.md`.
 
+**Endereço:** https://manual-zomboid-central.mundomix.workers.dev (entrar com o GitHub; acesso liberado para Jose e Bruno).
+
 | pasta | o que tem |
 |---|---|
 | `app/` | a Central (Vite + React + TypeScript), publicada no Cloudflare |
