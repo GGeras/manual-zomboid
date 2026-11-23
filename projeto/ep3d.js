@@ -1,5 +1,5 @@
 // Runner 3D genérico: escolhe a cena pelo frame, aplica "punch" de câmera na entrada e tremida de impacto.
-import { cv, setCam as cam0, frame, draw, U, Z, S, pose, light, cam, scene, THREE } from './engine.js';
+import { cv, setCam as cam0, frame, draw, U, Z, S, pose, light, cam, scene, THREE, PZ } from './engine.js';
 export function run(shots) {
   const CUTS = window.__CUTS, RED = window.__RED, END = Math.round(window.__DUR * 30);
   let st = { f: 0, shake: 0, s0: 0 };
@@ -36,14 +36,17 @@ export function run(shots) {
       const hit = ray.intersectObjects(scene.children, true).find(x => x.object.isMesh && seen(x.object) && !inside(x.object, h.g) && !x.object.userData.tile && !x.object.isInstancedMesh && !x.object.material.transparent && x.object.geometry.type !== 'PlaneGeometry');
       if (hit) hid++; });
     let feet = null; if (h.pz && h.pz.bones.Bip01_L_Toe0) feet = Math.min(...['Bip01_L_Toe0', 'Bip01_R_Toe0', 'Bip01_L_Foot', 'Bip01_R_Foot'].map(n => h.pz.bones[n].getWorldPosition(new THREE.Vector3()).y)) - h.g.position.y;
+    // regra 4.7: contato com a superfície (pontos do jogo: sola, calcanhar, joelho, nádega). piso = quanto o ponto mais baixo fica acima (+) ou abaixo (−) do apoio.
+    let piso = null, assento = null; const ud = h.userData || {}; if (PZ && h.pz && h.pz.bones.Bip01_L_Toe0 && typeof ud.apoio === 'number') { piso = PZ.contatoMin(h) - ud.apoio;
+      if (typeof ud.assento === 'number') assento = PZ.nadega(h) - ud.assento; }
     // regra 4.6: personagem ATRAVESSANDO móvel (cadeira, poltrona, mesa, bancada…): quadril, peito ou pés dentro da caixa de um móvel do cenário
     // (sentado vale: o quadril fica ACIMA do assento). Caixas dos sprites do jogo (obj/assento) — chão, paredes e placas não entram.
     if (!MOV) { MOV = []; scene.traverse(o => { if (o.isMesh && o.userData.tile && o.geometry.type === 'BoxGeometry' && !/^(floors|blends|walls|fencing|f_bushes|e_|vegetation|lighting|carpentry_01_(8|9|1[0-5]))/.test(o.userData.tile)) MOV.push(o); }); }
-    const corpo = [pts[1], pts[2]]; if (h.pz && h.pz.bones.Bip01_L_Toe0) ['Bip01_L_Toe0', 'Bip01_R_Toe0'].forEach(n => corpo.push(h.pz.bones[n].getWorldPosition(new THREE.Vector3())));
+    const corpo = [pts[1], pts[2]]; if (h.pz && h.pz.bones.Bip01_L_Toe0) ['Bip01_L_Toe0', 'Bip01_R_Toe0', 'Bip01_L_Calf', 'Bip01_R_Calf'].forEach(n => corpo.push(h.pz.bones[n].getWorldPosition(new THREE.Vector3())));
     const bb = new THREE.Box3(), atravessa = [];
     MOV.forEach(o => { if (!seen(o)) return; o.updateMatrixWorld(); bb.setFromObject(o); bb.min.x += .1; bb.min.z += .1; bb.max.x -= .1; bb.max.z -= .1; bb.max.y -= .04;
       if (corpo.some(p => bb.containsPoint(p))) atravessa.push(o.userData.tile); });
-    return { scr, hid, feet, y: h.g.position.y, atravessa: [...new Set(atravessa)] };
+    return { scr, hid, feet, y: h.g.position.y, piso, assento, atravessa: [...new Set(atravessa)] };
   }
   window.__probe = () => ({ S: probe(S), Z: Z.filter(z => z.g.visible).length });
   const orig = window.__seek; window.__seek = t => { orig(t); render(t); }; Promise.all(window.__TILES || []).then(() => { render(0); window.__resolveWorld(); });   // espera os sprites do jogo (tiles.js)

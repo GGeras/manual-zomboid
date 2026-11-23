@@ -8,7 +8,7 @@ window.EP = {
   pz: true, versao: 'BUILD 42.22',
   itens: ['Item_Book8', 'Item_Hammer', 'Item_Plank', 'Item_GlassesReading'],
   OFF: 1.3,
-  T: [0.0, 2.77, 10.93, 19.22, 26.12, 29.68, 41.14, 44.27, 51.12, 61.05, 65.12], END: 67.4,   // voz final ElevenLabs (67,16 s) — tools/align.py
+  T: [0.0, 2.92, 11.15, 19.46, 26.28, 29.78, 41.53, 44.66, 51.63, 61.62, 65.65], END: 68.6,   // voz final ElevenLabs (23/11 19:45, 67,71 s; 👍 até o fim) — tools/align.py
   luz: { padrao: 'interior-tarde' },   // regra 4.5: fim de tarde dentro de casa (sol pelas janelas + abajur)
   scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6, lab: LAB }, { at: 7, lab: LAB }, { at: 8, lab: LAB }, { at: 9, lab: LAB }, { at: 10 }],
   titles: [
@@ -127,6 +127,6 @@ window.EP = {
     tag(9, 'SEM CARREGAR O LIVRO', G, P(9, .64), null, 830);
 
     // 10 — fecho
-    tag(10, 'SALVA E COMENTA', G, P(10, .25), null, 880);
+    tag(10, 'SALVA E COMENTA', G, P(10, .25), null, 540);
   }
 };

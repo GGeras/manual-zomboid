@@ -67,6 +67,9 @@
   ],
   "w_hacksaw": [
    "Hacksaw.x"
+  ],
+  "w_bookhand": [
+   "BookHand.fbx"
   ]
  },
  "tex": {
@@ -163,7 +166,8 @@
   "blowtorch": "textures/Blowtorch.png",
   "weldermask": "textures/Clothes/Hat/WelderMask.png",
   "book": "textures/Book.png",
-  "hacksaw": "textures/Hacksaw.png"
+  "hacksaw": "textures/Hacksaw.png",
+  "bookred": "textures/WorldItems/BookRed_New.png"
  },
  "fbx": {
   "car_normal": [
@@ -230,6 +234,7 @@
   "s_sneak": "Bob/Bob_WalkLowSneak.x",
   "z_sprint": "Zombie_Sprint.x",
   "s_sawsmall": "Bob/Bob_IdleSawSmallItem.x",
-  "s_sawlog": "Bob/Bob_IdleSawLog.x"
+  "s_sawlog": "Bob/Bob_IdleSawLog.x",
+  "s_thumbsup": "Bob/Bob_EmoteThumbsUp.x"
  }
 }
