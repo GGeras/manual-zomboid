@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-23 · jose (Claude) · `rascunho/revisao-ep20-30.md`: pendências EP20–22 mapeadas para arquivos do jogo; EP23–30 sem pauta.
 - 2026-11-23 · jose (Claude) · Roteiro EP22 v5 (Distensão Muscular): estrutura gancho→base→exemplo→armadilhas→fecho, nota visual por frase; bloqueado até validar os fatos `fad-*`.
 - 2026-11-19 · jose · `publicar.py` reconhece a pasta "O meu disco" (Drive em português de Portugal).
 - 2026-11-19 · jose · Automação Slack + Drive:
