@@ -1,27 +1,21 @@
 ---
 status: rascunho
 ---
-# Fatos dos EP20–22 (pesquisa v4, 18/11)
+# EP20–22 — o que NÃO foi validado (revisão 23/11/2026)
 
-Ainda NÃO passaram pelo método atual (arquivos do jogo primeiro). Atenção: o nome no jogo é **Coleta**, não "Forrageamento"; Jose decidiu: EP20 Mau Cheiro / Cansaço Absurdo; EP22 só o confirmado.
+Os fatos confirmados foram para `info-validada/sono.md`, `coleta.md` e `fadiga-muscular.md` (ids `forr-*` viraram `col-*`).
+Abaixo, o que ficou de fora por falta de fonte 42.20+ ou por conflito. **Não usar em vídeo.**
 
-| id | fato | build | fonte | usado em |
-|---|---|---|---|---|
-| fad-analgesico | Analgésico alivia, mas velocidade continua reduzida e a tensão segue acumulando | B42 | gameluster muscle strain B42 | 22 |
-| fad-arma | Armas longas e pesadas causam mais tensão; curtas e leves, menos | B42 | gameluster muscle strain B42 + pzfans (42.20.4) | 22 |
-| fad-dicas | Alternar golpe e pisão, lutar com poucos por vez; descanso recupera (sem timer fixo); fator ajustável no sandbox | B42.20.4 | pzfans.com muscle strain (42.20.4) + gameluster B42 | 22 |
-| fad-mecanica | Fadiga muscular acumula por grupo muscular ao golpear e carregar peso; reduz velocidade e dá dor | B42.20.4 | pzfans.com muscle strain (42.20.4) + gameluster B42 | 22 |
-| fad-partes | Correr: pernas; peso/trabalho: costas; cama ruim: pescoço | B42.20.4 | pzfans.com muscle strain (42.20.4) + gameluster B42 | 22 |
-| fad-reduz | Força alta e nível da arma reduzem o acúmulo | B42.20.4 | pzfans.com muscle strain (42.20.4) + gameluster B42 | 22 |
-| forr-inicio | Galhos, pedras e frutinhas desde o nível 0 | B42.19 | pzfans.com foraging guide (42.19) | 21 |
-| forr-modo | Modo de busca: ícone de luneta no menu esquerdo (Investigate Area); mostra itens no chão no raio | B42.19 | pzfans.com foraging guide (42.19) | 21 |
-| forr-neve | Neve reduz chance de achar comida | B42.19 | pzfans.com foraging guide (42.19) | 21 |
-| forr-penal | Chuva, neblina, neve, escuro, cansaço e pânico reduzem o raio; correr é o pior; agachado ajuda | B42.19 | pzfans.com foraging guide (42.19) | 21 |
-| forr-raio | Raio = 3 + 7×(Forrageamento/10): 3 no 0, 10 no 10 | B42.19 | pzfans.com foraging guide (42.19) | 21 |
-| forr-veneno | Veneno sorteado por unidade em frutinhas e cogumelos; Herbalista (traço ou revista) identifica | B42.19 | pzfans.com foraging guide (42.19) | 21 |
-| sono-bloqueio | Zumbis perto, pânico, dor forte impedem dormir; 42.22.2: moodle Mau Cheiro (fumaça ou cheiro de cadáver) desativa dormir | B42.22.2 | projectzomboid.wiki sleep-rest + notas 42.22.2 (patched.gg) | 20 |
-| sono-cafe | Café/cafeína só dão um tempo extra, não substituem a cama | B42.22 | projectzomboid.wiki sleep-rest (42.22) | 20 |
-| sono-cama | Cama boa encurta o sono; banco de carro/chão alonga; cama ruim dá tensão no pescoço | B42.22 | projectzomboid.wiki sleep-rest (42.22) + gameluster muscle strain B42 | 20 |
-| sono-descanso | Descanso sentado só recupera fôlego; cansaço só dormindo | B42.22 | projectzomboid.wiki sleep-rest (42.22) | 20 |
-| sono-niveis | Cansaço piora em níveis até Ridiculamente Cansado; cansado erra mais (chance de acerto cai por nível) | B42.22 | projectzomboid.wiki sleep-rest (42.22) + pzfans B42 moodles (42.21) | 20 |
-| sono-remedio | Remédio para dormir vence dor/pânico em dose alta; analgésico antes | B42.22 | projectzomboid.wiki sleep-rest (42.22) | 20 |
+| id | afirmação cortada | motivo | fonte |
+|---|---|---|---|
+| sono-visao | Cansado enxerga menos (cone de visão encolhe) | só fontes 42.0.2 / 42.19; pzfans 42.21 não cita | pzwiki Tired (42.0.2) + pzfans moodle mayhem (42.19) |
+| col-modo | Luneta no menu da esquerda abre o painel "Investigar Área", onde se liga o modo de busca | só fonte 42.19; nome PT-BR do painel não está em nomes-ptbr | pzfans foraging guide (42.19) |
+| col-clima | Chuva, neblina, neve e cansaço encolhem o raio | só fonte 42.19 (42.20 cita só escuro e pânico) | pzfans foraging guide (42.19) |
+| col-frutinha-0 | Frutinha desde a Coleta 0 | conflito: build42guide 42.20 diz frutinhas no 3 | pzfans 42.19 × build42guide 42.20 |
+| col-veneno-unidade | Veneno sorteado por unidade (igual por fora, diferente por dentro); amora e mirtilo sempre seguros | só fonte 42.19 | pzfans herbalist magazine (42.19) |
+| col-revista | Revista "Sobrevivência na Natureza" (Item_Magazine_Herbal1) ensina Herbalista | só fonte 42.19; nome PT-BR não confirmado | pzfans herbalist magazine (42.19) |
+| fad-perna | Correr dá distensão na perna | nenhuma fonte 42.20+ | gameluster (B42.0) |
+| fad-pescoco | Cama ruim dá distensão no pescoço | fontes falam em "dor no pescoço" (sono-cama), não em distensão | gamers.wiki (42.20.2) |
+| fad-comprimento | Arma longa cansa mais que curta do mesmo peso | nenhuma fonte 42.20+ | gameluster (B42.0) |
+| fad-pisao-custo | Pisar cansa menos que golpear (comparação direta) | nenhuma fonte diz direto; só "poupa golpes cheios" | — |
+| fad-velocidade | Analgésico não devolve a velocidade | só fonte B42.0 | gameluster (B42.0) |
