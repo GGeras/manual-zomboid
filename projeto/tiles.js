@@ -63,7 +63,7 @@ export function cena(x0, z0) {
     // parede (ou qualquer coisa colada numa parede: janela, cortina, tábuas) na borda N (atrás, ao longo de x) ou W (atrás, ao longo de z)
     // o.y = andar (WALL_H = 2º andar): o sprite é projetado como no chão do andar e depois a peça sobe (antes o 2º andar ficava invisível)
     parede(lado, name, i, j, o = {}) { const off = o.off || 0, H = o.h || WALL_H + .2;
-      if (!/^(fixtures_windows_curtains|carpentry|constructedobjects|crafted|fencing)/.test(name) && !(o.y > 0) && Math.abs(off) < .2) WALL.add(key(lado, i, j));   // parede de verdade (não cortina/tábua/cerca)
+      if (!/^(fixtures_windows_curtains|carpentry|constructedobjects|crafted|fencing|walls_decoration|walls_interior_detailing|fixtures_doors)/.test(name) && !(o.y > 0) && Math.abs(off) < .2) WALL.add(key(lado, i, j));   // parede de verdade (não cortina/tábua/cerca)
       const ob = ORIENT[name] && ORIENT[name].borda; if (ob && ob !== lado) AV.push(`${name} colado na parede ${lado}, mas o desenho é da borda ${ob} (fica de lado/atravessado)`);
       // o desenho da parede N do jogo começa 4 px antes do ladrilho (lado oeste) e termina 2 px antes do fim: a peça cobre essa sobra,
       // senão fica uma fresta entre as paredes (aparecia um risco laranja do piso de trás). A parede W sobra 2 px para o norte.

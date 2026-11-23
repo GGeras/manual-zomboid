@@ -20,4 +20,11 @@ export default {
   // tábuas de barricada: pares = parede W, ímpares = parede N (carpentry_01_8–15); chapa 24/25, barras 52–55 (mesma regra)
   carpentry_01_8: { borda: 'W' }, carpentry_01_9: { borda: 'N' }, carpentry_01_10: { borda: 'W' }, carpentry_01_11: { borda: 'N' }, carpentry_01_12: { borda: 'W' }, carpentry_01_13: { borda: 'N' }, carpentry_01_14: { borda: 'W' }, carpentry_01_15: { borda: 'N' },
   constructedobjects_01_24: { borda: 'W' }, constructedobjects_01_25: { borda: 'N' }, constructedobjects_01_52: { borda: 'W' }, constructedobjects_01_53: { borda: 'N' },
+  // regra 4.4 (23/11, EP19): poltrona de couro 44 S / 45 E / 46 N / 47 W; mesa de centro, bancadinha, quadros, relógio, rodapé, porta e batente
+  furniture_seating_indoor_02_44: { frente: 'S' }, furniture_seating_indoor_02_45: { frente: 'E' }, furniture_seating_indoor_02_46: { frente: 'N' }, furniture_seating_indoor_02_47: { frente: 'W' },
+  walls_decoration_01_40: { borda: 'W' }, walls_decoration_01_41: { borda: 'N' }, walls_decoration_01_52: { borda: 'W' }, walls_decoration_01_53: { borda: 'N' },
+  walls_decoration_01_104: { borda: 'W' }, walls_decoration_01_105: { borda: 'N' },
+  walls_interior_detailing_01_32: { borda: 'W' }, walls_interior_detailing_01_33: { borda: 'N' },
+  walls_interior_house_01_46: { borda: 'W' }, walls_interior_house_01_47: { borda: 'N' },
+  fixtures_doors_01_4: { borda: 'W' }, fixtures_doors_01_5: { borda: 'N' },
 };

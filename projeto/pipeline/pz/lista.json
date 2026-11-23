@@ -61,6 +61,12 @@
   ],
   "weldermask": [
    "Static/Clothes/M_WelderMask.x"
+  ],
+  "w_book": [
+   "Book.x"
+  ],
+  "w_hacksaw": [
+   "Hacksaw.x"
   ]
  },
  "tex": {
@@ -155,7 +161,9 @@
   "shotgun": "textures/weapons/firearm/Shotgun.png",
   "fireaxe": "textures/weapons/2handed/FireAxe.png",
   "blowtorch": "textures/Blowtorch.png",
-  "weldermask": "textures/Clothes/Hat/WelderMask.png"
+  "weldermask": "textures/Clothes/Hat/WelderMask.png",
+  "book": "textures/Book.png",
+  "hacksaw": "textures/Hacksaw.png"
  },
  "fbx": {
   "car_normal": [
@@ -220,6 +228,8 @@
   "s_band_rleg": "Bob/Bob_BandageRightLeg.x",
   "s_blowtorch": "Bob/Bob_IdleBlowtorch_High.x",
   "s_sneak": "Bob/Bob_WalkLowSneak.x",
-  "z_sprint": "Zombie_Sprint.x"
+  "z_sprint": "Zombie_Sprint.x",
+  "s_sawsmall": "Bob/Bob_IdleSawSmallItem.x",
+  "s_sawlog": "Bob/Bob_IdleSawLog.x"
  }
 }

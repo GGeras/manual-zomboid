@@ -108,6 +108,22 @@ No jogo cada móvel, cortina, tábua e janela tem um desenho para cada direção
 - A tabela `projeto/assets/tiles/orient.js` diz a direção de cada desenho (conferido olhando os 4 desenhos do jogo). Sprite novo entra na tabela antes de ser usado.
 - `inspect.mjs` confere sozinho (aviso **DIREÇÃO DO SPRITE**: móvel solto/virado errado, de frente para a parede, cortina/tábua com desenho de outra borda). Relatório tem de dar 0 avisos.
 
+## 4.5 ILUMINAÇÃO DE ACORDO COM O AMBIENTE (23/11, pedido do Bruno) — vale para TODO vídeo novo
+A luz é o que faz parecer o jogo e dá imersão. Luz chapada (tudo com a mesma claridade) parece maquete.
+- **Cada episódio declara o ambiente** em `epNN.cfg.js`: `window.EP.luz = { padrao: 'interior-tarde', 3: 'exterior-dia' }` (padrão + exceção por cena). Ambientes: `exterior-dia`, `interior-dia`, `interior-tarde`, `interior-noite`, `exterior-noite`, `chuva`.
+- **Interior tem fonte de luz visível**: facho de sol entrando pela janela (com poeira no ar) e/ou abajur/luminária acesa com poça de luz no chão e brilho na parede (`luzInterior()` em `cenarios.js`). Cantos mais escuros que o centro (vinheta leve).
+- **Tarde = luz quente** (laranja/âmbar); **noite = fria e baixa**, só a fonte acesa ilumina; **dia lá fora = claro e com sombra dura**; **chuva = acinzentado, sem sombra dura**.
+- **Personagem sempre legível**: nunca escuro demais nem estourado; se a cena é escura, ele fica perto da fonte de luz.
+- **Nada estourado**: no máximo um brilho pequeno (sol, lâmpada); paredes e chão nunca viram branco puro.
+- `inspect.mjs` mede a tela em 2 momentos de cada cena e compara com o ambiente declarado (avisos **LUZ ESCURA/CLARA DEMAIS**, **LUZ CHAPADA**, **LUZ ESTOURADA**, **PERSONAGEM ESCURO DEMAIS**). Relatório tem de dar 0 avisos.
+
+## 4.6 PERSONAGEM NUNCA ATRAVESSA MÓVEL NEM TELEPORTA; CASA COM SENTIDO (23/11, pedido do Bruno — EP19 00:19 atravessava a cadeira)
+- **Sentar**: anda até a **frente** do assento, vira de costas e senta **recuando** para dentro (`s_satchairin`), só depois fica sentado. Nunca aparece já sentado dentro do móvel. Use `C.assento()` (assento + encosto como caixas de colisão).
+- **Andar**: caminho contorna os móveis; entre duas ações em lugares diferentes (serrar → pregar) ele **anda** até lá. Nunca teleporta.
+- **Ajoelhado / agachado**: a ponta do pé não entra no piso.
+- **Casa com sentido**: cada cômodo tem função clara e os móveis do lugar (sala = poltrona de leitura + abajur + mesinha + estante; oficina = bancada + ferramentas); acabamento de construção (rodapé, batente e porta, quadros, relógio, cortina) e luz de acordo com a 4.5. Móveis seguem a 4.4.
+- `inspect.mjs` confere sozinho: **PERSONAGEM ATRAVESSANDO MÓVEL** (corpo dentro da caixa de um móvel), **AFUNDANDO NO CHÃO** (pé abaixo do piso, medida absoluta). Grava `inspecao/sonda.json` (posição do personagem na tela em cada momento) para achar o motivo de um aviso. Relatório tem de dar 0 avisos.
+
 ## 4.1 REGRA DAS TELAS (18/11, pedido do Jose) — tela do jogo = RÉPLICA
 - Toda tela/menu do jogo que aparece no vídeo é **réplica fiel da tela real**: mesmo layout, mesmas colunas, cores, fonte simples do jogo, botões e ordem dos elementos.
   - Nada de painel genérico "estilo jogo".
