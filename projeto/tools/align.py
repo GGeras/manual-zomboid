@@ -33,7 +33,7 @@ def align(mp3,sents):
     INF=1e18;dp=[[INF]*(n+1) for _ in range(m+1)];bk=[[0]*(n+1) for _ in range(m+1)];dp[0][0]=0
     for i in range(1,m+1):
         for j in range(1,n+1):
-            for a in range(max(0,j-5),j):
+            for a in range(max(0,j-14),j):   # até 14 trechos por frase (vozes com muitas pausas curtas, ex. EP18 ElevenLabs)
                 if dp[i-1][a]>=INF: continue
                 c=sum(cnt[a:j]); cost=math.log((c+1)/(exp[i-1]*rate+1))**2
                 if dp[i-1][a]+cost<dp[i][j]: dp[i][j]=dp[i-1][a]+cost;bk[i][j]=a

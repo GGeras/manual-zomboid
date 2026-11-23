@@ -4,6 +4,8 @@
 //   relatorio.txt   avisos: texto sobreposto/estourando, área ocupada pelos botões do app, personagem fora do quadro ou escondido, trechos parados
 //   folha.png       quadros seguidos de cada ação (sem HUD), para conferir a animação
 //   (regra 4.4) direção dos sprites: móvel de lado/solto do canto, cortina/tábua desenhada para outra borda da janela
+//   (regra 4.5) luz de acordo com o ambiente (window.EP.luz): brilho, contraste, personagem legível, nada estourado
+//   (regra 4.6) personagem atravessando móvel (cadeira, poltrona, mesa, bancada)
 //   zonas.png       meio de cada cena COM textos + áreas da interface dos apps (vermelho) e área segura (verde) — regra 4.3
 import { createRequire } from 'node:module';
 const { chromium } = (() => { const r = createRequire(import.meta.url); try { return r('playwright'); } catch { return r('playwright-core'); } })();
@@ -40,6 +42,7 @@ const dur = LIMIT || await page.evaluate(() => window.__DUR || 40);
 const warn = []; const add = (t, msg) => warn.push([t, msg]);
 // regra 4.4: direção dos sprites (móvel virado/solto, cortina ou tábua no lado errado da janela) — conferido na montagem das cenas
 for (const m of await page.evaluate(() => window.__ORIENT ? window.__ORIENT() : [])) add(0, 'DIREÇÃO DO SPRITE: ' + m);
+const PROBE = [];
 let lastNew = 0, prevIds = new Set(), prevCut = -1, prevH = new Set();
 for (let t = 0; t < dur; t += STEP) {
   await page.evaluate(t => window.__seek(t), t);
@@ -100,22 +103,18 @@ for (let t = 0; t < dur; t += STEP) {
     ['gap', 'ESPAÇAMENTO DESIGUAL NA LINHA: '], ['tight', 'BLOCOS COLADOS (respiro < 12px): ']];
   const nowH = new Set(); H2.forEach(([k, lab]) => new Set(r[k]).forEach(m => { const key = lab + m; nowH.add(key); if (prevH.has(key)) add(t, key); })); prevH = nowH;
   const p = r.p && r.p.S;
+  if (p) PROBE.push({ t: +t.toFixed(2), scr: p.scr.map(q => [Math.round(q[0] * 1080), Math.round(q[1] * 1920)]) });   // depuração: posição do personagem na tela
   if (p && t > 1.35) { const c = p.scr[1]; if (c[0] < .04 || c[0] > .96 || c[1] < .2 || c[1] > .98) add(t, 'PERSONAGEM FORA DO QUADRO');
     if (p.hid >= 2) add(t, 'PERSONAGEM ESCONDIDO atrás de algo (' + p.hid + '/3 pontos)');
+    (p.atravessa || []).forEach(n => add(t, 'PERSONAGEM ATRAVESSANDO MÓVEL: ' + n + ' (regra 4.6)'));
     // regra 4.3: o corpo inteiro fica ACIMA da descrição/@canal do app (pés estimados pelo tamanho do tronco na tela)
     { const ny = p.scr[0][1] * 1920, hy = p.scr[2][1] * 1920, fy = hy + (hy - ny) * 1.25; if (fy > SAFE[1].y0 + 20) add(t, 'PERSONAGEM NA ÁREA DA DESCRIÇÃO DO APP (pés em ' + Math.round(fy / 40) * 40 + 'px; máx ' + (SAFE[1].y0 + 20) + ')');
       if (p.scr[1][0] * 1080 > SAFE[0].x0 && p.scr[1][1] * 1920 > SAFE[0].y0 && p.scr[1][1] * 1920 < SAFE[0].y1) add(t, 'PERSONAGEM EMBAIXO DOS BOTÕES DO APP (direita)'); }
-    if (p.feet != null && p.feet < -.07 && p.y < .05) add(t, 'PERSONAGEM AFUNDANDO NO CHÃO (pés ' + p.feet.toFixed(2) + ')');
+    if (p.feet != null && p.feet + p.y < -.05) add(t, 'PERSONAGEM AFUNDANDO NO CHÃO (pés ' + (p.feet + p.y).toFixed(2) + ' abaixo do piso)');   // medida absoluta: o que o espectador vê
     [...new Set(r.cover)].forEach(m => add(t, 'MODAL COBRINDO O PERSONAGEM: ' + m)); }
   const ids = new Set(r.ids); let fresh = false; ids.forEach(i => { if (!prevIds.has(i)) fresh = true; }); prevIds = ids;
   if (fresh) lastNew = t; else if (t - lastNew > 3.2 && t > 2) { add(t, 'NADA NOVO NA TELA há mais de 3 s (ritmo)'); lastNew = t; }
 }
-// junta avisos repetidos em faixas de tempo
-const merged = []; warn.sort((a, b) => a[1] < b[1] ? -1 : a[1] > b[1] ? 1 : a[0] - b[0]);
-for (const [t, m] of warn) { const L = merged[merged.length - 1]; if (L && L.m === m && t - L.t1 <= STEP * 1.6) L.t1 = t; else merged.push({ m, t0: t, t1: t }); }
-merged.sort((a, b) => a.t0 - b.t0);
-const fmt = s => s.toFixed(1).padStart(5) + 's';
-const lines = merged.map(w => `${fmt(w.t0)}${w.t1 > w.t0 ? ' a ' + fmt(w.t1) : '        '}  ${w.m}`);
 if (errs.length) lines.unshift('ERROS NA PÁGINA:', ...errs.map(e => '  ' + e), '');
 
 // folha de conferência: quadros seguidos (sem HUD) em volta de cada som do jogo (cada som = uma ação)
@@ -134,6 +133,25 @@ for (const a of acts) { const row = []; for (const d of [-.3, -.13, 0, .1, .23, 
 // REGRA 4.3 — folha zonas.png: o vídeo COM textos no meio de cada cena, com as áreas da interface dos apps pintadas por cima (conferência no olho)
 { const Tz = JSON.parse(cfg.match(/T: (\[[^\]]*\])/)[1]), ENDz = +((cfg.match(/END: ([\d.]+)/) || [0, dur])[1]);
   const shots = []; fs.mkdirSync(out + '/z', { recursive: true });
+  // REGRA 4.5 — luz de acordo com o ambiente (window.EP.luz = { padrao: 'interior-tarde', 7: 'exterior-noite' }): brilho médio, contraste
+  // (a luz vem de algum lugar), personagem legível e nada estourado. Medido no quadro 3D (sem textos), em 2 pontos de cada cena.
+  const LUZ = { 'exterior-dia': [95, 185, 55], 'interior-dia': [75, 170, 60], 'interior-tarde': [60, 150, 90], 'interior-noite': [25, 100, 90], 'exterior-noite': [20, 90, 70], 'chuva': [45, 130, 60] };
+  const luzCfg = await page.evaluate(() => (window.EP && window.EP.luz) || {});
+  for (let i = 0; i < Tz.length; i++) { const amb = luzCfg[i] || luzCfg.padrao, end = (i + 1 < Tz.length ? Tz[i + 1] : ENDz);
+    for (const q of [.35, .75]) { const tl = Math.min(dur - .05, Tz[i] + OFF + (end - Tz[i]) * q);
+      const m = await page.evaluate(async t => { await window.__seek(t); const c = document.querySelector('canvas'), k = document.createElement('canvas'); k.width = 270; k.height = 480; const x = k.getContext('2d');
+        x.drawImage(c, 0, 0, 270, 480); const d = x.getImageData(0, 0, 270, 480).data, Y = []; for (let p = 0; p < d.length; p += 4) Y.push(.2126 * d[p] + .7152 * d[p + 1] + .0722 * d[p + 2]);
+        const so = [...Y].sort((a, b) => a - b), pr = window.__probe && window.__probe().S; let cy = null;
+        if (pr) { const xs = pr.scr.map(s => s[0] * 270), ys = pr.scr.map(s => s[1] * 480), x0 = Math.max(0, Math.min(...xs) - 10 | 0), x1 = Math.min(269, Math.max(...xs) + 10 | 0), y0 = Math.max(0, Math.min(...ys) - 8 | 0), y1 = Math.min(479, Math.max(...ys) + 30 | 0);
+          let sm = 0, n = 0; for (let yy = y0; yy <= y1; yy++) for (let xx = x0; xx <= x1; xx++) { sm += Y[yy * 270 + xx]; n++; } cy = n ? sm / n : null; }
+        return { mean: Y.reduce((a, b) => a + b, 0) / Y.length, p5: so[so.length * .05 | 0], p95: so[so.length * .95 | 0], clip: Y.filter(v => v >= 250).length / Y.length, cy }; }, tl);
+      const tag = `cena ${i}${amb ? ' (' + amb + ')' : ''}`;
+      if (amb && LUZ[amb]) { const [lo, hi, ct] = LUZ[amb];
+        if (m.mean < lo) add(tl, `LUZ ESCURA DEMAIS para ${amb}: brilho ${m.mean | 0} (mín ${lo}) — ${tag}`);
+        if (m.mean > hi) add(tl, `LUZ CLARA DEMAIS para ${amb}: brilho ${m.mean | 0} (máx ${hi}) — ${tag}`);
+        if (m.p95 - m.p5 < ct) add(tl, `LUZ CHAPADA (sem fonte de luz/contraste): ${(m.p95 - m.p5) | 0} (mín ${ct}) — ${tag}`); }
+      if (m.clip > .03) add(tl, `LUZ ESTOURADA: ${(m.clip * 100).toFixed(1)}% branco puro — ${tag}`);
+      if (m.cy != null && m.cy < 45) add(tl, `PERSONAGEM ESCURO DEMAIS (brilho ${m.cy | 0}, mín 45) — ${tag}`); } }
   for (let i = 0; i < Tz.length; i++) { const tt = Math.min(dur - .05, Tz[i] + OFF + ((i + 1 < Tz.length ? Tz[i + 1] : ENDz) - Tz[i]) * .7); await page.evaluate(t => window.__seek(t), tt);
     const f = `${out}/z/${String(i).padStart(2, '0')}.png`; await page.screenshot({ path: f }); shots.push([tt, f]); }
   const box = (z, c) => `drawbox=x=${z.x0}:y=${z.y0}:w=${z.x1 - z.x0}:h=${z.y1 - z.y0}:color=${c}@0.38:t=fill`;
@@ -152,5 +170,12 @@ if (rows.length) {
     list.map((_, i) => `${(i % 6) * 180}_${Math.floor(i / 6) * 260}`).join('|') + (lab ? ',' + lab : ''), `${out}/folha.png`]);
 }
 fs.rmSync(out + '/q', { recursive: true, force: true });
+// junta avisos repetidos em faixas de tempo
+const merged = []; warn.sort((a, b) => a[1] < b[1] ? -1 : a[1] > b[1] ? 1 : a[0] - b[0]);
+for (const [t, m] of warn) { const L = merged[merged.length - 1]; if (L && L.m === m && t - L.t1 <= STEP * 1.6) L.t1 = t; else merged.push({ m, t0: t, t1: t }); }
+merged.sort((a, b) => a.t0 - b.t0);
+const fmt = s => s.toFixed(1).padStart(5) + 's';
+const lines = merged.map(w => `${fmt(w.t0)}${w.t1 > w.t0 ? ' a ' + fmt(w.t1) : '        '}  ${w.m}`);
+fs.writeFileSync(`${out}/sonda.json`, JSON.stringify(PROBE));
 fs.writeFileSync(`${out}/relatorio.txt`, `INSPEÇÃO — episódio ${ep} (${man.nome})\n${merged.length} aviso(s)\n\n` + (lines.join('\n') || 'Nenhum problema encontrado.') + '\n');
 console.log(`inspeção: ${merged.length} aviso(s) -> ${out}/relatorio.txt | folha: ${rows.length} ações -> ${out}/folha.png`);
