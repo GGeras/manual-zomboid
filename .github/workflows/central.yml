@@ -18,13 +18,13 @@ jobs:
       run:
         working-directory: plataforma/app
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         env:
           GIT_LFS_SKIP_SMUDGE: '1' # não gasta a cota do LFS
         with:
           lfs: false
           sparse-checkout: plataforma/app
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
