@@ -4,70 +4,85 @@ tema: Coleta
 responsavel: jose
 status: validado
 build: B42.22
-fatos: [col-raio, col-penal, col-inicio, col-veneno, col-inverno]
-video: (link do Drive em videos/LINKS.md)
+fatos: [col-modo, col-raio, col-nivel, col-clima, col-andar, col-onde, col-herbalista, col-estacao, col-foco]
+video: (sem rascunho ainda)
 ---
 
-# EP 21 — Coleta  (estimativa: 45s) · v5 validado
+# EP 21 — Coleta · ROTEIRO v6 (revisado 23/11/2026)
 
-Ideia-guia: **a busca é um círculo ao seu redor — tudo que te atrapalha encolhe o círculo.**
-Selo: `BUILD 42.22`. Habilidade = **Coleta** (`nomes-ptbr.md`), nunca "Forrageamento".
+**Ideia-guia:** A busca é um círculo ao seu redor — tudo que te atrapalha encolhe o círculo.
 
-## Fatos (todos em `info-validada/coleta.md`)
-| id | fato usado |
-|---|---|
-| col-raio | raio de busca 3 (Coleta 0) → 10 (Coleta 10), valor base |
-| col-penal | escuro e pânico encolhem muito; correr anula a busca; agachado +10% |
-| col-inicio | lenha e pedra desde a Coleta 0 |
-| col-veneno | frutinha e cogumelo podem ter veneno; risco cai com a Coleta; Herbalista identifica |
-| col-inverno | inverno: bem menos comida; neve reduz chance de planta e frutinha |
+Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez.
 
-Cortado (sem fonte 42.20+ ou conflito; ver `rascunho/ep20-22-a-revalidar.md`): luneta/painel "Investigar Área", chuva/neblina/neve/cansaço no raio, frutinha no nível 0, veneno "igual por fora", revista de Herbalista.
+## Frases (narração proposta)
 
-## Frases (narração final)
-1. "O mato tem comida. Você só não está vendo."
-   - TELA: 3D — rua da cidade, luz dia, personagem principal parado na beira do mato | título: **O mato tem** / **comida**
-   - 0–1s: punch-in no chão. 1–2s: contorno de Item_BerryBlue "fantasma" piscando e sumindo.
-   - ÍCONES: Item_BerryBlue  SONS: ambientOutsideDayBirds (Ambiente e Clima)
+**0.** [sério] "O mato tem comida. Você só não está vendo."
+- VISUAL: 3D dia: personagem na beira da floresta; frutinha "fantasma" pisca e some.
+- ÍCONES: Item_BerryBlue
+- FATOS: —
 
-2. "Quando você liga a busca, os itens aparecem no chão, dentro de um círculo ao seu redor. Esse círculo começa com três quadrados do chão e chega a dez com a Coleta, a habilidade de busca, no máximo."  [v5: corte da luneta (sem fonte 42.20+); "Forrageamento" → "Coleta"]
-   - TELA: painel simples (não é réplica de tela do jogo) — vista de cima, grade de quadrados com personagem no centro | título: **Círculo de busca** / **3 → 10**
-   - 0–2s: círculo aparece; Item_Firewood_Log e Item_Rock surgem só dentro dele.
-   - 2–4s: chip "COLETA 0" → raio "3"; anima até "COLETA 10" → raio "10". Selo pequeno "VALOR BASE".
-   - ÍCONES: Item_Firewood_Log, Item_Rock  SONS: levelup (Personagem)
+**1.** [calmo] "Abre a janela Investigar Área e ativa o Modo de Busca. Ou só aperta a tecla End."
+- VISUAL: Réplica simples do botão "Ativar Modo de Busca" (sem print → chip com o texto do jogo) + tecla END.
+- ÍCONES: —
+- FATOS: col-modo
 
-3. "E tem coisa que encolhe ele: escuro e pânico encolhem muito. Correndo, a busca não funciona. Agachado, o círculo cresce um pouco."  [v5: chuva/neblina/cansaço cortados (só fonte 42.19)]
-   - TELA: mesma vista de cima | título: **Escuro e pânico** / **encolhem o círculo**
-   - 0–2s: tela escurece → círculo encolhe; Mood_Panicked entra → círculo encolhe mais (sem números).
-   - 2–3s: personagem correndo → círculo some ✗. 3–4s: agachado → círculo cresce um pouco ✓.
-   - ÍCONES: Mood_Panicked  SONS: PZ_grassFoot_01 (Personagem)
+**2.** [confiante] "Os itens aparecem no chão, dentro de um círculo ao seu redor. Com a habilidade Coleta no zero, ele tem três quadrados. No nível dez, chega a dez."
+- VISUAL: Vista de cima com grade: círculo 3 → 10; galhos e pedras aparecem só dentro dele.
+- ÍCONES: Item_Twigs, Item_Rock
+- FATOS: col-raio, col-nivel
 
-4. "Exemplo: de dia, calmo e agachado: círculo grande. À noite, em pânico: o círculo quase some."
-   - TELA: split comparação | título: **Mesmo lugar,** / **círculo diferente**
-   - 0–2s: esquerda — luz dia, círculo grande cheio de ícones ✓.
-   - 2–4s: direita — luz escuro + Mood_Panicked, círculo pequeno, quase vazio ✗.
-   - ÍCONES: Item_Firewood_Log, Item_Rock, Mood_Panicked  SONS: ambientOutsideDayBirds → ambientOutsideCricketsNight (Ambiente e Clima)
+**3.** [tenso] "Chuva, neblina, neve e escuro encolhem o círculo. Guarda-chuva ajuda na chuva, e à noite leva lanterna."
+- VISUAL: Círculo encolhendo a cada ícone; guarda-chuva e lanterna devolvem um pouco.
+- ÍCONES: Item_Umbrella, Item_Flashlight2
+- FATOS: col-clima
 
-5. "Desde o começo, com Coleta zero, já dá pra achar lenha e pedra."  [v5: "frutinha" cortada (fontes em conflito)]
-   - TELA: close de ícones (quadro de inventário) | título: **Desde a** / **Coleta zero**
-   - 0–2s: Item_Firewood_Log e Item_Rock entram em fila com chip "COLETA 0".
-   - ÍCONES: Item_Firewood_Log, Item_Rock  SONS: PZ_PutInBag (Itens e Comida)
+**4.** [calmo] "Agachado você acha um pouco mais. E anda enquanto procura: andar em círculo não revela nada novo."
+- VISUAL: Agachar → círculo cresce um pouco; seta de trajeto reto ✓ × círculo ✗.
+- ÍCONES: —
+- FATOS: col-clima, col-andar
 
-6. "Mas cuidado: frutinha e cogumelo podem vir envenenados. Quanto mais Coleta, menor o risco. E com o traço Herbalista, você reconhece o veneno."  [v5: "igual a um que já comeu" e revista cortados (só fonte 42.19)]
-   - TELA: tela simulada — inventário | título: **Frutinha e cogumelo** / **podem ter veneno**
-   - 0–2s: Item_MushroomGeneric1 e Item_BerryGeneric1 entram; um ganha ✗ vermelho + Mood_Ill pisca.
-   - 2–4s: barra "COLETA" subindo, ✗ fica menor (sem números).
-   - 4–6s: trait_herbalist entra; o item ruim ganha etiqueta "VENENOSO".
-   - ÍCONES: Item_MushroomGeneric1, Item_BerryGeneric1, trait_herbalist, Mood_Ill  SONS: PZ_Eating (Itens e Comida)
+**5.** [confiante] "Cada lugar tem o seu: lenha nas florestas, pedras nas estradas, frutas e cogumelos na floresta, e inseto aparece mais à noite."
+- VISUAL: Mapa simples com 4 zonas e ícones.
+- ÍCONES: Item_Twigs, Item_Rock, Item_BerryBlue
+- FATOS: col-onde
 
-7. "No inverno, o mato tem bem menos comida, e a neve atrapalha ainda mais."
-   - TELA: vista de cima com chão branco | título: **Inverno =** / **pouca comida**
-   - 0–2s: chão fica branco, ícones de frutinha e cogumelo somem um a um.
-   - ÍCONES: Item_BerryGeneric1, Item_MushroomGeneric1  SONS: ambientOutsideWindyNight (Ambiente e Clima)
+**6.** [sério] "Cuidado com frutinha e cogumelo: tem variedade venenosa. O traço Herbalista ajuda a saber quais são seguras."
+- VISUAL: Frutinha com ✗ e ✓; chip HERBALISTA.
+- ÍCONES: Item_BerryBlue
+- FATOS: col-herbalista
 
-8. "Anda devagar, de dia, calmo, e olha o chão."
-   - TELA: 3D — rua da cidade, luz dia, personagem principal andando devagar | título: **Devagar, de dia,** / **olhando o chão**
-   - 0–2s: círculo de busca sobreposto em volta do personagem; ícones aparecendo ✓.
-   - ÍCONES: Item_BerryBlue, Item_Firewood_Log  SONS: PZ_grassFoot_01 (Personagem)
+**7.** [calmo] "E tudo depende da estação. Quer uma coisa específica? Usa o Foco de Busca."
+- VISUAL: Calendário girando; botão "Foco de Busca".
+- ÍCONES: —
+- FATOS: col-estacao, col-foco
 
-> **VALIDADO** (23/11/2026): todos os fatos em `info-validada/coleta.md`. Próximo passo: prévia para o Jose aprovar.
+**8.** [confiante] "Dia de sol, agachado e andando: o mato vira mercado."
+- VISUAL: 3D: personagem coletando; CTA.
+- ÍCONES: Item_BerryBlue
+- FATOS: —
+
+## Arquivos para o vídeo (conferidos no repo em 23/11/2026)
+
+**Ícones e moodles** (`projeto/assets/items` · `assets/moodles`):
+- `Item_BerryBlue` ✓
+- `Item_Twigs` ✓
+- `Item_Rock` ✓
+- `Item_Umbrella` ✓
+- `Item_Flashlight2` ✓
+
+**Sons do jogo** (`projeto/assets/sfx`):
+- `ambientOutsideDayBirds` — frase 0 (+0s, -24 dB) ✓
+- `ambientOutsideLightRainWoods` — frase 3 (+0s, -18 dB) ✓
+- `PZ_grassFoot_01` — frase 4 (+0.3s, -16 dB) ✓
+
+**Música:** `where_is_everyone` ✓
+
+**Telas do jogo** (`referencias/telas-do-jogo`):
+- janela "Investigar Área" / botão "Ativar Modo de Busca": **sem print** → usar chip/ícone; print opcional (tirar no jogo em PT-BR)
+
+**Modelos 3D:** `PZ.SOBREVIVENTE` (roupa padrão) · zumbis `PZ.zumbiPZ(i)` variados · S agachado/andando na floresta; ícones 3D no chão (PZ.icon3d)
+
+**Manifesto:** `projeto/ep21.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep21.cfg.js` + `ep21.js` (cenas) na hora da prévia.
+
+## Fatos
+Todos em `info-validada/` (ver tabela do tema `coleta` e os ids citados).

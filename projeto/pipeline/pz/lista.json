@@ -55,6 +55,18 @@
   ],
   "w_axe": [
    "weapons/2handed/FireAxe.x"
+  ],
+  "w_blowtorch": [
+   "Blowtorch.x"
+  ],
+  "weldermask": [
+   "Static/Clothes/M_WelderMask.x"
+  ],
+  "w_book": [
+   "Book.x"
+  ],
+  "w_hacksaw": [
+   "Hacksaw.x"
   ]
  },
  "tex": {
@@ -147,7 +159,11 @@
   "baseballbat": "textures/weapons/2handed/BaseballBat.png",
   "handgun": "textures/weapons/firearm/Handgun.png",
   "shotgun": "textures/weapons/firearm/Shotgun.png",
-  "fireaxe": "textures/weapons/2handed/FireAxe.png"
+  "fireaxe": "textures/weapons/2handed/FireAxe.png",
+  "blowtorch": "textures/Blowtorch.png",
+  "weldermask": "textures/Clothes/Hat/WelderMask.png",
+  "book": "textures/Book.png",
+  "hacksaw": "textures/Hacksaw.png"
  },
  "fbx": {
   "car_normal": [
@@ -170,6 +186,50 @@
   "z_lunge": "Zombie_Lunge.x",
   "z_death": "Zombie_HitDeath_HeadTop.x",
   "z_hit": "Zombie_HitReact_HeadTop.x",
-  "z_shovefall": "Zombie_ShoveStaggerFall_2m.x"
+  "z_shovefall": "Zombie_ShoveStaggerFall_2m.x",
+  "z_climbwin_start": "Zombie_ClimbWindowStart.x",
+  "z_climbwin": "Zombie_ClimbWindow.x",
+  "z_climbwin_end": "Zombie_ClimbWindowEnd.x",
+  "z_getup": "Zombie_GetUp.x",
+  "z_getupfront": "Zombie_GetUpFront.x",
+  "z_doorbang": "Zombie_DoorBang.x",
+  "s_idle": "Bob/Bob_Idle.x",
+  "s_walk": "Bob/Bob_Walk.x",
+  "s_walkslow": "Bob/Bob_WalkSlow.x",
+  "s_hammer": "Bob/Bob_IdleHammering.x",
+  "s_hammer_low": "Bob/Bob_IdleHammering_Low.x",
+  "s_hammer_kneel": "Bob/Bob_IdleHammering_Kneel.x",
+  "s_read": "Bob/Bob_IdleReadBook.x",
+  "s_sitdown": "Bob/Bob_Seated_SitDown.x",
+  "s_petcow": "Bob/Bob_PetCow.x",
+  "s_petsheep": "Bob/Bob_PetSheep.x",
+  "s_shear": "Bob/Bob_Idle_SheepShearing.x",
+  "s_milk": "Bob/Bob_Milking_CowL.x",
+  "s_shiver": "Bob/Bob_EmoteShiver.x",
+  "s_wipe": "Bob/Bob_EmoteWipeTorso.x",
+  "s_drink": "Bob/Bob_DrinkFromBottle.x",
+  "s_shout": "Bob/Bob_EmoteShout.x",
+  "s_climbrope": "Bob/Bob_ClimbRope.x",
+  "s_climbwin": "Bob/Bob_ClimbWindow.x",
+  "s_satchair": "Bob/Bob_SatChair.x",
+  "s_satchairin": "Bob/Bob_SatChairIn.x",
+  "s_lootlow": "Bob/Bob_IdleLooting_Low.x",
+  "s_makinglow": "Bob/Bob_IdleMakingLow.x",
+  "s_eatbowl": "Bob/Bob_IdleEatingFromBowl.x",
+  "s_eatcan": "Bob/Bob_IdleEatingFromCan.x",
+  "s_fillpot": "Bob/Bob_IdleFill_CookingPot.x",
+  "s_seatedext": "Bob/Bob_IdleSeatedExt01.x",
+  "s_lightfire": "Bob/Bob_LightFire_NotchedPlank_LOOP.x",
+  "z_bite": "Zombie/Zombie_Bite.x",
+  "s_bitedefend": "Bob/Bob_BiteDefend.x",
+  "s_hitreact": "Bob/Bob_AimHitReact_01.x",
+  "s_band_up": "Bob/Bob_BandageUpperBody.x",
+  "s_band_larm": "Bob/Bob_BandageLeftArm.x",
+  "s_band_rleg": "Bob/Bob_BandageRightLeg.x",
+  "s_blowtorch": "Bob/Bob_IdleBlowtorch_High.x",
+  "s_sneak": "Bob/Bob_WalkLowSneak.x",
+  "z_sprint": "Zombie_Sprint.x",
+  "s_sawsmall": "Bob/Bob_IdleSawSmallItem.x",
+  "s_sawlog": "Bob/Bob_IdleSawLog.x"
  }
 }

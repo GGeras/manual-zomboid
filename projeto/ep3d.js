@@ -26,15 +26,25 @@ export function run(shots) {
   const ray = new THREE.Raycaster(), v = new THREE.Vector3();
   const seen = o => { for (let p = o; p; p = p.parent) if (!p.visible) return false; return true; };
   const inside = (o, root) => { for (let p = o; p; p = p.parent) if (p === root) return true; return false; };
+  let MOV = null;
   function probe(h) {
     if (!h.g.visible || cv.style.visibility === 'hidden') return null; h.g.updateMatrixWorld(true);
     const pts = [h.neck, h.spine, h.hips].map(o => o.getWorldPosition(new THREE.Vector3()));
     let hid = 0; const scr = pts.map(p => { v.copy(p).project(cam); return [(v.x + 1) / 2, (1 - v.y) / 2]; });
+    { v.copy(pts[0]).add(new THREE.Vector3(0, .12, 0)).project(cam); scr.push([(v.x + 1) / 2, (1 - v.y) / 2]); }   // scr[3] = meio da cabeça (rosto) — regra 4.3: modal não cobre a cabeça
     pts.forEach(p => { const d = p.clone().sub(cam.position).normalize(); ray.set(cam.position, d); ray.camera = cam; ray.far = cam.position.distanceTo(p) - .05;
-      const hit = ray.intersectObjects(scene.children, true).find(x => x.object.isMesh && seen(x.object) && !inside(x.object, h.g) && !x.object.material.transparent && x.object.geometry.type !== 'PlaneGeometry');
+      const hit = ray.intersectObjects(scene.children, true).find(x => x.object.isMesh && seen(x.object) && !inside(x.object, h.g) && !x.object.userData.tile && !x.object.isInstancedMesh && !x.object.material.transparent && x.object.geometry.type !== 'PlaneGeometry');
       if (hit) hid++; });
-    return { scr, hid };
+    let feet = null; if (h.pz && h.pz.bones.Bip01_L_Toe0) feet = Math.min(...['Bip01_L_Toe0', 'Bip01_R_Toe0', 'Bip01_L_Foot', 'Bip01_R_Foot'].map(n => h.pz.bones[n].getWorldPosition(new THREE.Vector3()).y)) - h.g.position.y;
+    // regra 4.6: personagem ATRAVESSANDO móvel (cadeira, poltrona, mesa, bancada…): quadril, peito ou pés dentro da caixa de um móvel do cenário
+    // (sentado vale: o quadril fica ACIMA do assento). Caixas dos sprites do jogo (obj/assento) — chão, paredes e placas não entram.
+    if (!MOV) { MOV = []; scene.traverse(o => { if (o.isMesh && o.userData.tile && o.geometry.type === 'BoxGeometry' && !/^(floors|blends|walls|fencing|f_bushes|e_|vegetation|lighting|carpentry_01_(8|9|1[0-5]))/.test(o.userData.tile)) MOV.push(o); }); }
+    const corpo = [pts[1], pts[2]]; if (h.pz && h.pz.bones.Bip01_L_Toe0) ['Bip01_L_Toe0', 'Bip01_R_Toe0'].forEach(n => corpo.push(h.pz.bones[n].getWorldPosition(new THREE.Vector3())));
+    const bb = new THREE.Box3(), atravessa = [];
+    MOV.forEach(o => { if (!seen(o)) return; o.updateMatrixWorld(); bb.setFromObject(o); bb.min.x += .1; bb.min.z += .1; bb.max.x -= .1; bb.max.z -= .1; bb.max.y -= .04;
+      if (corpo.some(p => bb.containsPoint(p))) atravessa.push(o.userData.tile); });
+    return { scr, hid, feet, y: h.g.position.y, atravessa: [...new Set(atravessa)] };
   }
   window.__probe = () => ({ S: probe(S), Z: Z.filter(z => z.g.visible).length });
-  const orig = window.__seek; window.__seek = t => { orig(t); render(t); }; render(0); window.__resolveWorld();
+  const orig = window.__seek; window.__seek = t => { orig(t); render(t); }; Promise.all(window.__TILES || []).then(() => { render(0); window.__resolveWorld(); });   // espera os sprites do jogo (tiles.js)
 }

@@ -22,15 +22,15 @@ EP17 — Barricadas
  6. O zumbi te vê através das barras de metal?
  7. No clique direito em PT-BR a opção se chama "Barricar"?
 
-EP20–22: RESOLVIDO em 23/11 (sem perguntar ao Jose)
- 8. "Mau Cheiro" = nome PT-BR (nomes-ptbr.md, PTBR B42.22).
- 9. Último nível = "Cansaço Absurdo" (nomes-ptbr.md), não "Ridiculamente Cansado".
-10. Habilidade = "Coleta" (nomes-ptbr.md), não "Forrageamento".
-11. Revista de Herbalista: só fonte 42.19 → cortada do EP21 (só o traço).
-12. Perna ao correr: sem fonte 42.20+ → cortado.
-13. Painel de saúde = "Distensão Muscular / Leve" (nomes-ptbr.md).
-14. Arma longa × curta: sem fonte 42.20+ → cortado (só peso).
-   Detalhe: rascunho/ep20-22-a-revalidar.md.
+EP20–22: RESOLVIDO em 23/11 pela v6 da main (arquivos do jogo B42.22; ids em info-validada/)
+ 8. "Mau Cheiro" = nome PT-BR (nomes-ptbr.md).
+ 9. Último nível = "Cansaço Absurdo" (nomes-ptbr.md, sono-niveis), não "Ridiculamente Cansado".
+10. Habilidade = "Coleta" (nomes-ptbr.md, col-modo), não "Forrageamento".
+11. Revista de Herbalista: info-validada só tem o traço (col-herbalista).
+12. Perna ao correr: confirmado (fad-perna).
+13. Painel de saúde = "Distensão Muscular / Leve" (nomes-ptbr.md, fad-nome).
+14. Arma longa × curta: info-validada só tem o peso (fad-arma).
+   Versão alternativa com fontes web (PR #12): rascunho/ep20-22-fontes-web.md.
 
 JÁ DECIDIDO (sem precisar responder)
  - EP15: pular janela quebrada sem tirar o vidro corta = SIM (você já confirmou).

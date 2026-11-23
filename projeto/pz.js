@@ -133,14 +133,18 @@ const _m = new THREE.Matrix4(), _i = new THREE.Matrix4(), _p = new THREE.Vector3
 // h.clip = ['z_walk', quadro, loop=true]: toca uma animação ORIGINAL do jogo (30 fps) no lugar da pose do engine
 export const CLIPS = Object.keys(MODELS.clips || {});
 const _qa = new THREE.Quaternion(), _qb = new THREE.Quaternion();
-function clipPose(h, name, f, loop = true) { const c = MODELS.clips[name]; if (!c) throw new Error('pz: animação ausente: ' + name); const n = c.n;
-  f = loop ? ((f % (n - 1)) + (n - 1)) % (n - 1) : Math.max(0, Math.min(n - 1, f)); const i0 = Math.floor(f), k = f - i0;
-  for (const b of h.pz.order) { const d = c.b[b.name], par = b.parent;
+// h.clip[3] = ['s_read', quadro, loop]: tronco, braços e cabeça de OUTRA animação (ex.: sentado na cadeira + lendo), como o jogo mistura
+const UPPER = /Spine1|Neck|Head|Clavicle|UpperArm|Forearm|_Hand|Finger|Prop/;
+const frameOf = (c, f, loop) => { const n = c.n; return loop ? ((f % (n - 1)) + (n - 1)) % (n - 1) : Math.max(0, Math.min(n - 1, f)); };
+function clipPose(h, name, f, loop = true, up = null) { const c = MODELS.clips[name]; if (!c) throw new Error('pz: animação ausente: ' + name);
+  const c2 = up && MODELS.clips[up[0]]; if (up && !c2) throw new Error('pz: animação ausente: ' + up[0]);
+  f = frameOf(c, f, loop); const f2 = c2 ? frameOf(c2, up[1], up[2] !== false) : 0;
+  for (const b of h.pz.order) { const two = c2 && UPPER.test(b.name), d = (two ? c2 : c).b[b.name], par = b.parent; const ff = two ? f2 : f, i0 = Math.floor(ff), k = ff - i0;
     if (d) { const nr = d.r.length / 4, a = Math.min(i0, nr - 1), a2 = Math.min(i0 + 1, nr - 1); _qa.fromArray(d.r, a * 4); _qb.fromArray(d.r, a2 * 4); b.quaternion.copy(_qa).slerp(_qb, k).conjugate();
       const nt = d.t.length / 3; if (nt) { const t = Math.min(i0, nt - 1), t2 = Math.min(i0 + 1, nt - 1); b.position.set(d.t[t * 3] + (d.t[t2 * 3] - d.t[t * 3]) * k, d.t[t * 3 + 1] + (d.t[t2 * 3 + 1] - d.t[t * 3 + 1]) * k, d.t[t * 3 + 2] + (d.t[t2 * 3 + 2] - d.t[t * 3 + 2]) * k); if (b.name === 'Bip01') { b.position.x = 0; b.position.y = 0; } } b.scale.setScalar(1); }
     b.updateMatrix(); b.matrixWorld.multiplyMatrices(par.matrixWorld, b.matrix); } }
 export function sync(h) { if (!h.g.visible) return; h.g.updateMatrixWorld(true); const { order, s } = h.pz;
-  if (h.clip) { clipPose(h, h.clip[0], h.clip[1], h.clip[2] !== false); return; }
+  if (h.clip) { clipPose(h, h.clip[0], h.clip[1], h.clip[2] !== false, h.clip[3]); return; }
   for (const b of order) { const par = b.parent, d = b.userData.drv;
     if (d) { d.D.matrixWorld.decompose(_p, _q, _s); _p.copy(d.off).applyMatrix4(d.D.matrixWorld); _q.multiply(d.A); _m.compose(_p, _q, _s.multiplyScalar(s));
       b.matrix.copy(_i.copy(par.matrixWorld).invert()).multiply(_m); b.matrix.decompose(b.position, b.quaternion, b.scale); b.matrixWorld.copy(_m); }
@@ -157,6 +161,8 @@ export function itemModel(name, texName, s = 1.94) { const m = MODELS.mesh[name]
   if (ITEM_ROT[name]) r.rotation.set(...ITEM_ROT[name]); r.add(me); k.add(r);
   g.add(k); g.updateMatrixWorld(true); const bb = new THREE.Box3().setFromObject(g); k.position.y = -bb.min.y; k.position.x = -(bb.min.x + bb.max.x) / 2; k.position.z = -(bb.min.z + bb.max.z) / 2; return g; }
 
+// malha do jogo "crua" (unidades e eixos do jogo) para prender num osso com attach(h, 'Bip01_Prop1', ...): fica na mão como no jogo
+export function propMesh(name, texName) { const m = MODELS.mesh[name]; const me = new THREE.Mesh(geom(name), material(tex(texName || name), { alphaTest: .3 })); if (m.frame) me.applyMatrix4(M4(m.frame)); me.castShadow = true; return me; }
 // ---------- armas do jogo (malhas originais) ----------
 // devolve a malha com o cabo na origem e a ponta para +z (mesma convenção do taco antigo), já na escala do personagem
 export function weapon(name, texName, s = 1.94) { const m = MODELS.mesh[name]; const me = new THREE.Mesh(geom(name), material(tex(texName), { alphaTest: .3 })); if (m.frame) me.applyMatrix4(M4(m.frame)); me.castShadow = true;
@@ -235,3 +241,24 @@ export function animal(name, s = 1.94) { const m = MODELS.mesh[name], [cb, cl, l
   g0.setAttribute('color', new THREE.BufferAttribute(col, 3));
   const me = new THREE.Mesh(g0, new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: true })); if (m.frame) me.applyMatrix4(M4(m.frame)); me.castShadow = true;
   const k = new THREE.Group(); k.scale.set(-s, s, s); k.add(me); const o = new THREE.Group(); o.add(k); return o; }
+
+// ---------- animais da B42 COM esqueleto e animações originais (pipeline/pz/add_animais.py) ----------
+// key: 'A_cow' | 'A_sheep' | 'A_sheared' | 'A_hen' | 'A_rooster'. Frente do animal = +z (a malha do jogo olha para -z: giramos 180°).
+// Animação: animalClip(a, 'cow_walk', quadro) a cada frame (30 fps, como as do personagem). Sem clip = pose de repouso.
+const A_COR = { A_cow: 'a_cow', A_sheep: 'a_sheep', A_sheared: 'a_sheep', A_hen: 'a_hen', A_rooster: 'a_rooster' };
+export function animalPZ(key, s = 1.94) { const [cb, cl, lh] = ANIMAL[A_COR[key]], m = MODELS.mesh[key]; if (!m) throw new Error('pz: animal ausente: ' + key);
+  const g0 = geom(key).clone(), p = g0.attributes.position; let ymax = 0; for (let i = 0; i < p.count; i++) ymax = Math.max(ymax, p.getY(i));
+  const col = new Float32Array(p.count * 3), A = new THREE.Color(key === 'A_sheared' ? '#d9cdb4' : cb), B = new THREE.Color(cl);
+  for (let i = 0; i < p.count; i++) { const c = p.getY(i) < ymax * lh ? B : A; col.set([c.r, c.g, c.b], i * 3); } g0.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  const k = new THREE.Group(); k.scale.set(-s, s, s); k.rotation.y = Math.PI; const bones = {}, order = [];
+  for (const b of MODELS.skel[key]) { const bn = new THREE.Bone(); bn.name = b.n; M4(b.m).decompose(bn.position, bn.quaternion, bn.scale); bones[b.n] = bn; order.push(bn); (b.p && bones[b.p] ? bones[b.p] : k).add(bn); }
+  const me = new THREE.SkinnedMesh(g0, new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: true })); me.frustumCulled = false; me.castShadow = true; k.add(me);
+  k.updateMatrixWorld(true); me.bind(new THREE.Skeleton(m.bones.map(n => bones[n]), m.inv.map(M4)), new THREE.Matrix4());
+  const o = new THREE.Group(); o.add(k); o.userData.anim = { key, bones, order, k }; return o; }
+export function animalClip(o, name, f, loop = true) { const c = MODELS.clips[name]; if (!c) throw new Error('pz: animação ausente: ' + name);
+  f = frameOf(c, f, loop); const i0 = Math.floor(f), t = f - i0;
+  for (const b of o.userData.anim.order) { const d = c.b[b.name]; if (!d) continue; const nr = d.r.length / 4, a = Math.min(i0, nr - 1), a2 = Math.min(i0 + 1, nr - 1);
+    _qa.fromArray(d.r, a * 4); _qb.fromArray(d.r, a2 * 4); b.quaternion.copy(_qa).slerp(_qb, t).conjugate();
+    const nt = d.t.length / 3; if (nt) { const i = Math.min(i0, nt - 1), j = Math.min(i0 + 1, nt - 1); b.position.set(d.t[i * 3] + (d.t[j * 3] - d.t[i * 3]) * t, d.t[i * 3 + 1] + (d.t[j * 3 + 1] - d.t[i * 3 + 1]) * t, d.t[i * 3 + 2] + (d.t[j * 3 + 2] - d.t[i * 3 + 2]) * t); }
+    b.scale.setScalar(1); } }
+export const clipLen = name => (MODELS.clips[name] || { n: 1 }).n;

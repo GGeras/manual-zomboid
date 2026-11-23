@@ -177,6 +177,158 @@
     "17"
    ]
   },
+  "cad-arrastar": {
+   "texto": "Segure a tecla perto do cadáver para arrastar (\"Pegar Cadáver\"); dá para jogar por cima da cerca ou pela janela",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_burn_corpse_description + ContextMenu_Grab_Corpse/ThrowCorpseOverFence/ThrowCorpseThroughWindow",
+   "eps": [
+    "30"
+   ]
+  },
+  "cad-carro": {
+   "texto": "Porta-malas cabe \"um cadáver ou dois\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_vehicle_storage_description",
+   "eps": [
+    "30"
+   ]
+  },
+  "cad-combinacao": {
+   "texto": "A doença dos cadáveres é uma combinação: quantidade de corpos, estado de decomposição de cada um e tempo que você fica perto. Não existe um número fixo de corpos",
+   "build": "B42.22",
+   "fonte": "confirmado no jogo pelo Jose (B42.22, 23/11/2026) + projectzomboid.wiki/guides/corpse-disposal (42.20.4: a doença escala com o tempo perto de corpos em decomposição)",
+   "eps": [
+    "30"
+   ]
+  },
+  "cad-config": {
+   "texto": "Modo Apocalipse: impacto de cadáveres em decomposição \"Normal\" (afeta saúde e estado emocional); cadáveres somem em 216 horas (9 dias) e soltam larvas",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Apocalypse.lua DecayingCorpseHealthImpact = 3, HoursForCorpseRemoval = 216 + Sandbox tooltips",
+   "eps": [
+    "30"
+   ]
+  },
+  "cad-cova": {
+   "texto": "Pá: \"Cavar Covas\"; cada cova recebe 5 cadáveres (\"Enterrar Cadáver (x/5)\") e depois \"Fechar Cova\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: ContextMenu_DigGraves/BuryCorpse/FillGrave + ItemName Base.Shovel",
+   "eps": [
+    "30"
+   ]
+  },
+  "cad-doenca": {
+   "texto": "\"Cadáveres demais em uma área causam Doença.\" Não fique muito tempo perto: afaste-se, enterre, queime ou use máscara",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_burn_corpse_description + SurvivalGuide_bad_smells_description",
+   "eps": [
+    "30"
+   ]
+  },
+  "cad-mascara": {
+   "texto": "Máscara de Gás, Respirador Semifacial, Máscara Cirúrgica e Máscara de Pó têm proteção contra a doença dos cadáveres (máscara de gás e respirador usam filtro)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: clothing.txt CorpseSicknessDefense + ItemName (Sem Filtro)",
+   "eps": [
+    "30"
+   ]
+  },
+  "cad-moscas": {
+   "texto": "Só vira perigo com muitos corpos juntos; o sinal são moscas zumbindo",
+   "build": "B42.20",
+   "fonte": "build42guide.wiki/survival/build-42-corpse-sickness (reconferido 42.20)",
+   "eps": [
+    "30"
+   ]
+  },
+  "cad-niveis": {
+   "texto": "Moodle novo: Mau Cheiro, Odor Horrível, Fedor Insuportável, Vapores Mortais (\"Você não consegue respirar. Saia daqui!\")",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_NoxiousSmell_*",
+   "eps": [
+    "30"
+   ]
+  },
+  "cad-queimar": {
+   "texto": "Queimar com gasolina e uma fonte de fogo (\"Queimar Cadáver\") ou \"Colocar cadáver na fogueira\" — \"melhor para suas costas\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_burn_corpse_description + ContextMenu_Burn_Corpse/CampfireCorpse",
+   "eps": [
+    "30"
+   ]
+  },
+  "carga-correr": {
+   "texto": "Moodle \"Movimento Restrito\": roupas pesadas, mochilas volumosas ou itens grandes impedem correr em disparada",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Moodles_CantSprint_lvl1 + desc",
+   "eps": [
+    "23"
+   ]
+  },
+  "carga-dano": {
+   "texto": "Sobrecarga alta faz perder vida aos poucos e cansa mais; sentar ou entrar no carro para o dano",
+   "build": "B42.20.4",
+   "fonte": "projectzomboid.wiki/guides/encumbrance (42.20.4) + arquivos do jogo B42.22: Moodles_HeavyLoad_desc_lvl4",
+   "eps": [
+    "23"
+   ]
+  },
+  "carga-equipada": {
+   "texto": "Mochila no inventário (não vestida) não reduz nada; só reduz vestida nas costas",
+   "build": "B42.20.4",
+   "fonte": "projectzomboid.wiki/guides/encumbrance (42.20.4) + arquivos do jogo B42.22: SurvivalGuide_weight_distribution_description",
+   "eps": [
+    "23"
+   ]
+  },
+  "carga-escalar": {
+   "texto": "Muito peso dificulta escalar cercas altas",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_climbing_description",
+   "eps": [
+    "23"
+   ]
+  },
+  "carga-forca": {
+   "texto": "Quanto você carrega depende da Força e dos seus Moodles; itens em mochila EQUIPADA pesam menos; cada mochila tem capacidade e redução de peso diferentes",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_weight_distribution_description",
+   "eps": [
+    "23"
+   ]
+  },
+  "carga-mochilas": {
+   "texto": "Capacidade / redução: Mochila Pequena 15/70%, Bolsa de Viagem 18/65%, Mochila de Trilha 20/75%, Mochila Grande de Trilha 22/80%, Mochila Militar 28/85%; sacola plástica 8/50% (na mão)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/scripts/generated/items/container.txt (Capacity, WeightReduction) + ItemName PT-BR",
+   "eps": [
+    "23"
+   ]
+  },
+  "carga-moodles": {
+   "texto": "Fome, sede, doença, sangramento e ferimento reduzem a capacidade de carga",
+   "build": "B42.20.4",
+   "fonte": "projectzomboid.wiki/guides/encumbrance (42.20.4) + arquivos do jogo B42.22: SurvivalGuide_weight_distribution_description (\"depende da Força e dos seus Moodles\")",
+   "eps": [
+    "23"
+   ]
+  },
+  "carga-niveis": {
+   "texto": "Moodle de carga: Carga Pesada, Sobrecarga, Sobrecarga Elevada, Sobrecarga Extrema. Textos: \"O peso está deixando seus movimentos mais lentos\" (2), \"Você mal consegue se mover\" (3), \"Você vai se machucar carregando tudo isso\" (4)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_HeavyLoad_*",
+   "eps": [
+    "23"
+   ]
+  },
+  "carga-tracos": {
+   "texto": "Traços: Musculoso e Forte = maior capacidade de carga; Fraco = menor; Franzino = extremamente baixa",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: UI.json UI_trait_strong/stout/feeble/weak desc",
+   "eps": [
+    "23"
+   ]
+  },
   "carro-chave-ligacao": {
    "texto": "Chave na ignição, porta-luvas, chão ou zumbi perto; ligação direta exige Elétrica 1 + Mecânica 2; sem bateria/gasolina não liga; atropelar estraga; de ré destrói o porta-malas",
    "build": "B42",
@@ -185,42 +337,74 @@
     "07"
    ]
   },
-  "col-inicio": {
-   "texto": "Lenha e pedra aparecem desde a Coleta 0",
-   "build": "B42.20",
-   "fonte": "build42guide.wiki/crafting/build-42-foraging (42.20: \"Firewood & Stones at 0\") + pzfans foraging guide (42.19, apoio)",
+  "col-andar": {
+   "texto": "Andar enquanto procura revela mais itens; evite andar em círculos",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: IG_UI IGUI_SearchMode_Tip_Finding_Text",
    "eps": [
     "21"
    ]
   },
-  "col-inverno": {
-   "texto": "No inverno o mato tem bem menos comida (frutinhas e cogumelos quase somem) e a neve reduz a chance de achar planta e frutinha",
-   "build": "B42.20",
-   "fonte": "build42guide.wiki/crafting/build-42-foraging (42.20: inverno \"most berries, mushrooms ... unfindable\"; neve \"berries −10, plants −50\") + projectzomboid.wiki/guides/foraging (28/09/2026: \"Winter foraging yields are minimal\")",
+  "col-clima": {
+   "texto": "Neblina, neve, nuvens e chuva atrapalham achar itens; guarda-chuva ajuda na chuva; no escuro é difícil, leve lanterna; agachar dá bônus",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: IG_UI IGUI_SearchMode_Tip_Weather_Text, Tip_Darkness_Text, Vision_Effect_Crouching",
    "eps": [
     "21"
    ]
   },
-  "col-penal": {
-   "texto": "Escuro e pânico encolhem muito o raio; correr anula a busca; agachado dá bônus pequeno (+10%)",
-   "build": "B42.20",
-   "fonte": "build42guide.wiki/crafting/build-42-foraging (42.20: \"darkness ... 1.5 tiles\", \"panic ... 95%\", \"sprint kills search mode\", \"sneak +10%\") + pzfans foraging guide (42.19, apoio)",
+  "col-estacao": {
+   "texto": "Todo item natural depende do mês e da estação do ano",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: IG_UI IGUI_SearchMode_Tip_Seasons_Text",
+   "eps": [
+    "21"
+   ]
+  },
+  "col-foco": {
+   "texto": "Foco de Busca aumenta a chance de achar a categoria escolhida",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: IG_UI IGUI_SearchMode_Tip_SearchFocus_Text",
+   "eps": [
+    "21"
+   ]
+  },
+  "col-herbalista": {
+   "texto": "O traço Herbalista ajuda a identificar as frutas silvestres e cogumelos seguros para comer",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: IG_UI IGUI_SearchMode_Tip_Berries_Text e Tip_Mushrooms_Text",
+   "eps": [
+    "21"
+   ]
+  },
+  "col-modo": {
+   "texto": "Habilidade \"Coleta\"; janela \"Investigar Área\" com \"Ativar Modo de Busca\"; a tecla End liga/desliga o Modo de Busca",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: IG_UI IGUI_perks_Foraging + UI.json UI_investigate_area_window_title, UI_enable_search_mode, UI_quick_tip57",
+   "eps": [
+    "21"
+   ]
+  },
+  "col-nivel": {
+   "texto": "O nível de Coleta aumenta o raio de busca, a qualidade dos itens e as categorias que dá para achar",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: IG_UI IGUI_perks_Coleta_Description + IGUI_SearchMode_Tip_Skill_Text",
+   "eps": [
+    "21"
+   ]
+  },
+  "col-onde": {
+   "texto": "Lenha nas florestas, pedras nas estradas; frutas silvestres e cogumelos mais comuns em florestas (cogumelo depois da chuva); insetos mais comuns à noite",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: IG_UI IGUI_SearchMode_Tip_FirewoodStones/Berries/Mushrooms/Insects_Text",
    "eps": [
     "21"
    ]
   },
   "col-raio": {
-   "texto": "Na busca, os itens aparecem num raio ao seu redor: 3 quadrados na Coleta 0 até 10 na Coleta 10 (valor base, antes de bônus)",
+   "texto": "Raio base de busca vai de 3 quadrados (Coleta 0) a 10 (Coleta 10), antes de bônus e penalidades",
    "build": "B42.20",
-   "fonte": "build42guide.wiki/crafting/build-42-foraging (Verified on 42.20: \"3–10 tiles base, +0.7 por nível\") + pzfans foraging guide (42.19, apoio: 3 + 7×nível/10)",
-   "eps": [
-    "21"
-   ]
-  },
-  "col-veneno": {
-   "texto": "Frutinhas e cogumelos podem vir envenenados; o risco cai com o nível de Coleta; o conhecimento de Herbalista identifica o veneno",
-   "build": "B42.20",
-   "fonte": "build42guide.wiki/crafting/build-42-foraging (42.20: \"risk falls by 5% per foraging level, ... Herbalist knowledge detects poison\") + pzfans foraging guide (42.19, apoio)",
+   "fonte": "build42guide.wiki/crafting/build-42-foraging (verificado 42.20) + pzfans foraging (42.19)",
    "eps": [
     "21"
    ]
@@ -305,60 +489,240 @@
     "13"
    ]
   },
+  "doe-capim": {
+   "texto": "Capim-limão: \"Coma para tratar intoxicação alimentar leve.\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Tooltip_LemonGrass + ItemName Base.LemonGrass",
+   "eps": [
+    "27"
+   ]
+  },
+  "doe-limpeza": {
+   "texto": "Corpo sujo aumenta a chance de infecção em ferimentos; Sabão limpa melhor",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_clean_self_description",
+   "eps": [
+    "27"
+   ]
+  },
+  "doe-niveis": {
+   "texto": "Doença: Mal-estar, Náusea, Doença, Febre (\"Risco crescente de virar comida de rato\")",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_Sick_*",
+   "eps": [
+    "27"
+   ]
+  },
+  "doe-tracos": {
+   "texto": "Resiliente: menor propensão a doenças (e zumbificação mais lenta); Baixa Imunidade: maior propensão (e mais rápida)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: UI.json UI_trait_resilient/pronetoillness desc",
+   "eps": [
+    "27"
+   ]
+  },
+  "est-fumante": {
+   "texto": "Fumante: estresse e tristeza diminuem depois de fumar; a tristeza aumenta quando fica sem fumar",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: UI.json UI_trait_SmokerDesc",
+   "eps": [
+    "24",
+    "25"
+   ]
+  },
+  "est-leitura": {
+   "texto": "Ler reduz estresse e tédio: Livro mais que Revista em Quadrinhos, que vale mais que Revista",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: scripts/generated/items/literature.txt (StressChange, BoredomChange) + Tooltip_literature_*",
+   "eps": [
+    "24",
+    "25"
+   ]
+  },
+  "est-niveis": {
+   "texto": "Estresse: Tensão, Agitação, Estresse, À Beira do Colapso. Texto nível 3: \"Mãos trêmulas. Impossível pensar direito.\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_Stress_*",
+   "eps": [
+    "24"
+   ]
+  },
   "fad-analgesico": {
    "texto": "Analgésico tira a dor, mas não apaga a distensão",
    "build": "B42",
-   "fonte": "projectzomboid.wiki/guides/muscle-strain (14/11/2026, página cita 42.22: \"Painkillers blunt the moodle; they do not erase the underlying strain\")",
+   "fonte": "projectzomboid.wiki/guides/muscle-strain (B42, 2026)",
    "eps": [
     "22"
    ]
   },
   "fad-arma": {
-   "texto": "Arma mais pesada causa mais distensão",
+   "texto": "Arma mais pesada cansa mais o braço",
    "build": "B42.21",
-   "fonte": "build42guide.wiki/survival/build-42-combat (Verified on 42.21 stable & 42.22 Pre-Release: custo = 60% do peso da arma + …) + projectzomboid.wiki/guides/muscle-strain (\"Heavier weapons ... load more\")",
+   "fonte": "build42guide.wiki/survival/build-42-combat (42.21/42.22) + projectzomboid.wiki/guides/muscle-strain (B42, 2026)",
    "eps": [
     "22"
    ]
   },
-  "fad-dicas": {
-   "texto": "Golpe que pega vários zumbis cansa mais: lute com poucos por vez; descanso e sono recuperam, sem tempo fixo; fator ajustável no sandbox",
-   "build": "B42.21",
-   "fonte": "build42guide.wiki/survival/build-42-combat (42.21: \"2× for two zombies, 3× for three\") + pzfans (42.20.4: \"no fixed 'N hours' timer\", Muscle Strain Factor) + projectzomboid.wiki/guides/muscle-strain",
-   "eps": [
-    "22"
-   ]
-  },
-  "fad-mecanica": {
-   "texto": "Distensão muscular acumula por parte do corpo ao golpear e ao carregar peso; aparece por parte no painel de saúde; dá dor, e dor alta deixa o ataque lento",
+  "fad-carga": {
+   "texto": "Carregar peso demais causa distensão nas costas/tronco",
    "build": "B42.20.4",
-   "fonte": "pzfans.com/ProjectZomboidB42MuscleStrain (Build 42.20.4: \"tracked per body area\", \"Swinging weapons and carrying heavy loads apply it\") + projectzomboid.wiki/guides/muscle-strain (14/11/2026: \"It feeds Pain\", \"High Pain slows attacks\")",
+   "fonte": "projectzomboid.wiki/guides/encumbrance (42.20.4) + projectzomboid.wiki/guides/muscle-strain (B42, 2026)",
+   "eps": [
+    "22",
+    "23"
+   ]
+  },
+  "fad-exercicio": {
+   "texto": "Exercício: \"Cuidado com as Distensões Musculares, ou no dia seguinte você sentirá dores terríveis\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_exercise_description",
    "eps": [
     "22"
    ]
   },
-  "fad-partes": {
-   "texto": "Golpear pesa nos braços; carregar peso demais pesa nas costas/tronco",
-   "build": "B42.21",
-   "fonte": "projectzomboid.wiki/guides/muscle-strain (14/11/2026: \"arms\", \"back/torso strain while over-encumbered\") + pzfans (42.20.4: braços) + build42guide.wiki/survival/build-42-combat (42.21/42.22: braço/antebraço)",
+  "fad-nome": {
+   "texto": "No painel de saúde aparece \"Distensão Muscular\" ou \"Distensão Muscular Leve\" na parte do corpo",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: IG_UI IGUI_health_Stiffness / IGUI_health_MinorStiffness",
+   "eps": [
+    "22"
+   ]
+  },
+  "fad-perna": {
+   "texto": "Correr cansa as pernas: a Distensão Muscular aparece também nas pernas",
+   "build": "B42.22",
+   "fonte": "confirmado no jogo pelo Jose (B42.22, 23/11/2026) + projectzomboid.wiki/guides/muscle-strain (B42, 2026)",
    "eps": [
     "22"
    ]
   },
   "fad-pisao": {
-   "texto": "Em zumbi caído, pisar ou empurrar poupa golpes cheios",
-   "build": "B42.20.4",
-   "fonte": "pzfans.com/ProjectZomboidB42MuscleStrain (42.20.4: \"Stomps and shoves on downed or isolated zombies reduce empty full-power swings\") + build42guide.wiki/survival/build-42-combat (42.21: pisão com custo fixo)",
+   "texto": "Pisar em zumbi caído custa menos esforço que um golpe",
+   "build": "B42.21",
+   "fonte": "build42guide.wiki/survival/build-42-combat (42.21/42.22) + projectzomboid.wiki/guides/muscle-strain (B42, 2026)",
    "eps": [
     "22"
    ]
   },
   "fad-reduz": {
-   "texto": "Força alta e nível da habilidade da arma reduzem o acúmulo",
-   "build": "B42.21",
-   "fonte": "build42guide.wiki/survival/build-42-combat (42.21/42.22) + pzfans (42.20.4: \"Strength reduces muscle strain\") + projectzomboid.wiki/guides/muscle-strain",
+   "texto": "Força e a habilidade do tipo da arma reduzem a distensão causada por armas corpo a corpo",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: UI.json UI_quick_tip52 + IG_UI IGUI_perks_Axe/Blunt/Strength_Description",
    "eps": [
     "22"
+   ]
+  },
+  "fogo-apagar": {
+   "texto": "Também apagam fogo: saco de areia, de cascalho ou de terra, e água em volume (um gole de garrafa não basta)",
+   "build": "B42.20.4",
+   "fonte": "projectzomboid.wiki/guides/corpse-disposal (42.20.4) + arquivos do jogo B42.22: drainable.txt Base.Sandbag/Gravelbag/Dirtbag",
+   "eps": [
+    "29",
+    "30"
+   ]
+  },
+  "fogo-combustivel": {
+   "texto": "Modo Apocalipse: fogueira e fogão a lenha guardam no máximo 8 horas de combustível",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Apocalypse.lua MaximumFireFuelHours = 8 + Sandbox_MaximumFireFuelHours_tooltip",
+   "eps": [
+    "29"
+   ]
+  },
+  "fogo-espalha": {
+   "texto": "Modo Apocalipse: \"Propagação do Fogo\" ligada — o incêndio se espalha depois de iniciado",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Sandbox/Apocalypse.lua FireSpread = true + Sandbox_FireSpread_tooltip",
+   "eps": [
+    "29"
+   ]
+  },
+  "fogo-extintor": {
+   "texto": "Extintor: \"Apaga incêndios. Extingue as chamas em construções e pessoas.\" Menu: \"Apagar Fogo\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Tooltip_Extinguisher + ContextMenu_ExtinguishFire",
+   "eps": [
+    "29"
+   ]
+  },
+  "fogo-fogao": {
+   "texto": "O jogo avisa: desligue o fogão/eletrodoméstico quando terminar, \"a menos que queira cozinhar sua casa também\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_entrie8moreinfo",
+   "eps": [
+    "29"
+   ]
+  },
+  "fogo-fogueira": {
+   "texto": "Na B42 a fogueira é feita com 3 Pedras pelo Menu de Construção",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: ContextMenu_CampfireKit_tooltip",
+   "eps": [
+    "29"
+   ]
+  },
+  "fogo-pessoas": {
+   "texto": "Gente e zumbi pegam fogo (status \"Em Chamas\"); zumbi em chamas espalha fogo mesmo com a propagação entre quadrados desligada",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: IG_UI IGUI_StatsAndBody_IsOnFire + UI.json UI_ServerOption_NoFireSpread_tooltip",
+   "eps": [
+    "29"
+   ]
+  },
+  "fome-niveis": {
+   "texto": "Fome: Fome Leve, Fome, Fome Intensa, Morrendo de Fome (\"A fome está tirando suas forças\"). Moodle novo da B42 quando come bem: Saciado, Bem Alimentado, Empanturrado, Cheio até Estourar",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_Hungry_* e Moodles_FoodEaten_*",
+   "eps": [
+    "26"
+   ]
+  },
+  "heli-config": {
+   "texto": "Modo Apocalipse: Helicóptero = \"Uma vez\"; Metaevento (\"eventos que atraem zumbis, como tiros ao longe\") = \"Às vezes\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Sandbox/Apocalypse.lua Helicopter = 2, MetaEvent = 2 + Sandbox.json opções e tooltips",
+   "eps": [
+    "28"
+   ]
+  },
+  "heli-depois": {
+   "texto": "Depois do evento, a região da sua base pode estar cheia de zumbis puxados pelo barulho",
+   "build": "B42.22",
+   "fonte": "pindrop.gg/project-zomboid/helicopter-event (código do servidor B42, nov/2026)",
+   "eps": [
+    "28"
+   ]
+  },
+  "heli-invisivel": {
+   "texto": "Você não vê nem pode atirar no helicóptero (\"Você não pode atirar no helicóptero.\"); ele procura um jogador num raio grande e os zumbis de uma área enorme ouvem e vão atrás do som",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: UI.json UI_quick_tip_joke8 + UI_ServerOptionDesc_Chopper + pindrop.gg/project-zomboid/helicopter-event (código do servidor B42, nov/2026)",
+   "eps": [
+    "28"
+   ]
+  },
+  "heli-quando": {
+   "texto": "Vem entre a 6ª e a 9ª noite (sorteada no início do mundo), numa janela que abre entre 9h e 18h e dura de 1 a 4 horas",
+   "build": "B42.22",
+   "fonte": "pindrop.gg/project-zomboid/helicopter-event (código do servidor B42, nov/2026)",
+   "eps": [
+    "28"
+   ]
+  },
+  "heli-radio": {
+   "texto": "No dia, o rádio de emergência avisa atividade aérea depois da previsão do tempo",
+   "build": "B42.22",
+   "fonte": "pindrop.gg/project-zomboid/helicopter-event (código do servidor B42, nov/2026)",
+   "eps": [
+    "28"
+   ]
+  },
+  "heli-segue": {
+   "texto": "Se o helicóptero te vê, ele passa a te seguir — e a horda vem atrás do barulho",
+   "build": "B42.22",
+   "fonte": "confirmado no jogo pelo Jose (B42.22, 23/11/2026) + pindrop.gg/project-zomboid/helicopter-event (código do servidor B42, nov/2026)",
+   "eps": [
+    "28"
    ]
   },
   "livro-acima": {
@@ -497,60 +861,222 @@
     "15"
    ]
   },
-  "sono-bloqueio": {
-   "texto": "Zumbi perto, pânico ou dor forte impedem dormir; desde 42.22.2, o moodle Mau Cheiro (fumaça tóxica ou cheiro de cadáver) desativa a opção de dormir",
-   "build": "B42.22.2",
-   "fonte": "patched.gg 42.22.2 (09/11/2026: \"sleep option is disabled ... while the Bad Smell moodle is active\") + projectzomboid.wiki/guides/sleep-rest (\"Build 42.22+\")",
+  "pan-calmante": {
+   "texto": "Calmantes: \"Reduz o pânico\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Tooltip_PillsBetablocker + ItemName Base.PillsBeta",
    "eps": [
-    "20"
+    "24"
    ]
   },
-  "sono-cafe": {
-   "texto": "Café só dá uma janela curta extra; não substitui a cama",
+  "pan-corpo": {
+   "texto": "No corpo a corpo, força e precisão dependem das habilidades e dos Humores (moodles)",
    "build": "B42.22",
-   "fonte": "projectzomboid.wiki/guides/sleep-rest (12/11/2026, cita 42.22+) + pzfans B42 moodles (42.21: café tira um pouco do cansaço)",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_entrie3moreinfo",
+   "eps": [
+    "24"
+   ]
+  },
+  "pan-mira": {
+   "texto": "Os Moodles mexem na chance de acertar o tiro: sobrevivente cansado e em pânico, com péssima pontaria, não acerta muitos zumbis. Existe a opção \"Multiplicador dos Moodles na Pontaria\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_entrie4moreinfo + Sandbox.json Sandbox_FirearmMoodleMultiplier",
+   "eps": [
+    "24"
+   ]
+  },
+  "pan-niveis": {
+   "texto": "Pânico: Nervosismo, Em Alerta, Medo, Terror. Textos: \"Mãos trêmulas\" (2), \"Tremores pelo corpo inteiro\" (3)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_Panic_*",
+   "eps": [
+    "24"
+   ]
+  },
+  "pan-tracos": {
+   "texto": "Traços: Corajoso (menos pânico), Covarde (muito mais), Dessensibilização (muito menos e ignora desconforto), Agorafóbico (pânico ao ar livre), Claustrofóbico (em ambientes internos pequenos)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: UI.json UI_trait_brave/cowardly/Desensitized/agoraphobic/claustro desc",
+   "eps": [
+    "24"
+   ]
+  },
+  "peso-agua-auto": {
+   "texto": "Água limpa no inventário principal é bebida automaticamente para controlar a sede (padrão)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_eating_drinking_description",
+   "eps": [
+    "26"
+   ]
+  },
+  "peso-calorias": {
+   "texto": "Peso depende de calorias, não do moodle de fome: caldo, frutas e legumes matam a fome sem engordar; manteiga, banha, óleo, chocolate, sorvete, queijo e carne gorda engordam",
+   "build": "B42.20.3",
+   "fonte": "projectzomboid.wiki/guides/nutrition-weight (42.20.3)",
+   "eps": [
+    "26"
+   ]
+  },
+  "peso-cozida": {
+   "texto": "Refeição cozida é mais nutritiva, sacia por mais tempo e reduz o risco de intoxicação alimentar",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_entrie8moreinfo",
+   "eps": [
+    "26",
+    "27"
+   ]
+  },
+  "peso-dieta": {
+   "texto": "O próprio jogo avisa: \"Lembre-se de ter uma dieta balanceada ou você pode ganhar ou perder peso!\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_eating_drinking_description",
+   "eps": [
+    "26"
+   ]
+  },
+  "peso-inverno": {
+   "texto": "No inverno você gasta mais calorias; bem alimentado resiste mais ao frio",
+   "build": "B42.22",
+   "fonte": "projectzomboid.wiki/guides/nutrition-weight (42.20.3) + arquivos do jogo B42.22: SurvivalGuide_entrie11moreinfo",
+   "eps": [
+    "26"
+   ]
+  },
+  "peso-sistema": {
+   "texto": "Modo Apocalipse: \"Sistema de Nutrição\" ligado — o valor nutricional afeta a condição física; desligado, ninguém ganha nem perde peso",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Sandbox/Apocalypse.lua Nutrition = true + Sandbox_Nutrition_tooltip",
+   "eps": [
+    "26"
+   ]
+  },
+  "peso-tracos": {
+   "texto": "Abaixo do Peso / Muito Abaixo do Peso / Emaciação: pouca força, pouca resistência, mais lesões. Acima do Peso / Muito Acima do Peso: corrida mais lenta, resistência baixa, mais lesões",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: UI.json UI_trait_underweight/veryunderweight/emaciated/overweight/obese desc",
+   "eps": [
+    "26"
+   ]
+  },
+  "resf-causa": {
+   "texto": "Chuva, neve e neblina podem deixar você congelando ou molhado — \"Não pegue um resfriado!\"; ficar molhado ou com frio por muito tempo traz o resfriado",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_seasons_and_weather_description + pzfans sickness guide (42.19) + supercraft cure-sickness (arquivos B42 stable)",
+   "eps": [
+    "27"
+   ]
+  },
+  "resf-espirro": {
+   "texto": "Espirro e tosse fazem barulho e atraem zumbis; o Lenço de Papel equipado abafa os dois",
+   "build": "B42.22",
+   "fonte": "confirmado no jogo pelo Jose (B42.22, 23/11/2026) + arquivos do jogo B42.22: Tooltip_tissue_tooltip",
+   "eps": [
+    "27"
+   ]
+  },
+  "resf-lenco": {
+   "texto": "Lenço de Papel: \"Equipe para abafar espirros e tosses\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Tooltip_tissue_tooltip + ItemName Base.Tissue",
+   "eps": [
+    "27"
+   ]
+  },
+  "resf-malva": {
+   "texto": "Malva-comum: \"Coma para aliviar sintomas de resfriado e gripe\" (achada na Coleta)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Tooltip_Mallow + ItemName Base.CommonMallow",
+   "eps": [
+    "27"
+   ]
+  },
+  "resf-niveis": {
+   "texto": "Resfriado: Nariz Escorrendo, Resfriado, Resfriado Forte, Resfriado Terrível — espirros, depois tosse, \"você se sente mal e com os movimentos lentos\" (3)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_HasACold_*",
+   "eps": [
+    "27"
+   ]
+  },
+  "sono-bloqueio": {
+   "texto": "Zumbi perto, pânico e dor forte impedem dormir; desde a 42.22.2 o moodle Mau Cheiro também bloqueia dormir",
+   "build": "B42.22.2",
+   "fonte": "projectzomboid.wiki/guides/sleep-rest (42.22) + notas 42.22.2 (patched.gg/games/project-zomboid/42222-stable-released)",
+   "eps": [
+    "20",
+    "30"
+   ]
+  },
+  "sono-cafeina": {
+   "texto": "Pílulas de Cafeína: \"Dá um pico de energia e reduz a fadiga\" — só um alívio curto, não substitui dormir",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Tooltip_Vitamins + ItemName Base.PillsVitamins + projectzomboid.wiki/guides/sleep-rest (42.22)",
    "eps": [
     "20"
    ]
   },
   "sono-cama": {
-   "texto": "Cama boa encurta o sono; cama ruim/banco de carro alonga; chão alonga ainda mais; superfície improvisada pode dar dor no pescoço",
-   "build": "B42.20.2",
-   "fonte": "projectzomboid.wiki/guides/sleep-rest (12/11/2026) + gamers.wiki build-42-sleep-quality-beds-wake-ups (Stable 42.20.2: \"neck pain\")",
+   "texto": "Cama boa encurta o sono; banco de carro e chão alongam; superfície ruim pode dar dor/distensão no pescoço. Tipos de cama no jogo: Ruim, Médio, Bom (com ou sem Travesseiro)",
+   "build": "B42.22",
+   "fonte": "projectzomboid.wiki/guides/sleep-rest (42.22) + arquivos do jogo B42.22: Tooltip.json Tooltip_BedType_*",
    "eps": [
     "20"
    ]
   },
   "sono-descanso": {
-   "texto": "Descansar recupera fôlego (Endurance), não cansaço; cansaço sai dormindo",
-   "build": "B42.20.2",
-   "fonte": "projectzomboid.wiki/guides/sleep-rest (atualizado 12/11/2026, cita 42.22+) + gamers.wiki build-42-sleep-quality-beds-wake-ups (Stable 42.20.2)",
+   "texto": "Descansar numa cadeira recupera o fôlego; o cansaço (sono) só sai dormindo; cama confortável dá o melhor resultado",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: SurvivalGuide_rest_description + Moodles_Endurance_desc_lvl1 + projectzomboid.wiki/guides/sleep-rest (42.22)",
+   "eps": [
+    "20"
+   ]
+  },
+  "sono-efeito": {
+   "texto": "Cansaço e exaustão limitam severamente a percepção e as capacidades",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/SurvivalGuide.json SurvivalGuide_rest_description",
    "eps": [
     "20"
    ]
   },
   "sono-niveis": {
-   "texto": "Moodle de cansaço tem 4 níveis (Sonolência · Cansaço · Cansaço Intenso · Cansaço Absurdo); a cada nível o dano corpo a corpo cai",
-   "build": "B42.21",
-   "fonte": "pzfans.com/ProjectZomboidB42Moodles (Build 42.21, 31/10/2026: \"Drowsy → Tired → Very Tired → Ridiculously Tired\", dano ×0,5/×0,2/×0,1/×0,05) + nomes em nomes-ptbr.md (PTBR B42.22)",
+   "texto": "Moodle de sono tem 4 níveis: Sonolência, Cansaço, Cansaço Intenso, Cansaço Absurdo. Textos: \"O cansaço está tirando suas forças\" (2), \"Você mal consegue pensar direito\" (3)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_Tired_lvl1-4 + _desc",
    "eps": [
     "20"
    ]
   },
   "sono-remedio": {
-   "texto": "Analgésico resolve quando só a dor bloqueia; remédio para dormir em dose alta passa por cima de dor e pânico",
+   "texto": "Comprimidos Soníferos: \"Ajuda a pegar no sono. Útil em momentos de ansiedade ou quando há dor.\" Não misturar remédio com álcool",
    "build": "B42.22",
-   "fonte": "projectzomboid.wiki/guides/sleep-rest (12/11/2026, página cita Build 42.22+)",
+   "fonte": "arquivos do jogo B42.22: Tooltip_PillsSleeping + SurvivalGuide_rest_description",
+   "eps": [
+    "20"
+   ]
+  },
+  "sono-tracos": {
+   "texto": "Traços: Sono Leve (o cansaço cai mais devagar dormindo), Madrugador (precisa dormir menos), Dorminhoco (precisa dormir mais)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/UI.json UI_trait_Insomniac/LessSleep/MoreSleep",
    "eps": [
     "20"
    ]
   },
   "sono-travesseiro": {
-   "texto": "Travesseiro melhora a qualidade da cama e reduz a chance de dor no pescoço",
-   "build": "B42.20.2",
-   "fonte": "gamers.wiki build-42-sleep-quality-beds-wake-ups (Stable 42.20.2) + projectzomboid.wiki/guides/sleep-rest (12/11/2026)",
+   "texto": "Travesseiro na cama aumenta levemente o Conforto ao Dormir",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Tooltip.json Tooltip_item_Pillow",
    "eps": [
     "20"
+   ]
+  },
+  "ted-niveis": {
+   "texto": "Tédio: Um Pouco de Tédio, Tédio, Tédio Intenso, Tédio Extremo. Texto 1: \"Ocupe-se ou procure alguma distração.\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_Bored_*",
+   "eps": [
+    "25"
    ]
   },
   "temp-calor": {
@@ -578,7 +1104,7 @@
    ]
   },
   "temp-moodles": {
-   "texto": "Nomes dos níveis: Um Pouco de Frio, Frio, Congelando, Hipotermia; Calor Desconfortável, Superaquecimento, Insolação, Hipertermia; Úmido, Molhado, Ensopado, Encharcado; Sensação de Frio (vento)",
+   "texto": "Nomes dos níveis: Um Pouco de Frio, Frio, Congelando, Hipotermia; Calor Desconfortável, Superaquecimento, Insolação, Hipertermia; Úmido, Molhado, Ensopado, Encharcado; Sensação de Frio Leve, Sensação de Frio Desconfortável, Sensação de Frio Congelante, Sensação de Frio Terrível (vento)",
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: lua/shared/Translate/PTBR/Moodles.json",
    "eps": [
@@ -600,6 +1126,38 @@
    "eps": [
     "18"
    ]
+  },
+  "tri-antidep": {
+   "texto": "Antidepressivos: \"Reduz a tristeza durante um período prolongado\" (efeito lento, não imediato)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Tooltip_PillsAntidepressant + ItemName Base.PillsAntiDep",
+   "eps": [
+    "25"
+   ]
+  },
+  "tri-comida": {
+   "texto": "Comida tem atributos Tédio e Tristeza no tooltip; algumas pedem \"Cozinhe para remover a penalidade de tristeza\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: Tooltip.json Tooltip_food_Boredom/Unhappiness + Tooltip_food_CookToRemoveUnhappiness",
+   "eps": [
+    "25"
+   ]
+  },
+  "tri-leitura": {
+   "texto": "Livro e Revista em Quadrinhos tiram tédio, estresse e tristeza; Revista tira tédio e estresse",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: literature.txt (UnhappyChange, StressChange, BoredomChange)",
+   "eps": [
+    "25"
+   ]
+  },
+  "tri-niveis": {
+   "texto": "Tristeza: Triste, Vontade de Chorar, Desolação, Sem Esperança. Texto 1: \"Procure um jeito de esquecer os problemas.\"",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_Unhappy_*",
+   "eps": [
+    "25"
+   ]
   }
  },
  "nao_usar": {
@@ -607,6 +1165,9 @@
   "zumbi-verde": "Zumbi do jogo não é verde: usar as cores de pele reais (ver engine.js)",
   "taco-nao-quebra": "Taco quebra (ep08 diz que toda arma quebra)",
   "habilidade-recarga-b42": "Habilidade de Recarga e arma travando mudaram na B42: não citar sem conferir",
-  "tracos-b42": "Traços e profissões mudaram na B42 e a wiki ainda mostra valores da B41: conferir antes"
+  "tracos-b42": "Traços e profissões mudaram na B42 e a wiki ainda mostra valores da B41: conferir antes",
+  "ridiculamente-cansado": "\"Ridiculamente Cansado\" (o nome no jogo é Cansaço Absurdo)",
+  "forrageamento": "\"Forrageamento\" (o nome no jogo é Coleta)",
+  "corpos-numero-fixo": "Número fixo de corpos que dá doença (ex.: \"20 corpos\"): é combinação de quantidade, decomposição e tempo perto"
  }
 }

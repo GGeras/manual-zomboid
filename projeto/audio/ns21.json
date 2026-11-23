@@ -1,1 +1,11 @@
-["O mato tem comida. Você só não está vendo.", "Clica na luneta do menu da esquerda e liga o modo de busca: os itens aparecem no chão ao seu redor.", "O raio começa em três quadrados do chão e chega a dez com Forrageamento no máximo.", "Chuva, neblina, escuro, cansaço e pânico encolhem esse raio.", "Correndo, você quase não acha nada. Agachado, acha mais.", "Galho, pedra e frutinha aparecem desde o começo.", "Mas cuidado: frutinha e cogumelo podem vir envenenados, mesmo iguais a um que você já comeu.", "Com o traço Herbalista, ou a revista certa, você reconhece o que é veneno.", "No inverno, a neve esconde a comida.", "Anda devagar e olha o chão."]
+[
+ "O mato tem comida. Você só não está vendo.",
+ "Abre a janela Investigar Área e ativa o Modo de Busca. Ou só aperta a tecla End.",
+ "Os itens aparecem no chão, dentro de um círculo ao seu redor. Com a habilidade Coleta no zero, ele tem três quadrados. No nível dez, chega a dez.",
+ "Chuva, neblina, neve e escuro encolhem o círculo. Guarda-chuva ajuda na chuva, e à noite leva lanterna.",
+ "Agachado você acha um pouco mais. E anda enquanto procura: andar em círculo não revela nada novo.",
+ "Cada lugar tem o seu: lenha nas florestas, pedras nas estradas, frutas e cogumelos na floresta, e inseto aparece mais à noite.",
+ "Cuidado com frutinha e cogumelo: tem variedade venenosa. O traço Herbalista ajuda a saber quais são seguras.",
+ "E tudo depende da estação. Quer uma coisa específica? Usa o Foco de Busca.",
+ "Dia de sol, agachado e andando: o mato vira mercado."
+]

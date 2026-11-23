@@ -1,31 +1,46 @@
-// EP 22 — Fadiga muscular (mecânica da Build 42; fonte sem números) — RASCUNHO
+// EP 22 — Fadiga Muscular (B42.22) — RASCUNHO AUTOMÁTICO v2 (gerado de roteiros/ep22-*.md; T/END vêm da voz provisória)
+// Para a versão final: troque a voz (check_vo.py), ajuste títulos/cenas à mão onde precisar.
 const LAB = 'PROJECT ZOMBOID · <b>FADIGA MUSCULAR</b>';
 window.EP = {
   pz: true, versao: 'BUILD 42.22',
-  itens: ['Item_BaseballBat', 'Item_Axe', 'Item_Crowbar', 'Item_PillsPainkiller'],
+  itens: ["Item_Axe", "Item_PillsPainkiller", "Item_Sledgehammer2"],
   OFF: 1.3,
-  T: [0.0, 2.96, 6.7, 10.43, 15.38, 21.21, 26.1, 30.88, 35.87], END: 38.57,
-  scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6, lab: LAB }, { at: 7, lab: LAB }, { at: 8, red: 1 }],
+  T: [0.0, 4.0, 8.0, 12.0, 16.0, 20.0, 24.0, 28.0], END: 32.0,
+  scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6, lab: LAB }, { at: 7 }],
   titles: [
-    { i: 0, a: 'Seu braço', b: 'cansa', size: 160 },
-    { i: 1, a: 'Cada golpe', b: 'acumula', aSize: 110, size: 140 },
-    { i: 2, a: 'Mais lento', b: 'e com dor', size: 140 },
-    { i: 3, a: 'Longa e pesada', b: 'cansa mais', aSize: 96, size: 124 },
-    { i: 4, a: 'Pernas, costas', b: 'e pescoço', aSize: 100, size: 124 },
-    { i: 5, a: 'Analgésico', b: 'não acelera', aSize: 110, size: 124 },
-    { i: 6, a: 'Força e prática', b: 'seguram', col: 'green', aSize: 96, size: 140 },
-    { i: 7, a: 'Golpe e pisão,', b: 'poucos por vez', col: 'green', aSize: 100, size: 112 },
-    { i: 8, a: 'Descansa', b: 'pra passar', col: 'green', size: 140 }
+    { i: 0, a: "Seu braço", b: "cansa de bater", aSize: 110, size: 100 },
+    { i: 1, a: "Distensão", b: "muscular", aSize: 110, size: 128 },
+    { i: 2, a: "Braço, perna", b: "e costas", aSize: 96, size: 128 },
+    { i: 3, a: "Pisão", b: "cansa menos", col: 'green', aSize: 110, size: 128 },
+    { i: 4, a: "Força e", b: "habilidade", col: 'green', aSize: 110, size: 128 },
+    { i: 5, a: "Analgésico", b: "não cura", aSize: 110, size: 128 },
+    { i: 6, a: "Exercício", b: "tem preço", aSize: 110, size: 128 },
+    { i: 7, a: "Divide", b: "o esforço", col: 'green', aSize: 110, size: 128 }
   ],
   extras(H) {
-    const { F, C, M } = H, G = '#8fe04a', RD = '#ff3d55', B = '#efe5cf', Y = '#ffb020';
-    const tag = (k, txt, col, at, end, top = 1560) => { const id = H.chip(k, txt, at, `left:0;right:0;margin:0 auto;width:max-content;top:${top}px;color:${col};font:800 50px/1 var(--mono);padding:18px 34px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
-    H.bar(1, 'TENSÃO DO BRAÇO', [[0, .1], [C(1) + 10, .1], [F[1] + 80, .7]], { color: Y, colorKeys: [[C(1), G], [F[1] + 80, RD]], text: '' });
-    tag(2, 'ATAQUE ↓  DOR ↑', RD, C(2) + 20, null, 1320);
-    H.items(3, [['Item_Axe', 'CANSA +', C(3) + 10], ['Item_BaseballBat', 'CANSA −', F[3] + 50]], { top: 1290, size: 200, gap: 90 });
-    tag(4, 'PERNAS · COSTAS', B, C(4) + 30, null, 1320); tag(4, 'PESCOÇO', B, F[4] + 90, null, 1440);
-    H.items(5, [['Item_PillsPainkiller', 'DOR ✓  VELOCIDADE ✗', C(5) + 10]], { top: 1290, size: 260 });
-    tag(6, 'FORÇA + PRÁTICA', G, C(6) + 30, null, 1320);
-    tag(7, 'POUCOS POR VEZ', G, F[7] + 60, null, 1320);
+    const { F, C, M } = H;
+    const P = (i, k) => Math.round(C(i) + k * ((i + 1 < F.length ? F[i + 1] : window.__VO_END) - F[i]));
+    const tag = (k, txt, col, at, end, top = 1560) => { const id = H.chip(k, txt, at, `left:0;right:0;margin:0 auto;width:max-content;max-width:960px;text-align:center;top:${top}px;color:${col};font:800 46px/1.15 var(--mono);padding:18px 30px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
+    H.el('style', null, '.moodle{left:760px;width:170px;height:170px}.mtag{left:700px;width:290px;font-size:30px;margin-top:40px}', document.head);
+    const row = (k, list, o = {}) => H.items(k, list, Object.assign({ top: 1250, size: 180, gap: 30 }, o));
+    row(0, [["Item_Axe", "", P(0, 0.18)]]);
+    tag(1, "ABA SAÚDE", '#efe5cf', P(1, 0.18), P(1, 0.40));
+    tag(1, "DISTENSÃO MUSCULAR LEVE", '#ffb020', P(1, 0.40), P(1, 0.62));
+    tag(1, "DISTENSÃO MUSCULAR", '#ff3d55', P(1, 0.62), null);
+    H.moodle(2, 'pz:Status_HeavyLoad', "PESO → COSTAS", P(2, 0.62), false, null, 560);
+    tag(2, "BATER → BRAÇO", '#ff3d55', P(2, 0.18), P(2, 0.40));
+    tag(2, "CORRER → PERNAS", '#ffb020', P(2, 0.40), null);
+    row(3, [["Item_Sledgehammer2", "PESADA", P(3, 0.18)]]);
+    tag(3, "PISÃO = MENOS ESFORÇO", '#8fe04a', P(3, 0.51), null);
+    tag(4, "FORÇA ↑", '#8fe04a', P(4, 0.18), P(4, 0.40));
+    tag(4, "MACHADOS ↑", '#8fe04a', P(4, 0.40), P(4, 0.62));
+    tag(4, "DISTENSÃO ↓", '#8fe04a', P(4, 0.62), null);
+    row(5, [["Item_PillsPainkiller", "ANALGÉSICO", P(5, 0.18)]]);
+    H.moodle(5, 'pz:Mood_Pained', "DOR ✓", P(5, 0.40), true, null, 560);
+    tag(5, "DISTENSÃO CONTINUA", '#ff3d55', P(5, 0.62), null);
+    H.moodle(6, 'pz:Mood_Pained', "DOR", P(6, 0.51), false, null, 560);
+    tag(6, "\"DORES TERRÍVEIS NO DIA SEGUINTE\"", '#efe5cf', P(6, 0.18), null);
+    tag(7, "GOLPE · PISÃO · CAMINHADA", '#8fe04a', P(7, 0.18), P(7, 0.51));
+    tag(7, "SALVA E COMENTA", '#8fe04a', P(7, 0.51), null);
   }
 };
