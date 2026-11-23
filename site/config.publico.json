@@ -1,0 +1,9 @@
+{
+  "_ajuda": "Valores PÚBLICOS (📋) do site. Pode commitar. null = ainda não configurado: o site mostra o estado 'em breve' e segue funcionando. Segredos (🔒) NUNCA entram aqui: veja plataforma/configuracao.md, seção 'Site: onde cada chave entra'. Confira com: npm run config",
+  "site": { "url": null, "dominioImagens": null },
+  "youtube": { "canalId": null, "handle": null },
+  "discord": { "servidorId": null, "convite": null },
+  "comunidade": { "supabaseUrl": null, "supabaseChavePublica": null, "turnstileSiteKey": null },
+  "central": { "supabaseUrl": "https://tephnuzsuoamhfukeqsi.supabase.co", "supabaseChavePublica": "sb_publishable_I47KkhnRvLrfDjow0yZv3w_IFZS-S1H" },
+  "legal": { "emailContato": null, "idadeMinima": null }
+}

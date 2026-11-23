@@ -120,6 +120,23 @@ Especificação: `plataforma/site.md`.
 - [ ] Newsletter: usa o mesmo Resend. 🔒 Uma API key nova ("Sending access") → Supabase > Edge Functions > Secrets > `RESEND_API_KEY`.
 - [ ] Bot do Discord: item 6.3.
 
+## Site: onde cada chave entra (estrutura pronta)
+O site já está no ar em modo prévia: https://manual-zomboid-site.mundomix.workers.dev. Cada chave abaixo liga uma parte sozinha, sem mexer no código.
+- 📋 **Públicas** → `site/config.publico.json` (mande no chat; o Claude preenche e abre o PR).
+- 🔒 **Segredos** → o site **não guarda nenhum**. Todos ficam no Supabase (comunidade) ou nos GitHub Secrets (deploy, já feitos).
+- Conferir o que falta: `cd site && npm run config` (também acusa segredo colado no lugar errado).
+
+| campo em `config.publico.json` | vem de (seção) | o que liga no site |
+|---|---|---|
+| `youtube.canalId`, `youtube.handle` | §5 | Shorts com player (RSS do canal) e botão "Assistir" |
+| `discord.convite`, `discord.servidorId` | §6.1 | botão "Entrar no Discord" e contador de online (widget) |
+| `site.url`, `site.dominioImagens` | §7 | domínio, SEO liberado (hoje o `robots` bloqueia indexação) e `img.<dominio>` |
+| `comunidade.supabaseUrl`, `comunidade.supabaseChavePublica` | §8 | sai do modo prévia: contas, posts e votos de verdade |
+| `comunidade.turnstileSiteKey` | §8 | anti-spam no cadastro e no 1º post |
+| `legal.emailContato`, `legal.idadeMinima` | §8 | termos e privacidade |
+
+Ordem sugerida: §6.1 (convite) e §5 (ID do canal) já deixam a landing completa; §7 + §8 abrem a Comunidade.
+
 ---
 
 ## Resumo: o que mandar no chat × o que colar direto

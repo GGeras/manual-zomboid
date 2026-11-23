@@ -1,0 +1,14 @@
+// Site público (landing + Guias + Comunidade) no Cloudflare Workers, via OpenNext.
+// Publicado pela Action `site` a cada push na main. Endereço: https://manual-zomboid-site.<conta>.workers.dev
+// Chaves: veja plataforma/configuracao.md (seção "Site: onde cada chave entra"). Nenhum segredo neste arquivo.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "main": ".open-next/worker.js",
+  "name": "manual-zomboid-site",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "manual-zomboid-site" }],
+  "observability": { "enabled": true }
+  // S4: "r2_buckets": [{ "binding": "IMAGENS", "bucket_name": "manual-zomboid-imagens" }]
+}

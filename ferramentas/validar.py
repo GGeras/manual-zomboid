@@ -92,7 +92,7 @@ for base in TEXTO:
         for n in dirs + files:
             if not nome_ok(n): erros.append(f'nome fora do padrão: {os.path.join(d, n)} (minúsculas, sem acento/espaço, hífen)')
 for d, dirs, files in os.walk('.'):
-    dirs[:] = [x for x in dirs if x not in ('.git', 'node_modules', '__pycache__')]
+    dirs[:] = [x for x in dirs if x not in ('.git', 'node_modules', '__pycache__', '.next', '.open-next', '.wrangler')]
     for n in files:
         p = os.path.join(d, n); ext = os.path.splitext(n)[1].lower(); sz = os.path.getsize(p)
         if ext in PROIBIDO: erros.append(f'{p}: vídeo/zip não vai no repo (Drive + videos/LINKS.md)')
