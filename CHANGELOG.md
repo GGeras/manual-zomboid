@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-23 · jose · Rascunho automático EP20–30: `auto3d.js` (tomadas 3D), `ep20–30.cfg.js/.js/.html`, `pipeline/rascunho_auto.py` (voz Piper → tempos → prévia) e `ferramentas/rascunhos-20-30.bat` (roda os 11 de uma vez).
 - 2026-11-23 · jose · Roteiros EP20–30 v6: 5 fatos novos (perna ao correr, espirro atrai, helicóptero segue, areia/água apagam, doença = quantidade+decomposição+tempo); manifestos `ep20–30.ep.json` prontos; seção "Arquivos para o vídeo" em cada roteiro; 26 vozes/sons B42 do personagem (espirro, tosse, suspiros, fogo); cenas antigas EP20–22 → `rascunho/projeto-antigo/`.
 - 2026-11-23 · jose · Roteiros EP20–30 (ideia + dados confirmados, sem rascunho de vídeo):
   - EP20–22 revisados nos arquivos do jogo;
