@@ -124,6 +124,16 @@ A luz é o que faz parecer o jogo e dá imersão. Luz chapada (tudo com a mesma 
 - **Casa com sentido**: cada cômodo tem função clara e os móveis do lugar (sala = poltrona de leitura + abajur + mesinha + estante; oficina = bancada + ferramentas); acabamento de construção (rodapé, batente e porta, quadros, relógio, cortina) e luz de acordo com a 4.5. Móveis seguem a 4.4.
 - `inspect.mjs` confere sozinho: **PERSONAGEM ATRAVESSANDO MÓVEL** (corpo dentro da caixa de um móvel), **AFUNDANDO NO CHÃO** (pé abaixo do piso, medida absoluta). Grava `inspecao/sonda.json` (posição do personagem na tela em cada momento) para achar o motivo de um aviso. Relatório tem de dar 0 avisos.
 
+## 4.7 CONTATO COM AS SUPERFÍCIES — REGRA DEFINITIVA PARA TODOS OS VÍDEOS (23/11, pedido do Bruno)
+O personagem **encosta** nas superfícies e fica **sempre por cima delas**: nunca atravessa nada (piso, assento, móvel, parede) e nunca flutua.
+- **Medidas do próprio jogo** (animações originais): em pé (`Bob_Idle`) o osso do dedo `Toe0` fica exatamente no chão. Pontos de contato: **sola** = Toe0; **calcanhar** = Foot − 0,10; **joelho** = Calf − 0,05; **nádega** = Pelvis − 0,10.
+- **Andando, correndo, agachado, ajoelhado, sentado no chão**: depois de cada pose, `PZ.apoiar(h, alturaDoPiso)` põe o ponto mais baixo do corpo exatamente sobre o piso, quadro a quadro (o joelho do `Bob_IdleHammering_Low` do jogo entrava 10 cm no chão).
+- **Sentado na cadeira/sofá/poltrona**: pés no chão e nádega no assento. Assento na altura do jogo (`Bob_SatChair`: nádega a **0,486**) e a pelve no meio da almofada. Senta chegando pela frente (regra 4.6).
+- **Sempre por cima**: o móvel em que ele encosta é desenhado antes dele (`móvel.sobrepor(true)`, personagem com `renderOrder 2`): a caixa do sprite nunca corta as pernas. Fora do contato, `sobrepor(false)` (quem passa atrás do móvel some atrás dele).
+- **Objetos também**: tábua apoiada no tampo da bancada (altura do sprite), pedaço cortado cai e fica deitado no piso, caixote no chão.
+- **Item na mão = modelo do jogo** com o anexo do jogo (`scripts/generated/models_items.txt`): livro lendo = `BookHand.fbx` + `WorldItems/BookRed_New.png` no osso `Bip01_Prop2`, animação `Bob_IdleReadBook` a 0,80 (como em `AnimSets/player/actions/book.xml`); nunca um desenho/ícone de livro.
+- `inspect.mjs` confere em todo momento: **PERSONAGEM ATRAVESSANDO A SUPERFÍCIE**, **FLUTUANDO**, **NÁDEGA FORA DO ASSENTO**, **ATRAVESSANDO MÓVEL** (quadril, peito, joelhos e pés). `inspecao/sonda.json` guarda a medida de cada momento. Relatório tem de dar 0 avisos.
+
 ## 4.1 REGRA DAS TELAS (18/11, pedido do Jose) — tela do jogo = RÉPLICA
 - Toda tela/menu do jogo que aparece no vídeo é **réplica fiel da tela real**: mesmo layout, mesmas colunas, cores, fonte simples do jogo, botões e ordem dos elementos.
   - Nada de painel genérico "estilo jogo".

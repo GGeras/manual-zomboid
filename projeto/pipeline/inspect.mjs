@@ -103,14 +103,18 @@ for (let t = 0; t < dur; t += STEP) {
     ['gap', 'ESPAÇAMENTO DESIGUAL NA LINHA: '], ['tight', 'BLOCOS COLADOS (respiro < 12px): ']];
   const nowH = new Set(); H2.forEach(([k, lab]) => new Set(r[k]).forEach(m => { const key = lab + m; nowH.add(key); if (prevH.has(key)) add(t, key); })); prevH = nowH;
   const p = r.p && r.p.S;
-  if (p) PROBE.push({ t: +t.toFixed(2), scr: p.scr.map(q => [Math.round(q[0] * 1080), Math.round(q[1] * 1920)]) });   // depuração: posição do personagem na tela
+  if (p) PROBE.push({ t: +t.toFixed(2), scr: p.scr.map(q => [Math.round(q[0] * 1080), Math.round(q[1] * 1920)]), piso: p.piso, assento: p.assento });   // depuração: posição do personagem na tela
   if (p && t > 1.35) { const c = p.scr[1]; if (c[0] < .04 || c[0] > .96 || c[1] < .2 || c[1] > .98) add(t, 'PERSONAGEM FORA DO QUADRO');
     if (p.hid >= 2) add(t, 'PERSONAGEM ESCONDIDO atrás de algo (' + p.hid + '/3 pontos)');
     (p.atravessa || []).forEach(n => add(t, 'PERSONAGEM ATRAVESSANDO MÓVEL: ' + n + ' (regra 4.6)'));
     // regra 4.3: o corpo inteiro fica ACIMA da descrição/@canal do app (pés estimados pelo tamanho do tronco na tela)
     { const ny = p.scr[0][1] * 1920, hy = p.scr[2][1] * 1920, fy = hy + (hy - ny) * 1.25; if (fy > SAFE[1].y0 + 20) add(t, 'PERSONAGEM NA ÁREA DA DESCRIÇÃO DO APP (pés em ' + Math.round(fy / 40) * 40 + 'px; máx ' + (SAFE[1].y0 + 20) + ')');
       if (p.scr[1][0] * 1080 > SAFE[0].x0 && p.scr[1][1] * 1920 > SAFE[0].y0 && p.scr[1][1] * 1920 < SAFE[0].y1) add(t, 'PERSONAGEM EMBAIXO DOS BOTÕES DO APP (direita)'); }
-    if (p.feet != null && p.feet + p.y < -.05) add(t, 'PERSONAGEM AFUNDANDO NO CHÃO (pés ' + (p.feet + p.y).toFixed(2) + ' abaixo do piso)');   // medida absoluta: o que o espectador vê
+    // regra 4.7: contato com a superfície (quando a cena declara o apoio com PZ.apoiar): nem afunda nem flutua; sentado, a nádega no assento
+    if (p.piso != null) { if (p.piso < -.02) add(t, 'PERSONAGEM ATRAVESSANDO A SUPERFÍCIE (' + Math.round(-p.piso * 100) + ' cm abaixo — regra 4.7)');
+      else if (p.piso > .03) add(t, 'PERSONAGEM FLUTUANDO (' + Math.round(p.piso * 100) + ' cm acima da superfície — regra 4.7)');
+      if (p.assento != null && Math.abs(p.assento) > .04) add(t, 'NÁDEGA FORA DO ASSENTO (' + (p.assento > 0 ? Math.round(p.assento * 100) + ' cm acima' : Math.round(-p.assento * 100) + ' cm dentro') + ' — regra 4.7)'); }
+    else if (p.feet != null && p.feet + p.y < -.05) add(t, 'PERSONAGEM AFUNDANDO NO CHÃO (pés ' + (p.feet + p.y).toFixed(2) + ' abaixo do piso)');   // medida absoluta: o que o espectador vê
     [...new Set(r.cover)].forEach(m => add(t, 'MODAL COBRINDO O PERSONAGEM: ' + m)); }
   const ids = new Set(r.ids); let fresh = false; ids.forEach(i => { if (!prevIds.has(i)) fresh = true; }); prevIds = ids;
   if (fresh) lastNew = t; else if (t - lastNew > 3.2 && t > 2) { add(t, 'NADA NOVO NA TELA há mais de 3 s (ritmo)'); lastNew = t; }

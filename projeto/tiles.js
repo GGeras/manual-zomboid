@@ -22,6 +22,11 @@ function tex(name) { if (TEX[name]) return TEX[name]; if (!META[name]) throw new
 function mat(name, o = {}) { const k = name + '|' + (o.op || '') + '|' + (o.tint || ''); if (MAT[k]) return MAT[k];
   const m = new THREE.MeshBasicMaterial({ map: tex(name), alphaTest: o.op ? .02 : .45, side: THREE.DoubleSide, transparent: !!o.op, opacity: o.op || 1, depthWrite: !o.op });
   m.userData.tint = new THREE.Color(o.tint || '#ffffff'); m.color.copy(m.userData.tint); MATS.push(m); return MAT[k] = m; }
+// REGRA 4.7 (23/11): o personagem em contato com um móvel (sentado na poltrona, mão na bancada) fica SEMPRE por cima do desenho dele,
+// nunca "cortado" pela caixa do sprite. Cada móvel tem material próprio; m.sobrepor(true) desenha o móvel antes do personagem e sem
+// gravar profundidade (o personagem usa renderOrder 2). Fora do contato: sobrepor(false) = profundidade normal (quem passa atrás some atrás).
+function matProprio(name, o) { const b = mat(name, o), m = b.clone(); m.userData.tint = b.userData.tint; MATS.push(m); return m; }
+function sobreposto(obj) { obj.sobrepor = on => { obj.traverse(c => { if (c.isMesh) { c.material.depthWrite = !on; c.renderOrder = on ? 1 : 0; } }); return obj; }; }
 // tom geral dos sprites (eles já vêm iluminados pelo jogo): dia '#fff'; neve '#e8eef8'; noite '#6a7290'...
 export function tileLuz(c = '#ffffff') { const col = new THREE.Color(c); MATS.forEach(m => m.color.copy(col).multiply(m.userData.tint)); }
 // UV de cada vértice = onde ele cai no sprite. Âncora = centro do losango do piso (pixel w/2, h-32).
@@ -73,14 +78,14 @@ export function cena(x0, z0) {
     // objeto: caixa com o sprite projetado; w/d = base (1 = ladrilho inteiro), dx/dz = deslocamento da base dentro do ladrilho
     obj(name, i, j, o = {}) { const w = o.w || .9, d = o.d || .9, dx = o.dx || 0, dz = o.dz || 0, h = o.h || autoH(name, w, d, dx, dz);
       const g = new THREE.BoxGeometry(w, h, d); g.translate(dx, h / 2, dz); project(g, name);
-      const m = put(new THREE.Mesh(g, mat(name, o)), i, j, 0, name); m.userData.h = h; OBJS.push([name, i, j]); return m; },
+      const m = put(new THREE.Mesh(g, matProprio(name, o)), i, j, 0, name); m.userData.h = h; OBJS.push([name, i, j]); sobreposto(m); return m; },
     // cadeira/sofá onde o personagem SENTA: assento baixo (caixa até a altura do assento) + encosto fino atrás.
     // Assim quem está sentado fica na frente do encosto e em cima do assento (sem o encosto "passar na frente" do corpo).
     // encosto: 'N' (encosto ao norte; cadeira virada para o sul, ry 0) ou 'W' (encosto a oeste; virada para o leste, ry π/2)
     assento(name, i, j, o = {}) { const g = new THREE.Group(), side = o.encosto || 'N', hs = o.hs || .5, H = autoH(name, .9, .9);
       const seat = new THREE.BoxGeometry(.9, hs, .9); seat.translate(0, hs / 2, 0); project(seat, name);
       const back = side === 'N' ? new THREE.BoxGeometry(.9, H, .14) : new THREE.BoxGeometry(.14, H, .9); back.translate(side === 'W' ? -.38 : 0, H / 2, side === 'N' ? -.38 : 0); project(back, name);
-      const m = mat(name, o); g.add(new THREE.Mesh(seat, m), new THREE.Mesh(back, m)); g.children.forEach(c => { c.userData.tile = name; }); return put(g, i, j, 0, name); },
+      const m = matProprio(name, o); g.add(new THREE.Mesh(seat, m), new THREE.Mesh(back, m)); g.children.forEach(c => { c.userData.tile = name; }); g.userData.hs = hs; sobreposto(g); return put(g, i, j, 0, name); },
     // sprite em pé, de frente para a câmera (árvores, postes, plantas finas), com a âncora no ponto (i, j) do chão
     placa(name, i, j, o = {}) { const [, , , , w, h] = META[name]; const g = new THREE.PlaneGeometry(w * K, h * K);
       const m = new THREE.Mesh(g, mat(name, o)); m.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(RT, UP, D));

@@ -81,10 +81,7 @@ export function fazenda(x0, z0) {
   // feno, cochos, sal, comedouros
   [[-10, -7], [-9, -7], [-4, -7]].forEach(([i, j]) => C.obj('farm_01_8', i, j, { w: .8, d: .8 }));
   C.obj('location_farm_accesories_01_4', -6, -7); C.obj('location_farm_accesories_01_5', 6, -7); C.obj('location_farm_accesories_01_12', -10, -2, { w: .4, d: .4 });
-  // cercado C: galinheiro do jogo (HutchDefinitions "hutchhen": base _50 + porta _44, _42 + _45, _43, _41) e DOIS cochos (ração e água)
-  [['location_farm_accesories_01_41', 3, 3], ['location_farm_accesories_01_43', 4, 3], ['location_farm_accesories_01_50', 3, 4], ['location_farm_accesories_01_42', 4, 4]]   // portas abertas (sem _44/_45)
-    .forEach(([n, i, j]) => C.obj(n, i, j, { w: 1, d: 1 }));   // peças encostadas: sem fresta entre os ladrilhos do galinheiro
-  C.obj('location_farm_accesories_01_14', 6, 3); C.obj('location_farm_accesories_01_14', 6, 5); C.obj('farm_01_14', 2, 7, { w: .8, d: .8 });
+  C.obj('location_farm_accesories_01_14', 7, 3); C.obj('farm_01_14', 3, 6, { w: .8, d: .8 });
   C.obj('location_farm_accesories_01_36', 12, 3, { w: .6, d: .6 });   // espantalho
   [[-14, -4], [13, -6], [-14, 6], [14, 9], [-7, 10]].forEach(([i, j], k) => arvore(C, i, j, 'verao', k));
   [[-5, 4], [-9, 6], [11, 0], [-13, 2]].forEach(([i, j], k) => C.obj('f_bushes_1_' + [100, 103, 105, 101][k], i, j, { w: .6, d: .6 }));
@@ -133,7 +130,7 @@ export function casaDentro(x0, z0, o = {}) {
     C.parede('N', 'walls_decoration_01_41', 4, 0, { off: .015 }); C.parede('N', 'walls_decoration_01_105', 1, 0, { off: .015 });
     C.parede('W', 'walls_decoration_01_52', 0, 4.5, { off: .015 });
     // canto de leitura: poltrona de couro encostada na parede W (frente E) com abajur de pé aceso ao lado
-    poltrona = C.assento('furniture_seating_indoor_02_45', 0, 2, { encosto: 'W', hs: .44 });
+    poltrona = C.assento('furniture_seating_indoor_02_45', 0, 2, { encosto: 'W', hs: .486 });   // assento na altura do jogo (Bob_SatChair: nádega a 0,486 — regra 4.7)
     C.obj('lighting_indoor_01_on_58', 0, 1, { w: .35, d: .35 });
     // mesa de centro na frente das poltronas, em cima do tapete
     C.obj('furniture_tables_low_01_16', 1.2, 4.5, { w: .8, d: .9 });
