@@ -11,7 +11,11 @@ const INV = rua(-40, 40, 'inverno'), VER = rua(20, 40, 'calor'), CHU = rua(55, 7
 pocas(CHU.C, [[-3, .4, .9, .5], [1, 1.2, 1.3, .6], [4, .2, .8, .45], [-6, 1.5, 1.1, .5], [2.5, 2.2, .6, .35], [-1.5, 2.6, .7, .3], [7, 1, 1, .5]]);
 const BOT = PZ.attach(S, 'Bip01_Prop1', PZ.itemModel('waterbottle')); BOT.scale.setScalar(.55);
 const JACK = S.pz && S.pz.meshes.wear0;
-const clip = (name, lf, o = {}) => { pose(S, Object.assign({ ry: .8, clip: [name, lf, o.loop !== false] }, o)); S.bat.visible = false; S.hammer.visible = false; BOT.visible = !!o.bot; if (JACK) JACK.visible = !o.semCasaco; };
+// sem casaco: o corpo usa a textura SEM a máscara dos braços (a máscara só existe para a manga do casaco não atravessar) — senão ele fica sem braço
+const BODY = S.pz && S.pz.meshes.body, MAP_CASACO = BODY && BODY.material.map, SV = PZ.SOBREVIVENTE;
+const MAP_VERAO = BODY && PZ.texture([SV.skin, ...(SV.layers || [])], { masks: [], blood: SV.blood, seed: SV.seed });
+const roupa = sem => { if (!BODY) return; const m = sem ? MAP_VERAO : MAP_CASACO; if (BODY.material.map !== m) { BODY.material.map = m; BODY.material.emissiveMap = m; BODY.material.needsUpdate = true; } JACK.visible = !sem; };
+const clip = (name, lf, o = {}) => { pose(S, Object.assign({ ry: .8, clip: [name, lf, o.loop !== false] }, o)); S.bat.visible = false; S.hammer.visible = false; BOT.visible = !!o.bot; roupa(!!o.semCasaco); };
 // suor pingando da cabeça (gotas brilhando ao sol) — n gotas por ciclo, mais com mais calor
 const GOTAS = Array.from({ length: 8 }, () => prop(new THREE.Mesh(new THREE.SphereGeometry(.022, 8, 6), new THREE.MeshBasicMaterial({ color: '#f4fbff', transparent: true, depthWrite: false }))));
 // (gotas na frente do rosto, caindo até o peito: brilho pequeno, nunca bolinha nas costas)

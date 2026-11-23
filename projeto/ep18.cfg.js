@@ -9,7 +9,7 @@ window.EP = {
   pz: true, versao: 'BUILD 42.22',
   itens: ['Item_JacketPaddedGeneric', 'Item_WinterHatBlack', 'Item_ScarfGeneric', 'Item_Bandage', 'Item_Axe', 'Item_Longjohns', 'Item_Sweater_Black', 'Item_WaterBottle_Full', 'Item_Radio'],
   OFF: 1.3,
-  T: [0.0, 5.12, 12.72, 20.79, 27.1, 34.57, 44.12, 56.64, 66.11, 69.61, 76.83], END: 83.02,
+  T: [0.0, 4.15, 10.76, 18.26, 23.62, 30.55, 40.76, 51.31, 58.31, 62.01, 67.28], END: 71.3,   // voz final ElevenLabs (71,08 s) — tools/align.py + pausas conferidas
   scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6, lab: LAB }, { at: 7, lab: LAB }, { at: 8, lab: LAB }, { at: 9, lab: LAB }, { at: 10 }],
   titles: [
     { i: 0, a: 'Frio e calor', b: 'matam sem zumbi', aSize: 100, size: 104 },
@@ -100,11 +100,12 @@ window.EP = {
 
     // 1 — dois termômetros: clima e corpo; quem decide é o do corpo
     const p1 = panel(1, 'DOIS TERMÔMETROS', C(1) + 2, 'left:140px;top:480px;width:800px;height:610px');
-    [['CLIMA', 140, BL, .06], ['CORPO', 510, G, .20]].forEach(([nm, x, col, k0], i) => { const t = el('div', 'th ins', `<i style="background:${col}"></i>`, p1, `left:${x}px;top:110px`); t.id = nid('th'); pop(t.id, P(1, k0));
+    // regra 4.3: termômetros simétricos no centro do painel (centros a ±200 px), rótulos e selo centrados embaixo de cada um
+    [['CLIMA', 122, BL, .06], ['CORPO', 522, G, .20]].forEach(([nm, x, col, k0], i) => { const t = el('div', 'th ins', `<i style="background:${col}"></i>`, p1, `left:${x}px;top:110px`); t.id = nid('th'); pop(t.id, P(1, k0));
       const l = el('div', 'ins', nm, p1, `position:absolute;left:${x - 75}px;width:300px;top:470px;text-align:center;font:900 46px/1 var(--mono);color:${col}`); l.id = nid('tl'); pop(l.id, P(1, k0));
       M.kf('#' + t.id + ' i', 'scaleY', i ? [[0, .55], [P(1, .45), .55], [P(1, .62), .44, 'softInOut']] : [[0, .55], [P(1, .30), .55], [P(1, .45), .12, 'softInOut']]); });
-    const ar = el('div', 'ins', '→ EMPURRA →', p1, `position:absolute;left:280px;width:240px;top:250px;text-align:center;font:800 28px/1 var(--mono);color:${Y}`); ar.id = nid('ar'); span(ar.id, P(1, .45), P(1, .70));
-    const ck = el('div', 'ins', 'QUEM DECIDE ✓', p1, `position:absolute;left:370px;width:430px;top:545px;text-align:center;font:900 36px/1 var(--mono);color:${G}`); ck.id = nid('ck'); pop(ck.id, P(1, .72));
+    const ar = el('div', 'ins', '→ EMPURRA →', p1, `position:absolute;left:297px;width:200px;top:268px;text-align:center;font:800 26px/1 var(--mono);color:${Y}`); ar.id = nid('ar'); span(ar.id, P(1, .45), P(1, .70));
+    const ck = el('div', 'ins', 'QUEM DECIDE ✓', p1, `position:absolute;left:432px;width:330px;top:538px;text-align:center;font:900 34px/1 var(--mono);color:${G}`); ck.id = nid('ck'); pop(ck.id, P(1, .72));
 
     // 2 — moodle = ícone de estado na lateral; quanto mais forte, pior (nomes do jogo)
     H.moodle(2, 'pz:Status_TemperatureLow', 'NA LATERAL', C(2) + 4, false, P(2, .28));
@@ -113,10 +114,10 @@ window.EP = {
     tag(2, 'MAIS FORTE = PIOR', RD, P(2, .82), null, 1010);
 
     // 3 — roupa: cada peça segura calor e corta o vento
-    row(3, [['Item_JacketPaddedGeneric', 'CASACO', P(3, .08)], ['Item_WinterHatBlack', 'GORRO', P(3, .16)], ['Item_ScarfGeneric', 'CACHECOL', P(3, .24)]], { top: 860, size: 170, gap: 90 });
-    tag(3, 'SEGURA CALOR ✓', G, P(3, .36), P(3, .60), 1110);
+    row(3, [['Item_JacketPaddedGeneric', 'CASACO', P(3, .08)], ['Item_WinterHatBlack', 'GORRO', P(3, .16)], ['Item_ScarfGeneric', 'CACHECOL', P(3, .24)]], { top: 600, size: 150, gap: 90 });   // regra 4.3: acima da cabeça dele e livre do moodle lateral
+    tag(3, 'SEGURA CALOR ✓', G, P(3, .36), P(3, .60), 860);
     H.moodle(3, 'pz:Status_Windchill', 'VENTO FRIO', P(3, .55));
-    tag(3, 'CORTA O VENTO ✓', G, P(3, .62), null, 1110);
+    tag(3, 'CORTA O VENTO ✓', G, P(3, .62), null, 860);
 
     // 4 — esfriou: ferida não sara; depois luta e corrida mais lentas (réplica: Temperatura Central indo pro frio)
     tempWin(4, C(4) + 2, [[0, .5, 'ok'], [P(4, .06), .22, 'cool']], P(4, .30));

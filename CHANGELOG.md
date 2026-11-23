@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-23 · bruno · EP18 FINAL (voz ElevenLabs): tempos da voz (tools/align.py agora aceita até 14 trechos por frase), sons retimados (coração casado com a borda vermelha), painel "DOIS TERMÔMETROS" simétrico (termômetros a ±200 px do centro, rótulos e selo centrados), cena 3 com itens/tags acima da cabeça, sem casaco = corpo com braços (textura sem a máscara de braço), sombra das árvores do tamanho da copa.
 - 2026-11-22 · bruno · EP17 FINAL (voz ElevenLabs) + regra 4.4 (direção dos elementos):
   - Regra 4.4 em `canal/processo/11-regras-roteiro-e-pipeline.md`; `assets/tiles/orient.js` (direção de cada desenho) + conferência automática em `tiles.js` → `inspect.mjs` (móvel solto/virado, de frente para a parede, cortina/tábua com desenho de outra borda).
   - `casaDentro`: móveis encostados e virados para o cômodo (fogão `_13`, geladeira `_1`, bancada `_45`, pia `_1`, TV `_1`, estante/cômoda na parede N, poltronas na parede W); cortinas das casas com o desenho da borda N. EP14/EP19 ajustados às novas posições.

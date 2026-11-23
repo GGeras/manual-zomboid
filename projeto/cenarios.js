@@ -50,8 +50,9 @@ export function rua(x0, z0, est = 'verao') {
   const TREES = [[-13, -3], [0, -3], [12, -3], [-8, 5], [7, 6], [14, 4], [-15, 7], ...(cal ? [[-5, 4]] : [])];   // calor: árvore extra na frente = a sombra para onde se foge
   TREES.forEach(([i, j], k) => arvore(C, i, j, inv ? 'inverno' : 'verao', k));
   // sol a pino: sombra dura e escura de cada árvore no chão (é ali que se foge do calor)
-  if (cal) TREES.forEach(([i, j]) => { const m = new THREE.Mesh(new THREE.CircleGeometry(1, 32), sombraMat); m.rotation.x = -Math.PI / 2; m.scale.set(1.9, 1.5, 1);
-    m.position.set(C.x(i) - C.G.position.x + .55, .035, C.z(j) - C.G.position.z + .75); C.G.add(m); });
+  // tamanho da copa da árvore (≈ 2 ladrilhos), deitada para longe do sol (sol no alto à direita da tela → sombra para +z), base presa no tronco
+  if (cal) TREES.forEach(([i, j]) => { const m = new THREE.Mesh(new THREE.CircleGeometry(1, 32), sombraMat); m.rotation.x = -Math.PI / 2; m.scale.set(1.05, 1.3, 1);
+    m.position.set(C.x(i) - C.G.position.x + .05, .035, C.z(j) - C.G.position.z + .7); C.G.add(m); });
   const ar = inv ? ['f_bushes_1_28', 'f_bushes_1_29', 'f_bushes_1_30'] : ['f_bushes_1_100', 'f_bushes_1_101', 'f_bushes_1_103', 'f_bushes_1_105'];
   [[-10, -4], [-3, -4], [3, -4], [9, -4], [cal ? 12 : -3, cal ? 6 : 4], [3, 4], [10, 3], [-12, 4]].forEach(([i, j], k) => C.obj(ar[k % ar.length], i, j, { w: .6, d: .6 }));
   if (!inv) [[-1, 6], [5, 9], [-6, 8]].forEach(([i, j], k) => C.obj('f_bushes_1_' + (64 + k * 3), i, j, { w: .5, d: .5 }));
