@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-23 · jose · Central C1 (`plataforma/`): banco Supabase com RLS, login GitHub, Painel, Episódios e ficha; sync automático do repo e publicação no Cloudflare (`.github/workflows/central*.yml`).
 - 2026-11-23 · jose · Plataforma: arquitetura e plano de etapas da Central e do site, com as chaves de cada etapa (`plataforma/arquitetura.md`, `plataforma/plano.md`).
 - 2026-11-23 · jose · Rascunho v2 EP20–30: zumbis à vista nas cenas de rua, cama nas cenas de sono, Coleta no mato (não no asfalto), casa pegando fogo + zumbi em chamas, personagem enquadrado na pilha de corpos, moodle maior e fora da área dos botões; `inspect.mjs` corrigido no Windows.
 - 2026-11-23 · jose · Rascunho automático EP20–30: `auto3d.js` (tomadas 3D), `ep20–30.cfg.js/.js/.html`, `pipeline/rascunho_auto.py` (voz Piper → tempos → prévia) e `ferramentas/rascunhos-20-30.bat` (roda os 11 de uma vez).

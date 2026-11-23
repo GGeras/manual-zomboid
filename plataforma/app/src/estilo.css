@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@theme {
+  /* marca do canal (canal/identidade-visual.md) */
+  --color-noite: #111111;
+  --color-chao: #191816;
+  --color-borda: #2c2925;
+  --color-osso: #efe5cf;
+  --color-osso-2: #b9af99;
+  --color-apagado: #8a8371;
+  --color-sangue: #ff3d55;
+  --color-vivo: #8fe04a;
+  --color-alerta: #ffb020;
+
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html { color-scheme: dark; }
+  body {
+    @apply bg-noite text-osso font-sans antialiased;
+    font-feature-settings: "tnum" 1, "cv11" 1;
+  }
+  :focus-visible { outline: 2px solid var(--color-osso); outline-offset: 2px; }
+  ::selection { background: var(--color-sangue); color: var(--color-noite); }
+}
+
+@layer components {
+  /* títulos da marca: Inter 900, maiúsculas, espaçamento apertado */
+  .titulo { @apply font-black uppercase leading-[0.9] tracking-[-0.03em]; }
+  /* rótulo de HUD: monoespaçada negrito */
+  .hud { @apply font-mono font-bold text-[11px] tracking-normal; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

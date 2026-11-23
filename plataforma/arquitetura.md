@@ -19,7 +19,7 @@ Plano de etapas e chaves: `plataforma/plano.md`.
 | prévias e finais (link, versão, autor) | Slack: mensagens do `publicar.py` | só leitura |
 | atualizações do GitHub | Slack `#atualizações-projeto` | só leitura |
 | tarefas, notas, relatórios | Supabase | edita |
-| métricas dos Shorts | YouTube (APIs) | só leitura |
+| métricas dos Shorts | chat de análises (grava no banco) | só leitura |
 | notícias do Zomboid | Steam News → fila | aprova / descarta |
 | posts do blog | repo: `site/content/blog/*.mdx` (PR) | — |
 
@@ -36,7 +36,7 @@ flowchart LR
   SLACK -- "Events API" --> F1["Edge Fn slack-eventos"]
   GH -- "Action: sync-repo" --> DB
   F1 --> DB[("Supabase Postgres + Realtime")]
-  YT["YouTube Data + Analytics"] -- "cron diário" --> F2["Edge Fn youtube-sync"] --> DB
+  AN["Chat de análises (Claude)"] -- "conector Supabase" --> DB
   STEAM["Steam News (PZ)"] -- "cron" --> F3["Edge Fn zomboid-noticias"] --> DB
 
   DB -- "Realtime + RLS (login)" --> CENTRAL["Central (SPA)"]
@@ -52,7 +52,7 @@ flowchart LR
 - **UI:** Tailwind com os tokens da marca, componentes próprios estilo HUD, Recharts nos gráficos.
 - **Dados:** `@supabase/supabase-js` + TanStack Query; Realtime no feed.
 - **Login:** Supabase Auth com **GitHub** (os dois já têm conta). Cadastro fechado: só quem está em `membros`.
-- **Hospedagem:** Cloudflare Pages (grátis, prévia por PR).
+- **Hospedagem:** Cloudflare Workers, só arquivos estáticos (grátis). GitHub Action publica a cada push na `main`.
 
 ### Telas
 | tela | o que mostra |
@@ -74,7 +74,6 @@ plataforma/
     migrations/           # SQL versionado (RLS incluso)
     functions/
       slack-eventos/      # recebe eventos do Slack
-      youtube-sync/       # métricas diárias
       zomboid-noticias/   # busca notícias do PZ
   scripts/
     sync_repo.py          # roteiros/ + videos/README.md -> episodios
@@ -87,7 +86,7 @@ plataforma/
 | `episodios` | nn, slug, tema, responsavel, status, build, fatos[], youtube_id, commit | `sync_repo.py` |
 | `entregas` | ep, tipo (previa/final/capa), versao, link, autor, duracao, slack_ts | `slack-eventos` |
 | `alertas` | canal, tipo, texto, autor, slack_ts (único), criado_em | `slack-eventos` |
-| `metricas_diarias` | youtube_id, dia, views, retencao_media, inscritos, origem... | `youtube-sync` |
+| `metricas_diarias` | youtube_id, dia, views, retencao_media, inscritos, origem... | chat de análises |
 | `relatorios` | periodo, conteudo, criado_por | Central |
 | `tarefas` | titulo, ep, responsavel, status, prazo, ordem | Central |
 | `noticias_pz` | url, titulo_original, data, build, resumo_ptbr, status, aprovado_por | `zomboid-noticias` + Central |
@@ -100,7 +99,7 @@ plataforma/
 - **Episódios:** push na `main` → GitHub Action roda `sync_repo.py` → upsert em `episodios`.
 - **Prévias/finais + Ao vivo:** mensagem no Slack → `slack-eventos` (confere assinatura) → grava `alertas` e, se for 🎬/✅ do `publicar.py`, grava `entregas` → Realtime atualiza a tela.
   - Na primeira vez: importa o histórico dos 3 canais.
-- **Métricas:** cron diário → `youtube-sync` → `metricas_diarias`. Relatório quinzenal gerado na Central (mesma tabela de `canal/metricas.md`).
+- **Métricas:** o chat de análises grava em `metricas_diarias` pelo conector do Supabase. Relatório quinzenal na Central (mesma tabela de `canal/metricas.md`). Futuro: cron com a API do YouTube.
   - Métrica que a API não der (ex.: "viewed vs swiped away"): campo manual, sem inventar.
 
 ## 4. Site (`site/`)
