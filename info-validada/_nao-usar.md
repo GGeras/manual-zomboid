@@ -13,3 +13,5 @@ Coisas que já se provaram erradas ou que não podem ser ditas sem nova conferê
 | taco-nao-quebra | Taco quebra (ep08 diz que toda arma quebra) |
 | habilidade-recarga-b42 | Habilidade de Recarga e arma travando mudaram na B42: não citar sem conferir |
 | tracos-b42 | Traços e profissões mudaram na B42 e a wiki ainda mostra valores da B41: conferir antes |
+| ridiculamente-cansado | "Ridiculamente Cansado" (o nome no jogo é Cansaço Absurdo) |
+| forrageamento | "Forrageamento" (o nome no jogo é Coleta) |
