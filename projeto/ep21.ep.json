@@ -1,7 +1,7 @@
 {
  "_ajuda": "Preencha e rode: python3 pipeline/build.py 21   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
  "num": "21",
- "nome": "Forrageamento",
+ "nome": "Coleta",
  "vo": "audio/n21.mp3",
  "vo_db": 1.5,
  "musica": "where_is_everyone",
@@ -11,74 +11,76 @@
   [
    "ambientOutsideDayBirds",
    {
-    "c": 0,
+    "f": 0,
     "dt": 0
    },
-   -24,
-   {
-    "ate": {
-     "c": 3,
-     "dt": 0
-    },
-    "fin": 0.2,
-    "fout": 0.3
-   }
+   -24
   ],
   [
    "ambientOutsideLightRainWoods",
    {
-    "c": 3,
+    "f": 3,
     "dt": 0
    },
-   -16,
+   -18
+  ],
+  [
+   "PZ_grassFoot_01",
    {
-    "ate": {
-     "c": 4,
-     "dt": 0
-    },
-    "fin": 0.2,
-    "fout": 0.3
-   }
+    "f": 4,
+    "dt": 0.3
+   },
+   -16
   ]
  ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
  "capa": {
-  "t": 10.0,
-  "zoom": 1.15,
+  "t": 8.0,
+  "opcoes": [],
+  "zoom": 1.05,
   "pos": "50% 55%",
   "tint": "rgba(0,0,0,.15)",
   "linhas": [
    [
-    "LINHA 1",
+    "O MATO",
     "osso"
    ],
    [
-    "LINHA 2",
+    "TEM",
     "osso"
    ],
    [
-    "PALAVRA",
-    "vermelho"
+    "COMIDA",
+    "verde"
    ]
   ],
   "gancho": {
-   "tipo": "selo",
-   "texto": "GANCHO CURTO",
-   "cor": "#e0263f"
+   "tipo": "pcts",
+   "itens": [
+    [
+     "3",
+     "amarelo"
+    ],
+    [
+     "10",
+     "verde"
+    ]
+   ],
+   "legenda": "RAIO · COLETA 0 → 10"
   }
  },
  "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
  "post": {
-  "titulo": "Titulo buscavel (ate ~75 caracteres)",
-  "gancho": "Frase de gancho (ate 125 caracteres).",
+  "titulo": "Coleta no Project Zomboid: ache comida no mato (B42)",
+  "gancho": "Aperta End e o mato vira mercado. Mas chuva, escuro e correr encolhem sua busca.",
   "pontos": [
-   "ponto 1",
-   "ponto 2",
-   "ponto 3",
-   "ponto 4",
-   "ponto 5"
+   "Modo de Busca: tecla End",
+   "Raio de 3 a 10 quadrados conforme a Coleta",
+   "Chuva, neblina, neve e escuro atrapalham",
+   "Agachar e andar revelam mais",
+   "Herbalista reconhece frutas e cogumelos seguros"
   ],
-  "pergunta": "Pergunta para comentarios?",
+  "pergunta": "O que você mais acha na coleta?",
   "tags": [
    "pzdicas",
    "projectzomboidbr",
@@ -86,13 +88,23 @@
    "survivalgame"
   ]
  },
- "roteiro": "rascunho com voz provisória (Piper)",
+ "roteiro": "[sério] O mato tem comida. Você só não está vendo. [calmo] Abre a janela Investigar Área e ativa o Modo de Busca. Ou só aperta a tecla End. [confiante] Os itens aparecem no chão, dentro de um círculo ao seu redor. Com a habilidade Coleta no zero, ele tem três quadrados. No nível dez, chega a dez. [tenso] Chuva, neblina, neve e escuro encolhem o círculo. Guarda-chuva ajuda na chuva, e à noite leva lanterna. [calmo] Agachado você acha um pouco mais. E anda enquanto procura: andar em círculo não revela nada novo. [confiante] Cada lugar tem o seu: lenha nas florestas, pedras nas estradas, frutas e cogumelos na floresta, e inseto aparece mais à noite. [sério] Cuidado com frutinha e cogumelo: tem variedade venenosa. O traço Herbalista ajuda a saber quais são seguras. [calmo] E tudo depende da estação. Quer uma coisa específica? Usa o Foco de Busca. [confiante] Dia de sol, agachado e andando: o mato vira mercado.",
  "fatos": [
-  "forr-modo",
-  "forr-raio",
-  "forr-penal",
-  "forr-inicio",
-  "forr-veneno",
-  "forr-neve"
+  "col-modo",
+  "col-raio",
+  "col-nivel",
+  "col-clima",
+  "col-andar",
+  "col-onde",
+  "col-herbalista",
+  "col-estacao",
+  "col-foco"
+ ],
+ "itens": [
+  "Item_BerryBlue",
+  "Item_Twigs",
+  "Item_Rock",
+  "Item_Umbrella",
+  "Item_Flashlight2"
  ]
 }

@@ -3,6 +3,15 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-23 · jose · Plataforma: arquitetura e plano de etapas da Central e do site, com as chaves de cada etapa (`plataforma/arquitetura.md`, `plataforma/plano.md`).
+- 2026-11-23 · jose · Rascunho v2 EP20–30: zumbis à vista nas cenas de rua, cama nas cenas de sono, Coleta no mato (não no asfalto), casa pegando fogo + zumbi em chamas, personagem enquadrado na pilha de corpos, moodle maior e fora da área dos botões; `inspect.mjs` corrigido no Windows.
+- 2026-11-23 · jose · Rascunho automático EP20–30: `auto3d.js` (tomadas 3D), `ep20–30.cfg.js/.js/.html`, `pipeline/rascunho_auto.py` (voz Piper → tempos → prévia) e `ferramentas/rascunhos-20-30.bat` (roda os 11 de uma vez).
+- 2026-11-23 · jose · Roteiros EP20–30 v6: 5 fatos novos (perna ao correr, espirro atrai, helicóptero segue, areia/água apagam, doença = quantidade+decomposição+tempo); manifestos `ep20–30.ep.json` prontos; seção "Arquivos para o vídeo" em cada roteiro; 26 vozes/sons B42 do personagem (espirro, tosse, suspiros, fogo); cenas antigas EP20–22 → `rascunho/projeto-antigo/`.
+- 2026-11-23 · jose · Roteiros EP20–30 (ideia + dados confirmados, sem rascunho de vídeo):
+  - EP20–22 revisados nos arquivos do jogo;
+  - EP23–30 novos: Carga, Pânico e Estresse, Tédio e Tristeza, Fome e Peso, Resfriado e Doença, Helicóptero, Fogo, Cadáveres;
+  - 83 fatos novos em `info-validada/`, `nomes-ptbr.md` ampliado;
+  - o que não foi confirmado está em `rascunho/ep20-30-nao-confirmados.md`.
 - 2026-11-19 · bruno · `rodar.bat` e `env.sh` detectam a placa de vídeo (dedicada, integrada ou nenhuma) e ajustam `PZ_GPU` e `RENDER_JOBS`; dá para forçar com `PZ_GPU=1` ou `PZ_GPU=0`.
 - 2026-11-19 · jose · `publicar.py` reconhece a pasta "O meu disco" (Drive em português de Portugal).
 - 2026-11-19 · jose · Automação Slack + Drive:

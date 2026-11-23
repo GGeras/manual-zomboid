@@ -7,11 +7,11 @@ import { createRequire } from 'node:module';
 const { chromium } = (() => { const r = createRequire(import.meta.url); try { return r('playwright'); } catch { return r('playwright-core'); } })();
 import fs from 'node:fs';
 import path from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { pathToFileURL, fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
 const ep = process.argv[2]; if (!ep) { console.error('uso: node pipeline/inspect.mjs NN'); process.exit(1); }
-const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..'); process.chdir(root);
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'); process.chdir(root);
 const man = JSON.parse(fs.readFileSync(`ep${ep}.ep.json`, 'utf8'));
 const out = `out/Video ${ep} - ${man.nome}/inspecao`; fs.mkdirSync(out, { recursive: true });
 const STEP = 10 / 30;                      // sonda a cada 10 frames
