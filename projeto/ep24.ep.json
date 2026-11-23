@@ -1,0 +1,116 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 24   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "24",
+ "nome": "Pânico e Estresse",
+ "vo": "audio/n24.mp3",
+ "vo_db": 1.5,
+ "musica": "the_zombie_threat",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "male_heavybreathpanic",
+   {
+    "f": 0,
+    "dt": 0
+   },
+   -16
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "f": 0,
+    "dt": 1.6
+   },
+   -14
+  ],
+  [
+   "heart",
+   {
+    "f": 1,
+    "dt": 0.2
+   },
+   -18
+  ],
+  [
+   "PZ_Swallowing",
+   {
+    "f": 4,
+    "dt": 0.6
+   },
+   -14
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 8.0,
+  "opcoes": [],
+  "zoom": 1.05,
+  "pos": "50% 55%",
+  "tint": "rgba(0,0,0,.15)",
+  "linhas": [
+   [
+    "MÃO",
+    "osso"
+   ],
+   [
+    "TREMENDO",
+    "osso"
+   ],
+   [
+    "ERRA",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "seq",
+   "itens": [
+    [
+     "PÂNICO",
+     "vermelho"
+    ],
+    [
+     "ESTRESSE",
+     "amarelo"
+    ]
+   ]
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Pânico e estresse no Project Zomboid: por que você erra (B42)",
+  "gancho": "Mão tremendo, tiro torto. Pânico e estresse mexem na sua mira e na sua luta.",
+  "pontos": [
+   "Pânico: Nervosismo até Terror",
+   "Estresse: Tensão até À Beira do Colapso",
+   "Calmantes reduzem o pânico",
+   "Livro tira mais estresse que quadrinhos e revista",
+   "Corajoso, Covarde e Dessensibilização mudam tudo"
+  ],
+  "pergunta": "Seu personagem é Corajoso ou Covarde?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "[tenso] Sua mão treme, e o tiro sai torto. [calmo] Isso é pânico. O moodle vai de Nervosismo até Terror. No segundo nível, o jogo já diz: mãos trêmulas. [sério] E os moodles mexem na sua mira e na sua luta: em pânico e cansado, você erra muito mais. [calmo] Estresse é outro moodle: vai de Tensão até À Beira do Colapso. No terceiro nível: mãos trêmulas, impossível pensar direito. [confiante] Pra pânico existem os Calmantes: o remédio reduz o pânico. [confiante] Pra estresse, leitura: livro tira mais, depois quadrinhos, depois revista. E se for fumante, o cigarro acalma, mas sem ele a tristeza sobe. [calmo] Na criação, Corajoso entra menos em pânico, Covarde muito mais, e Dessensibilização quase nada. [tenso] Cuidado com Agorafóbico e Claustrofóbico: um entra em pânico ao ar livre, o outro em lugar fechado pequeno. [confiante] Calma na mão, tiro na cabeça.",
+ "fatos": [
+  "pan-mira",
+  "pan-niveis",
+  "pan-corpo",
+  "est-niveis",
+  "pan-calmante",
+  "est-leitura",
+  "est-fumante",
+  "pan-tracos"
+ ],
+ "itens": [
+  "Item_PillsBetablocker",
+  "Item_Book",
+  "Item_ComicBook",
+  "Item_Magazine",
+  "Item_Cigarette"
+ ]
+}

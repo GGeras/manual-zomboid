@@ -1,0 +1,105 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 26   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "26",
+ "nome": "Fome e Peso do Corpo",
+ "vo": "audio/n26.mp3",
+ "vo_db": 1.5,
+ "musica": "what_was_lost",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "PZ_Eating",
+   {
+    "f": 0,
+    "dt": 0.3
+   },
+   -14
+  ],
+  [
+   "PZ_FoodSlicing",
+   {
+    "f": 5,
+    "dt": 0.3
+   },
+   -14
+  ],
+  [
+   "BH_MalePlayer_FreezingShivers_01",
+   {
+    "f": 6,
+    "dt": 0.3
+   },
+   -14
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 8.0,
+  "opcoes": [],
+  "zoom": 1.05,
+  "pos": "50% 55%",
+  "tint": "rgba(0,0,0,.15)",
+  "linhas": [
+   [
+    "COME",
+    "osso"
+   ],
+   [
+    "E MESMO ASSIM",
+    "osso"
+   ],
+   [
+    "EMAGRECE",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "seq",
+   "itens": [
+    [
+     "FOME",
+     "amarelo"
+    ],
+    [
+     "CALORIA",
+     "verde"
+    ]
+   ]
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Fome e peso no Project Zomboid: calorias na B42",
+  "gancho": "Matar a fome não é engordar. O peso depende das calorias.",
+  "pontos": [
+   "Fome: Fome Leve até Morrendo de Fome",
+   "Caldo, fruta e legume quase não engordam",
+   "Manteiga, banha, chocolate e carne gorda engordam",
+   "Abaixo do Peso = pouca força; Acima = corre devagar",
+   "Comida cozida sacia mais"
+  ],
+  "pergunta": "Seu personagem está no peso certo?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "[sério] Você pode comer o dia inteiro e mesmo assim emagrecer. [calmo] A fome é um moodle: de Fome Leve até Morrendo de Fome. E ela tira suas forças. [confiante] Mas o peso do corpo depende das calorias. Caldo, fruta e legume matam a fome e quase não engordam. Manteiga, banha, chocolate e carne gorda engordam. [sério] O próprio jogo avisa: sem dieta balanceada, você ganha ou perde peso. [tenso] Abaixo do Peso: pouca força, pouca resistência, mais lesão. Acima do Peso: corre mais devagar e cansa rápido. [calmo] Cozinhar ajuda: comida cozida é mais nutritiva e segura a fome por mais tempo. [calmo] E no inverno você gasta mais. Bem alimentado aguenta melhor o frio. [confiante] Fome é o alarme. Caloria é o combustível.",
+ "fatos": [
+  "peso-calorias",
+  "fome-niveis",
+  "peso-dieta",
+  "peso-sistema",
+  "peso-tracos",
+  "peso-cozida",
+  "peso-inverno"
+ ],
+ "itens": [
+  "Item_BerryBlue",
+  "Item_Butter",
+  "Item_Lard"
+ ]
+}
