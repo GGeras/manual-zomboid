@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-23 · jose · Lista de configuração manual da plataforma (`plataforma/configuracao.md`): Slack App, Discord (widget, webhooks, bot), YouTube, domínio, Resend, acesso do Claude do Bruno.
 - 2026-11-23 · jose · Central no ar: https://manual-zomboid-central.mundomix.workers.dev (`plataforma/README.md`); Bruno liberado.
 - 2026-11-23 · jose · Merge automático, sem code review (`CLAUDE.md`, `COLABORACAO.md`): CI `validar` em todo PR (`.github/workflows/validar.yml`); ordem e regra de conflito dos merges.
 - 2026-11-23 · jose · Central C1 (`plataforma/`): banco Supabase com RLS, login GitHub, Painel, Episódios e ficha; sync automático do repo e publicação no Cloudflare (`.github/workflows/central*.yml`).
