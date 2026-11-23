@@ -1,0 +1,36 @@
+# Repo -> Central: roteiros/*.md e fatos.json viram as tabelas episodios e fatos no Supabase.
+# Segredo: SUPABASE_SECRET_KEY (Supabase > Project Settings > API Keys > Secret keys).
+name: central-sync
+on:
+  push:
+    branches: [main]
+    paths: ['roteiros/**', 'projeto/pipeline/fatos.json', 'plataforma/scripts/**', '.github/workflows/central-sync.yml']
+  pull_request:
+    paths: ['plataforma/scripts/**', '.github/workflows/central-sync.yml']
+  workflow_dispatch:
+concurrency:
+  group: central-sync
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        env:
+          GIT_LFS_SKIP_SMUDGE: '1'
+        with:
+          lfs: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            roteiros/
+            projeto/pipeline/fatos.json
+            plataforma/scripts/
+      - run: python3 -m unittest plataforma/scripts/test_sync_repo.py
+      - name: Enviar para o Supabase
+        if: github.event_name != 'pull_request'
+        env:
+          SUPABASE_URL: https://tephnuzsuoamhfukeqsi.supabase.co
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: |
+          if [ -z "$SUPABASE_SECRET_KEY" ]; then echo "::notice::Sem SUPABASE_SECRET_KEY: sync pulado (plataforma/README.md)"; exit 0; fi
+          python3 plataforma/scripts/sync_repo.py
