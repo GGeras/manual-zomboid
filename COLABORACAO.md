@@ -14,7 +14,7 @@
   - Só o dono mexe nos arquivos daquele episódio: `roteiros/epNN-*`, `projeto/epNN.*`, `projeto/audio/*NN*`.
   - Antes de começar um episódio, mude o `responsavel` e faça commit **na hora** (marca o episódio como seu).
 - **Arquivos compartilhados**, que pedem cuidado:
-  - `info-validada/*.md`: só por Pull Request revisado pelo outro;
+  - `info-validada/*.md`: só por Pull Request (merge automático com o CI verde);
   - `projeto/engine.js`, `sets.js`, `ep-core.js`, `pz.js`, `pipeline/*`: avise o outro antes;
   - `canal/*`.
 - **Nunca edite** `projeto/pipeline/fatos.json`: ele é gerado por `validar.py --gerar`.
@@ -29,7 +29,9 @@ git add -A && git commit -m "roteiro(ep20): fatos de sono validados"
 git push -u origin jose/ep20-sono           # 4. sobe a branch
 gh pr create --fill                         # 5. abre o Pull Request
 ```
-6. O outro revisa no GitHub ("Files changed") e aprova.
+6. **Sem code review** (decisão do Jose, 23/11): o CI `validar` roda sozinho no PR. Verde → quem abriu o PR (ou o Claude dele) faz o merge na hora. Vermelho → corrige antes.
+   - Vários PRs abertos: merge na ordem em que foram abertos.
+   - Conflito: fica o que já está na `main`; o que é novo entra junto (união). Nada aceito antes é sobrescrito. O que sobrar em dúvida vai para `rascunho/`.
 7. Merge com **Squash and merge**. Na mensagem do squash, mantenha a linha `Por quê:`. Depois apague a branch e volte para a main:
    ```bash
    git switch main && git pull

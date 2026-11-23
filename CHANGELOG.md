@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-23 · jose · Merge automático, sem code review (`CLAUDE.md`, `COLABORACAO.md`): CI `validar` em todo PR (`.github/workflows/validar.yml`); ordem e regra de conflito dos merges.
 - 2026-11-23 · jose · Central C1 (`plataforma/`): banco Supabase com RLS, login GitHub, Painel, Episódios e ficha; sync automático do repo e publicação no Cloudflare (`.github/workflows/central*.yml`).
 - 2026-11-23 · jose (Claude) · PR #12 (EP20–22 com fontes web) integrado sem sobrepor a v6 da main: fatos e roteiros da main mantidos; a versão do PR ficou em `rascunho/ep20-22-fontes-web.md`; `perguntas-abertas.md` (EP20–22) atualizado.
 - 2026-11-23 · bruno · EP19 FINAL (voz ElevenLabs) + regras 4.5 (iluminação por ambiente) e 4.6 (não atravessar móvel / casa com sentido):

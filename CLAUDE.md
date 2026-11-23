@@ -41,7 +41,7 @@ Leia este arquivo inteiro, depois `README.md` e `COLABORACAO.md`, antes de qualq
    2. web com build **42.20+** no texto (projectzomboid.wiki, pzfans, pindrop).
 2. Fontes em conflito = não afirma. Fonte B41 ou sem build = rascunho.
 3. Anote em `rascunho/` enquanto pesquisa. Confirmado: mova a linha para `info-validada/<tema>.md`, com build e fonte (arquivo + chave, ou URL + build).
-4. Rode `python ferramentas/validar.py --gerar`, depois commit e Pull Request. **Fato novo em `info-validada/` entra só por PR revisado pela outra pessoa.**
+4. Rode `python ferramentas/validar.py --gerar`, depois commit e Pull Request. **Sem code review:** CI verde (`validar`) → quem abriu o PR (ou o Claude dele) faz o merge na hora (decisão do Jose, 23/11). Regras do merge: `COLABORACAO.md`, seção 3.
 
 ## 4. Regras do canal (absolutas, do Jose)
 1. **Conteúdo SOBRE O JOGO.** Regras, sons e elementos são fiéis ao jogo.
