@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-23 · jose · EP19 v3: livro na mão com o anexo do jogo aplicado direto (aberto, páginas para o rosto, sem inclinação errada) e luz de interior mais clara e quente (ambiente, abajur reforçado, vinheta mais leve).
 - 2026-11-23 · bruno · EP19 FINAL v2 (voz nova) + regra 4.7 (contato com as superfícies — definitiva para todos os vídeos):
   - `pz.js`: `PZ.apoiar()` põe o ponto mais baixo do corpo (sola/calcanhar/joelho/nádega, medidas das animações do jogo) sobre o piso a cada quadro; assento na altura do jogo (0,486); `tiles.js`: `móvel.sobrepor()` (personagem por cima do móvel em que encosta); `inspect.mjs`: ATRAVESSANDO A SUPERFÍCIE / FLUTUANDO / NÁDEGA FORA DO ASSENTO.
   - EP19: voz nova alinhada (T/END) e sons refeitos pelas mesmas contas da animação; livro = modelo do jogo (BookHand.fbx + BookRed_New) com `Bob_IdleReadBook` a 0,80 e página no evento do jogo; serra com `Bob_IdleSawLog` e tábua apoiada no tampo; fim com 👍 (`Bob_EmoteThumbsUp`) sem martelo até acabar.
