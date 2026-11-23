@@ -166,9 +166,9 @@
  ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
  "capa": {
-  "t": 32.0,
-  "zoom": 1.1,
-  "pos": "50% 55%",
+  "t": 3.0,
+  "zoom": 1.12,
+  "pos": "50% 75%",
   "tint": "rgba(0,0,0,.15)",
   "linhas": [
    [

@@ -22,18 +22,15 @@ EP17 — Barricadas
  6. O zumbi te vê através das barras de metal?
  7. No clique direito em PT-BR a opção se chama "Barricar"?
 
-EP20 — Sono
- 8. O moodle de cheiro ruim (fumaça tóxica/corpo podre) se chama "Mau Cheiro" em PT-BR?
- 9. O nível máximo do Cansado se chama "Ridiculamente Cansado"?
-
-EP21 — Forrageamento
-10. A habilidade se chama "Forrageamento" no jogo em PT-BR?
-11. A revista que ensina Herbalista é a de ervas (ícone Item_Magazine_Herbal1)?
-
-EP22 — Fadiga Muscular
-12. Correr dá tensão muscular na perna na 42.22?
-13. O painel de saúde em PT-BR mostra "Tensão Muscular"?
-14. Arma longa cansa mais que arma curta do mesmo peso?
+EP20–22: RESOLVIDO em 23/11 pela v6 da main (arquivos do jogo B42.22; ids em info-validada/)
+ 8. "Mau Cheiro" = nome PT-BR (nomes-ptbr.md).
+ 9. Último nível = "Cansaço Absurdo" (nomes-ptbr.md, sono-niveis), não "Ridiculamente Cansado".
+10. Habilidade = "Coleta" (nomes-ptbr.md, col-modo), não "Forrageamento".
+11. Revista de Herbalista: info-validada só tem o traço (col-herbalista).
+12. Perna ao correr: confirmado (fad-perna).
+13. Painel de saúde = "Distensão Muscular / Leve" (nomes-ptbr.md, fad-nome).
+14. Arma longa × curta: info-validada só tem o peso (fad-arma).
+   Versão alternativa com fontes web (PR #12): rascunho/ep20-22-fontes-web.md.
 
 JÁ DECIDIDO (sem precisar responder)
  - EP15: pular janela quebrada sem tirar o vidro corta = SIM (você já confirmou).

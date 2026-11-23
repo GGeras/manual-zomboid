@@ -1,7 +1,7 @@
 # Plataforma — plano de etapas e chaves
 
 Arquitetura: `plataforma/arquitetura.md`. Como rodar e configurar: `plataforma/README.md`.
-Regra: **1 etapa = 1 PR**, com prints, linha no `CHANGELOG.md` e aviso no `#atualizações-projeto`.
+Regra: **1 etapa = 1 PR**, com prints, linha no `CHANGELOG.md` e aviso no `#atualizações-projeto`. **Merge automático**, sem code review (decisão do Jose, 23/11): CI verde → merge.
 Ordem: Central primeiro (C1–C6), depois o site (S1–S6). A S0 (direção de arte) pode ser decidida antes, para não travar.
 
 ## Decisões do Jose
@@ -47,4 +47,5 @@ Ordem: Central primeiro (C1–C6), depois o site (S1–S6). A S0 (direção de a
 1. `python ferramentas/validar.py` com 0 erro(s); testes da etapa passando.
 2. Prévia no ar (link da hospedagem).
 3. PR com o que + por quê, prints de celular e desktop, e o que ainda depende de chave.
-4. Aviso no `#atualizações-projeto`.
+4. CI verde → merge automático (outros PRs abertos entram antes, na ordem em que foram abertos, sem sobrepor o que já está na main).
+5. Aviso no `#atualizações-projeto`.

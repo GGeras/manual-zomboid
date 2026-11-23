@@ -50,6 +50,80 @@ Vale para todo vídeo novo. Em conflito com docs antigos, este manda no ROTEIRO 
 - Número na tela só se confirmado. Sem número: barras sem escala (ex.: EP17 = barra de vida das barricadas comparando, sem valores).
 - Animação: se a ação 3D fica duvidosa, preferir tela simulada/ícone a uma animação ruim.
 
+## 4.2 REGRA DO CENÁRIO, DOS MODAIS E DA ANIMAÇÃO (20/11, revisão do Jose dos EP16–19)
+Revisão completa: `canal/processo/revisoes/2026-11-20-ep16-19.md`. Vale para todo vídeo novo.
+- **Lugar nunca vazio.** Casa tem móveis, eletrodomésticos e plantas; rua tem casas, árvores, grama, calçada e postes; fazenda tem
+  cercados, feno e cocho. Tudo com os **sprites originais do jogo** (`projeto/tiles.js` + `projeto/cenarios.js`, pasta `assets/tiles`).
+  - Prontos para usar: `rua(x, z, 'verao'|'inverno'|'chuva')`, `fazenda()`, `casaDentro()`, `sobrado()`.
+  - Um lugar por vídeo sempre que der (mesmo lugar do começo ao fim, como pediu o EP19).
+- **Clima de verdade.** Frio = neve no chão, neve caindo e bordas geladas (`neve()`, `clima('gelo')`); calor = sol forte de verão
+  (`clima('sol')`); chuva = poças no chão (`pocas()`, `chuvaChao()`).
+- **Modal nunca cobre o personagem nem a animação.** O personagem fica na faixa de baixo (`camOn(c, x, z, h, .74)`) e os modais na
+  faixa de cima (até y ≈ 1260). A inspeção avisa `MODAL COBRINDO O PERSONAGEM`.
+- **Modal harmônico:** caixa do tamanho do conteúdo, centrada, elementos grandes, sem sobra de espaço vazio (ex.: "Como levar" do EP16,
+  "Clique direito na janela" do EP17).
+- **Personagem não afunda no chão** (sentado, em pé, ajoelhado). Sentar só em cadeira do jogo com a animação original
+  (Bob_SatChairIn / Bob_SatChair). A inspeção avisa `PERSONAGEM AFUNDANDO NO CHÃO`.
+- **Animações originais do jogo** (`pipeline/pz/add_clips.py`, lista em `pipeline/pz/lista.json`): andar, martelar, ler, sentar,
+  acariciar, ordenhar, tosquiar, tremer de frio, enxugar o suor, beber, gritar, descer corda; zumbi entrando pela janela (espreme, cai,
+  levanta) e batendo. Andar sempre com deslocamento real (`rota()`), nunca "andando no lugar".
+  - Item na mão = malha do jogo presa no osso de item (`PZ.attach(S, 'Bip01_Prop1', PZ.propMesh('w_hammer', 'hammer'))`).
+  - Sempre conferir a qualidade da animação do personagem principal na folha da inspeção.
+- **Texto nunca vaza da caixa** e **rótulo sem quebra de linha** (item, cartão, chip): padronizar o tamanho dos elementos; se não cabe,
+  aumentar a caixa de todos ou encurtar o texto. A inspeção avisa `TEXTO VAZANDO DA CAIXA` e `QUEBRA DE LINHA NO RÓTULO`.
+- **Sentar em cadeira:** `C.assento(sprite, i, j, { encosto: 'N'|'W' })` (assento baixo + encosto fino), nunca `C.obj`.
+- **Sons do jogo B42** extraídos do `ZomboidSound.bank` (pasta `assets/sfx/Jogo B42`): grito "Hey!" do jogador, animais estressados,
+  cerca batendo, barricada (tábua/metal), corda de lençol, leitura etc.
+- **Fidelidade:** barricadas, cortinas, corda de lençol e móveis são os sprites do jogo, na posição do jogo. A saída de emergência só
+  funciona do 2º andar para cima, em janela sem barricada, descendo pela corda.
+
+## 4.3 REVISÃO FINAL: HARMONIA DA TELA E ÁREAS DOS APPS (22/11, pedido do Bruno) — vale para TODO vídeo novo
+Antes de qualquer render (rascunho ou final), o vídeo passa por esta revisão. `node pipeline/inspect.mjs NN` confere sozinho e o relatório TEM de sair com 0 avisos.
+
+**A. Nada importante embaixo da interface do TikTok / Reels / Shorts (tela 1080×1920)**
+- Direita (curtir, comentar, salvar, compartilhar, disco): x > 940 e y entre 860 e 1720 → nenhum texto, modal, ícone, barra ou moodle ali.
+- Base (@canal, descrição, música, barra de navegação): y > 1560 → nenhum elemento de texto, e o **personagem inteiro (até os pés) acima de 1580**.
+- Topo (abas "Seguindo / Para você", busca): y < 190 → só a etiqueta pequena do canal, nada que precise ser lido.
+- Área segura para o conteúdo = x 40–1040, y 190–1560 (é a moldura verde da folha `zonas.png`).
+- Personagem nunca embaixo dos botões da direita. Câmera padrão dos episódios novos: personagem um pouco mais alto (`camOn(..., sy ≈ .67–.70)`), não .74.
+
+**B. Harmonia (tamanho, posição, espaçamento)**
+- Respiro mínimo de 40 px até a borda da tela (moodle lateral, rótulos, cartões, tags).
+- Bloco largo (> 300 px) que é centralizado fica **exatamente** no centro (folga máx. 14 px). Nada "quase centralizado".
+- Itens da mesma linha (cartões, ícones de item) com o mesmo tamanho e o mesmo espaçamento entre si.
+- Blocos empilhados com pelo menos 12 px de respiro (nada colado). Modal largo: no máximo 800 px (x 140–940).
+- Texto cabe na caixa e em UMA linha (diminui a fonte ou encurta o texto; nunca quebra de linha em rótulo, tag, moodle lateral ou fala).
+- Modal nunca cobre o personagem (cabeça incluída): se a tela simulada é grande, ela sobe/encolhe ou a câmera abre.
+- Só vale o elemento parado: animação de entrada (escala/opacidade) não conta, mas o estado final tem de estar certo.
+
+**C. Conferência no olho**: abrir `inspecao/zonas.png` (meio de cada cena com os textos e as áreas dos apps pintadas de vermelho) e `inspecao/folha.png` (ações). Se algo importante encosta no vermelho, mexe antes de renderizar.
+
+## 4.4 DIREÇÃO DOS ELEMENTOS (SPRITES E PROPS) — frente, lado, costas (22/11, pedido do Bruno) — vale para TODO cenário
+No jogo cada móvel, cortina, tábua e janela tem um desenho para cada direção. Usar o desenho errado deixa o fogão de lado, a cortina atravessada na janela, o móvel no meio da sala. Antes de qualquer rascunho:
+- **Móvel que encosta** (fogão, geladeira, bancada, pia, estante, cômoda) fica **colado na parede** e com as **costas para a parede**: na parede N (fundo à direita) usa o desenho com **frente S**; na parede W (fundo à esquerda) o de **frente E**. Linha j = 0 encosta na parede N; coluna i = 0 encosta na parede W.
+- **Nenhum móvel de frente para a parede**. Cadeira virada para a mesa; poltrona virada para o cômodo.
+- **Cortina, tábua, chapa, barras**: o desenho tem de ser o da **mesma borda** da janela (parede N → desenho da borda N; parede W → borda W). Cortina da janela N: fechada `_26` (azul) / `_10` (branca); aberta `_30` / `_14`.
+- **Janela livre**: nada na frente da janela por onde o zumbi entra ou por onde o personagem trabalha.
+- **Itens na mão / no corpo** (martelo, maçarico, máscara, garrafa): conferir na `folha.png` que estão virados certo (cabeça do martelo para a frente, máscara no rosto), nunca de costas.
+- A tabela `projeto/assets/tiles/orient.js` diz a direção de cada desenho (conferido olhando os 4 desenhos do jogo). Sprite novo entra na tabela antes de ser usado.
+- `inspect.mjs` confere sozinho (aviso **DIREÇÃO DO SPRITE**: móvel solto/virado errado, de frente para a parede, cortina/tábua com desenho de outra borda). Relatório tem de dar 0 avisos.
+
+## 4.5 ILUMINAÇÃO DE ACORDO COM O AMBIENTE (23/11, pedido do Bruno) — vale para TODO vídeo novo
+A luz é o que faz parecer o jogo e dá imersão. Luz chapada (tudo com a mesma claridade) parece maquete.
+- **Cada episódio declara o ambiente** em `epNN.cfg.js`: `window.EP.luz = { padrao: 'interior-tarde', 3: 'exterior-dia' }` (padrão + exceção por cena). Ambientes: `exterior-dia`, `interior-dia`, `interior-tarde`, `interior-noite`, `exterior-noite`, `chuva`.
+- **Interior tem fonte de luz visível**: facho de sol entrando pela janela (com poeira no ar) e/ou abajur/luminária acesa com poça de luz no chão e brilho na parede (`luzInterior()` em `cenarios.js`). Cantos mais escuros que o centro (vinheta leve).
+- **Tarde = luz quente** (laranja/âmbar); **noite = fria e baixa**, só a fonte acesa ilumina; **dia lá fora = claro e com sombra dura**; **chuva = acinzentado, sem sombra dura**.
+- **Personagem sempre legível**: nunca escuro demais nem estourado; se a cena é escura, ele fica perto da fonte de luz.
+- **Nada estourado**: no máximo um brilho pequeno (sol, lâmpada); paredes e chão nunca viram branco puro.
+- `inspect.mjs` mede a tela em 2 momentos de cada cena e compara com o ambiente declarado (avisos **LUZ ESCURA/CLARA DEMAIS**, **LUZ CHAPADA**, **LUZ ESTOURADA**, **PERSONAGEM ESCURO DEMAIS**). Relatório tem de dar 0 avisos.
+
+## 4.6 PERSONAGEM NUNCA ATRAVESSA MÓVEL NEM TELEPORTA; CASA COM SENTIDO (23/11, pedido do Bruno — EP19 00:19 atravessava a cadeira)
+- **Sentar**: anda até a **frente** do assento, vira de costas e senta **recuando** para dentro (`s_satchairin`), só depois fica sentado. Nunca aparece já sentado dentro do móvel. Use `C.assento()` (assento + encosto como caixas de colisão).
+- **Andar**: caminho contorna os móveis; entre duas ações em lugares diferentes (serrar → pregar) ele **anda** até lá. Nunca teleporta.
+- **Ajoelhado / agachado**: a ponta do pé não entra no piso.
+- **Casa com sentido**: cada cômodo tem função clara e os móveis do lugar (sala = poltrona de leitura + abajur + mesinha + estante; oficina = bancada + ferramentas); acabamento de construção (rodapé, batente e porta, quadros, relógio, cortina) e luz de acordo com a 4.5. Móveis seguem a 4.4.
+- `inspect.mjs` confere sozinho: **PERSONAGEM ATRAVESSANDO MÓVEL** (corpo dentro da caixa de um móvel), **AFUNDANDO NO CHÃO** (pé abaixo do piso, medida absoluta). Grava `inspecao/sonda.json` (posição do personagem na tela em cada momento) para achar o motivo de um aviso. Relatório tem de dar 0 avisos.
+
 ## 4.1 REGRA DAS TELAS (18/11, pedido do Jose) — tela do jogo = RÉPLICA
 - Toda tela/menu do jogo que aparece no vídeo é **réplica fiel da tela real**: mesmo layout, mesmas colunas, cores, fonte simples do jogo, botões e ordem dos elementos.
   - Nada de painel genérico "estilo jogo".
@@ -71,6 +145,9 @@ Vale para todo vídeo novo. Em conflito com docs antigos, este manda no ROTEIRO 
   - Pedir print ao Jose ou buscar print online da B42 antes de montar.
 
 ## 5. Pipeline
+
+**Render SEMPRE na placa de vídeo do Bruno (22/11)**: prévias, finais, imagens de teste e inspeção rodam no PC (`Vídeos\\rodar-job (GPU).bat` executa o `_gpu\\job.bat` preparado; `PZ_GPU=1`). A nuvem só prepara arquivos, áudio e confere números.
+
 1. Pesquisa (ordem do item 0) → `fatos.json`.
 2. Roteiro com coluna VISUAL por frase → Jose aprova.
 3. Rascunho com voz provisória (Piper) + telas réplica → prévia cedo.

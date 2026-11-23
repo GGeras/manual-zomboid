@@ -2,7 +2,7 @@
 ep: 16
 tema: Animais
 responsavel: jose
-status: validado
+status: final
 build: B42.22
 fatos: [ani-zona, ani-corda, ani-cocho, ani-fome, ani-estresse, ani-barulho-atrai, ani-ovo, ani-produto, ani-carinho]
 video: (link do Drive em videos/LINKS.md)
