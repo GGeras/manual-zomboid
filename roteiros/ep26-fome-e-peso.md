@@ -8,11 +8,11 @@ fatos: [peso-calorias, fome-niveis, peso-dieta, peso-sistema, peso-tracos, peso-
 video: (sem rascunho ainda)
 ---
 
-# EP 26 — Fome e Peso do Corpo · ROTEIRO v5 (ideia + dados confirmados, 23/11/2026)
+# EP 26 — Fome e Peso do Corpo · ROTEIRO v6 (revisado 23/11/2026)
 
 **Ideia-guia:** Fome e peso são duas contas diferentes: a fome é o moodle, o peso são as calorias.
 
-Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez. **Sem rascunho de vídeo ainda.**
+Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez.
 
 ## Frases (narração proposta)
 
@@ -55,6 +55,29 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 - VISUAL: CTA.
 - ÍCONES: —
 - FATOS: —
+
+## Arquivos para o vídeo (conferidos no repo em 23/11/2026)
+
+**Ícones e moodles** (`projeto/assets/items` · `assets/moodles`):
+- `Status_Hunger` ✓ moodle
+- `Item_BerryBlue` ✓
+- `Item_Butter` ✓
+- `Item_Lard` ✓
+- `Status_TemperatureLow` ✓ moodle
+
+**Sons do jogo** (`projeto/assets/sfx`):
+- `PZ_Eating` — frase 0 (+0.3s, -14 dB) ✓
+- `PZ_FoodSlicing` — frase 5 (+0.3s, -14 dB) ✓
+- `BH_MalePlayer_FreezingShivers_01` — frase 6 (+0.3s, -14 dB) ✓
+
+**Música:** `what_was_lost` ✓
+
+**Telas do jogo** (`referencias/telas-do-jogo`):
+- nenhuma tela necessária (só ícones, moodles e 3D)
+
+**Modelos 3D:** `PZ.SOBREVIVENTE` (roupa padrão) · zumbis `PZ.zumbiPZ(i)` variados · S comendo; panela PZ.itemModel('cookingpot'); neve
+
+**Manifesto:** `projeto/ep26.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep26.cfg.js` + `ep26.js` (cenas) na hora da prévia.
 
 ## Fatos
 Todos em `info-validada/` (ver tabela do tema `fome-e-peso` e os ids citados).

@@ -8,11 +8,11 @@ fatos: [pan-mira, pan-niveis, pan-corpo, est-niveis, pan-calmante, est-leitura, 
 video: (sem rascunho ainda)
 ---
 
-# EP 24 — Pânico e Estresse · ROTEIRO v5 (ideia + dados confirmados, 23/11/2026)
+# EP 24 — Pânico e Estresse · ROTEIRO v6 (revisado 23/11/2026)
 
 **Ideia-guia:** Pânico treme a mão na hora; estresse treme a mão por dias — os dois atrapalham a luta.
 
-Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez. **Sem rascunho de vídeo ainda.**
+Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez.
 
 ## Frases (narração proposta)
 
@@ -60,6 +60,33 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 - VISUAL: CTA.
 - ÍCONES: —
 - FATOS: —
+
+## Arquivos para o vídeo (conferidos no repo em 23/11/2026)
+
+**Ícones e moodles** (`projeto/assets/items` · `assets/moodles`):
+- `Mood_Panicked` ✓ moodle
+- `Mood_Sleepy` ✓ moodle
+- `Mood_Stressed` ✓ moodle
+- `Item_PillsBetablocker` ✓
+- `Item_Book` ✓
+- `Item_ComicBook` ✓
+- `Item_Magazine` ✓
+- `Item_Cigarette` ✓
+
+**Sons do jogo** (`projeto/assets/sfx`):
+- `male_heavybreathpanic` — frase 0 (+0s, -16 dB) ✓
+- `stormy9mmFire` — frase 0 (+1.6s, -14 dB) ✓
+- `heart` — frase 1 (+0.2s, -18 dB) ✓
+- `PZ_Swallowing` — frase 4 (+0.6s, -14 dB) ✓
+
+**Música:** `the_zombie_threat` ✓
+
+**Telas do jogo** (`referencias/telas-do-jogo`):
+- tooltip do item Calmantes: **sem print** → usar chip/ícone; print opcional (tirar no jogo em PT-BR)
+
+**Modelos 3D:** `PZ.SOBREVIVENTE` (roupa padrão) · zumbis `PZ.zumbiPZ(i)` variados · S mirando pistola; Z variados; livro/revista ícones
+
+**Manifesto:** `projeto/ep24.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep24.cfg.js` + `ep24.js` (cenas) na hora da prévia.
 
 ## Fatos
 Todos em `info-validada/` (ver tabela do tema `panico-e-estresse` e os ids citados).

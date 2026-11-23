@@ -4,57 +4,74 @@
  "nome": "Sono",
  "vo": "audio/n20.mp3",
  "vo_db": 1.5,
- "musica": "where_is_everyone",
+ "musica": "low",
  "musica_lufs": -30,
  "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
  "sfx": [
   [
-   "zombierand3",
+   "JL_MalePlayer_SleepingNoises_01",
    {
-    "f": 4,
+    "f": 0,
+    "dt": 0.3
+   },
+   -20
+  ],
+  [
+   "doorclose",
+   {
+    "f": 8,
     "dt": 0.4
    },
-   -18
+   -16
   ]
  ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
  "capa": {
-  "t": 10.0,
-  "zoom": 1.15,
+  "t": 8.0,
+  "opcoes": [],
+  "zoom": 1.05,
   "pos": "50% 55%",
   "tint": "rgba(0,0,0,.15)",
   "linhas": [
    [
-    "LINHA 1",
+    "CANSAÇO",
     "osso"
    ],
    [
-    "LINHA 2",
+    "SÓ SAI",
     "osso"
    ],
    [
-    "PALAVRA",
+    "DORMINDO",
     "vermelho"
    ]
   ],
   "gancho": {
-   "tipo": "selo",
-   "texto": "GANCHO CURTO",
-   "cor": "#e0263f"
+   "tipo": "seq",
+   "itens": [
+    [
+     "CADEIRA ✗",
+     "vermelho"
+    ],
+    [
+     "CAMA ✓",
+     "verde"
+    ]
+   ]
   }
  },
  "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
  "post": {
-  "titulo": "Titulo buscavel (ate ~75 caracteres)",
-  "gancho": "Frase de gancho (ate 125 caracteres).",
+  "titulo": "Sono no Project Zomboid: como descansar de verdade (B42)",
+  "gancho": "Sentar não tira o cansaço. Só dormir tira — e onde você dorme muda tudo.",
   "pontos": [
-   "ponto 1",
-   "ponto 2",
-   "ponto 3",
-   "ponto 4",
-   "ponto 5"
+   "4 níveis: Sonolência até Cansaço Absurdo",
+   "Cadeira recupera fôlego, não o sono",
+   "Cama boa = sono mais curto",
+   "Zumbi perto, pânico, dor ou mau cheiro impedem dormir",
+   "Soníferos ajudam; cafeína só adia"
   ],
-  "pergunta": "Pergunta para comentarios?",
+  "pergunta": "Onde fica a sua cama na base?",
   "tags": [
    "pzdicas",
    "projectzomboidbr",
@@ -62,13 +79,22 @@
    "survivalgame"
   ]
  },
- "roteiro": "rascunho com voz provisória (Piper)",
+ "roteiro": "[sério] Dormir mal te mata devagar. [calmo] O sono aparece como um moodle, o ícone de estado na lateral da tela. Ele vai de Sonolência até Cansaço Absurdo. [tenso] Cansado, você enxerga menos e perde força: o próprio jogo diz que o cansaço tira suas forças. [calmo] Sentar numa cadeira só recupera o fôlego. Cansaço, só dormindo. [confiante] E onde você dorme muda tudo. Cama boa recupera mais rápido. Chão e banco de carro: você dorme mais horas e pode acordar com dor no pescoço. Travesseiro ajuda um pouco. [tenso] Às vezes o jogo nem deixa dormir: zumbi por perto, pânico, dor forte, ou mau cheiro de corpos. [calmo] Pra isso existem os comprimidos soníferos: ajudam a pegar no sono com dor ou ansiedade. Só não mistura remédio com álcool. [sério] Pílula de cafeína dá um pico de energia, mas é só um empurrão. Não substitui a cama. [confiante] Exemplo: noite chegando, você já está com Sonolência. Tranca a casa, deita na melhor cama, e acorda inteiro. [confiante] Na criação, o traço Sono Leve faz o cansaço sair mais devagar; Madrugador dorme menos. Durma bem, lute melhor.",
  "fatos": [
   "sono-niveis",
+  "sono-efeito",
   "sono-descanso",
   "sono-cama",
+  "sono-travesseiro",
   "sono-bloqueio",
   "sono-remedio",
-  "sono-cafe"
+  "sono-cafeina",
+  "sono-tracos"
+ ],
+ "itens": [
+  "Item_Mattress",
+  "Item_Pillow",
+  "Item_PillsSleeping",
+  "Item_PillsCaffeine"
  ]
 }

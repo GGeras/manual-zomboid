@@ -1,0 +1,111 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 23   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "23",
+ "nome": "Carga e Peso",
+ "vo": "audio/n23.mp3",
+ "vo_db": 1.5,
+ "musica": "barricading",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "PZ_PutInBag",
+   {
+    "f": 0,
+    "dt": 0.4
+   },
+   -14
+  ],
+  [
+   "male_outofbreath_01",
+   {
+    "f": 2,
+    "dt": 1.5
+   },
+   -16
+  ],
+  [
+   "PZ_OpenBag",
+   {
+    "f": 4,
+    "dt": 0.3
+   },
+   -14
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 8.0,
+  "opcoes": [],
+  "zoom": 1.05,
+  "pos": "50% 55%",
+  "tint": "rgba(0,0,0,.15)",
+  "linhas": [
+   [
+    "MOCHILA",
+    "osso"
+   ],
+   [
+    "GUARDADA",
+    "osso"
+   ],
+   [
+    "NÃO REDUZ",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "pcts",
+   "itens": [
+    [
+     "70%",
+     "amarelo"
+    ],
+    [
+     "85%",
+     "verde"
+    ]
+   ],
+   "legenda": "PEQUENA · MILITAR"
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Carga e peso no Project Zomboid: a mochila certa (B42)",
+  "gancho": "Mochila guardada no inventário não reduz nada. Só vestida nas costas.",
+  "pontos": [
+   "4 níveis: Carga Pesada até Sobrecarga Extrema",
+   "Fome, sede, doença e ferimento baixam o limite",
+   "Mochila só reduz peso vestida",
+   "Militar: 28 de capacidade e 85% de redução",
+   "Movimento Restrito impede correr"
+  ],
+  "pergunta": "Qual mochila você usa?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "[sério] Pegar tudo que vê é o jeito mais rápido de morrer. [calmo] Quanto você carrega depende da sua Força e dos seus moodles. Fome, sede, doença e ferimento diminuem o limite. [tenso] Passou do limite, aparece o moodle de carga. Ele vai de Carga Pesada até Sobrecarga Extrema. No começo você fica lento. No fim, o próprio jogo avisa: você vai se machucar. [calmo] E peso demais também cansa as costas e dificulta pular cerca. [confiante] A solução é mochila. Mas só funciona vestida nas costas: mochila guardada no inventário não reduz nada. [animado] Cada mochila tem capacidade e redução de peso diferentes. A pequena reduz setenta por cento. A militar, a melhor, reduz oitenta e cinco. [calmo] Mas mochila volumosa e roupa pesada podem te impedir de correr: é o moodle Movimento Restrito. [confiante] Na criação, Musculoso e Forte aumentam a carga. Fraco e Franzino diminuem. [confiante] Mochila nas costas, só o que precisa, e a corrida continua sua.",
+ "fatos": [
+  "carga-niveis",
+  "carga-forca",
+  "carga-moodles",
+  "carga-dano",
+  "fad-carga",
+  "carga-escalar",
+  "carga-equipada",
+  "carga-mochilas",
+  "carga-correr",
+  "carga-tracos"
+ ],
+ "itens": [
+  "Item_Backpack",
+  "Item_Backpack_Black",
+  "Item_Hiking_Green",
+  "Item_BigHiking_Green",
+  "Item_AliceBag"
+ ]
+}

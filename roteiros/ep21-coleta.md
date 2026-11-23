@@ -8,11 +8,11 @@ fatos: [col-modo, col-raio, col-nivel, col-clima, col-andar, col-onde, col-herba
 video: (sem rascunho ainda)
 ---
 
-# EP 21 — Coleta · ROTEIRO v5 (ideia + dados confirmados, 23/11/2026)
+# EP 21 — Coleta · ROTEIRO v6 (revisado 23/11/2026)
 
 **Ideia-guia:** A busca é um círculo ao seu redor — tudo que te atrapalha encolhe o círculo.
 
-Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez. **Sem rascunho de vídeo ainda.**
+Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez.
 
 ## Frases (narração proposta)
 
@@ -33,7 +33,7 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 
 **3.** [tenso] "Chuva, neblina, neve e escuro encolhem o círculo. Guarda-chuva ajuda na chuva, e à noite leva lanterna."
 - VISUAL: Círculo encolhendo a cada ícone; guarda-chuva e lanterna devolvem um pouco.
-- ÍCONES: Item_Umbrella, Item_Flashlight
+- ÍCONES: Item_Umbrella, Item_Flashlight2
 - FATOS: col-clima
 
 **4.** [calmo] "Agachado você acha um pouco mais. E anda enquanto procura: andar em círculo não revela nada novo."
@@ -60,6 +60,29 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 - VISUAL: 3D: personagem coletando; CTA.
 - ÍCONES: Item_BerryBlue
 - FATOS: —
+
+## Arquivos para o vídeo (conferidos no repo em 23/11/2026)
+
+**Ícones e moodles** (`projeto/assets/items` · `assets/moodles`):
+- `Item_BerryBlue` ✓
+- `Item_Twigs` ✓
+- `Item_Rock` ✓
+- `Item_Umbrella` ✓
+- `Item_Flashlight2` ✓
+
+**Sons do jogo** (`projeto/assets/sfx`):
+- `ambientOutsideDayBirds` — frase 0 (+0s, -24 dB) ✓
+- `ambientOutsideLightRainWoods` — frase 3 (+0s, -18 dB) ✓
+- `PZ_grassFoot_01` — frase 4 (+0.3s, -16 dB) ✓
+
+**Música:** `where_is_everyone` ✓
+
+**Telas do jogo** (`referencias/telas-do-jogo`):
+- janela "Investigar Área" / botão "Ativar Modo de Busca": **sem print** → usar chip/ícone; print opcional (tirar no jogo em PT-BR)
+
+**Modelos 3D:** `PZ.SOBREVIVENTE` (roupa padrão) · zumbis `PZ.zumbiPZ(i)` variados · S agachado/andando na floresta; ícones 3D no chão (PZ.icon3d)
+
+**Manifesto:** `projeto/ep21.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep21.cfg.js` + `ep21.js` (cenas) na hora da prévia.
 
 ## Fatos
 Todos em `info-validada/` (ver tabela do tema `coleta` e os ids citados).

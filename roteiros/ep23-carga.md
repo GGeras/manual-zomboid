@@ -8,11 +8,11 @@ fatos: [carga-niveis, carga-forca, carga-moodles, carga-dano, fad-carga, carga-e
 video: (sem rascunho ainda)
 ---
 
-# EP 23 — Carga e Peso · ROTEIRO v5 (ideia + dados confirmados, 23/11/2026)
+# EP 23 — Carga e Peso · ROTEIRO v6 (revisado 23/11/2026)
 
 **Ideia-guia:** Peso demais te deixa lento, te impede de correr e até tira vida — a mochila certa, vestida, resolve.
 
-Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez. **Sem rascunho de vídeo ainda.**
+Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez.
 
 ## Frases (narração proposta)
 
@@ -43,7 +43,7 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 
 **5.** [animado] "Cada mochila tem capacidade e redução de peso diferentes. A pequena reduz setenta por cento. A militar, a melhor, reduz oitenta e cinco."
 - VISUAL: Cards das mochilas com ícones: Pequena 15 / 70%, Trilha 20 / 75%, Grande de Trilha 22 / 80%, Militar 28 / 85%.
-- ÍCONES: Item_Backpack, Item_Hiking_Green, Item_AliceBag
+- ÍCONES: Item_Backpack_Black, Item_Hiking_Green, Item_BigHiking_Green, Item_AliceBag
 - FATOS: carga-mochilas
 
 **6.** [calmo] "Mas mochila volumosa e roupa pesada podem te impedir de correr: é o moodle Movimento Restrito."
@@ -60,6 +60,34 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 - VISUAL: 3D: personagem correndo com mochila militar; CTA.
 - ÍCONES: Item_AliceBag
 - FATOS: —
+
+## Arquivos para o vídeo (conferidos no repo em 23/11/2026)
+
+**Ícones e moodles** (`projeto/assets/items` · `assets/moodles`):
+- `Status_HeavyLoad` ✓ moodle
+- `Status_Hunger` ✓ moodle
+- `Status_Thirst` ✓ moodle
+- `Mood_Ill` ✓ moodle
+- `Item_Backpack` ✓
+- `Item_Backpack_Black` ✓
+- `Item_Hiking_Green` ✓
+- `Item_BigHiking_Green` ✓
+- `Item_AliceBag` ✓
+- `Status_MovementRestricted` ✓ moodle
+
+**Sons do jogo** (`projeto/assets/sfx`):
+- `PZ_PutInBag` — frase 0 (+0.4s, -14 dB) ✓
+- `male_outofbreath_01` — frase 2 (+1.5s, -16 dB) ✓
+- `PZ_OpenBag` — frase 4 (+0.3s, -14 dB) ✓
+
+**Música:** `barricading` ✓
+
+**Telas do jogo** (`referencias/telas-do-jogo`):
+- inventário com mochila vestida × guardada: **sem print** → usar chip/ícone; print opcional (tirar no jogo em PT-BR)
+
+**Modelos 3D:** `PZ.SOBREVIVENTE` (roupa padrão) · zumbis `PZ.zumbiPZ(i)` variados · S com mochila (malha do jogo), cerca alta; ícones das mochilas
+
+**Manifesto:** `projeto/ep23.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep23.cfg.js` + `ep23.js` (cenas) na hora da prévia.
 
 ## Fatos
 Todos em `info-validada/` (ver tabela do tema `carga` e os ids citados).

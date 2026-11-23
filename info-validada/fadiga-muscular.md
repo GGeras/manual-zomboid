@@ -15,4 +15,5 @@ Só entra aqui fato com **build B42.20+ ou arquivo do jogo** e **fonte**. Mudou 
 | fad-carga | Carregar peso demais causa distensão nas costas/tronco | B42.20.4 | projectzomboid.wiki/guides/encumbrance (42.20.4) + projectzomboid.wiki/guides/muscle-strain (B42, 2026) | 22, 23 |
 | fad-arma | Arma mais pesada cansa mais o braço | B42.21 | build42guide.wiki/survival/build-42-combat (42.21/42.22) + projectzomboid.wiki/guides/muscle-strain (B42, 2026) | 22 |
 | fad-pisao | Pisar em zumbi caído custa menos esforço que um golpe | B42.21 | build42guide.wiki/survival/build-42-combat (42.21/42.22) + projectzomboid.wiki/guides/muscle-strain (B42, 2026) | 22 |
+| fad-perna | Correr cansa as pernas: a Distensão Muscular aparece também nas pernas | B42.22 | confirmado no jogo pelo Jose (B42.22, 23/11/2026) + projectzomboid.wiki/guides/muscle-strain (B42, 2026) | 22 |
 | fad-analgesico | Analgésico tira a dor, mas não apaga a distensão | B42 | projectzomboid.wiki/guides/muscle-strain (B42, 2026) | 22 |

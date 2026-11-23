@@ -8,11 +8,11 @@ fatos: [sono-niveis, sono-efeito, sono-descanso, sono-cama, sono-travesseiro, so
 video: (sem rascunho ainda)
 ---
 
-# EP 20 — Sono · ROTEIRO v5 (ideia + dados confirmados, 23/11/2026)
+# EP 20 — Sono · ROTEIRO v6 (revisado 23/11/2026)
 
 **Ideia-guia:** O cansaço só sai dormindo — e onde e como você dorme muda tudo.
 
-Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez. **Sem rascunho de vídeo ainda.**
+Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez.
 
 ## Frases (narração proposta)
 
@@ -65,6 +65,32 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 - VISUAL: Chips dos traços + CTA.
 - ÍCONES: —
 - FATOS: sono-tracos
+
+## Arquivos para o vídeo (conferidos no repo em 23/11/2026)
+
+**Ícones e moodles** (`projeto/assets/items` · `assets/moodles`):
+- `Mood_Sleepy` ✓ moodle
+- `Mood_Exhausted` ✓ moodle
+- `Item_Mattress` ✓
+- `Item_Pillow` ✓
+- `Mood_Pained` ✓ moodle
+- `Mood_Panicked` ✓ moodle
+- `Mood_NoxiousSmell` ✓ moodle
+- `Item_PillsSleeping` ✓
+- `Item_PillsCaffeine` ✓
+
+**Sons do jogo** (`projeto/assets/sfx`):
+- `JL_MalePlayer_SleepingNoises_01` — frase 0 (+0.3s, -20 dB) ✓
+- `doorclose` — frase 8 (+0.4s, -16 dB) ✓
+
+**Música:** `low` ✓
+
+**Telas do jogo** (`referencias/telas-do-jogo`):
+- nenhuma tela necessária (só ícones, moodles e 3D)
+
+**Modelos 3D:** `PZ.SOBREVIVENTE` (roupa padrão) · zumbis `PZ.zumbiPZ(i)` variados · S (bocejo, deitar), cama/colchão; banco de carro: car(...)
+
+**Manifesto:** `projeto/ep20.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep20.cfg.js` + `ep20.js` (cenas) na hora da prévia.
 
 ## Fatos
 Todos em `info-validada/` (ver tabela do tema `sono` e os ids citados).

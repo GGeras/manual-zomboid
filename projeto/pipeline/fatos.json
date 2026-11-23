@@ -193,6 +193,14 @@
     "30"
    ]
   },
+  "cad-combinacao": {
+   "texto": "A doença dos cadáveres é uma combinação: quantidade de corpos, estado de decomposição de cada um e tempo que você fica perto. Não existe um número fixo de corpos",
+   "build": "B42.22",
+   "fonte": "confirmado no jogo pelo Jose (B42.22, 23/11/2026) + projectzomboid.wiki/guides/corpse-disposal (42.20.4: a doença escala com o tempo perto de corpos em decomposição)",
+   "eps": [
+    "30"
+   ]
+  },
   "cad-config": {
    "texto": "Modo Apocalipse: impacto de cadáveres em decomposição \"Normal\" (afeta saúde e estado emocional); cadáveres somem em 216 horas (9 dias) e soltam larvas",
    "build": "B42.22",
@@ -580,6 +588,14 @@
     "22"
    ]
   },
+  "fad-perna": {
+   "texto": "Correr cansa as pernas: a Distensão Muscular aparece também nas pernas",
+   "build": "B42.22",
+   "fonte": "confirmado no jogo pelo Jose (B42.22, 23/11/2026) + projectzomboid.wiki/guides/muscle-strain (B42, 2026)",
+   "eps": [
+    "22"
+   ]
+  },
   "fad-pisao": {
    "texto": "Pisar em zumbi caído custa menos esforço que um golpe",
    "build": "B42.21",
@@ -594,6 +610,15 @@
    "fonte": "arquivos do jogo B42.22: UI.json UI_quick_tip52 + IG_UI IGUI_perks_Axe/Blunt/Strength_Description",
    "eps": [
     "22"
+   ]
+  },
+  "fogo-apagar": {
+   "texto": "Também apagam fogo: saco de areia, de cascalho ou de terra, e água em volume (um gole de garrafa não basta)",
+   "build": "B42.20.4",
+   "fonte": "projectzomboid.wiki/guides/corpse-disposal (42.20.4) + arquivos do jogo B42.22: drainable.txt Base.Sandbag/Gravelbag/Dirtbag",
+   "eps": [
+    "29",
+    "30"
    ]
   },
   "fogo-combustivel": {
@@ -688,6 +713,14 @@
    "texto": "No dia, o rádio de emergência avisa atividade aérea depois da previsão do tempo",
    "build": "B42.22",
    "fonte": "pindrop.gg/project-zomboid/helicopter-event (código do servidor B42, nov/2026)",
+   "eps": [
+    "28"
+   ]
+  },
+  "heli-segue": {
+   "texto": "Se o helicóptero te vê, ele passa a te seguir — e a horda vem atrás do barulho",
+   "build": "B42.22",
+   "fonte": "confirmado no jogo pelo Jose (B42.22, 23/11/2026) + pindrop.gg/project-zomboid/helicopter-event (código do servidor B42, nov/2026)",
    "eps": [
     "28"
    ]
@@ -933,6 +966,14 @@
     "27"
    ]
   },
+  "resf-espirro": {
+   "texto": "Espirro e tosse fazem barulho e atraem zumbis; o Lenço de Papel equipado abafa os dois",
+   "build": "B42.22",
+   "fonte": "confirmado no jogo pelo Jose (B42.22, 23/11/2026) + arquivos do jogo B42.22: Tooltip_tissue_tooltip",
+   "eps": [
+    "27"
+   ]
+  },
   "resf-lenco": {
    "texto": "Lenço de Papel: \"Equipe para abafar espirros e tosses\"",
    "build": "B42.22",
@@ -1126,6 +1167,7 @@
   "habilidade-recarga-b42": "Habilidade de Recarga e arma travando mudaram na B42: não citar sem conferir",
   "tracos-b42": "Traços e profissões mudaram na B42 e a wiki ainda mostra valores da B41: conferir antes",
   "ridiculamente-cansado": "\"Ridiculamente Cansado\" (o nome no jogo é Cansaço Absurdo)",
-  "forrageamento": "\"Forrageamento\" (o nome no jogo é Coleta)"
+  "forrageamento": "\"Forrageamento\" (o nome no jogo é Coleta)",
+  "corpos-numero-fixo": "Número fixo de corpos que dá doença (ex.: \"20 corpos\"): é combinação de quantidade, decomposição e tempo perto"
  }
 }

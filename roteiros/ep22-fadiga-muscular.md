@@ -4,15 +4,15 @@ tema: Fadiga Muscular
 responsavel: jose
 status: validado
 build: B42.22
-fatos: [fad-nome, fad-carga, fad-arma, fad-pisao, fad-reduz, fad-analgesico, fad-exercicio]
+fatos: [fad-nome, fad-perna, fad-carga, fad-arma, fad-pisao, fad-reduz, fad-analgesico, fad-exercicio]
 video: (sem rascunho ainda)
 ---
 
-# EP 22 — Fadiga Muscular · ROTEIRO v5 (ideia + dados confirmados, 23/11/2026)
+# EP 22 — Fadiga Muscular · ROTEIRO v6 (revisado 23/11/2026)
 
 **Ideia-guia:** Cada parte do corpo tem seu próprio cansaço — luta inteligente divide o esforço.
 
-Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez. **Sem rascunho de vídeo ainda.**
+Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez.
 
 ## Frases (narração proposta)
 
@@ -26,10 +26,10 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 - ÍCONES: —
 - FATOS: fad-nome
 
-**2.** [confiante] "Bater cansa o braço. E carregar peso demais cansa as costas."
-- VISUAL: Braço acende; depois costas acendem com Status_HeavyLoad.
+**2.** [confiante] "Bater cansa o braço. Correr cansa as pernas. E carregar peso demais cansa as costas."
+- VISUAL: Silhueta do corpo: braço acende (golpe), pernas acendem (corrida), costas acendem com Status_HeavyLoad — um por vez.
 - ÍCONES: Item_Axe, Status_HeavyLoad
-- FATOS: fad-carga
+- FATOS: fad-perna, fad-carga
 
 **3.** [calmo] "Arma pesada cansa mais. Pisar em zumbi caído cansa menos que um golpe."
 - VISUAL: Marreta barra grande × pisão barra pequena (sem números).
@@ -51,10 +51,33 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 - ÍCONES: Mood_Pained
 - FATOS: fad-exercicio
 
-**7.** [confiante] "Golpe, pisão, descanso. Divide o esforço e o braço aguenta."
+**7.** [confiante] "Golpe, pisão, caminhada, descanso. Divide o esforço e o corpo aguenta."
 - VISUAL: 3D: sequência golpe → pisão; CTA.
 - ÍCONES: Item_Axe
 - FATOS: —
+
+## Arquivos para o vídeo (conferidos no repo em 23/11/2026)
+
+**Ícones e moodles** (`projeto/assets/items` · `assets/moodles`):
+- `Item_Axe` ✓
+- `Status_HeavyLoad` ✓ moodle
+- `Item_Sledgehammer2` ✓
+- `Item_PillsPainkiller` ✓
+- `Mood_Pained` ✓ moodle
+
+**Sons do jogo** (`projeto/assets/sfx`):
+- `bathit` — frase 0 (+0.5s, -14 dB) ✓
+- `male_outofbreath_01` — frase 2 (+1.2s, -16 dB) ✓
+- `JL_MalePlayer_ExerciseGrunts_01` — frase 6 (+0.3s, -16 dB) ✓
+
+**Música:** `maybe_we_can_win_this` ✓
+
+**Telas do jogo** (`referencias/telas-do-jogo`):
+- aba Saúde com "Distensão Muscular": `aba-saude-ferido.png` ✓
+
+**Modelos 3D:** `PZ.SOBREVIVENTE` (roupa padrão) · zumbis `PZ.zumbiPZ(i)` variados · S com machado (golpe, pisão), corrida; Z caído; healthPanel do ep15.cfg.js
+
+**Manifesto:** `projeto/ep22.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep22.cfg.js` + `ep22.js` (cenas) na hora da prévia.
 
 ## Fatos
 Todos em `info-validada/` (ver tabela do tema `fadiga-muscular` e os ids citados).

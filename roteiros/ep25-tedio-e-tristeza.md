@@ -8,11 +8,11 @@ fatos: [ted-niveis, tri-niveis, tri-leitura, tri-comida, est-fumante, tri-antide
 video: (sem rascunho ainda)
 ---
 
-# EP 25 — Tédio e Tristeza · ROTEIRO v5 (ideia + dados confirmados, 23/11/2026)
+# EP 25 — Tédio e Tristeza · ROTEIRO v6 (revisado 23/11/2026)
 
 **Ideia-guia:** Tédio e tristeza são moodles de verdade — e o jogo te dá as ferramentas pra tirar os dois.
 
-Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez. **Sem rascunho de vídeo ainda.**
+Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do jogo; um elemento por vez.
 
 ## Frases (narração proposta)
 
@@ -50,6 +50,32 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 - VISUAL: CTA.
 - ÍCONES: Item_Book
 - FATOS: —
+
+## Arquivos para o vídeo (conferidos no repo em 23/11/2026)
+
+**Ícones e moodles** (`projeto/assets/items` · `assets/moodles`):
+- `Mood_Bored` ✓ moodle
+- `Mood_Sad` ✓ moodle
+- `Item_Book` ✓
+- `Item_ComicBook` ✓
+- `Item_Magazine` ✓
+- `Item_Cigarette` ✓
+- `Item_PillsAntidepressant` ✓
+
+**Sons do jogo** (`projeto/assets/sfx`):
+- `BH_MalePlayer_SubtleBoredSigh_01` — frase 0 (+0.5s, -14 dB) ✓
+- `BH_MalePlayer_SubtleSadSigh_01` — frase 2 (+0.3s, -14 dB) ✓
+- `PZ_Eating` — frase 4 (+0.4s, -16 dB) ✓
+- `BH_MalePlayer_SubtleReliefSigh_01` — frase 6 (+0.3s, -14 dB) ✓
+
+**Música:** `saying_goodbye` ✓
+
+**Telas do jogo** (`referencias/telas-do-jogo`):
+- tooltip de comida com Tédio e Tristeza: **sem print** → usar chip/ícone; print opcional (tirar no jogo em PT-BR)
+
+**Modelos 3D:** `PZ.SOBREVIVENTE` (roupa padrão) · zumbis `PZ.zumbiPZ(i)` variados · S parado na janela, lendo; ícones de leitura e comida
+
+**Manifesto:** `projeto/ep25.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep25.cfg.js` + `ep25.js` (cenas) na hora da prévia.
 
 ## Fatos
 Todos em `info-validada/` (ver tabela do tema `tedio-e-tristeza` e os ids citados).

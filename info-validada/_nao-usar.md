@@ -15,3 +15,4 @@ Coisas que já se provaram erradas ou que não podem ser ditas sem nova conferê
 | tracos-b42 | Traços e profissões mudaram na B42 e a wiki ainda mostra valores da B41: conferir antes |
 | ridiculamente-cansado | "Ridiculamente Cansado" (o nome no jogo é Cansaço Absurdo) |
 | forrageamento | "Forrageamento" (o nome no jogo é Coleta) |
+| corpos-numero-fixo | Número fixo de corpos que dá doença (ex.: "20 corpos"): é combinação de quantidade, decomposição e tempo perto |
