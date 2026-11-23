@@ -2,7 +2,7 @@
 import { run } from './ep3d.js';
 import { shot } from './auto3d.js';
 run([
-  shot('fogo', {}),  // 0 — Fogão esquecido queima tudo,
+  shot('fogo', {"s": 1}),  // 0 — Fogão esquecido queima tudo,
   shot('fogo', {}),  // 1 — O fogo se espalha,
   shot('casa', {}),  // 2 — Desliga o fogão,
   shot('fogo', {"z": 1}),  // 3 — Zumbi em chamas espalha,

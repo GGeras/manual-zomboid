@@ -1,4 +1,4 @@
-// EP 23 — Carga e Peso (B42.22) — RASCUNHO AUTOMÁTICO (gerado de roteiros/ep23-*.md; T/END vêm da voz provisória)
+// EP 23 — Carga e Peso (B42.22) — RASCUNHO AUTOMÁTICO v2 (gerado de roteiros/ep23-*.md; T/END vêm da voz provisória)
 // Para a versão final: troque a voz (check_vo.py), ajuste títulos/cenas à mão onde precisar.
 const LAB = 'PROJECT ZOMBOID · <b>CARGA</b>';
 window.EP = {
@@ -22,11 +22,12 @@ window.EP = {
     const { F, C, M } = H;
     const P = (i, k) => Math.round(C(i) + k * ((i + 1 < F.length ? F[i + 1] : window.__VO_END) - F[i]));
     const tag = (k, txt, col, at, end, top = 1560) => { const id = H.chip(k, txt, at, `left:0;right:0;margin:0 auto;width:max-content;max-width:960px;text-align:center;top:${top}px;color:${col};font:800 46px/1.15 var(--mono);padding:18px 30px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
+    H.el('style', null, '.moodle{left:760px;width:170px;height:170px}.mtag{left:700px;width:290px;font-size:30px;margin-top:40px}', document.head);
     const row = (k, list, o = {}) => H.items(k, list, Object.assign({ top: 1250, size: 180, gap: 30 }, o));
-    H.moodle(0, 'pz:Status_HeavyLoad', "CARGA", P(0, 0.18), false, null);
-    H.moodle(1, 'pz:Status_Hunger', "FOME", P(1, 0.34), false, P(1, 0.51));
-    H.moodle(1, 'pz:Status_Thirst', "SEDE", P(1, 0.51), false, P(1, 0.68));
-    H.moodle(1, 'pz:Mood_Ill', "DOENÇA", P(1, 0.68), false, null);
+    H.moodle(0, 'pz:Status_HeavyLoad', "CARGA", P(0, 0.18), false, null, 560);
+    H.moodle(1, 'pz:Status_Hunger', "FOME", P(1, 0.34), false, P(1, 0.51), 560);
+    H.moodle(1, 'pz:Status_Thirst', "SEDE", P(1, 0.51), false, P(1, 0.68), 560);
+    H.moodle(1, 'pz:Mood_Ill', "DOENÇA", P(1, 0.68), false, null, 560);
     tag(1, "LIMITE = FORÇA + MOODLES", '#ffb020', P(1, 0.18), null);
     tag(2, "CARGA PESADA", '#ffb020', P(2, 0.18), P(2, 0.40));
     tag(2, "SOBRECARGA EXTREMA", '#ff3d55', P(2, 0.40), P(2, 0.62));
@@ -36,7 +37,7 @@ window.EP = {
     row(4, [["Item_Backpack", "VESTIDA ✓", P(4, 0.18)]]);
     tag(4, "GUARDADA NO INVENTÁRIO ✗", '#ff3d55', P(4, 0.51), null);
     row(5, [["Item_Backpack_Black", "70%", P(5, 0.18)], ["Item_Hiking_Green", "75%", P(5, 0.34)], ["Item_BigHiking_Green", "80%", P(5, 0.51)], ["Item_AliceBag", "85%", P(5, 0.68)]]);
-    H.moodle(6, 'pz:Status_MovementRestricted', "NÃO CORRE", P(6, 0.18), false, null);
+    H.moodle(6, 'pz:Status_MovementRestricted', "NÃO CORRE", P(6, 0.18), false, null, 560);
     tag(7, "MUSCULOSO · FORTE +", '#8fe04a', P(7, 0.18), P(7, 0.51));
     tag(7, "FRACO · FRANZINO −", '#ff3d55', P(7, 0.51), null);
     row(8, [["Item_AliceBag", "", P(8, 0.18)]]);

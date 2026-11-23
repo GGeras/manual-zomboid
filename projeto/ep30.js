@@ -6,7 +6,7 @@ run([
   shot('pilha', {"s": 1, "slump": 0.3}),  // 1 — Quantidade + tempo,
   shot('pilha', {}),  // 2 — Moscas = perigo,
   shot('pilha', {"s": 1, "slump": 0.5}),  // 3 — Vapores mortais,
-  shot('casa', {"dark": 1, "sit": 1}),  // 4 — Nem dormir,
+  shot('cama', {"slump": 0.3}),  // 4 — Nem dormir,
   shot('pilha', {"s": 1, "hold": 0.7}),  // 5 — Arrasta pra longe,
   shot('pilha', {"s": 1, "hold": 0.8}),  // 6 — Cova: 5 corpos,
   shot('quintal', {"fk": 1.6}),  // 7 — Ou queima,

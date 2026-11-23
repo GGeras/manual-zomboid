@@ -1,4 +1,4 @@
-// EP 25 — Tédio e Tristeza (B42.22) — RASCUNHO AUTOMÁTICO (gerado de roteiros/ep25-*.md; T/END vêm da voz provisória)
+// EP 25 — Tédio e Tristeza (B42.22) — RASCUNHO AUTOMÁTICO v2 (gerado de roteiros/ep25-*.md; T/END vêm da voz provisória)
 // Para a versão final: troque a voz (check_vo.py), ajuste títulos/cenas à mão onde precisar.
 const LAB = 'PROJECT ZOMBOID · <b>TÉDIO E TRISTEZA</b>';
 window.EP = {
@@ -20,12 +20,13 @@ window.EP = {
     const { F, C, M } = H;
     const P = (i, k) => Math.round(C(i) + k * ((i + 1 < F.length ? F[i + 1] : window.__VO_END) - F[i]));
     const tag = (k, txt, col, at, end, top = 1560) => { const id = H.chip(k, txt, at, `left:0;right:0;margin:0 auto;width:max-content;max-width:960px;text-align:center;top:${top}px;color:${col};font:800 46px/1.15 var(--mono);padding:18px 30px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
+    H.el('style', null, '.moodle{left:760px;width:170px;height:170px}.mtag{left:700px;width:290px;font-size:30px;margin-top:40px}', document.head);
     const row = (k, list, o = {}) => H.items(k, list, Object.assign({ top: 1250, size: 180, gap: 30 }, o));
-    H.moodle(0, 'pz:Mood_Bored', "TÉDIO", P(0, 0.18), false, null);
+    H.moodle(0, 'pz:Mood_Bored', "TÉDIO", P(0, 0.18), false, null, 560);
     tag(1, "UM POUCO DE TÉDIO", '#ffb020', P(1, 0.18), P(1, 0.40));
     tag(1, "TÉDIO EXTREMO", '#ff3d55', P(1, 0.40), P(1, 0.62));
     tag(1, "\"OCUPE-SE OU PROCURE ALGUMA DISTRAÇÃO\"", '#efe5cf', P(1, 0.62), null);
-    H.moodle(2, 'pz:Mood_Sad', "TRISTEZA", P(2, 0.18), false, null);
+    H.moodle(2, 'pz:Mood_Sad', "TRISTEZA", P(2, 0.18), false, null, 560);
     tag(2, "SEM ESPERANÇA", '#ff3d55', P(2, 0.51), null);
     row(3, [["Item_Book", "TÉDIO + TRISTEZA", P(3, 0.18)], ["Item_ComicBook", "TÉDIO + TRISTEZA", P(3, 0.40)], ["Item_Magazine", "TÉDIO", P(3, 0.62)]]);
     tag(4, "TÉDIO · TRISTEZA", '#ffb020', P(4, 0.18), P(4, 0.51));

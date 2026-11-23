@@ -7,7 +7,7 @@ run([
   shot('chuva', {"slump": 0.5}),  // 2 — Nariz escorrendo até terrível,
   shot('rua', {"n": 3, "light": "dark", "sneeze": 1}),  // 3 — Espirro atrai zumbi,
   shot('casa', {"hold": 0.6}),  // 4 — Lenço abafa,
-  shot('casa', {"dark": 1, "sit": 1, "slump": 0.6}),  // 5 — Doença: até febre,
+  shot('cama', {"slump": 0.6}),  // 5 — Doença: até febre,
   shot('quintal', {}),  // 6 — Cozinha direito,
   shot('casa', {"hold": 0.5}),  // 7 — Corpo limpo,
   shot('casa', {}),  // 8 — Resiliente adoece menos,

@@ -1,4 +1,4 @@
-// EP 29 — Fogo e Incêndio (B42.22) — RASCUNHO AUTOMÁTICO (gerado de roteiros/ep29-*.md; T/END vêm da voz provisória)
+// EP 29 — Fogo e Incêndio (B42.22) — RASCUNHO AUTOMÁTICO v2 (gerado de roteiros/ep29-*.md; T/END vêm da voz provisória)
 // Para a versão final: troque a voz (check_vo.py), ajuste títulos/cenas à mão onde precisar.
 const LAB = 'PROJECT ZOMBOID · <b>FOGO</b>';
 window.EP = {
@@ -21,6 +21,7 @@ window.EP = {
     const { F, C, M } = H;
     const P = (i, k) => Math.round(C(i) + k * ((i + 1 < F.length ? F[i + 1] : window.__VO_END) - F[i]));
     const tag = (k, txt, col, at, end, top = 1560) => { const id = H.chip(k, txt, at, `left:0;right:0;margin:0 auto;width:max-content;max-width:960px;text-align:center;top:${top}px;color:${col};font:800 46px/1.15 var(--mono);padding:18px 30px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
+    H.el('style', null, '.moodle{left:760px;width:170px;height:170px}.mtag{left:700px;width:290px;font-size:30px;margin-top:40px}', document.head);
     const row = (k, list, o = {}) => H.items(k, list, Object.assign({ top: 1250, size: 180, gap: 30 }, o));
     tag(1, "PROPAGAÇÃO DO FOGO: LIGADA", '#ff3d55', P(1, 0.18), null);
     tag(2, "\"A MENOS QUE QUEIRA COZINHAR SUA CASA\"", '#efe5cf', P(2, 0.18), null);

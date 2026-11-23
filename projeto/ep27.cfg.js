@@ -1,4 +1,4 @@
-// EP 27 — Resfriado e Doença (B42.22) — RASCUNHO AUTOMÁTICO (gerado de roteiros/ep27-*.md; T/END vêm da voz provisória)
+// EP 27 — Resfriado e Doença (B42.22) — RASCUNHO AUTOMÁTICO v2 (gerado de roteiros/ep27-*.md; T/END vêm da voz provisória)
 // Para a versão final: troque a voz (check_vo.py), ajuste títulos/cenas à mão onde precisar.
 const LAB = 'PROJECT ZOMBOID · <b>RESFRIADO</b>';
 window.EP = {
@@ -23,17 +23,18 @@ window.EP = {
     const { F, C, M } = H;
     const P = (i, k) => Math.round(C(i) + k * ((i + 1 < F.length ? F[i + 1] : window.__VO_END) - F[i]));
     const tag = (k, txt, col, at, end, top = 1560) => { const id = H.chip(k, txt, at, `left:0;right:0;margin:0 auto;width:max-content;max-width:960px;text-align:center;top:${top}px;color:${col};font:800 46px/1.15 var(--mono);padding:18px 30px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
+    H.el('style', null, '.moodle{left:760px;width:170px;height:170px}.mtag{left:700px;width:290px;font-size:30px;margin-top:40px}', document.head);
     const row = (k, list, o = {}) => H.items(k, list, Object.assign({ top: 1250, size: 180, gap: 30 }, o));
     row(0, [["Item_Tissue", "", P(0, 0.18)]]);
-    H.moodle(1, 'pz:Status_Wet', "MOLHADO", P(1, 0.18), false, P(1, 0.51));
-    H.moodle(1, 'pz:Status_TemperatureLow', "FRIO", P(1, 0.51), false, null);
+    H.moodle(1, 'pz:Status_Wet', "MOLHADO", P(1, 0.18), false, P(1, 0.51), 560);
+    H.moodle(1, 'pz:Status_TemperatureLow', "FRIO", P(1, 0.51), false, null, 560);
     tag(2, "NARIZ ESCORRENDO", '#ffb020', P(2, 0.18), P(2, 0.40));
     tag(2, "RESFRIADO TERRÍVEL", '#ff3d55', P(2, 0.40), P(2, 0.62));
     tag(2, "ESPIRRO → TOSSE → LENTO", '#ff3d55', P(2, 0.62), null);
     tag(3, "BARULHO → ZUMBI", '#ff3d55', P(3, 0.18), null);
     row(4, [["Item_Tissue", "ABAFA ✓", P(4, 0.18)], ["Item_CommonMallow", "ALIVIA ✓", P(4, 0.51)]]);
-    H.moodle(5, 'pz:Mood_Ill', "DOENÇA", P(5, 0.18), false, P(5, 0.40));
-    H.moodle(5, 'pz:Mood_Nauseous', "NÁUSEA", P(5, 0.40), false, null);
+    H.moodle(5, 'pz:Mood_Ill', "DOENÇA", P(5, 0.18), false, P(5, 0.40), 560);
+    H.moodle(5, 'pz:Mood_Nauseous', "NÁUSEA", P(5, 0.40), false, null, 560);
     tag(5, "\"VIRAR COMIDA DE RATO\"", '#ff3d55', P(5, 0.62), null);
     row(6, [["Item_LemonGrass", "CAPIM-LIMÃO ✓", P(6, 0.18)]]);
     row(7, [["Item_Soap", "SABÃO", P(7, 0.18)]]);

@@ -10,5 +10,5 @@ run([
   shot('casa', {}),  // 5 — Das 9h às 18h,
   shot('horda', {"n": 12}),  // 6 — Depois: rua lotada,
   shot('horda', {"n": 6, "light": "dark"}),  // 7 — Tiros ao longe,
-  shot('casa', {"dark": 1, "sit": 1}),  // 8 — Dentro de casa, quieto
+  shot('cama', {}),  // 8 — Dentro de casa, quieto
 ]);

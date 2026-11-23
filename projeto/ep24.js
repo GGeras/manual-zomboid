@@ -8,7 +8,7 @@ run([
   shot('casa', {"sit": 1, "slump": 0.3}),  // 3 — Estresse também,
   shot('casa', {"hold": 0.6}),  // 4 — Calmantes reduzem o pânico,
   shot('casa', {"sit": 1, "hold": 0.7}),  // 5 — Leitura acalma,
-  shot('rua', {"n": 2}),  // 6 — Corajoso ou Covarde?,
+  shot('rua', {"n": 3, "light": "dawn"}),  // 6 — Corajoso ou Covarde?,
   shot('casa', {"slump": 0.3}),  // 7 — Rua ou quartinho,
   shot('rua', {"n": 1, "aim": 1}),  // 8 — Calma na mão, tiro na cabeça
 ]);
