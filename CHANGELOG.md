@@ -3,6 +3,22 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-23 · bruno · EP19 FINAL (voz ElevenLabs) + regras 4.5 (iluminação por ambiente) e 4.6 (não atravessar móvel / casa com sentido):
+  - Regras 4.5 e 4.6 em `canal/processo/11-regras-roteiro-e-pipeline.md`; `inspect.mjs` mede a luz por ambiente (`window.EP.luz`), acusa personagem atravessando móvel e pé abaixo do piso (medida absoluta), grava `inspecao/sonda.json`.
+  - `cenarios.js`: `casaDentro({completa:true})` (batente + porta, rodapé, quadros, relógio, poltrona de leitura com abajur de pé e mesinha) e `luzInterior()` (facho de sol com poeira, poça do abajur, vinheta); novos desenhos do jogo em `assets/tiles` (+ `orient.js`).
+  - EP19: senta andando até a frente da poltrona e recuando (sem atravessar), livro com página virando, serrote e martelo com lascas e caixote montado prego a prego, anda da bancada ao caixote (sem teleporte), tempos da voz final, HUD dentro da área segura (painéis de 800 px acima da cabeça).
+- 2026-11-23 · bruno · EP18 FINAL (voz ElevenLabs): tempos da voz (tools/align.py agora aceita até 14 trechos por frase), sons retimados (coração casado com a borda vermelha), painel "DOIS TERMÔMETROS" simétrico (termômetros a ±200 px do centro, rótulos e selo centrados), cena 3 com itens/tags acima da cabeça, sem casaco = corpo com braços (textura sem a máscara de braço), sombra das árvores do tamanho da copa.
+- 2026-11-22 · bruno · EP17 FINAL (voz ElevenLabs) + regra 4.4 (direção dos elementos):
+  - Regra 4.4 em `canal/processo/11-regras-roteiro-e-pipeline.md`; `assets/tiles/orient.js` (direção de cada desenho) + conferência automática em `tiles.js` → `inspect.mjs` (móvel solto/virado, de frente para a parede, cortina/tábua com desenho de outra borda).
+  - `casaDentro`: móveis encostados e virados para o cômodo (fogão `_13`, geladeira `_1`, bancada `_45`, pia `_1`, TV `_1`, estante/cômoda na parede N, poltronas na parede W); cortinas das casas com o desenho da borda N. EP14/EP19 ajustados às novas posições.
+  - EP17: tempos da voz final (align), sem teleporte depois das barras (recua de costas), cortina certa na janela, desce pela janela de cima do lado oposto aos zumbis e sai agachado (Bob_WalkLowSneak), fim com zumbi correndo (Zombie_Sprint) e o vídeo acaba no toque; HUD dentro da área segura (regra 4.3).
+  - `inspect.mjs`: confere o rosto do personagem (modal não cobre a cabeça), ignora entrada animada, roda no Windows (placa de vídeo).
+- 2026-11-22 · bruno · EP18 v3 + regra 4.3 (revisão final de harmonia e áreas dos apps):
+  - Regra 4.3 em `canal/processo/11-regras-roteiro-e-pipeline.md`; `pipeline/inspect.mjs` agora confere áreas do TikTok/Reels/Shorts (direita, base, topo) para TODOS os elementos, personagem acima da descrição, margem de 40 px, centralização, mesma linha = mesmo tamanho/espaço, blocos colados, quebra de linha em falas/tags laterais, e gera `inspecao/zonas.png`.
+  - EP18: take do calor refeito (seca com grama queimada e sombras duras, ar tremendo/miragem, sol estourando com raios, suor, insolação com câmera balançando e tela inclinando, hipertermia com borda vermelha batendo junto do coração e ele cambaleando até a sombra); gancho mostra frio E calor; relâmpago antes do trovão na chuva; sem casaco depois do "TIRA"; modais encolhidos/realinhados para fora da área dos botões; personagem mais alto no quadro.
+  - `ep.css`: moodle lateral 30 px para dentro (respiro da borda).
+- 2026-11-22 · bruno · EP17 v3 (revisão do Jose): mais zumbis em todos os exemplos (entram pela janela da sala e da cozinha), tábuas por fora com ele do lado de fora, chapa e barras com maçarico + máscara de solda (malhas e animação originais), sobrado fechado com 2º andar de verdade, cortina visível, descida da corda sincronizada e final com ele recuando com medo.
+  - `tiles.js`: parede de 2º andar agora aparece (antes ficava invisível) e sem risco entre paredes; `pipeline/pz/add_meshes.py` junta malhas/texturas do jogo.
 - 2026-11-20 · bruno · EP14 e EP15 finais refeitos com o padrão novo (revisão do Jose):
   - EP14: cozinha mobiliada + quintal da mesma casa (sprites do jogo), fim do chão piscando verde, animações originais (acender fogo, mexer ajoelhado, comer sentado na cadeira), modais no padrão novo;
   - EP15: ataque na rua (zumbi arranha/morde com as animações do jogo), tratamento sentado na cadeira, sem texto vazando e rótulos sem quebra de linha;

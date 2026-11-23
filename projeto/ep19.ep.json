@@ -9,43 +9,202 @@
  "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
  "sfx": [
   [
-   "PZ_OpenBag",
+   "player_reading_book_open_01",
    {
     "f": 0,
-    "dt": 0.26
+    "dt": 0.25
    },
-   -12,
+   -13,
    {}
   ],
   [
-   "PZ_Hammer",
+   "player_reading_book_page_flip_01",
    {
-    "f": 1,
-    "dt": 3.46
+    "f": 0,
+    "dt": 0.67
    },
    -14,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 1,
+    "dt": 1.33
+   },
+   -14,
+   {}
+  ],
+  [
+   "PZ_WoodFoot_01",
+   {
+    "f": 1,
+    "dt": 1.8
+   },
+   -20,
+   {}
+  ],
+  [
+   "PZ_WoodFoot_01",
+   {
+    "f": 1,
+    "dt": 2.25
+   },
+   -20,
+   {}
+  ],
+  [
+   "PZ_WoodFoot_01",
+   {
+    "f": 1,
+    "dt": 2.7
+   },
+   -20,
+   {}
+  ],
+  [
+   "PZ_Saw",
+   {
+    "f": 1,
+    "dt": 3.15
+   },
+   -15,
    {
     "trim": [
      0,
-     2.5
+     2.1848
     ],
-    "fout": 0.3
+    "fout": 0.2
    }
   ],
   [
-   "PZ_PutInBag",
+   "hammernail",
+   {
+    "f": 1,
+    "dt": 5.69
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 1,
+    "dt": 6.35
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 1,
+    "dt": 7.02
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 1,
+    "dt": 7.69
+   },
+   -15,
+   {}
+  ],
+  [
+   "PZ_WoodFoot_01",
    {
     "f": 2,
-    "dt": 0.9
+    "dt": 0.1
    },
-   -16,
+   -20,
    {}
+  ],
+  [
+   "PZ_WoodFoot_01",
+   {
+    "f": 2,
+    "dt": 0.5
+   },
+   -20,
+   {}
+  ],
+  [
+   "player_reading_book_open_01",
+   {
+    "f": 2,
+    "dt": 1.9
+   },
+   -14,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 2,
+    "dt": 2.23
+   },
+   -14,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 2,
+    "dt": 5.43
+   },
+   -14,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 3,
+    "dt": 1.53
+   },
+   -14,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 3,
+    "dt": 4.73
+   },
+   -14,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 4,
+    "dt": 1.33
+   },
+   -14,
+   {}
+  ],
+  [
+   "PZ_Saw",
+   {
+    "f": 5,
+    "dt": 0.1
+   },
+   -15,
+   {
+    "trim": [
+     0,
+     3.238
+    ],
+    "fout": 0.2
+   }
   ],
   [
    "hammernail",
    {
     "f": 5,
-    "dt": 1.67
+    "dt": 3.74
    },
    -15,
    {}
@@ -54,7 +213,7 @@
    "hammernail",
    {
     "f": 5,
-    "dt": 6.09
+    "dt": 4.41
    },
    -15,
    {}
@@ -63,7 +222,70 @@
    "hammernail",
    {
     "f": 5,
-    "dt": 6.98
+    "dt": 5.07
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 5,
+    "dt": 5.74
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 5,
+    "dt": 6.41
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 5,
+    "dt": 7.07
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 5,
+    "dt": 7.74
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 5,
+    "dt": 8.41
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 5,
+    "dt": 9.07
+   },
+   -15,
+   {}
+  ],
+  [
+   "hammernail",
+   {
+    "f": 5,
+    "dt": 9.74
    },
    -15,
    {}
@@ -72,7 +294,61 @@
    "levelup",
    {
     "f": 5,
-    "dt": 11.11
+    "dt": 9.89
+   },
+   -14,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 6,
+    "dt": 2.07
+   },
+   -14,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 7,
+    "dt": 2.2
+   },
+   -14,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 7,
+    "dt": 5.4
+   },
+   -14,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 8,
+    "dt": 2.6
+   },
+   -14,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 8,
+    "dt": 5.8
+   },
+   -14,
+   {}
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 8,
+    "dt": 9.0
    },
    -14,
    {}
@@ -87,63 +363,48 @@
    {}
   ],
   [
-   "PZ_Hammer",
+   "hammernail",
    {
     "f": 10,
-    "dt": 0.1
+    "dt": 0.3
    },
-   -14,
-   {
-    "trim": [
-     0,
-     2
-    ],
-    "fout": 0.3
-   }
-  ],
-  [
-   "player_reading_book_open_01",
-   {
-    "f": 0,
-    "dt": 0.4
-   },
-   -13,
+   -15,
    {}
   ],
   [
-   "player_reading_book_page_flip_01",
+   "hammernail",
    {
-    "f": 2,
-    "dt": 1.8
+    "f": 10,
+    "dt": 0.97
    },
-   -14,
+   -15,
    {}
   ],
   [
-   "player_reading_book_page_flip_01",
+   "hammernail",
    {
-    "f": 6,
-    "dt": 1.2
+    "f": 10,
+    "dt": 1.63
    },
-   -14,
+   -15,
    {}
   ],
   [
-   "player_reading_book_page_flip_01",
+   "levelup",
    {
-    "f": 8,
-    "dt": 2.0
+    "f": 10,
+    "dt": 1.78
    },
-   -14,
+   -15,
    {}
   ]
  ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
  "capa": {
-  "t": 2.5,
+  "t": 2.2,
   "opcoes": [
-   39.96,
-   66.21
+   32.5,
+   50.0
   ],
   "zoom": 1.05,
   "pos": "50% 55%",

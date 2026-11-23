@@ -24,10 +24,10 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#000}
 .bartag{position:absolute;font:800 30px/1 var(--mono);letter-spacing:3px;text-shadow:0 2px 8px #000}
 .stamp{position:absolute;left:290px;width:500px;text-align:center;padding:14px 0;border:7px solid var(--red);color:var(--red);font:900 64px/1 "Inter";letter-spacing:2px;transform:rotate(-8deg);background:rgba(13,11,11,.85)}
 .btn{position:absolute;left:290px;width:500px;height:120px;border-radius:18px;background:var(--red);color:var(--bone);font:900 58px/120px "Inter";text-align:center;letter-spacing:1px}
-.moodle{position:absolute;left:900px;width:130px;height:130px;border-radius:24px;border:6px solid #0d0b0b;box-shadow:0 0 0 4px rgba(239,229,207,.85),0 10px 30px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center}
+.moodle{position:absolute;left:870px;width:130px;height:130px;border-radius:24px;border:6px solid #0d0b0b;box-shadow:0 0 0 4px rgba(239,229,207,.85),0 10px 30px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center}
 .moodle svg{position:static}
 .mood-bad{background:linear-gradient(#ff5a6e,#b3142c)} .mood-ok{background:linear-gradient(#b5f070,#5aa62a)}
-.mtag{position:absolute;left:860px;width:210px;text-align:center;font:800 24px/1 var(--mono);letter-spacing:2px;text-shadow:0 2px 8px #000}
+.mtag{position:absolute;left:840px;width:190px;text-align:center;font:800 24px/1 var(--mono);letter-spacing:2px;text-shadow:0 2px 8px #000}
 .inv{left:40px;top:600px;width:520px}
 .row{display:flex;justify-content:space-between;font:600 30px/1 var(--mono);padding:12px 18px;color:var(--bone)}
 .row span:last-child{color:#c9bfa8}
