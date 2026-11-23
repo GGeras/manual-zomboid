@@ -1,0 +1,102 @@
+{
+  "_ajuda": "Lista curada de assets do jogo/canal que o site usa. O build copia só estes arquivos de projeto/assets para public/jogo (nunca a pasta inteira). Sons e músicas do jogo: proibidos no site (plataforma/site.md §2). Cenas: renders do pipeline do canal (modelos do jogo), em site/arte/.",
+  "logos": {
+    "logo-horizontal": {
+      "de": "projeto/assets/logo/logo-horizontal-3x1.png",
+      "larguras": [
+        480,
+        960
+      ]
+    },
+    "logo-emblema": {
+      "de": "projeto/assets/logo/logo-emblema-1x1.png",
+      "larguras": [
+        256,
+        512
+      ]
+    },
+    "logo-icone": {
+      "de": "projeto/assets/logo/logo-icone-1x1.png",
+      "larguras": [
+        64,
+        192,
+        512
+      ]
+    }
+  },
+  "moodles": [
+    "Mood_Panicked",
+    "Mood_Sleepy",
+    "Mood_Ill",
+    "Mood_Stressed",
+    "Mood_Bored",
+    "Mood_Scared",
+    "Mood_Pained",
+    "Mood_Dead",
+    "Mood_Zombified",
+    "Mood_Happy",
+    "Mood_NoxiousSmell",
+    "Status_Hunger",
+    "Status_Bleeding",
+    "Status_HeavyLoad",
+    "Status_TemperatureHot",
+    "Status_InjuredMajor"
+  ],
+  "itens": [
+    "Item_WaterBottle",
+    "Item_Bandage",
+    "Item_Hammer",
+    "Item_Nails",
+    "Item_Plank",
+    "Item_Generator",
+    "Item_CannedPotato",
+    "Item_PotFull",
+    "Item_CarKey",
+    "Item_Pills",
+    "Item_Matches",
+    "Item_Flashlight",
+    "Item_Shovel",
+    "Item_FishingRod",
+    "Item_Radio",
+    "Item_Map",
+    "Item_Pillow",
+    "Item_Petrol",
+    "Item_Wrench",
+    "Item_Shotgun",
+    "Item_Splint",
+    "Item_Needle",
+    "Item_Tweezers",
+    "Item_Antibiotics",
+    "Item_GasMask",
+    "Item_BaseballBat",
+    "Item_Axe",
+    "Item_Backpack",
+    "Item_Book",
+    "Item_Steak",
+    "Item_Notebook",
+    "Item_Candle"
+  ],
+  "cenas": {
+    "cena-fogueira": {
+      "de": "site/arte/cena-fogueira.jpg",
+      "larguras": [
+        540,
+        1080
+      ]
+    },
+    "cena-barricada": {
+      "de": "site/arte/cena-barricada.jpg",
+      "larguras": [
+        540,
+        1080
+      ]
+    },
+    "cena-inverno": {
+      "de": "site/arte/cena-inverno.jpg",
+      "larguras": [
+        540,
+        1080
+      ]
+    }
+  }
+}

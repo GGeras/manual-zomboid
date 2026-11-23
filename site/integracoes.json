@@ -1,0 +1,37 @@
+{
+  "_ajuda": "Mapa de cada integração do site: o que precisa, de que tipo e onde mora. Lido por scripts/checar-config.mjs (npm run config). tipo: publico = config.publico.json (pode ir no git e no chat); segredo = só no painel indicado, nunca no git/chat.",
+  "integracoes": [
+    { "id": "hospedagem", "nome": "Cloudflare Workers (deploy)", "etapa": "S1", "secao": "0",
+      "chaves": [
+        { "nome": "CLOUDFLARE_API_TOKEN", "tipo": "segredo", "onde": "GitHub Secrets", "ok": "já configurado (Central)" },
+        { "nome": "CLOUDFLARE_ACCOUNT_ID", "tipo": "segredo", "onde": "GitHub Secrets", "ok": "já configurado (Central)" }
+      ] },
+    { "id": "dominio", "nome": "Domínio próprio", "etapa": "S4", "secao": "7",
+      "chaves": [ { "nome": "site.url", "tipo": "publico" }, { "nome": "site.dominioImagens", "tipo": "publico" } ] },
+    { "id": "youtube", "nome": "Shorts recentes (RSS do YouTube, sem chave)", "etapa": "S3", "secao": "5",
+      "chaves": [ { "nome": "youtube.canalId", "tipo": "publico" }, { "nome": "youtube.handle", "tipo": "publico" } ] },
+    { "id": "discord", "nome": "Discord: convite + widget", "etapa": "S3", "secao": "6.1",
+      "chaves": [ { "nome": "discord.servidorId", "tipo": "publico" }, { "nome": "discord.convite", "tipo": "publico" } ] },
+    { "id": "comunidade", "nome": "Comunidade: banco + login (Supabase manual-zomboid-comunidade)", "etapa": "S4", "secao": "8",
+      "chaves": [
+        { "nome": "comunidade.supabaseUrl", "tipo": "publico" },
+        { "nome": "comunidade.supabaseChavePublica", "tipo": "publico" },
+        { "nome": "Discord Client Secret", "tipo": "segredo", "onde": "Supabase comunidade > Authentication > Providers > Discord" },
+        { "nome": "Google Client Secret", "tipo": "segredo", "onde": "Supabase comunidade > Authentication > Providers > Google" },
+        { "nome": "Resend API key (SMTP)", "tipo": "segredo", "onde": "Supabase comunidade > Authentication > Emails > SMTP" }
+      ] },
+    { "id": "turnstile", "nome": "Anti-spam (Cloudflare Turnstile)", "etapa": "S4", "secao": "8",
+      "chaves": [
+        { "nome": "comunidade.turnstileSiteKey", "tipo": "publico" },
+        { "nome": "Turnstile Secret Key", "tipo": "segredo", "onde": "Supabase comunidade > Authentication > Attack Protection" }
+      ] },
+    { "id": "imagens", "nome": "Imagens dos posts (Cloudflare R2)", "etapa": "S4", "secao": "8",
+      "chaves": [ { "nome": "binding IMAGENS no wrangler.jsonc", "tipo": "binding", "onde": "Cloudflare R2 (o Claude cria o bucket)" } ] },
+    { "id": "central", "nome": "Notícias aprovadas e vídeos (views públicas da Central)", "etapa": "S6", "secao": "0",
+      "chaves": [ { "nome": "central.supabaseUrl", "tipo": "publico" }, { "nome": "central.supabaseChavePublica", "tipo": "publico" } ] },
+    { "id": "legal", "nome": "Termos, privacidade e regras", "etapa": "S4", "secao": "8",
+      "chaves": [ { "nome": "legal.emailContato", "tipo": "publico" }, { "nome": "legal.idadeMinima", "tipo": "publico" } ] },
+    { "id": "analytics", "nome": "Cloudflare Web Analytics (sem cookie)", "etapa": "S7", "secao": "7",
+      "chaves": [ { "nome": "ligar no painel da Cloudflare para o domínio", "tipo": "painel", "onde": "Cloudflare > Web Analytics" } ] }
+  ]
+}

@@ -1,0 +1,14 @@
+node_modules/
+.next/
+.open-next/
+.wrangler/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.dev.vars
+.env*.local
+# copiados de projeto/assets pelo scripts/copiar-assets.mjs (lista: assets.json)
+public/jogo/
+src/gerado/
+public/og.jpg
+public/favicon.png

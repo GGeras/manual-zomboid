@@ -4,6 +4,7 @@ Base de dados e produção do canal **Manual Zomboid**: YouTube Shorts com dicas
 Dados validados do jogo, roteiros, padrões do canal, referências e a pipeline que gera os vídeos, num lugar só.
 
 > **Repositório PRIVADO.** Ícones, sons, músicas e modelos são arquivos do jogo (The Indie Stone). Use entre a equipe, nunca publique.
+> **Exceção (site, decisão do Jose):** o site público usa só a lista curada de `site/assets.json` (imagens, ícones, telas e modelos do jogo). Sons e músicas do jogo continuam proibidos fora do repo.
 
 ## Estrutura
 | pasta | o que tem | formato |

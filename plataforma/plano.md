@@ -36,10 +36,10 @@ Especificação completa (landing, guias, **Comunidade estilo Reddit**, padrão 
 | etapa | entrega | precisa antes (chave/API) | quem |
 |---|---|---|---|
 | **S0** | 2 direções de arte (1 imagem cada) + nome da Comunidade → Jose escolhe | nada | Jose escolhe |
-| **S1** | Next.js no Cloudflare (OpenNext), marca, landing sem 3D, Guias MDX com trava de fatos, RSS, sitemap, rodapé; exceção de assets no `README.md`; prévia no ar | Cloudflare (mesma da C1) | — |
+| **S1** ✅ | Next.js no Cloudflare (OpenNext), marca, landing sem 3D, Guias MDX com trava de fatos, RSS, sitemap, rodapé; exceção de assets no `README.md`; prévia no ar | Cloudflare (mesma da C1) | — |
 | **S2** | abertura 3D imersiva + narrativa no scroll + fallback + versão leve | nada | — |
 | **S3** | Shorts recentes + Discord (widget, convite) | **ID do canal** do YouTube; **Discord**: convite, widget, ID do servidor | Jose |
-| **S4** | **Comunidade v1**: contas (Discord, Google, e-mail), tópicos com texto + imagens, comentários, voto, melhor resposta, categorias, busca, perfil, denúncia, moderação, anti-spam, termos e privacidade; teste com 5 pessoas | projeto Supabase `manual-zomboid-comunidade`; **domínio**; OAuth Discord e Google; Turnstile; R2; Resend (SMTP) | Jose |
+| **S4** 🟡 interface pronta em modo prévia (`site/`), migração do banco escrita; falta ligar as chaves | **Comunidade v1**: contas (Discord, Google, e-mail), tópicos com texto + imagens, comentários, voto, melhor resposta, categorias, busca, perfil, denúncia, moderação, anti-spam, termos e privacidade; teste com 5 pessoas | projeto Supabase `manual-zomboid-comunidade`; **domínio**; OAuth Discord e Google; Turnstile; R2; Resend (SMTP) | Jose |
 | **S5** | **Comunidade v2**: sino, menções, tópico automático por vídeo, aviso no Discord, painel de moderação na Central, selos | webhook do Discord | Jose |
 | **S6** | Atualizações do Zomboid (só aprovadas na Central) | nada | — |
 | **S7** | lançamento: Lighthouse ≥ 90, Android/iPhone/desktop, Web Analytics, 15–20 tópicos semente | Cloudflare Web Analytics | Jose + Bruno |
