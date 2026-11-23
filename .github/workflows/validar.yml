@@ -1,0 +1,16 @@
+# Todo PR e todo push na main: validar.py tem que terminar com 0 erro(s). Verde = pode fazer o merge (COLABORACAO.md, seção 3).
+name: validar
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        env:
+          GIT_LFS_SKIP_SMUDGE: '1' # não baixa imagens/sons do LFS (não gasta a cota)
+        with:
+          lfs: false
+      - run: python3 ferramentas/validar.py
