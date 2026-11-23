@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-23 · jose (Claude) · Roteiro EP22 v5 (Distensão Muscular): estrutura gancho→base→exemplo→armadilhas→fecho, nota visual por frase; bloqueado até validar os fatos `fad-*`.
 - 2026-11-19 · jose · `publicar.py` reconhece a pasta "O meu disco" (Drive em português de Portugal).
 - 2026-11-19 · jose · Automação Slack + Drive:
   - `ferramentas/publicar.py` envia prévias e finais ao Drive pessoal, com link público;
