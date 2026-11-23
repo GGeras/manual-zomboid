@@ -2,7 +2,7 @@
 
 Duas entregas, nesta ordem:
 1. **Central** (`plataforma/`): sistema interno do Jose e do sócio.
-2. **Site** (`site/`): landing imersiva + blog público do canal.
+2. **Site** (`site/`): landing imersiva + Guias (blog oficial) + **Comunidade** (fórum estilo Reddit, com conta própria). Especificação: `plataforma/site.md`.
 
 Plano de etapas e chaves: `plataforma/plano.md`.
 
@@ -21,7 +21,8 @@ Plano de etapas e chaves: `plataforma/plano.md`.
 | tarefas, notas, relatórios | Supabase | edita |
 | métricas dos Shorts | chat de análises (grava no banco) | só leitura |
 | notícias do Zomboid | Steam News → fila | aprova / descarta |
-| posts do blog | repo: `site/content/blog/*.mdx` (PR) | — |
+| guias (blog oficial) | repo: `site/content/guias/*.mdx` (PR) | — |
+| tópicos, comentários, contas da Comunidade | Supabase **`manual-zomboid-comunidade`** (projeto separado) | moderação (S5) |
 
 ## 2. Visão geral
 ```mermaid
@@ -41,6 +42,8 @@ flowchart LR
 
   DB -- "Realtime + RLS (login)" --> CENTRAL["Central (SPA)"]
   DB -- "views públicas (anon)" --> SITE["Site (Next.js)"]
+  SITE <--> DBC[("Supabase Comunidade")]
+  SITE --> R2[("Cloudflare R2: imagens")]
   RSS["YouTube RSS"] --> SITE
   DISC["Discord widget"] --> SITE
   MDX["site/content/blog"] --> SITE
@@ -103,14 +106,15 @@ plataforma/
   - Métrica que a API não der (ex.: "viewed vs swiped away"): campo manual, sem inventar.
 
 ## 4. Site (`site/`)
-Stack, estrutura da landing e metas de qualidade: skill `manual-zomboid-landing-blog`. Resumo técnico:
-- **Next.js + TypeScript + MDX**, quase tudo estático; rebuild agendado 1x/dia (vídeos e notícias novos).
+Especificação completa, Comunidade e padrão de qualidade: **`plataforma/site.md`** (manda sobre o resumo abaixo). Resumo técnico:
+- **Next.js + TypeScript + MDX** no Cloudflare Workers (OpenNext): landing e guias estáticos (rebuild 1x/dia); Comunidade renderizada no servidor.
+- **Comunidade:** Supabase próprio (`manual-zomboid-comunidade`), login Discord/Google/e-mail, imagens no Cloudflare R2, Turnstile contra spam.
 - **3D:** React Three Fiber + drei + postprocessing, reaproveitando `projeto/assets/pz` e o `PZ.SOBREVIVENTE`. Carrega sob demanda, com imagem de fallback.
 - **Movimento:** GSAP + ScrollTrigger, Lenis. `prefers-reduced-motion` desliga.
 - **Vídeos:** RSS público do canal no YouTube (sem chave) + lite-youtube-embed.
 - **Discord:** convite + widget oficial do servidor.
 - **Atualizações do Zomboid:** só notícias **aprovadas** na Central (`pub_noticias`), cada uma com build e fonte.
-- **Blog:** `site/content/blog/*.mdx`, cabeçalho com `build`, `fontes`, `video` e `fatos: [ids]`. Checagem no build: todo id existe em `projeto/pipeline/fatos.json`, nenhum termo de `_nao-usar.md`.
+- **Guias:** `site/content/guias/*.mdx`, cabeçalho com `build`, `fontes`, `video` e `fatos: [ids]`. Checagem no build: todo id existe em `projeto/pipeline/fatos.json`, nenhum termo de `_nao-usar.md`.
 - **SEO:** next/og por post, RSS, sitemap, schema.org `VideoObject` e `BlogPosting`.
 - **Hospedagem:** Cloudflare (mesma conta da Central); domínio quando o Jose comprar.
 
@@ -127,4 +131,6 @@ Stack, estrutura da landing e metas de qualidade: skill `manual-zomboid-landing-
 | Parser das mensagens do Slack quebra se o modelo mudar | parser testado com as mensagens reais; mensagem não reconhecida vira só alerta |
 | Supabase grátis pausa sem uso | cron diário mantém ativo; aviso se pausar |
 | Dado do jogo errado no site | mesma trava dos vídeos (fatos.json) + revisão por PR |
-| Prévia vaza (link "qualquer pessoa com o link") | Central atrás de login; site nunca mostra prévia |
+| Prévia vaza (link "qualquer pessoa com o link") | Central atrás de login; site nunca mostra prévia; Comunidade em outro projeto Supabase |
+| Comunidade vazia | fácil de usar (login 1 clique, colar print), tópicos semente, tópico por vídeo, teste com 5 pessoas (`site.md` §4–5) |
+| Spam, conteúdo ilegal, menores | Turnstile, limites no banco, denúncia, moderação, termos/LGPD/ECA Digital revisados (`site.md` §5) |

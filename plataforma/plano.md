@@ -11,6 +11,7 @@ Ordem: Central primeiro (C1–C6), depois o site (S1–S6). A S0 (direção de a
 | 2 | login da Central | **GitHub**; Central no mesmo repo, em `plataforma/` |
 | 3 | métricas | **o chat de análises alimenta o banco**; puxar direto da API do YouTube fica para o futuro (Windsor.ai é pago) |
 | 4 | banco | projeto Supabase **`manual-zomboid`** (São Paulo, grátis) — criado |
+| 5 | site | landing + Guias (blog oficial) + **Comunidade estilo Reddit, bem mais simples**: conta própria, tópicos com texto e imagens (`site.md`) |
 
 ## Central
 | etapa | entrega | precisa antes (chave/API) | quem | onde fica |
@@ -30,18 +31,22 @@ Ordem: Central primeiro (C1–C6), depois o site (S1–S6). A S0 (direção de a
 5. **Usuário GitHub do sócio** → eu libero no banco.
 
 ## Site
+Especificação completa (landing, guias, **Comunidade estilo Reddit**, padrão de qualidade): `plataforma/site.md`.
+
 | etapa | entrega | precisa antes (chave/API) | quem |
 |---|---|---|---|
-| **S0** | 2 direções de arte, 1 imagem de referência cada → Jose escolhe | nada | Jose escolhe |
-| **S1** | Next.js, marca, blog MDX com trava de fatos, RSS, sitemap, rodapé; exceção de assets no `README.md`; prévia no ar | Cloudflare (mesma da C1) | — |
+| **S0** | 2 direções de arte (1 imagem cada) + nome da Comunidade → Jose escolhe | nada | Jose escolhe |
+| **S1** | Next.js no Cloudflare (OpenNext), marca, landing sem 3D, Guias MDX com trava de fatos, RSS, sitemap, rodapé; exceção de assets no `README.md`; prévia no ar | Cloudflare (mesma da C1) | — |
 | **S2** | abertura 3D imersiva + narrativa no scroll + fallback + versão leve | nada | — |
-| **S3** | Shorts recentes + Comunidade (Discord) | **ID do canal** do YouTube (UC...)<br>**Discord**: convite que não expira, widget ligado, **ID do servidor**, regras | Jose |
-| **S4** | Atualizações do Zomboid (só aprovadas na Central) | nada (chave pública do Supabase já existe) | — |
-| **S5** | Lighthouse ≥ 90, teste Android/iPhone/desktop, lançamento | **domínio** + DNS na Cloudflare; Cloudflare Web Analytics | Jose |
-| **S6** | futuro: newsletter, aviso de vídeo novo no Discord | **Resend** (API key + domínio); **webhook do Discord** | Jose |
+| **S3** | Shorts recentes + Discord (widget, convite) | **ID do canal** do YouTube; **Discord**: convite, widget, ID do servidor | Jose |
+| **S4** | **Comunidade v1**: contas (Discord, Google, e-mail), tópicos com texto + imagens, comentários, voto, melhor resposta, categorias, busca, perfil, denúncia, moderação, anti-spam, termos e privacidade; teste com 5 pessoas | projeto Supabase `manual-zomboid-comunidade`; **domínio**; OAuth Discord e Google; Turnstile; R2; Resend (SMTP) | Jose |
+| **S5** | **Comunidade v2**: sino, menções, tópico automático por vídeo, aviso no Discord, painel de moderação na Central, selos | webhook do Discord | Jose |
+| **S6** | Atualizações do Zomboid (só aprovadas na Central) | nada | — |
+| **S7** | lançamento: Lighthouse ≥ 90, Android/iPhone/desktop, Web Analytics, 15–20 tópicos semente | Cloudflare Web Analytics | Jose + Bruno |
+| **S8** | futuro: newsletter, bot do Discord | Resend (já existe); bot do Discord | Jose |
 
 - Nenhuma chave entra no git nem no chat: vai direto para Supabase, GitHub Secrets ou Cloudflare.
-- Custo: tudo em plano grátis. Domínio é o único gasto previsto.
+- Custo: tudo em plano grátis. Domínio é o único gasto previsto. O R2 pede cartão cadastrado na Cloudflare, mas é grátis até 10 GB.
 
 ## Como cada etapa fecha
 1. `python ferramentas/validar.py` com 0 erro(s); testes da etapa passando.
