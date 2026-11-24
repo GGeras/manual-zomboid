@@ -33,7 +33,7 @@ const clip = (name, lf, o = {}) => { pose(S, Object.assign({ ry: .8, clip: [name
   S.olhar = o.olhar || 0; PZ.apoiar(S, 0); };
 const olhando = lf => Math.sin(lf / 38) * .75 + Math.sin(lf / 91) * .25;   // devagar, de um lado para o outro
 const andar = (pts, lf, nome = 's_walk', vel = VEL.s_walk, o = {}) => { const q = rota(pts, lf / 30, vel); clip(q.fim ? (o.parado || 's_idle') : nome, lf * (o.sp || 1), { x: q.x, z: q.z, ry: q.ry, olhar: o.olhar }); return q; };
-const dia = (f, sol = .55) => { light('day'); clima('sol', sol); C.show(); };
+const dia = (f, sol = .55) => { light('day'); clima('sol', sol); C.show(); F.vida(f); };   // v5: folhas e pólen no ar
 const on = (lf, a, b = 1e9) => clamp((lf - a) / 12) * (1 - clamp((lf - b) / 12));
 
 run([
