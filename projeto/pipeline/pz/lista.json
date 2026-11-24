@@ -91,7 +91,7 @@
   "hoodieup_white": "textures/Clothes/Hoodie/HoodieUP_White.png",
   "trousersmesh_denim": "textures/Clothes/Trousers_Mesh/TrousersMesh_Denim.png",
   "jacket_white": "textures/Clothes/Jacket/Jacket_White.png",
-  "schoolbag_black": "textures/Clothes/Bag/SchoolBag_Black.png",
+  "schoolbag_black": "textures/Clothes/Bag/schoolbag_black.png",
   "bighikingbagblue": "textures/Clothes/Bag/BigHikingBagBlue.png",
   "schoolbag_blue": "textures/Clothes/Bag/SchoolBag_Blue.png",
   "bighikingbaggreen": "textures/Clothes/Bag/BigHikingBagGreen.png",
@@ -167,7 +167,10 @@
   "weldermask": "textures/Clothes/Hat/WelderMask.png",
   "book": "textures/Book.png",
   "hacksaw": "textures/Hacksaw.png",
-  "bookred": "textures/WorldItems/BookRed_New.png"
+  "bookred": "textures/WorldItems/BookRed_New.png",
+  "duffelbaggreen": "textures/Clothes/Bag/DuffelBagGreen.png",
+  "hikingbaggreen": "textures/Clothes/Bag/HikingBagGreen.png",
+  "alicepack_green": "textures/Clothes/Bag/ALICEpack_Green.png"
  },
  "fbx": {
   "car_normal": [
@@ -272,5 +275,27 @@
   "z_deathleft": "Zombie_HitDeath_HeadLeft.x",
   "z_walk3": "Zombie_Walk3.x",
   "z_walk4": "Zombie_Walk4.x"
+ },
+ "fbxbin": {
+  "bag_school": [
+   "WorldItems/Clothing/SchoolBag_Ground.fbx",
+   0.42
+  ],
+  "bag_duffel": [
+   "WorldItems/Clothing/DuffelBag_Ground.fbx",
+   0.68
+  ],
+  "bag_hiking": [
+   "WorldItems/Clothing/HikingBag_Ground.fbx",
+   0.55
+  ],
+  "bag_bighiking": [
+   "WorldItems/Clothing/BigHikingBag_Ground.fbx",
+   0.66
+  ],
+  "bag_alice": [
+   "WorldItems/Clothing/ALICE_Pack_Ground.fbx",
+   0.6
+  ]
  }
 }
