@@ -1,4 +1,5 @@
 import { THREE, PZ, pose, S, light, prop, box, puff, U, scene } from './engine.js';
+import { tileLuz } from './tiles.js';
 import { run } from './ep3d.js';
 import { casaDentro, camOn as camOn0, clima, luzInterior, rota, VEL } from './cenarios.js';
 const { clamp, lerp, easeOut } = U;
@@ -17,7 +18,7 @@ const SEAT = C.at(.22, 2), FRONT = C.at(.77, 2), CH_RY = Math.PI / 2;   // pelve
 const BOOK = new THREE.Group();
 { const me = PZ.propMesh('w_bookhand', 'bookred'); me.material.side = THREE.DoubleSide;
   const A = new THREE.Matrix4().compose(new THREE.Vector3(.0177, .0107, .0062), new THREE.Quaternion().setFromEuler(new THREE.Euler(...[-11.7984, 87.0744, -81.8605].map(d => d * Math.PI / 180), 'XYZ')), new THREE.Vector3(1, 1, 1));
-  me.applyMatrix4(A.invert()); BOOK.add(me); }
+  me.applyMatrix4(A); BOOK.add(me); }   // v3 (23/11): a matriz do anexo vai DIRETO (invertida, o livro ficava torto/de lado)
 PZ.attach(S, 'Bip01_Prop2', BOOK);
 const HAM = PZ.attach(S, 'Bip01_Prop1', PZ.propMesh('w_hammer', 'hammer'));
 const SAW = PZ.attach(S, 'Bip01_Prop1', PZ.propMesh('w_hacksaw', 'hacksaw'));
@@ -47,7 +48,14 @@ function build(n, since) { PL.visible = true; const done = n >= parts.length + 1
 // regra 4.7: depois de cada pose o ponto mais baixo do corpo (sola/calcanhar/joelho/nádega, medidas do jogo) fica exatamente sobre o piso
 const clip = (name, lf, o = {}) => { pose(S, Object.assign({ ry: .8, clip: [name, lf, o.loop !== false, o.up] }, o)); S.bat.visible = false; S.hammer.visible = false;
   BOOK.visible = !!o.book; HAM.visible = !!o.ham; SAW.visible = !!o.saw; PZ.apoiar(S, 0); S.userData.assento = o.assento; };
-const room = f => { light('dawn'); clima('', 0); C.show(); LUZ.set(f); PLANK.visible = false; CUT.visible = false; SHELFBOOK.visible = false; CASA.poltrona.sobrepor(false); };
+// LUZ v3 (23/11, pedido do Jose): interior mais claro e quente — tiles mais claros, vinheta mais leve, luz ambiente quente
+// e um reforço do abajur no canto de leitura (rosto e livro legíveis no celular).
+const AMB = new THREE.AmbientLight('#ffe2c0', .8); scene.add(AMB);
+const ABJ = C.at(0, 1), LAMP2 = new THREE.PointLight('#ffc07a', 3.2, 5, 1.4); LAMP2.position.set(ABJ.x + .5, 1.6, ABJ.z + .6); scene.add(LAMP2);
+let VIN = null;
+const luzV3 = f => { tileLuz('#fff6e8'); VIN ??= [...document.querySelectorAll('div')].find(d => d.style.mixBlendMode === 'multiply');
+  if (VIN) VIN.style.opacity = .32; LAMP2.intensity = 3.2 * (1 + .025 * Math.sin(f * .7) * Math.sin(f * .31)); };
+const room = f => { light('dawn'); clima('', 0); C.show(); LUZ.set(f); luzV3(f); PLANK.visible = false; CUT.visible = false; SHELFBOOK.visible = false; CASA.poltrona.sobrepor(false); };
 const readStand = (lf, p, ry = .8) => clip('s_read', lf * READSP, { x: p.x, z: p.z, ry, book: true });
 // senta: começa EM PÉ NA FRENTE da poltrona e recua junto com a animação até o assento (o corpo nunca entra na poltrona)
 const SIT = 31;
