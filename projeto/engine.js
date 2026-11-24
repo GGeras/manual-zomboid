@@ -4,7 +4,7 @@ import * as THREE from './runtime/hero3d/vendor/three.module.js';
 export { THREE };
 export const W = 1080, H = 1920;
 const cv = document.getElementById('gl');
-const renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, preserveDrawingBuffer: true });
+const renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, preserveDrawingBuffer: true, alpha: !!window.CAPA });   // CAPA: fundo transparente (capa feita em HTML por cima/por baixo)
 renderer.setSize(W, H, false); renderer.setPixelRatio(1);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.NoToneMapping;

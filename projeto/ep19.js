@@ -1,4 +1,4 @@
-import { THREE, PZ, pose, S, light, prop, box, puff, U } from './engine.js';
+import { THREE, PZ, pose, S, light, prop, box, puff, U, scene } from './engine.js';
 import { run } from './ep3d.js';
 import { casaDentro, camOn as camOn0, clima, luzInterior, rota, VEL } from './cenarios.js';
 const { clamp, lerp, easeOut } = U;
@@ -73,7 +73,13 @@ const SHELF = C.at(1.0, 1.05);
 const ANDA = 34, paraCaixote = lf => { const q = rota([[SAWAT.x, SAWAT.z], [SPOT.x, SPOT.z]], lf / 30, VEL.s_walk); clip('s_walk', lf, { x: q.x, z: q.z, ry: q.ry }); return q; };
 const FIM = C.at(4.2, 5.75);   // em pé ao lado do caixote pronto
 const SY = .67;   // regra 4.3: corpo inteiro acima da descrição do app
-run([
+// ---------- CAPA (capa19.html, window.CAPA): só o personagem lendo o livro do jogo, fundo transparente; o resto da capa é HTML ----------
+if (window.CAPA) { const cena = (lf, f, len, c) => { room(f); C.G.visible = false; LUZ.off(); PLANK.visible = false; PL.visible = false; CRATE.visible = false;
+    light('day'); scene.background = null; scene.fog = null; scene.children.forEach(o => { if (o !== S.g && !o.isLight && !o.isCamera) o.visible = false; });   // só o personagem (sem chão/casas)
+    clip('s_read', 40, { x: READ.x, z: READ.z, ry: window.CAPA_RY ?? .55, book: true });
+    camOn0(c, READ.x, READ.z, window.CAPA_ZOOM ?? 4.3, window.CAPA_SY ?? .53, window.CAPA_Y ?? .95); };
+  window.__CAPA_SHOTS = Array(11).fill(cena); }
+run(window.__CAPA_SHOTS || [
   // 0 — livro na mão, nível parado: lendo em pé no sol da janela
   (lf, f, len, c) => { room(f); readStand(lf + 20, READ); camOn(c, READ.x, READ.z, lerp(7.6, 6.8, easeOut(lf / len)), SY); },
   // 1 — multiplica, mas só a prática: lê um pouco, vai para a bancada, serra a tábua, ANDA até o caixote (sem teleporte) e começa a pregar

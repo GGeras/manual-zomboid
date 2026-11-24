@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-24 · bruno · Capa do EP19 (`projeto/capa19.html`, série Habilidades em verde-água): personagem 3D do episódio com fundo transparente (`window.CAPA` em `ep19.js`; `engine.js` com `alpha` só na capa).
 - 2026-11-24 · bruno (Claude) · Render na placa NVIDIA: `_cdp.mjs` força a GPU de alto desempenho no Chrome (antes caía na Intel UHD em notebook com 2 placas); `render.mjs` grava em NVENC (`--encoder nvenc` ou `PZ_NVENC=1`, ligado pelo `rodar.bat` quando acha NVIDIA; volta para libx264 se falhar).
 - 2026-11-23 · bruno · EP19 FINAL v2 (voz nova) + regra 4.7 (contato com as superfícies — definitiva para todos os vídeos):
   - `pz.js`: `PZ.apoiar()` põe o ponto mais baixo do corpo (sola/calcanhar/joelho/nádega, medidas das animações do jogo) sobre o piso a cada quadro; assento na altura do jogo (0,486); `tiles.js`: `móvel.sobrepor()` (personagem por cima do móvel em que encosta); `inspect.mjs`: ATRAVESSANDO A SUPERFÍCIE / FLUTUANDO / NÁDEGA FORA DO ASSENTO.
