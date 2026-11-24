@@ -3,6 +3,9 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-24 · bruno · EP20/EP21 RASCUNHO v3 (revisão do Bruno; voz provisória Piper):
+  - EP20 (Sono): quarto do jogo (cama de 2 peças, guarda-roupa, abajur, cadeira, janela com luar), cadeira de verdade na frase da cadeira (senta pela frente, ofegante), deitar/dormir com as animações do jogo (Bob_GetInBed, Bob_Asleep) em cima do colchão, chão + dor no pescoço, taco do jogo (Bob_IdleBat/AttackBat01) com zumbi que só balança, comprimidos (Bob_IdleTakePills), cozinha de tarde, manhã com sol; traços no final com ícone e valor (Sono Leve +6, Madrugador −3).
+  - EP21 (Coleta): floresta do jogo com uma camada de chão (o chão não pisca mais), árvores/arbustos/capim/pedras/galhos originais; modo de busca igual ao jogo (`busca.js`: desfoque/sem cor/escuro fora do raio, olho, marcadores pinIcon); ele procura olhando em volta (`S.olhar` em `pz.js`); arbusto de frutinha do jogo + Bob_IdleForage; janela "Investigar Área" do jogo com Foco de Busca; Herbalista com ícone e valor (−4).
 - 2026-11-24 · bruno · Capa do EP19 (`projeto/capa19.html`, série Habilidades em verde-água): personagem 3D do episódio com fundo transparente (`window.CAPA` em `ep19.js`; `engine.js` com `alpha` só na capa).
 - 2026-11-24 · bruno (Claude) · Render na placa NVIDIA: `_cdp.mjs` força a GPU de alto desempenho no Chrome (antes caía na Intel UHD em notebook com 2 placas); `render.mjs` grava em NVENC (`--encoder nvenc` ou `PZ_NVENC=1`, ligado pelo `rodar.bat` quando acha NVIDIA; volta para libx264 se falhar).
 - 2026-11-23 · bruno · EP19 FINAL v2 (voz nova) + regra 4.7 (contato com as superfícies — definitiva para todos os vídeos):

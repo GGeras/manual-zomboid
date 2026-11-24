@@ -1,11 +1,13 @@
-// EP 20 — Sono (B42.22) — RASCUNHO AUTOMÁTICO v2 (gerado de roteiros/ep20-*.md; T/END vêm da voz provisória)
-// Para a versão final: troque a voz (check_vo.py), ajuste títulos/cenas à mão onde precisar.
+// EP 20 — Sono (B42.22) — RASCUNHO v3 (24/11, revisão do Bruno; voz provisória Piper — T/END de tts_rascunho.py)
+// HUD na área segura (regra 4.3). Traços do final COM ícone e valor (como na criação do personagem; custos de
+// media/scripts/generated/characters/character_traits.txt: Sono Leve (insomniac) −6 → dá 6 pontos; Madrugador (needslesssleep) 3 → custa 3).
 const LAB = 'PROJECT ZOMBOID · <b>SONO</b>';
 window.EP = {
   pz: true, versao: 'BUILD 42.22',
   itens: ["Item_Mattress", "Item_Pillow", "Item_PillsCaffeine", "Item_PillsSleeping"],
   OFF: 1.3,
-  T: [0.0, 4.0, 8.0, 12.0, 16.0, 20.0, 24.0, 28.0, 32.0, 36.0], END: 40.0,
+  luz: { padrao: 'interior-noite', 2: 'exterior-dia', 7: 'interior-tarde', 9: 'interior-dia' },
+  T: [0.0, 2.49, 10.19, 18.01, 23.05, 36.25, 43.01, 54.66, 62.66, 70.85], END: 80.25,
   scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6, lab: LAB }, { at: 7, lab: LAB }, { at: 8, lab: LAB }, { at: 9 }],
   titles: [
     { i: 0, a: "Dormir mal", b: "te mata devagar", col: 'bone', aSize: 110, size: 100 },
@@ -20,37 +22,61 @@ window.EP = {
     { i: 9, a: "Durma bem,", b: "lute melhor", col: 'green', aSize: 110, size: 128 }
   ],
   extras(H) {
-    const { F, C, M } = H;
+    const { F, C, M, el } = H, G = '#8fe04a', RD = '#ff3d55', B = '#efe5cf', Y = '#ffb020';
     const P = (i, k) => Math.round(C(i) + k * ((i + 1 < F.length ? F[i + 1] : window.__VO_END) - F[i]));
-    const tag = (k, txt, col, at, end, top = 1560) => { const id = H.chip(k, txt, at, `left:0;right:0;margin:0 auto;width:max-content;max-width:960px;text-align:center;top:${top}px;color:${col};font:800 46px/1.15 var(--mono);padding:18px 30px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
-    H.el('style', null, '.moodle{left:760px;width:170px;height:170px}.mtag{left:700px;width:290px;font-size:30px;margin-top:40px}', document.head);
-    const row = (k, list, o = {}) => H.items(k, list, Object.assign({ top: 1250, size: 180, gap: 30 }, o));
-    H.moodle(0, 'pz:Mood_Sleepy', "SONO", P(0, 0.18), false, null, 560);
-    tag(1, "SONOLÊNCIA", '#ffb020', P(1, 0.18), P(1, 0.34));
-    tag(1, "CANSAÇO", '#ffb020', P(1, 0.34), P(1, 0.51));
-    tag(1, "CANSAÇO INTENSO", '#ff3d55', P(1, 0.51), P(1, 0.68));
-    tag(1, "CANSAÇO ABSURDO", '#ff3d55', P(1, 0.68), null);
-    H.moodle(2, 'pz:Mood_Sleepy', "SONO", P(2, 0.18), false, null, 560);
-    tag(2, "\"O CANSAÇO ESTÁ TIRANDO SUAS FORÇAS\"", '#efe5cf', P(2, 0.51), null);
-    row(3, [["Item_Mattress", "CAMA", P(3, 0.62)]]);
-    H.moodle(3, 'pz:Mood_Exhausted', "FÔLEGO ✓", P(3, 0.18), true, null, 560);
-    tag(3, "CANSAÇO, SÓ DORMINDO", '#ff3d55', P(3, 0.40), null);
-    row(4, [["Item_Mattress", "CAMA BOA", P(4, 0.18)], ["Item_Pillow", "TRAVESSEIRO", P(4, 0.34)]]);
-    H.moodle(4, 'pz:Mood_Pained', "DOR", P(4, 0.68), false, null, 560);
-    tag(4, "CHÃO / CARRO = DOR NO PESCOÇO", '#ff3d55', P(4, 0.51), null);
-    H.moodle(5, 'pz:Mood_Panicked', "PÂNICO", P(5, 0.34), false, P(5, 0.51), 560);
-    H.moodle(5, 'pz:Mood_Pained', "DOR", P(5, 0.51), false, P(5, 0.68), 560);
-    H.moodle(5, 'pz:Mood_NoxiousSmell', "MAU CHEIRO", P(5, 0.68), false, null, 560);
-    tag(5, "ZUMBI ✗", '#ff3d55', P(5, 0.18), null);
-    row(6, [["Item_PillsSleeping", "SONÍFEROS", P(6, 0.18)]]);
-    tag(6, "SEM ÁLCOOL ✗", '#ff3d55', P(6, 0.51), null);
-    row(7, [["Item_PillsCaffeine", "CAFEÍNA", P(7, 0.18)]]);
-    tag(7, "NÃO SUBSTITUI A CAMA", '#ff3d55', P(7, 0.51), null);
-    row(8, [["Item_Mattress", "MELHOR CAMA", P(8, 0.40)]]);
-    H.moodle(8, 'pz:Mood_Sleepy', "SONOLÊNCIA", P(8, 0.18), false, null, 560);
-    tag(8, "ACORDA INTEIRO ✓", '#8fe04a', P(8, 0.62), null);
-    tag(9, "SONO LEVE", '#8fe04a', P(9, 0.18), P(9, 0.40));
-    tag(9, "MADRUGADOR", '#8fe04a', P(9, 0.40), P(9, 0.62));
-    tag(9, "SALVA E COMENTA", '#8fe04a', P(9, 0.62), null);
+    let n = 0; const nid = p => 'k' + p + (n++);
+    const tag = (k, txt, col, at, end, top = 560) => { const id = H.chip(k, txt, at, `left:0;right:0;margin:0 auto;width:max-content;max-width:800px;white-space:nowrap;text-align:center;top:${top}px;color:${col};font:800 44px/1.15 var(--mono);padding:16px 28px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
+    const row = (k, list, o = {}) => H.items(k, list, Object.assign({ top: 660, size: 150, gap: 26 }, o));
+    const pop = (id, at, from = { x: 80, opacity: 0 }) => M.enter('#' + id, { at, frames: 9, ease: 'snapSettle', from });
+    el('style', null, `.moodle{left:770px;width:150px;height:150px}.mtag{left:700px;width:290px;font-size:28px;margin-top:30px}
+      .crt{position:absolute;left:140px;width:800px;background:rgba(16,14,13,.95);border:3px solid rgba(239,229,207,.45);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.7);overflow:hidden;color:var(--bone)}
+      .crt .hd{height:62px;font:800 26px/62px var(--mono);letter-spacing:4px;padding-left:24px;background:rgba(239,229,207,.08);border-bottom:2px solid rgba(239,229,207,.25)}
+      .tl{display:flex;align-items:center;gap:22px;height:118px;padding:0 26px;border-bottom:2px solid rgba(239,229,207,.12)}
+      .tl img{width:72px;height:72px;image-rendering:pixelated}
+      .tl .nm{font:900 40px/1.1 var(--mono)} .tl .ds{font:600 24px/1.2 var(--mono);color:#c9bfa8;margin-top:6px}
+      .tl .v{margin-left:auto;font:900 52px/1 var(--mono)}`, document.head);
+    const M0 = (k, ic, txt, at, ok, off, top = 560) => H.moodle(k, ic, txt, at, ok, off, top);
+    // 0
+    M0(0, 'pz:Mood_Sleepy', "SONO", P(0, 0.15), false, null);
+    // 1 — os 4 níveis do moodle
+    M0(1, 'pz:Mood_Sleepy', "SONO", P(1, 0.04), false, null);
+    tag(1, "SONOLÊNCIA", Y, P(1, 0.18), P(1, 0.34));
+    tag(1, "CANSAÇO", Y, P(1, 0.34), P(1, 0.51));
+    tag(1, "CANSAÇO INTENSO", RD, P(1, 0.51), P(1, 0.68));
+    tag(1, "CANSAÇO ABSURDO", RD, P(1, 0.68), null);
+    // 2 — enxerga menos e perde força
+    M0(2, 'pz:Mood_Sleepy', "SONO", P(2, 0.10), false, null);
+    tag(2, "\"O CANSAÇO ESTÁ TIRANDO<br>SUAS FORÇAS\"", B, P(2, 0.45), null);
+    // 3 — cadeira: só o fôlego
+    M0(3, 'pz:Mood_Exhausted', "FÔLEGO ✓", P(3, 0.40), true, null);
+    tag(3, "CANSAÇO, SÓ DORMINDO", RD, P(3, 0.55), null);
+    // 4 — onde dorme
+    row(4, [["Item_Mattress", "CAMA BOA ✓", P(4, 0.12)]], { top: 600 });
+    tag(4, "CHÃO / CARRO = DOR NO PESCOÇO", RD, P(4, 0.50), null, 560);
+    M0(4, 'pz:Mood_Pained', "DOR", P(4, 0.80), false, null, 700);
+    row(4, [["Item_Pillow", "TRAVESSEIRO", P(4, 0.88)]], { top: 760, left: 140 });
+    // 5 — o jogo nem deixa dormir
+    tag(5, "ZUMBI PERTO ✗", RD, P(5, 0.12), P(5, 0.40));
+    M0(5, 'pz:Mood_Panicked', "PÂNICO", P(5, 0.30), false, P(5, 0.52));
+    M0(5, 'pz:Mood_Pained', "DOR", P(5, 0.52), false, P(5, 0.72));
+    M0(5, 'pz:Mood_NoxiousSmell', "MAU CHEIRO", P(5, 0.72), false, null);
+    // 6 — soníferos, sem álcool
+    row(6, [["Item_PillsSleeping", "SONÍFEROS", P(6, 0.12)]], { top: 580 });
+    row(6, [["Item_BeerBottle", "ÁLCOOL ✗", P(6, 0.62)]], { top: 800 });
+    // 7 — cafeína
+    row(7, [["Item_PillsCaffeine", "CAFEÍNA", P(7, 0.10)]], { top: 580 });
+    tag(7, "NÃO SUBSTITUI A CAMA", RD, P(7, 0.55), null, 800);
+    // 8 — exemplo: sonolência → tranca → melhor cama → acorda inteiro
+    M0(8, 'pz:Mood_Sleepy', "SONOLÊNCIA", P(8, 0.06), false, P(8, 0.84));
+    tag(8, "TRANCA A CASA", B, P(8, 0.08), P(8, 0.36));
+    row(8, [["Item_Mattress", "MELHOR CAMA", P(8, 0.38)]], { top: 580 });
+    tag(8, "ACORDA INTEIRO ✓", G, P(8, 0.86), null);
+    // 9 — traços da criação do personagem: ícone, nome, o que faz e o VALOR em pontos
+    const cr = el('div', 'crt', `<div class="hd">TRAÇOS · CRIAÇÃO DO PERSONAGEM</div>
+      <div class="tl" id="t9a"><img src="./assets/items/trait_insomniac.png"><div><div class="nm">SONO LEVE</div><div class="ds">cansaço sai mais devagar dormindo</div></div><span class="v" style="color:${RD}">+6</span></div>
+      <div class="tl" id="t9b"><img src="./assets/items/trait_needslesssleep.png"><div><div class="nm">MADRUGADOR</div><div class="ds">precisa dormir menos</div></div><span class="v" style="color:${G}">−3</span></div>`, H.sc(9), 'top:540px'); cr.id = nid('cr');
+    M.enter('#' + cr.id, { at: P(9, 0.04), frames: 12, ease: 'snapSettle', from: { y: 80, opacity: 0, scale: .94 } });
+    pop('t9a', P(9, 0.12)); pop('t9b', P(9, 0.42));
+    tag(9, "SALVA E COMENTA", G, P(9, 0.74), null, 920);
   }
 };

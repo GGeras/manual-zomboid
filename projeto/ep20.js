@@ -1,15 +1,93 @@
-// EP 20 — Sono — cenas 3D do rascunho automático (auto3d.js). Uma tomada por frase.
+// EP 20 — Sono (B42.22) — RASCUNHO v3 (24/11, revisão do Bruno):
+// • 00:19 falava de cadeira e não tinha cadeira → QUARTO com cadeira do jogo: ele chega pela frente e senta recuando (Bob_SatChairIn → Bob_SatChair)
+//   ofegante (Bob_Idle_HeavyBreathing no tronco) — recupera o fôlego, o sono continua;
+// • nada atravessa nada (regra 4.7): de pé/andando/no chão = PZ.apoiar; na cama o corpo fica EM CIMA do colchão (cama do jogo a 0,62 = altura
+//   que as próprias animações de deitar do jogo usam: Bob_Asleep / Bob_GetInBed), cama e cadeira desenhadas por baixo dele (sobrepor);
+//   taco = malha do jogo (Baseballbat.x) na mão (Bip01_Prop1) com Bob_IdleBat / Bob_AttackBat01_Hit;
+// • luz e ambiente por lugar (regra 4.5): quarto à noite (abajur aceso + luar pela janela), manhã com sol entrando, cozinha de tarde, rua no fim do dia;
+// • traços do final com ícone e valor (no cfg).
+import { THREE, PZ, pose, S, Z, light, U } from './engine.js';
 import { run } from './ep3d.js';
-import { shot } from './auto3d.js';
+import { quarto, casaDentro, rua, luzInterior, camOn as camOn0, clima, clarao, rota, VEL, COLCHAO, tileLuz } from './cenarios.js';
+const { clamp, lerp, easeOut } = U;
+const camOn = (c, x, z, h, sy) => window.DBG ? camOn0(c, S.g.position.x, S.g.position.z, window.DBG, .5, .7) : camOn0(c, x, z, h, sy);
+
+const Q = quarto(-120, 60), QC = Q.C, A = QC.at;
+const NOITE = luzInterior(QC, { janelas: [['N', 4]], abajur: [1, 0], hora: 'noite', lua: true });
+const MANHA = luzInterior(QC, { janelas: [['N', 4]], hora: 'tarde' });
+const CASA = casaDentro(-60, 80, { completa: true }), KC = CASA.C, K = KC.at;
+const TARDE = luzInterior(KC, { janelas: [['N', 3], ['W', 3]], abajur: [0, 1], hora: 'tarde' });
+const RUA = rua(300, 0), RC = RUA.C, R = RC.at;
+const BAT = PZ.attach(S, 'Bip01_Prop1', PZ.propMesh('w_bat', 'baseballbat'));
+S.g.traverse(o => { o.renderOrder = 2; });
+const SY = .66;
+// cama: cabeceira em (2,0), pé em (2,1); deitado com a pelve no meio (Bob_Asleep: cabeça a −0,58, pés a +0,98 da pelve)
+const LEITO = A(2, .35), BEIRA = A(2.95, .7);
+// cadeira (frente S): pelve no meio do assento; na frente = onde os pés ficam ao sentar (+0,55)
+const SEAT = A(5, 3.05), FRONT = A(5, 3.62), SIT = 31;
+const PORTA = A(.6, 4);
+// ---- personagem: animação do jogo + contato (regra 4.7) ----
+const clip = (name, lf, o = {}) => { pose(S, Object.assign({ ry: .8, clip: [name, lf, o.loop !== false, o.up] }, o)); S.bat.visible = false; S.hammer.visible = false;
+  BAT.visible = !!o.bat; S.olhar = 0; (S.userData ??= {}).assento = o.assento;
+  if (o.cama === 'apoiar') PZ.apoiar(S, Q.colchao); else if (o.cama) { S.g.position.y = 0; S.userData.apoio = Q.colchao; } else PZ.apoiar(S, o.base ?? 0); };
+const deitado = (lf, o = {}) => { Q.cama.sobrepor(true); clip('s_asleep', lf, { x: LEITO.x, z: LEITO.z, ry: 0, cama: 'apoiar', ...o }); };
+const deitar = (lf) => { Q.cama.sobrepor(true); const k = easeOut(clamp(lf / 40)); clip('s_getinbed', lf, { x: lerp(BEIRA.x, LEITO.x, k), z: lerp(BEIRA.z, LEITO.z, k), ry: Math.PI / 2, loop: false, cama: true }); };
+const sentar = (lf, sitIn = true) => { Q.cadeira.sobrepor(true);
+  if (sitIn && lf < SIT) { const k = easeOut(clamp(lf / (SIT - 4))); clip('s_satchairin', lf, { x: lerp(FRONT.x, SEAT.x, k), z: lerp(FRONT.z, SEAT.z, k), ry: 0, loop: false }); return; }
+  const l = sitIn ? lf - SIT : lf; clip('s_satchair', l, { x: SEAT.x, z: SEAT.z, ry: 0, up: ['s_breath', l], assento: Q.cadeira.userData.hs }); };
+const andar = (pts, lf, nome = 's_walk', vel = VEL.s_walk) => { const q = rota(pts, lf / 30, vel); clip(q.fim ? 's_idle' : nome, lf, { x: q.x, z: q.z, ry: q.ry }); return q; };
+// ---- ambientes ----
+const VIN = document.createElement('div'); VIN.style.cssText = 'position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(ellipse at 50% 58%, rgba(0,0,0,0) 30%, rgba(4,4,10,.92) 92%)';
+document.getElementById('gl').insertAdjacentElement('afterend', VIN);
+const cansaco = k => { VIN.style.opacity = clamp(k); };   // "você enxerga menos": a borda da tela fecha
+const noite = f => { light('dark'); clima('', 0); QC.show(); Q.cama.sobrepor(false); Q.cadeira.sobrepor(false); NOITE.mostrar(true); MANHA.mostrar(false); NOITE.set(f); cansaco(0); clarao(0); };
+const manha = f => { light('dawn'); clima('sol', .35); QC.show(); Q.cama.sobrepor(false); Q.cadeira.sobrepor(false); NOITE.mostrar(false); MANHA.mostrar(true); MANHA.set(f); cansaco(0); clarao(0); };
+const zClip = (z, name, lf, o = {}) => { pose(z, Object.assign({ clip: [name, lf, o.loop !== false] }, o)); PZ.apoiar(z, 0); };
+
 run([
-  shot('cama', {"slump": 0.5}),  // 0 — Dormir mal te mata devagar,
-  shot('cama', {"slump": 0.3}),  // 1 — 4 níveis de sono,
-  shot('golpe', {"slump": 0.5, "light": "dawn"}),  // 2 — Cansado: menos força,
-  shot('casa', {"sit": 1}),  // 3 — Cadeira: só o fôlego,
-  shot('cama', {}),  // 4 — Cama boa recupera mais,
-  shot('rua', {"n": 3, "light": "dark"}),  // 5 — O jogo nem deixa dormir,
-  shot('cama', {"hold": 0.6}),  // 6 — Soníferos ajudam,
-  shot('casa', {"hold": 0.6}),  // 7 — Cafeína: só um empurrão,
-  shot('cama', {}),  // 8 — Tranca e deita,
-  shot('casa', {}),  // 9 — Durma bem, lute melhor
+  // 0 — dormir mal te mata devagar: de pé ao lado da cama, bocejando (Bob_EmoteYawn), à noite
+  (lf, f, len, c) => { noite(f); clip('s_yawn', lf + 6, { x: BEIRA.x + .2, z: BEIRA.z + .6, ry: .6 }); camOn(c, BEIRA.x, BEIRA.z + .3, 7.2, SY); },
+  // 1 — o moodle de sono: de Sonolência a Cansaço Absurdo — espreguiça, depois ofegante; a borda da tela vai fechando
+  (lf, f, len, c) => { noite(f); const p = { x: BEIRA.x + .2, z: BEIRA.z + .6 };
+    if (lf < 86) clip('s_stretch', lf, { x: p.x, z: p.z, ry: .6, loop: false }); else clip('s_breath', lf, { x: p.x, z: p.z, ry: .6 });
+    cansaco(.15 + .55 * clamp(lf / len)); camOn(c, p.x - .2, p.z - .3, lerp(7.2, 6.4, easeOut(lf / len)), SY); },
+  // 2 — cansado: enxerga menos e perde força — o taco acerta e o zumbi só balança e continua vindo (fim do dia, na rua)
+  (lf, f, len, c) => { light('dawn'); clima('', 0); RC.show(); clarao(0); NOITE.off(); tileLuz('#ffffff'); cansaco(.55); const me = R(0, 1.2), H1 = 40, H2 = 140;
+    const atk = (lf >= H1 && lf < H1 + 31) ? lf - H1 : (lf >= H2 && lf < H2 + 31) ? lf - H2 : -1;
+    if (atk >= 0) clip('s_attackbat', atk, { x: me.x, z: me.z, ry: Math.PI / 2, loop: false, bat: true }); else clip('s_idlebat', lf, { x: me.x, z: me.z, ry: Math.PI / 2, bat: true });
+    const zx = me.x + 1.05, z0 = Z[0]; const hit = (lf >= H1 + 6 && lf < H1 + 59) ? lf - H1 - 6 : (lf >= H2 + 6 && lf < H2 + 59) ? lf - H2 - 6 : -1;
+    if (hit >= 0) zClip(z0, 'z_hitleft', hit, { x: zx + (hit < 20 ? hit * .012 : .24 - (hit - 20) * .007), z: me.z, ry: -Math.PI / 2, loop: false });
+    else if (lf < H1) zClip(z0, 'z_walk', lf, { x: zx + (H1 - lf) * .018, z: me.z, ry: -Math.PI / 2 }); else zClip(z0, 'z_idle', lf, { x: zx, z: me.z, ry: -Math.PI / 2 });
+    c.shake(lf - H1 - 7, .06); c.shake(lf - H2 - 7, .06); camOn(c, me.x + .55, me.z, 6.6, SY); },
+  // 3 — sentar na CADEIRA só recupera o fôlego: chega pela frente, senta recuando e fica ofegante
+  (lf, f, len, c) => { noite(f); const a = 30;
+    if (lf < a) andar([[FRONT.x - .8, FRONT.z + .9], [FRONT.x, FRONT.z]], lf); else sentar(lf - a);
+    camOn(c, SEAT.x - .2, SEAT.z + .3, 6.4, SY); },
+  // 4 — cama boa recupera mais rápido; chão: dorme mais e acorda com dor no pescoço; travesseiro ajuda
+  (lf, f, len, c) => { noite(f); const k1 = len * .46, k2 = len * .80, CH = A(3.2, 2.3);
+    if (lf < k1) { deitado(lf); camOn(c, LEITO.x + .3, LEITO.z + .5, 5.8, SY); }
+    else if (lf < k2) { clip('s_asleep', lf, { x: CH.x, z: CH.z, ry: Math.PI / 2 }); camOn(c, CH.x + .2, CH.z, 5.8, SY); }
+    else { clip('s_sitground', lf, { x: CH.x, z: CH.z, ry: Math.PI / 2, up: ['s_painhead', lf - k2 + 10] }); camOn(c, CH.x + .2, CH.z, 5.8, SY); }
+    clarao(Math.max(1 - Math.abs(lf - k1) / 6, 1 - Math.abs(lf - k2) / 5, 0) * .9, '#000'); },
+  // 5 — às vezes o jogo nem deixa dormir: zumbi batendo na janela (lado de fora), pânico
+  (lf, f, len, c) => { noite(f); deitado(lf + 40); const w = A(4, -.8); zClip(Z[0], 'z_doorbang', lf, { x: w.x, z: w.z, ry: 0 }); zClip(Z[1], 'z_doorbang', lf + 13, { x: w.x - .55, z: w.z - .35, ry: 0 });
+    c.shake((lf % 34) - 2, .025); camOn(c, LEITO.x + .9, LEITO.z, 6.8, SY); },
+  // 6 — comprimidos soníferos (Bob_IdleTakePills) ao lado da cama; nada de álcool junto
+  (lf, f, len, c) => { noite(f); clip('s_pills', lf + 10, { x: BEIRA.x + .15, z: BEIRA.z + .55, ry: .5 }); camOn(c, BEIRA.x, BEIRA.z + .3, 6.2, SY); },
+  // 7 — pílula de cafeína: um empurrão de energia, mas o sono continua (cozinha, de tarde)
+  (lf, f, len, c) => { light('dawn'); clima('', 0); KC.show(); TARDE.set(f); cansaco(0); clarao(0); const p = K(7.4, 1.7);
+    if (lf < 100) clip('s_pills', lf + 5, { x: p.x, z: p.z, ry: .9 }); else clip('s_yawn', lf - 100, { x: p.x, z: p.z, ry: .9 });
+    camOn(c, p.x - .1, p.z, 6.6, SY); },
+  // 8 — noite chegando com Sonolência: tranca a porta, vai até a melhor cama, deita (Bob_GetInBed) e dorme; amanhece e acorda inteiro
+  (lf, f, len, c) => { const t1 = 36, t2 = 92, t3 = 138, t4 = len * .86;
+    if (lf < t4) noite(f); else manha(f);
+    if (lf < t1) { clip('s_idle', lf, { x: PORTA.x, z: PORTA.z, ry: -Math.PI / 2 }); camOn(c, PORTA.x + .8, PORTA.z - .3, 6.8, SY); }
+    else if (lf < t2) { const q = andar([[PORTA.x, PORTA.z], [BEIRA.x, 2.6 + QC.z(0)], [BEIRA.x, BEIRA.z]], lf - t1); camOn(c, q.x, q.z, 6.8, SY); }
+    else if (lf < t3) { deitar(lf - t2); camOn(c, LEITO.x + .5, LEITO.z + .4, 6.4, SY); }
+    else if (lf < t4) { deitado(lf); camOn(c, LEITO.x + .5, LEITO.z + .4, lerp(6.4, 5.8, clamp((lf - t3) / 60)), SY); }
+    else { clip('s_stretch', lf - t4, { x: BEIRA.x + .2, z: BEIRA.z + .6, ry: .6, loop: false }); camOn(c, BEIRA.x, BEIRA.z + .3, 6.4, SY); }
+    clarao(Math.max(1 - Math.abs(lf - t4) / 7, 0), '#000'); },
+  // 9 — traços da criação (no cfg, com ícone e valor); manhã, ele bem disposto
+  (lf, f, len, c) => { manha(f); if (lf < 86) clip('s_stretch', lf, { x: BEIRA.x + .2, z: BEIRA.z + .6, ry: .6, loop: false }); else clip('s_idle', lf, { x: BEIRA.x + .2, z: BEIRA.z + .6, ry: .6 });
+    camOn(c, BEIRA.x, BEIRA.z + .3, 7.0, SY); },
 ]);
