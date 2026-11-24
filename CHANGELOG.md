@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-24 · jose (Claude) · `ferramentas/ajustes-ep20-21.bat` + `ferramentas/ajustes/ep20-21-v3.md`: o Bruno roda e o Claude dele aplica os ajustes do EP20 (cama do jogo ligada à fala, sem atravessar objeto, luz, sprites sem emenda) e do EP21 (vegetação natural, mais árvores, animação) e renderiza as prévias.
 - 2026-11-24 · bruno · EP20/EP21 RASCUNHO v3 (revisão do Bruno; voz provisória Piper):
   - EP20 (Sono): quarto do jogo (cama de 2 peças, guarda-roupa, abajur, cadeira, janela com luar), cadeira de verdade na frase da cadeira (senta pela frente, ofegante), deitar/dormir com as animações do jogo (Bob_GetInBed, Bob_Asleep) em cima do colchão, chão + dor no pescoço, taco do jogo (Bob_IdleBat/AttackBat01) com zumbi que só balança, comprimidos (Bob_IdleTakePills), cozinha de tarde, manhã com sol; traços no final com ícone e valor (Sono Leve +6, Madrugador −3).
   - EP21 (Coleta): floresta do jogo com uma camada de chão (o chão não pisca mais), árvores/arbustos/capim/pedras/galhos originais; modo de busca igual ao jogo (`busca.js`: desfoque/sem cor/escuro fora do raio, olho, marcadores pinIcon); ele procura olhando em volta (`S.olhar` em `pz.js`); arbusto de frutinha do jogo + Bob_IdleForage; janela "Investigar Área" do jogo com Foco de Busca; Herbalista com ícone e valor (−4).
