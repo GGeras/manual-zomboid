@@ -132,6 +132,9 @@ O personagem **encosta** nas superfícies e fica **sempre por cima delas**: nunc
 - **Sempre por cima**: o móvel em que ele encosta é desenhado antes dele (`móvel.sobrepor(true)`, personagem com `renderOrder 2`): a caixa do sprite nunca corta as pernas. Fora do contato, `sobrepor(false)` (quem passa atrás do móvel some atrás dele).
 - **Objetos também**: tábua apoiada no tampo da bancada (altura do sprite), pedaço cortado cai e fica deitado no piso, caixote no chão.
 - **Item na mão = modelo do jogo** com o anexo do jogo (`scripts/generated/models_items.txt`): livro lendo = `BookHand.fbx` + `WorldItems/BookRed_New.png` no osso `Bip01_Prop2`, animação `Bob_IdleReadBook` a 0,80 (como em `AnimSets/player/actions/book.xml`); nunca um desenho/ícone de livro.
+- **Chão de uma camada só** (24/11, EP21): dois pisos no mesmo lugar (asfalto + grama) piscam no vídeo. Cada lugar tem UM chão; mato = relva do jogo contínua (`floresta()` em `cenarios.js`).
+- **Cama do jogo**: duas peças (`furniture_bedding_01_9` cabeceira na borda N + `_8` pé ao sul) com a MESMA altura de colchão (a do desenho); deitado = `PZ.apoiar(S, colchão)` e cama por baixo dele (`sobrepor`).
+- **Modo de busca (coleta)** = efeito do jogo (`busca.js`, valores de `ISSearchManager.lua`): fora do raio desfoca, tira cor e escurece, olho em cima da cabeça, marcadores `pinIcon*` nos itens; ele procura olhando em volta (`S.olhar`).
 - `inspect.mjs` confere em todo momento: **PERSONAGEM ATRAVESSANDO A SUPERFÍCIE**, **FLUTUANDO**, **NÁDEGA FORA DO ASSENTO**, **ATRAVESSANDO MÓVEL** (quadril, peito, joelhos e pés). `inspecao/sonda.json` guarda a medida de cada momento. Relatório tem de dar 0 avisos.
 
 ## 4.1 REGRA DAS TELAS (18/11, pedido do Jose) — tela do jogo = RÉPLICA

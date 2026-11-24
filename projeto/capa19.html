@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Capa EP19</title>
+<meta name="viewport" content="width=1080, height=1920">
+<link rel="stylesheet" href="./runtime/fonts.css"><link rel="stylesheet" href="./ep.css">
+<!-- CAPA EP19 — Livros de Habilidade. Série nova (EP19–21: HABILIDADES) com cor ainda não usada nas capas 01–18: VERDE-ÁGUA / TURQUESA.
+     (já usadas: âmbar 01–03, azul 04–06, vermelho 07–09, verde 10–12, roxo 13–15, laranja 16–18)
+     Mesmo layout das capas do canal: ícone no topo, título 2 linhas (osso + cor), personagem 3D do jogo no centro, itens do jogo em caixas,
+     círculos tipo moodle, número do EP, etiqueta da série, logo embaixo. O personagem é o 3D do episódio (ep19.js com window.CAPA, fundo transparente). -->
+<style>
+  :root { --ac: #2fe3c4; --ac2: #9ff7e6; --deep: #021412; --bone: #efe5cf; }
+  section.scene, #shade, #main > .ver { display: none !important; }
+  #main { background: var(--deep) !important; }
+  #bg, #fg { position: absolute; inset: 0; pointer-events: none; }
+  #bg { z-index: 0; background:
+      radial-gradient(60% 34% at 50% 52%, rgba(47,227,196,.30), rgba(47,227,196,0) 70%),
+      radial-gradient(90% 55% at 50% 45%, #0a3a33 0%, #06231f 45%, #021412 100%); }
+  #bg .rain { position: absolute; inset: 0; opacity: .16;
+      background: repeating-linear-gradient(105deg, transparent 0 58px, rgba(159,247,230,.55) 58px 60px); -webkit-mask: linear-gradient(#0000 6%, #000 30%, #000 80%, #0000); }
+  /* motivo da série: a barra de nível do jogo (10 quadrados), os 3 primeiros acesos = volume I lido */
+  #bg .barra { position: absolute; left: 70px; top: 1430px; width: 940px; display: flex; gap: 14px; transform: perspective(900px) rotateX(58deg); transform-origin: 50% 50%; }
+  #bg .barra i { flex: 1; height: 82px; border: 3px solid rgba(159,247,230,.35); border-radius: 8px; background: rgba(2,20,18,.55); }
+  #bg .barra i.on { background: linear-gradient(#5ff0d6, #1bb89c); border-color: #9ff7e6; box-shadow: 0 0 30px rgba(47,227,196,.6); }
+  #bg .linha { position: absolute; left: 0; right: 0; top: 1641px; height: 3px; background: var(--ac); opacity: .9; }
+  #bg .tick { position: absolute; top: 1386px; width: 3px; height: 26px; background: var(--ac); opacity: .55; }
+  #bg .sq { position: absolute; width: 16px; height: 16px; background: var(--ac); opacity: .8; }
+  #gl { z-index: 1; }
+  #fg { z-index: 2; }
+  .ico { position: absolute; left: 62px; top: 72px; width: 120px; height: 120px; border-radius: 50%; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,.6); }
+  .ico img { width: 100%; height: 100%; }
+  .tit { position: absolute; left: 0; right: 0; top: 288px; text-align: center; font-family: "Inter", sans-serif; font-weight: 900; letter-spacing: -3px; line-height: .98; text-shadow: 7px 7px 0 #000; }
+  .tit .a { font-size: 112px; color: var(--bone); }
+  .tit .b { font-size: 158px; color: var(--ac); }
+  .box { position: absolute; width: 230px; height: 230px; border-radius: 26px; background: linear-gradient(145deg, #0c2d29, #041816); border: 3px solid rgba(47,227,196,.55);
+         box-shadow: 0 18px 40px rgba(0,0,0,.7), inset 0 0 0 2px rgba(0,0,0,.5); display: grid; place-items: center; }
+  .box img { width: 168px; height: 168px; image-rendering: pixelated; filter: drop-shadow(0 6px 6px rgba(0,0,0,.6)); }
+  .mood { position: absolute; width: 118px; height: 118px; border-radius: 50%; background: radial-gradient(#ffffff, #dfe9e7); box-shadow: 0 8px 22px rgba(0,0,0,.6); display: grid; place-items: center; }
+  .mood img { width: 78px; height: 78px; image-rendering: pixelated; }
+  .mult { position: absolute; font: 900 74px/1 "Inter", sans-serif; letter-spacing: -2px; padding: 10px 20px 14px; border-radius: 16px; background: var(--ac); color: #021412; box-shadow: 6px 6px 0 #000; }
+  .mult.big { font-size: 96px; background: #9ff7e6; }
+  .ep { position: absolute; right: 64px; top: 1418px; text-align: right; }
+  .ep b { display: block; font: 700 44px/1 var(--mono); letter-spacing: 4px; color: #cfe9e3; margin-right: 8px; }
+  .ep span { display: block; font: 900 176px/1 "Inter", sans-serif; letter-spacing: -6px; color: #101413; -webkit-text-stroke: 9px var(--bone); paint-order: stroke fill; text-shadow: 9px 9px 0 var(--ac); }
+  .tag { position: absolute; left: 60px; top: 1612px; padding: 12px 18px; border: 3px solid var(--ac); background: #021412; font: 800 36px/1 var(--mono); letter-spacing: 5px; color: var(--ac); }
+  .logo { position: absolute; left: 50%; top: 1716px; width: 300px; transform: translateX(-50%); filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
+</style></head>
+<body><div id="main">
+<div id="bg"><div class="rain"></div>
+  <div class="barra"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="tick" style="left:150px"></div><div class="tick" style="left:330px"></div><div class="tick" style="left:750px"></div><div class="tick" style="left:930px"></div>
+  <div class="sq" style="left:640px;top:560px"></div><div class="sq" style="left:976px;top:1290px"></div><div class="sq" style="left:118px;top:1030px;width:12px;height:12px"></div>
+  <div class="linha"></div></div>
+<canvas id="gl" width="1080" height="1920"></canvas><div id="shade"></div>
+<div id="fg">
+  <div class="ico"><img src="./assets/logo/logo-icone-1x1.png"></div>
+  <div class="tit"><div class="a">LIVRO NÃO</div><div class="b">DÁ NÍVEL</div></div>
+  <div class="mood" style="left:96px;top:690px"><img src="./assets/items/Item_GlassesReading.png"></div>
+  <div class="mood" style="left:872px;top:660px"><img src="./assets/items/trait_fastreader.png"></div>
+  <div class="mult" style="left:78px;top:880px;transform:rotate(-7deg)">×3</div>
+  <div class="mult big" style="left:800px;top:880px;transform:rotate(6deg)">×16</div>
+  <div class="box" style="left:44px;top:1150px;transform:rotate(-8deg)"><img src="./assets/items/Item_Book8.png"></div>
+  <div class="box" style="left:790px;top:1110px;transform:rotate(7deg);width:200px;height:200px"><img src="./assets/items/Item_Hammer.png" style="width:146px;height:146px"></div>
+  <div class="ep"><b>EP</b><span>19</span></div>
+  <div class="tag">HABILIDADES ■□□</div>
+  <img class="logo" src="./assets/logo/logo-horizontal-3x1.png">
+</div></div>
+<script>window.CAPA = 1;</script>
+<script src="./runtime/vendor/gsap.min.js"></script><script src="./runtime/motion.js"></script>
+<script src="./ep19.cfg.js"></script><script src="./ep-core.js"></script>
+<script type="module" src="./ep19.js"></script></body></html>

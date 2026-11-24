@@ -100,7 +100,7 @@ export async function launchChrome({ args = [], width = 1920, height = 1080, hea
     '--disable-sync', '--hide-scrollbars', '--mute-audio', '--force-color-profile=srgb', '--disable-dev-shm-usage',
     '--autoplay-policy=no-user-gesture-required', '--disable-renderer-backgrounding', '--disable-background-timer-throttling',
     '--disable-backgrounding-occluded-windows', '--disable-features=Translate,MediaRouter,OptimizationHints',
-    ...(process.env.PZ_GPU ? ['--enable-gpu-rasterization', '--use-angle=d3d11'] : ['--enable-unsafe-swiftshader']), '--ignore-gpu-blocklist', '--disable-popup-blocking', ...args, 'about:blank',
+    ...(process.env.PZ_GPU ? ['--enable-gpu-rasterization', '--use-angle=d3d11', '--force_high_performance_gpu'] : ['--enable-unsafe-swiftshader']), '--ignore-gpu-blocklist', '--disable-popup-blocking', ...args, 'about:blank',
   ].filter(Boolean);
   const proc = spawn(exe, flags, { stdio: ['ignore', 'ignore', 'pipe'] });
   let dead = false, errTail = '';

@@ -142,7 +142,12 @@ function clipPose(h, name, f, loop = true, up = null) { const c = MODELS.clips[n
   for (const b of h.pz.order) { const two = c2 && UPPER.test(b.name), d = (two ? c2 : c).b[b.name], par = b.parent; const ff = two ? f2 : f, i0 = Math.floor(ff), k = ff - i0;
     if (d) { const nr = d.r.length / 4, a = Math.min(i0, nr - 1), a2 = Math.min(i0 + 1, nr - 1); _qa.fromArray(d.r, a * 4); _qb.fromArray(d.r, a2 * 4); b.quaternion.copy(_qa).slerp(_qb, k).conjugate();
       const nt = d.t.length / 3; if (nt) { const t = Math.min(i0, nt - 1), t2 = Math.min(i0 + 1, nt - 1); b.position.set(d.t[t * 3] + (d.t[t2 * 3] - d.t[t * 3]) * k, d.t[t * 3 + 1] + (d.t[t2 * 3 + 1] - d.t[t * 3 + 1]) * k, d.t[t * 3 + 2] + (d.t[t2 * 3 + 2] - d.t[t * 3 + 2]) * k); if (b.name === 'Bip01') { b.position.x = 0; b.position.y = 0; } } b.scale.setScalar(1); }
-    b.updateMatrix(); b.matrixWorld.multiplyMatrices(par.matrixWorld, b.matrix); } }
+    b.updateMatrix(); b.matrixWorld.multiplyMatrices(par.matrixWorld, b.matrix);
+    if (h.olhar && OLHAR[b.name]) { _p.setFromMatrixPosition(b.matrixWorld); _m.makeRotationY(h.olhar * OLHAR[b.name]); _m.setPosition(_p.clone().sub(_p.clone().applyMatrix4(_m)));
+      b.matrixWorld.premultiply(_m); } } }
+// h.olhar (radianos): vira a cabeça para os lados POR CIMA da animação do jogo (procurar olhando em volta no modo de busca).
+// Dividido entre peito, pescoço e cabeça como no corpo de verdade; gira em volta do eixo vertical do mundo, no lugar de cada osso.
+const OLHAR = { Bip01_Spine1: .2, Bip01_Neck: .35, Bip01_Head: .45 };
 export function sync(h) { if (!h.g.visible) return; h.g.updateMatrixWorld(true); const { order, s } = h.pz;
   if (h.clip) { clipPose(h, h.clip[0], h.clip[1], h.clip[2] !== false, h.clip[3]); return; }
   for (const b of order) { const par = b.parent, d = b.userData.drv;

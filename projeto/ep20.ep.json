@@ -9,20 +9,435 @@
  "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
  "sfx": [
   [
-   "JL_MalePlayer_SleepingNoises_01",
+   "BH_MalePlayer_SubtleBoredSigh_01",
    {
     "f": 0,
+    "dt": 0.4
+   },
+   -14,
+   {}
+  ],
+  [
+   "JL_MalePlayer_ExerciseGrunts_01",
+   {
+    "f": 1,
+    "dt": 0.7
+   },
+   -18,
+   {}
+  ],
+  [
+   "male_outofbreath_01",
+   {
+    "f": 1,
+    "dt": 3.0
+   },
+   -16,
+   {}
+  ],
+  [
+   "BH_MalePlayer_SubtleSadSigh_01",
+   {
+    "f": 1,
+    "dt": 6.0
+   },
+   -16,
+   {}
+  ],
+  [
+   "zombie_vocal_B_aggro_V2_01",
+   {
+    "f": 2,
     "dt": 0.3
    },
-   -20
+   -18,
+   {}
+  ],
+  [
+   "batSwing",
+   {
+    "f": 2,
+    "dt": 1.45
+   },
+   -12,
+   {}
+  ],
+  [
+   "bathit",
+   {
+    "f": 2,
+    "dt": 1.6
+   },
+   -12,
+   {}
+  ],
+  [
+   "zombiehit1",
+   {
+    "f": 2,
+    "dt": 1.65
+   },
+   -14,
+   {}
+  ],
+  [
+   "male_outofbreath_01",
+   {
+    "f": 2,
+    "dt": 2.8
+   },
+   -16,
+   {}
+  ],
+  [
+   "batSwing",
+   {
+    "f": 2,
+    "dt": 4.78
+   },
+   -12,
+   {}
+  ],
+  [
+   "bathit",
+   {
+    "f": 2,
+    "dt": 4.93
+   },
+   -12,
+   {}
+  ],
+  [
+   "zombiehit2",
+   {
+    "f": 2,
+    "dt": 4.98
+   },
+   -14,
+   {}
+  ],
+  [
+   "PZ_WoodFoot_01",
+   {
+    "f": 3,
+    "dt": 0.15
+   },
+   -20,
+   {}
+  ],
+  [
+   "PZ_WoodFoot_01",
+   {
+    "f": 3,
+    "dt": 0.5
+   },
+   -20,
+   {}
+  ],
+  [
+   "PZ_WoodFoot_01",
+   {
+    "f": 3,
+    "dt": 0.85
+   },
+   -20,
+   {}
+  ],
+  [
+   "thump1",
+   {
+    "f": 3,
+    "dt": 1.75
+   },
+   -22,
+   {}
+  ],
+  [
+   "male_outofbreath_01",
+   {
+    "f": 3,
+    "dt": 2.1
+   },
+   -15,
+   {}
+  ],
+  [
+   "JL_MalePlayer_SleepingNoises_01",
+   {
+    "f": 4,
+    "dt": 0.4
+   },
+   -18,
+   {}
+  ],
+  [
+   "JL_MalePlayer_SleepingNoises_01",
+   {
+    "f": 4,
+    "dt": 6.4
+   },
+   -20,
+   {}
+  ],
+  [
+   "BH_MalePlayer_SubtleSadSigh_01",
+   {
+    "f": 4,
+    "dt": 10.8
+   },
+   -14,
+   {}
+  ],
+  [
+   "zombierand1",
+   {
+    "f": 5,
+    "dt": 0.4
+   },
+   -18,
+   {}
+  ],
+  [
+   "male_heavybreathpanic",
+   {
+    "f": 5,
+    "dt": 2.6
+   },
+   -17,
+   {}
+  ],
+  [
+   "object_fence_wood_thump_low_damage_02",
+   {
+    "f": 5,
+    "dt": 0.07
+   },
+   -17,
+   {}
+  ],
+  [
+   "object_fence_wood_thump_low_damage_02",
+   {
+    "f": 5,
+    "dt": 1.2
+   },
+   -17,
+   {}
+  ],
+  [
+   "object_fence_wood_thump_low_damage_02",
+   {
+    "f": 5,
+    "dt": 2.33
+   },
+   -17,
+   {}
+  ],
+  [
+   "object_fence_wood_thump_low_damage_02",
+   {
+    "f": 5,
+    "dt": 3.47
+   },
+   -17,
+   {}
+  ],
+  [
+   "object_fence_wood_thump_low_damage_02",
+   {
+    "f": 5,
+    "dt": 4.6
+   },
+   -17,
+   {}
+  ],
+  [
+   "object_fence_wood_thump_low_damage_02",
+   {
+    "f": 5,
+    "dt": 5.73
+   },
+   -17,
+   {}
+  ],
+  [
+   "PZ_OpenBag",
+   {
+    "f": 6,
+    "dt": 0.4
+   },
+   -18,
+   {}
+  ],
+  [
+   "PZ_Swallowing",
+   {
+    "f": 6,
+    "dt": 1.7
+   },
+   -14,
+   {}
+  ],
+  [
+   "BH_MalePlayer_SubtleReliefSigh_01",
+   {
+    "f": 6,
+    "dt": 3.6
+   },
+   -16,
+   {}
+  ],
+  [
+   "PZ_OpenBag",
+   {
+    "f": 7,
+    "dt": 0.3
+   },
+   -18,
+   {}
+  ],
+  [
+   "PZ_Swallowing",
+   {
+    "f": 7,
+    "dt": 1.85
+   },
+   -14,
+   {}
+  ],
+  [
+   "BH_MalePlayer_SubtleBoredSigh_01",
+   {
+    "f": 7,
+    "dt": 3.5
+   },
+   -15,
+   {}
   ],
   [
    "doorclose",
    {
     "f": 8,
-    "dt": 0.4
+    "dt": 0.25
    },
-   -16
+   -14,
+   {}
+  ],
+  [
+   "lightswitch",
+   {
+    "f": 8,
+    "dt": 0.85
+   },
+   -16,
+   {}
+  ],
+  [
+   "PZ_WoodFoot_01",
+   {
+    "f": 8,
+    "dt": 1.25
+   },
+   -20,
+   {}
+  ],
+  [
+   "PZ_WoodFoot_01",
+   {
+    "f": 8,
+    "dt": 1.61
+   },
+   -20,
+   {}
+  ],
+  [
+   "PZ_WoodFoot_01",
+   {
+    "f": 8,
+    "dt": 1.97
+   },
+   -20,
+   {}
+  ],
+  [
+   "PZ_WoodFoot_01",
+   {
+    "f": 8,
+    "dt": 2.33
+   },
+   -20,
+   {}
+  ],
+  [
+   "PZ_WoodFoot_01",
+   {
+    "f": 8,
+    "dt": 2.69
+   },
+   -20,
+   {}
+  ],
+  [
+   "JL_MalePlayer_SleepingNoises_01",
+   {
+    "f": 8,
+    "dt": 4.9
+   },
+   -19,
+   {}
+  ],
+  [
+   "ambientOutsideDayBirds",
+   {
+    "f": 8,
+    "dt": 7.04
+   },
+   -24,
+   {
+    "fin": 0.4
+   }
+  ],
+  [
+   "JL_MalePlayer_ExerciseGrunts_01",
+   {
+    "f": 8,
+    "dt": 7.34
+   },
+   -18,
+   {}
+  ],
+  [
+   "ambientOutsideDayBirds",
+   {
+    "f": 9,
+    "dt": 0
+   },
+   -25,
+   {
+    "trim": [
+     0,
+     9.3
+    ],
+    "fout": 0.6
+   }
+  ],
+  [
+   "levelup",
+   {
+    "f": 9,
+    "dt": 0.45
+   },
+   -17,
+   {}
+  ],
+  [
+   "levelup",
+   {
+    "f": 9,
+    "dt": 3.9
+   },
+   -17,
+   {}
   ]
  ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
