@@ -30,18 +30,29 @@ const RUA = rua(300, 0), RC = RUA.C, R = RC.at;
 
 const BAT = PZ.attach(S, 'Bip01_Prop1', PZ.propMesh('w_bat', 'baseballbat'));
 S.g.traverse(o => { o.renderOrder = 2; });
-const SY = .66;
+const SY = .64;
 // cama: cabeceira em (2,0), pé em (2,1); deitado com a pelve no meio (Bob_Asleep: cabeça a −0,58, pés a +0,98 da pelve)
 const LEITO = A(2, .35), BEIRA = A(2.95, .7);
 // cadeira (frente S): pelve no meio do assento; na frente = onde os pés ficam ao sentar (+0,55)
 const SEAT = A(5, 3.05), FRONT = A(5, 3.62), SIT = 31;
 const PORTA = A(.6, 4);
 // ---- personagem: animação do jogo + contato (regra 4.7) ----
-const clip = (name, lf, o = {}) => { pose(S, Object.assign({ ry: .8, clip: [name, lf, o.loop !== false, o.up] }, o)); S.bat.visible = false; S.hammer.visible = false;
-  BAT.visible = !!o.bat; S.olhar = 0; (S.userData ??= {}).assento = o.assento;
-  if (o.cama === 'apoiar') PZ.apoiar(S, Q.colchao); else if (o.cama) { S.g.position.y = 0; S.userData.apoio = Q.colchao; } else PZ.apoiar(S, o.base ?? 0); };
-const deitado = (lf, o = {}) => { Q.cama.sobrepor(true); clip('s_asleep', lf, { x: LEITO.x, z: LEITO.z, ry: 0, cama: 'apoiar', ...o }); };
-const deitar = (lf) => { Q.cama.sobrepor(true); const k = easeOut(clamp(lf / 40)); clip('s_getinbed', lf, { x: lerp(BEIRA.x, LEITO.x, k), z: lerp(BEIRA.z, LEITO.z, k), ry: Math.PI / 2, loop: false, cama: true }); };
+// v5 (24/11, Jose: "flutuando na cama"): as animações de cama do jogo (Bob_GetInBed → Bob_AwakeToAsleep → Bob_Asleep) já trazem a altura da
+// cama do jogo (pelve deitada a 0,77 com a raiz no chão) — o corpo fica com a raiz no chão (y = 0), sem "apoiar" no topo da caixa do desenho
+// (a caixa mede o ponto mais alto do sprite e deixava o corpo 0,2 acima do colchão). A sombra redonda some na cama.
+const clip = (name, lf, o = {}) => { pose(S, Object.assign({ ry: .8, clip: [name, lf, o.loop !== false, o.up, o.mix] }, o)); S.bat.visible = false; S.hammer.visible = false;
+  BAT.visible = !!o.bat; S.olhar = 0; (S.userData ??= {}).assento = o.assento; S.shadow.visible = !o.cama;
+  if (o.cama) { S.g.position.y = 0; S.userData.apoio = CAMA_JOGO; } else PZ.apoiar(S, o.base ?? 0); };
+const deitado = (lf, o = {}) => { Q.cama.sobrepor(true); clip('s_asleep', lf, { x: LEITO.x, z: LEITO.z, ry: 0, cama: true, ...o }); };
+// deitar em sequência, como no jogo: senta na beira e põe as pernas na cama (Bob_GetInBed, 46 q.) → deita (Bob_AwakeToAsleep, 37 q.) → dorme
+// (o fim de cada animação é o começo da próxima: GetInBed é feita para o corpo virado 90° a mais que as outras duas)
+const GETIN = 46, TOSLEEP = 37;
+// altura do colchão nas animações do jogo (Bob_Asleep: costas a ~0,54 com a raiz no chão). A caixa do desenho vai até o ponto mais alto do sprite (0,76).
+const CAMA_JOGO = .54;
+const deitar = (lf) => { Q.cama.sobrepor(true);
+  if (lf < GETIN) { const k = easeOut(clamp(lf / 40)); clip('s_getinbed', lf, { x: lerp(BEIRA.x, LEITO.x, k), z: lerp(BEIRA.z, LEITO.z, k), ry: Math.PI / 2, loop: false, cama: true }); }
+  else if (lf < GETIN + TOSLEEP) clip('s_tosleep', lf - GETIN, { x: LEITO.x, z: LEITO.z, ry: 0, loop: false, cama: true });
+  else deitado(lf - GETIN - TOSLEEP); };
 const sentar = (lf, sitIn = true) => { Q.cadeira.sobrepor(true);
   if (sitIn && lf < SIT) { const k = easeOut(clamp(lf / (SIT - 4))); clip('s_satchairin', lf, { x: lerp(FRONT.x, SEAT.x, k), z: lerp(FRONT.z, SEAT.z, k), ry: 0, loop: false }); return; }
   const l = sitIn ? lf - SIT : lf; clip('s_satchair', l, { x: SEAT.x, z: SEAT.z, ry: 0, up: ['s_breath', l], assento: Q.cadeira.userData.hs }); };
@@ -89,13 +100,15 @@ run([
   (lf, f, len, c) => { light('dawn'); clima('', 0); KC.show(); NOITE2.mostrar(false); TARDE.set(f); cansaco(0); clarao(0); const p = K(7.4, 1.7);
     if (lf < 100) clip('s_pills', lf + 5, { x: p.x, z: p.z, ry: .9 }); else clip('s_yawn', lf - 100, { x: p.x, z: p.z, ry: .9 });
     camOn(c, p.x - .1, p.z, 6.6, SY); },
-  // 8 — noite chegando com Sonolência: tranca a porta, vai até a melhor cama, deita (Bob_GetInBed) e dorme; amanhece e acorda inteiro
-  (lf, f, len, c) => { const t1 = 36, t2 = 92, t3 = 138, t4 = len * .86;
+  // 8 — noite chegando com Sonolência: tranca a porta, anda até a cama (chega de frente para a beira), senta, deita e dorme; amanhece e acorda inteiro
+  //     v5: tempo de caminhada = distância ÷ velocidade do Bob_Walk (antes ele não chegava e "pulava" para a cama)
+  (lf, f, len, c) => { const ROTA = [[PORTA.x + .5, PORTA.z], [BEIRA.x + .35, 2.5 + QC.z(0)], [BEIRA.x + .35, BEIRA.z]];
+    const dist = ROTA.slice(1).reduce((a, p, i) => a + Math.hypot(p[0] - ROTA[i][0], p[1] - ROTA[i][1]), 0), t1 = 12, t2 = t1 + Math.ceil(dist / VEL.s_walk * 30), tv = t2 + 10, t4 = len * .9;
     if (lf < t4) noite(f); else manha(f);
-    if (lf < t1) { clip('s_idle', lf, { x: PORTA.x, z: PORTA.z, ry: -Math.PI / 2 }); camOn(c, PORTA.x + .8, PORTA.z - .3, 6.8, SY); }
-    else if (lf < t2) { const q = andar([[PORTA.x, PORTA.z], [BEIRA.x, 2.6 + QC.z(0)], [BEIRA.x, BEIRA.z]], lf - t1); camOn(c, q.x, q.z, 6.8, SY); }
-    else if (lf < t3) { deitar(lf - t2); camOn(c, LEITO.x + .5, LEITO.z + .4, 6.4, SY); }
-    else if (lf < t4) { deitado(lf); camOn(c, LEITO.x + .5, LEITO.z + .4, lerp(6.4, 5.8, clamp((lf - t3) / 60)), SY); }
+    if (lf < t1) { clip('s_idle', lf, { x: ROTA[0][0], z: ROTA[0][1], ry: -Math.PI / 2 }); camOn(c, PORTA.x + 1.0, PORTA.z - .4, 6.8, SY); }
+    else if (lf < t2) { const q = andar(ROTA, lf - t1); camOn(c, lerp(PORTA.x + 1.0, LEITO.x + .5, clamp((lf - t1) / (t2 - t1))), lerp(PORTA.z - .4, LEITO.z + .4, clamp((lf - t1) / (t2 - t1))), 6.8, .56); }
+    else if (lf < tv) { const k = easeOut(clamp((lf - t2) / 10)); clip('s_idle', lf, { x: lerp(BEIRA.x + .35, BEIRA.x, k), z: BEIRA.z, ry: lerp(Math.PI, Math.PI / 2, k) }); camOn(c, LEITO.x + .5, LEITO.z + .4, 6.6, SY); }   // vira de costas para a cama
+    else if (lf < t4) { deitar(lf - tv); camOn(c, LEITO.x + .5, LEITO.z + .4, lerp(6.6, 5.8, clamp((lf - tv) / 90)), SY); }
     else { clip('s_stretch', lf - t4, { x: BEIRA.x + .2, z: BEIRA.z + .6, ry: .6, loop: false }); camOn(c, BEIRA.x, BEIRA.z + .3, 6.4, SY); }
     clarao(Math.max(1 - Math.abs(lf - t4) / 7, 0), '#000'); },
   // 9 — traços da criação (no cfg, com ícone e valor); manhã, ele bem disposto

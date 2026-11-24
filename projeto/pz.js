@@ -136,12 +136,25 @@ const _qa = new THREE.Quaternion(), _qb = new THREE.Quaternion();
 // h.clip[3] = ['s_read', quadro, loop]: tronco, braços e cabeça de OUTRA animação (ex.: sentado na cadeira + lendo), como o jogo mistura
 const UPPER = /Spine1|Neck|Head|Clavicle|UpperArm|Forearm|_Hand|Finger|Prop/;
 const frameOf = (c, f, loop) => { const n = c.n; return loop ? ((f % (n - 1)) + (n - 1)) % (n - 1) : Math.max(0, Math.min(n - 1, f)); };
-function clipPose(h, name, f, loop = true, up = null) { const c = MODELS.clips[name]; if (!c) throw new Error('pz: animação ausente: ' + name);
+// mix = [outra, quadro, loop, peso 0..1, giro]: MISTURA duas animações do jogo (transição suave, ex.: sentado na cama → deitado), como o jogo faz
+// entre estados. "giro" (rad) = diferença de rumo entre as duas (a outra foi feita para um corpo virado "giro" a mais que este).
+const _qm = new THREE.Quaternion(), _pm = new THREE.Vector3(), _qd = new THREE.Quaternion(), _qy = new THREE.Quaternion(), _Y = new THREE.Vector3(0, 1, 0);
+const sample = (d, ff, q, p) => { const i0 = Math.floor(ff), k = ff - i0, nr = d.r.length / 4, a = Math.min(i0, nr - 1), a2 = Math.min(i0 + 1, nr - 1);
+  _qa.fromArray(d.r, a * 4); _qb.fromArray(d.r, a2 * 4); q.copy(_qa).slerp(_qb, k).conjugate();
+  const nt = d.t.length / 3; if (!nt) return false; const t = Math.min(i0, nt - 1), t2 = Math.min(i0 + 1, nt - 1);
+  p.set(d.t[t * 3] + (d.t[t2 * 3] - d.t[t * 3]) * k, d.t[t * 3 + 1] + (d.t[t2 * 3 + 1] - d.t[t * 3 + 1]) * k, d.t[t * 3 + 2] + (d.t[t2 * 3 + 2] - d.t[t * 3 + 2]) * k); return true; };
+function clipPose(h, name, f, loop = true, up = null, mix = null) { const c = MODELS.clips[name]; if (!c) throw new Error('pz: animação ausente: ' + name);
   const c2 = up && MODELS.clips[up[0]]; if (up && !c2) throw new Error('pz: animação ausente: ' + up[0]);
+  const cm = mix && MODELS.clips[mix[0]]; if (mix && !cm) throw new Error('pz: animação ausente: ' + mix[0]);
+  const fm = cm ? frameOf(cm, mix[1], mix[2] !== false) : 0, wm = cm ? Math.max(0, Math.min(1, mix[3])) : 0;
+  if (cm && mix[4]) { const A = h.pz.order[0].parent.quaternion; _qy.setFromAxisAngle(_Y, mix[4]); _qd.copy(A).invert().multiply(_qy).multiply(A); }
   f = frameOf(c, f, loop); const f2 = c2 ? frameOf(c2, up[1], up[2] !== false) : 0;
   for (const b of h.pz.order) { const two = c2 && UPPER.test(b.name), d = (two ? c2 : c).b[b.name], par = b.parent; const ff = two ? f2 : f, i0 = Math.floor(ff), k = ff - i0;
     if (d) { const nr = d.r.length / 4, a = Math.min(i0, nr - 1), a2 = Math.min(i0 + 1, nr - 1); _qa.fromArray(d.r, a * 4); _qb.fromArray(d.r, a2 * 4); b.quaternion.copy(_qa).slerp(_qb, k).conjugate();
       const nt = d.t.length / 3; if (nt) { const t = Math.min(i0, nt - 1), t2 = Math.min(i0 + 1, nt - 1); b.position.set(d.t[t * 3] + (d.t[t2 * 3] - d.t[t * 3]) * k, d.t[t * 3 + 1] + (d.t[t2 * 3 + 1] - d.t[t * 3 + 1]) * k, d.t[t * 3 + 2] + (d.t[t2 * 3 + 2] - d.t[t * 3 + 2]) * k); if (b.name === 'Bip01') { b.position.x = 0; b.position.y = 0; } } b.scale.setScalar(1); }
+    if (cm && wm > 0 && cm.b[b.name]) { const tem = sample(cm.b[b.name], fm, _qm, _pm);
+      if (mix[4] && b === h.pz.order[0]) { _qm.premultiply(_qd); _pm.applyQuaternion(_qd); }
+      b.quaternion.slerp(_qm, wm); if (tem) b.position.lerp(_pm, wm); }
     b.updateMatrix(); b.matrixWorld.multiplyMatrices(par.matrixWorld, b.matrix);
     if (h.olhar && OLHAR[b.name]) { _p.setFromMatrixPosition(b.matrixWorld); _m.makeRotationY(h.olhar * OLHAR[b.name]); _m.setPosition(_p.clone().sub(_p.clone().applyMatrix4(_m)));
       b.matrixWorld.premultiply(_m); } } }
@@ -149,7 +162,7 @@ function clipPose(h, name, f, loop = true, up = null) { const c = MODELS.clips[n
 // Dividido entre peito, pescoço e cabeça como no corpo de verdade; gira em volta do eixo vertical do mundo, no lugar de cada osso.
 const OLHAR = { Bip01_Spine1: .2, Bip01_Neck: .35, Bip01_Head: .45 };
 export function sync(h) { if (!h.g.visible) return; h.g.updateMatrixWorld(true); const { order, s } = h.pz;
-  if (h.clip) { clipPose(h, h.clip[0], h.clip[1], h.clip[2] !== false, h.clip[3]); return; }
+  if (h.clip) { clipPose(h, h.clip[0], h.clip[1], h.clip[2] !== false, h.clip[3], h.clip[4]); return; }
   for (const b of order) { const par = b.parent, d = b.userData.drv;
     if (d) { d.D.matrixWorld.decompose(_p, _q, _s); _p.copy(d.off).applyMatrix4(d.D.matrixWorld); _q.multiply(d.A); _m.compose(_p, _q, _s.multiplyScalar(s));
       b.matrix.copy(_i.copy(par.matrixWorld).invert()).multiply(_m); b.matrix.decompose(b.position, b.quaternion, b.scale); b.matrixWorld.copy(_m); }

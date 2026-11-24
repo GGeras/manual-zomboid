@@ -25,7 +25,7 @@ window.EP = {
     const { F, C, M, el } = H, G = '#8fe04a', RD = '#ff3d55', B = '#efe5cf', Y = '#ffb020';
     const P = (i, k) => Math.round(C(i) + k * ((i + 1 < F.length ? F[i + 1] : window.__VO_END) - F[i]));
     let n = 0; const nid = p => 'k' + p + (n++);
-    const tag = (k, txt, col, at, end, top = 560) => { const id = H.chip(k, txt, at, `left:0;right:0;margin:0 auto;width:max-content;max-width:800px;white-space:nowrap;text-align:center;top:${top}px;color:${col};font:800 44px/1.15 var(--mono);padding:16px 28px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
+    const tag = (k, txt, col, at, end, top = 560) => { const id = H.chip(k, txt, at, `left:60px;width:max-content;max-width:680px;white-space:nowrap;text-align:left;top:${top}px;color:${col};font:800 44px/1.15 var(--mono);padding:16px 28px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
     const row = (k, list, o = {}) => H.items(k, list, Object.assign({ top: 660, size: 150, gap: 26 }, o));
     const pop = (id, at, from = { x: 80, opacity: 0 }) => M.enter('#' + id, { at, frames: 9, ease: 'snapSettle', from });
     el('style', null, `.moodle{left:770px;width:150px;height:150px}.mtag{left:700px;width:290px;font-size:28px;margin-top:30px}
@@ -67,10 +67,10 @@ window.EP = {
     row(7, [["Item_PillsCaffeine", "CAFEÍNA", P(7, 0.10)]], { top: 580 });
     tag(7, "NÃO SUBSTITUI A CAMA", RD, P(7, 0.55), null, 800);
     // 8 — exemplo: sonolência → tranca → melhor cama → acorda inteiro
-    M0(8, 'pz:Mood_Sleepy', "SONOLÊNCIA", P(8, 0.06), false, P(8, 0.84));
+    M0(8, 'pz:Mood_Sleepy', "SONOLÊNCIA", P(8, 0.06), false, P(8, 0.90));
     tag(8, "TRANCA A CASA", B, P(8, 0.08), P(8, 0.36));
     row(8, [["Item_Mattress", "MELHOR CAMA", P(8, 0.38)]], { top: 580 });
-    tag(8, "ACORDA INTEIRO ✓", G, P(8, 0.86), null);
+    tag(8, "ACORDA INTEIRO ✓", G, P(8, 0.90), null, 800);
     // 9 — traços da criação do personagem: ícone, nome, o que faz e o VALOR em pontos
     const cr = el('div', 'crt', `<div class="hd">TRAÇOS · CRIAÇÃO DO PERSONAGEM</div>
       <div class="tl" id="t9a"><img src="./assets/items/trait_insomniac.png"><div><div class="nm">SONO LEVE</div><div class="ds">cansaço sai mais devagar dormindo</div></div><span class="v" style="color:${RD}">+6</span></div>

@@ -94,7 +94,7 @@ export function casaDentro(x0, z0, o = {}) {
   const C = cena(x0, z0), P = PAR[o.parede || 'bege'];
   C.chao(PISO.grama, -10, -10, 18, 16, { seed: 9 });
   C.chao(PISO.madeira, 0, 0, 5, 7, { y: .02 }); C.chao(PISO.cozinha, 6, 0, 9, 7, { y: .02 });
-  C.chao('floors_rugs_01_0', 2, 4, 2, 4, { y: .03 });
+  [['floors_rugs_01_6', 2, 4], ['floors_rugs_01_7', 3, 4], ['floors_rugs_01_0', 2, 5], ['floors_rugs_01_1', 3, 5]].forEach(([n, i, j]) => C.chao(n, i, j, i, j, { y: .03 }));   // tapete 2×2 inteiro (4 peças do jogo)
   const winN = o.janelaN ?? 3, winW = o.janelaW ?? 3;
   const win2 = o.janelaN2 ?? -1;   // 2ª janela na parede do fundo (cozinha), opcional
   for (let i = 0; i <= 9; i++) C.parede('N', P[i === winN || i === win2 ? 4 : 1], i, 0);
@@ -350,7 +350,8 @@ export function quarto(x0, z0, o = {}) {
   const C = cena(x0, z0), P = PAR.bege, porta = 4, jan = 4;
   C.chao(PISO.grama, -8, -8, 14, 14, { seed: 5 });
   C.chao(PISO.madeira, 0, 0, 6, 5, { y: .02 });
-  C.chao('floors_rugs_01_0', 2, 2, 3, 3, { y: .03 });
+  // tapete 2×2 do jogo: 4 peças diferentes (cantos NW/NE/SW/SE) formam UM tapete — antes era a mesma peça repetida e aparecia a borda de cada ladrilho
+  [['floors_rugs_01_6', 2, 2], ['floors_rugs_01_7', 3, 2], ['floors_rugs_01_0', 2, 3], ['floors_rugs_01_1', 3, 3]].forEach(([n, i, j]) => C.chao(n, i, j, i, j, { y: .03 }));
   for (let i = 0; i <= 6; i++) C.parede('N', P[i === jan ? 4 : 1], i, 0);
   for (let j = 0; j <= 5; j++) C.parede('W', j === porta ? 'walls_interior_house_01_46' : P[0], 0, j);
   C.parede('N', P[2], 0, 0);
@@ -364,7 +365,8 @@ export function quarto(x0, z0, o = {}) {
   // cama: cabeceira (assento com encosto N) + pé; colchão na altura do jogo
   // altura do colchão = a do próprio desenho do pé da cama (caixa automática); a cabeceira usa a mesma altura → as duas peças casam
   const [CBC, CPE] = o.cama || ['furniture_bedding_01_9', 'furniture_bedding_01_8'];   // o.cama = [cabeceira, pé] (EP20 v4: cama boa de madeira 27/26)
-  const PE = C.obj(CPE, 2, 1), colchao = PE.userData.h, CAMA = C.assento(CBC, 2, 0, { encosto: 'N', hs: colchao });
+  // 24/11 (Jose: "cama rachada no meio"): as duas caixas vão até a junta (j = 0,5) — antes sobrava 0,1 entre elas e o desenho "quebrava" ao meio
+  const PE = C.obj(CPE, 2, 1, { d: 1.0, dz: -.03 }), colchao = PE.userData.h, CAMA = C.assento(CBC, 2, 0, { encosto: 'N', hs: colchao, d: 1.0, dz: .05 });
   C.obj('furniture_storage_02_33', 5, 0, { w: .9, d: .7 });                 // guarda-roupa encostado na parede N (frente S)
   C.obj('lighting_indoor_01_on_58', 1, 0, { w: .35, d: .35 });              // abajur de pé ao lado da cabeceira
   const CAD = C.assento('furniture_seating_indoor_01_57', 5, 3, { encosto: 'N', hs: .486 });   // cadeira (frente S) — Bob_SatChair: nádega a 0,486
