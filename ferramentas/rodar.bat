@@ -26,6 +26,9 @@ goto gpu_ok
 :gpu_forcado
 if "%PZ_GPU%"=="0" (set "PZ_GPU="& set "MODO=processador, forcado") else (set PZ_GPU=1& set "MODO=placa, forcado")
 :gpu_ok
+rem placa NVIDIA detectada -> liga encode final por hardware (NVENC) no render.mjs
+echo %PLACA%| findstr /i "NVIDIA" >nul
+if not errorlevel 1 set "PZ_NVENC=1"
 if "%RENDER_JOBS%"=="" set RENDER_JOBS=%JOBS_AUTO%
 echo Render: %MODO% · %RENDER_JOBS% em paralelo · %PLACA%
 

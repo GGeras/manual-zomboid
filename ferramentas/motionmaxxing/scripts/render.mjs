@@ -49,7 +49,7 @@ import { launchChrome, parseArgs, die, helpFrom } from './_cdp.mjs';
 const HELP = helpFrom(import.meta.url);
 const { pos, opt } = parseArgs(process.argv.slice(2), {
   help: 'bool', fps: 's', width: 's', height: 's', from: 's', to: 's', duration: 's', audio: 's', crf: 's',
-  preset: 's', scale: 's', format: 's', still: 's', shutter: 's', subframes: 's', grain: 's', 'grain-seed': 's',
+  preset: 's', scale: 's', format: 's', still: 's', shutter: 's', subframes: 's', grain: 's', 'grain-seed': 's', encoder: 's',
 });
 if (opt.help || pos.length < 1) { console.log(HELP); process.exit(opt.help ? 0 : 1); }
 
@@ -199,8 +199,26 @@ const cleanup = async () => { try { await browser?.close(); } catch {} };
   // shutter: N sub-frames per output frame -> 16-bit rgb -> tmix averages N consecutive frames -> keep every Nth (the one that has all N)
   const head = shutterOn ? `format=gbrp16le,tmix=frames=${subframes},select=eq(mod(n\\,${subframes})\\,${subframes - 1}),setpts=PTS-STARTPTS` : 'format=gbrp';
   const tail = grain > 0 ? `,noise=c0s=${Math.max(1, Math.round(grain * 100))}:c0f=t+u:c0_seed=${grainSeed}` : '';
+  // GPU encode: --encoder nvenc, or PZ_NVENC=1 (set automatically by rodar.bat when it detects an NVIDIA card).
+  // Falls back to libx264 (CPU) otherwise - unchanged default, safe on machines without an NVIDIA GPU.
+  let useNvenc = (opt.encoder || '').toLowerCase() === 'nvenc' || process.env.PZ_NVENC === '1';
+  if (useNvenc) {
+    // probe: an old NVIDIA driver makes h264_nvenc fail to open -> warn and fall back to libx264 instead of crashing the render
+    const probe = spawnSync('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', 'color=s=256x256:d=0.1', '-c:v', 'h264_nvenc', '-f', 'null', '-'], { encoding: 'utf8' });
+    if (probe.status !== 0) {
+      const why = (probe.stderr || '').split('\n').find((l) => /driver|nvenc/i.test(l)) || 'h264_nvenc indisponivel';
+      console.error('AVISO: encode na placa (NVENC) falhou -> usando processador (libx264). Motivo: ' + why.trim());
+      useNvenc = false;
+    }
+  }
+  // NVENC only knows p1..p7: translate libx264 preset names (veryfast, medium, slow...) so the same command works on both.
+  const X264_TO_NVENC = { ultrafast: 'p1', superfast: 'p1', veryfast: 'p2', faster: 'p3', fast: 'p4', medium: 'p5', slow: 'p6', slower: 'p7', veryslow: 'p7', placebo: 'p7' };
+  const nvPreset = X264_TO_NVENC[(opt.preset || '').toLowerCase()] || opt.preset || 'p5';
+  const vEnc = useNvenc
+    ? ['-c:v', 'h264_nvenc', '-preset', nvPreset, '-rc', 'vbr', '-cq', String(crf), '-b:v', '0']
+    : ['-c:v', 'libx264', '-preset', opt.preset || 'medium', '-crf', String(crf)];
   args.push('-vf', head + ',scale=trunc(iw/2)*2:trunc(ih/2)*2:out_color_matrix=bt709:out_range=tv:flags=bicubic+accurate_rnd+full_chroma_int,format=yuv420p' + tail,
-    '-c:v', 'libx264', '-preset', opt.preset || 'medium', '-crf', String(crf), '-r', String(fps),
+    ...vEnc, '-r', String(fps),
     '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-color_range', 'tv', '-movflags', '+faststart');
   if (opt.audio) args.push('-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-shortest');
   args.push(outFile);
