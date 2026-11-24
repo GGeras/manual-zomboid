@@ -91,7 +91,7 @@
   "hoodieup_white": "textures/Clothes/Hoodie/HoodieUP_White.png",
   "trousersmesh_denim": "textures/Clothes/Trousers_Mesh/TrousersMesh_Denim.png",
   "jacket_white": "textures/Clothes/Jacket/Jacket_White.png",
-  "schoolbag_black": "textures/Clothes/Bag/SchoolBag_Black.png",
+  "schoolbag_black": "textures/Clothes/Bag/schoolbag_black.png",
   "bighikingbagblue": "textures/Clothes/Bag/BigHikingBagBlue.png",
   "schoolbag_blue": "textures/Clothes/Bag/SchoolBag_Blue.png",
   "bighikingbaggreen": "textures/Clothes/Bag/BigHikingBagGreen.png",
@@ -167,7 +167,13 @@
   "weldermask": "textures/Clothes/Hat/WelderMask.png",
   "book": "textures/Book.png",
   "hacksaw": "textures/Hacksaw.png",
-  "bookred": "textures/WorldItems/BookRed_New.png"
+  "bookred": "textures/WorldItems/BookRed_New.png",
+  "duffelbaggreen": "textures/Clothes/Bag/DuffelBagGreen.png",
+  "hikingbaggreen": "textures/Clothes/Bag/HikingBagGreen.png",
+  "alicepack_green": "textures/Clothes/Bag/ALICEpack_Green.png",
+  "cigarette_lit": "textures/WorldItems/Cigarette_Lit.png",
+  "pillbottle": "textures/PillBottle.png",
+  "cigarettepack": "textures/WorldItems/CigarettePack.png"
  },
  "fbx": {
   "car_normal": [
@@ -252,6 +258,69 @@
   "s_sitground_in": "Bob/Bob_SitGround_In.x",
   "s_sitground": "Bob/Bob_SitGround_Idle.x",
   "s_painhead": "Bob/Bob_EmotePainHead02.x",
-  "z_hitleft": "Zombie_HitReact_HeadLeft.x"
+  "z_hitleft": "Zombie_HitReact_HeadLeft.x",
+  "s_run": "Bob/Bob_Run.x",
+  "s_sprint": "Bob/Bob_Sprint.x",
+  "s_run2h": "Bob/Bob_Run2H_Heavy.x",
+  "s_sprint2h": "Bob/Bob_Sprint2H_Heavy.x",
+  "s_idle2h": "Bob/Bob_Idle2H_Heavy.x",
+  "s_attack2h": "Bob/Bob_Attack2H_Heavy01_Hit.x",
+  "s_stomp": "Bob/Bob_AttackFloorStamp.x",
+  "s_stomp2h": "Bob/Bob_AttackFloorStamp_2Hheavy.x",
+  "s_walk2h": "Bob/Bob_Walk2H_Heavy.x",
+  "s_breath2h": "Bob/Bob_Idle_HeavyBreathing_2Hheavy.x",
+  "s_painarm": "Bob/Bob_EmotePainRightArm.x",
+  "s_painleg": "Bob/Bob_EmotePainRightLeg.x",
+  "s_painarm2h": "Bob/Bob_EmotePainRightArm2H.x",
+  "s_paintorso2h": "Bob/Bob_EmotePainTorso2H.x",
+  "z_floorback": "Zombie_Idle_FloorOnBack.x",
+  "z_headreact_back": "Zombie_HeadReact_OnBack01.x",
+  "z_deathleft": "Zombie_HitDeath_HeadLeft.x",
+  "z_walk3": "Zombie_Walk3.x",
+  "z_walk4": "Zombie_Walk4.x",
+  "s_aimhg": "Bob/Bob_IdleAimHandgun.x",
+  "s_shoothg": "Bob/Bob_AttackHandgun.x",
+  "s_bwdaimhg": "Bob/Bob_WalkBwdAimHandgun.x",
+  "s_reloadhg": "Bob/Bob_Reload_Handgun.x",
+  "s_breathhg": "Bob/Bob_Idle_HeavyBreathing_Hgun.x",
+  "s_idlehg": "Bob/Bob_IdleHandgun.x",
+  "s_smoke": "Bob/Bob_IdleSmoke.x",
+  "s_satwipehead": "Bob/Bob_Emote_Wipe_Sat_Head_1H.x",
+  "s_painhead1": "Bob/Bob_EmotePainHead.x",
+  "s_satbent": "Bob/Bob_Emote_Bent_Double_Sat_1H.x"
+ },
+ "fbxbin": {
+  "bag_school": [
+   "WorldItems/Clothing/SchoolBag_Ground.fbx",
+   0.42
+  ],
+  "bag_duffel": [
+   "WorldItems/Clothing/DuffelBag_Ground.fbx",
+   0.68
+  ],
+  "bag_hiking": [
+   "WorldItems/Clothing/HikingBag_Ground.fbx",
+   0.55
+  ],
+  "bag_bighiking": [
+   "WorldItems/Clothing/BigHikingBag_Ground.fbx",
+   0.66
+  ],
+  "bag_alice": [
+   "WorldItems/Clothing/ALICE_Pack_Ground.fbx",
+   0.6
+  ],
+  "cigarette": [
+   "WorldItems/Cigarette.fbx",
+   0.085
+  ],
+  "pillbottle": [
+   "WorldItems/PillBottle.fbx",
+   0.11
+  ],
+  "cigpack": [
+   "WorldItems/CigarettePack.fbx",
+   0.09
+  ]
  }
 }

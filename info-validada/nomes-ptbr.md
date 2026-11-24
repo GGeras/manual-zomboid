@@ -111,6 +111,7 @@ Nome que não está aqui: confira em `Translate/PTBR` antes de usar e acrescente
 ## Itens (mais)
 | nome no jogo | observação |
 |---|---|
+| Machado de Bombeiro | Base.Axe (ícone Item_Axe, machado vermelho; malha FireAxe.x) — ItemName.json |
 | Mochila Pequena · Bolsa de Viagem · Mochila de Trilha · Mochila Grande de Trilha · Mochila Militar | mochilas |
 | Calmantes · Antidepressivos · Comprimidos Soníferos · Pílulas de Cafeína · Analgésicos | remédios |
 | Revista em Quadrinhos · Revista · Jornal Velho | leitura |
