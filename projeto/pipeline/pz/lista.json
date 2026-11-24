@@ -252,6 +252,25 @@
   "s_sitground_in": "Bob/Bob_SitGround_In.x",
   "s_sitground": "Bob/Bob_SitGround_Idle.x",
   "s_painhead": "Bob/Bob_EmotePainHead02.x",
-  "z_hitleft": "Zombie_HitReact_HeadLeft.x"
+  "z_hitleft": "Zombie_HitReact_HeadLeft.x",
+  "s_run": "Bob/Bob_Run.x",
+  "s_sprint": "Bob/Bob_Sprint.x",
+  "s_run2h": "Bob/Bob_Run2H_Heavy.x",
+  "s_sprint2h": "Bob/Bob_Sprint2H_Heavy.x",
+  "s_idle2h": "Bob/Bob_Idle2H_Heavy.x",
+  "s_attack2h": "Bob/Bob_Attack2H_Heavy01_Hit.x",
+  "s_stomp": "Bob/Bob_AttackFloorStamp.x",
+  "s_stomp2h": "Bob/Bob_AttackFloorStamp_2Hheavy.x",
+  "s_walk2h": "Bob/Bob_Walk2H_Heavy.x",
+  "s_breath2h": "Bob/Bob_Idle_HeavyBreathing_2Hheavy.x",
+  "s_painarm": "Bob/Bob_EmotePainRightArm.x",
+  "s_painleg": "Bob/Bob_EmotePainRightLeg.x",
+  "s_painarm2h": "Bob/Bob_EmotePainRightArm2H.x",
+  "s_paintorso2h": "Bob/Bob_EmotePainTorso2H.x",
+  "z_floorback": "Zombie_Idle_FloorOnBack.x",
+  "z_headreact_back": "Zombie_HeadReact_OnBack01.x",
+  "z_deathleft": "Zombie_HitDeath_HeadLeft.x",
+  "z_walk3": "Zombie_Walk3.x",
+  "z_walk4": "Zombie_Walk4.x"
  }
 }

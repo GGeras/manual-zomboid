@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-24 · jose · EP22 rascunho v3: machado de bombeiro em todas as cenas (ícone = arma na mão), painel de saúde réplica com "Distensão Muscular Leve" → "Distensão Muscular", corrida com horda vindo de longe, pisão refeito (zumbi deitado sob o pé), queda do zumbi a 70% (mais quadros), lixo na rua, cama no quarto; 19 animações originais novas em `models.js`.
 - 2026-11-24 · jose · EP20 rascunho v4: cama boa de madeira (sprite do jogo `furniture_bedding_01_27/26`), criado-mudo, lixo e papéis no chão (`trash_01`, `d_trash_1`), "chão" = sala abandonada à noite com lixo; HUD da fala 4 sem sobreposição; `quarto()` aceita `o.cama`.
 - 2026-11-24 · jose · `render-ep21-final.bat` usa o `rodar.bat` (detecta placa/NVENC) com 3 renders em paralelo (com 6, um pedaço falhou no PC do Bruno) e mostra os logs dos pedaços se der erro.
 - 2026-11-24 · jose · EP21 final v5: voz ElevenLabs (`audio/n21.mp3`, tempos do `check_vo.py`), floresta mais densa (anel de árvores ao fundo, touceiras de todos os arbustos do jogo, manchas de capim e plantas, folhas e pólen no ar) e `ferramentas/render-ep21-final.bat` (só renderiza e abre a pasta).
