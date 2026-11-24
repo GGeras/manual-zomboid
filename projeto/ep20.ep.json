@@ -174,7 +174,7 @@
    "JL_MalePlayer_SleepingNoises_01",
    {
     "f": 4,
-    "dt": 6.4
+    "dt": 4.3
    },
    -20,
    {}
@@ -183,7 +183,7 @@
    "BH_MalePlayer_SubtleSadSigh_01",
    {
     "f": 4,
-    "dt": 10.8
+    "dt": 7.5
    },
    -14,
    {}
@@ -192,7 +192,7 @@
    "zombierand1",
    {
     "f": 5,
-    "dt": 0.4
+    "dt": 2.0
    },
    -18,
    {}
@@ -201,7 +201,7 @@
    "male_heavybreathpanic",
    {
     "f": 5,
-    "dt": 2.6
+    "dt": 3.2
    },
    -17,
    {}
@@ -318,7 +318,7 @@
    "doorclose",
    {
     "f": 8,
-    "dt": 0.25
+    "dt": 3.25
    },
    -14,
    {}
@@ -327,61 +327,16 @@
    "lightswitch",
    {
     "f": 8,
-    "dt": 0.85
+    "dt": 3.6
    },
    -16,
-   {}
-  ],
-  [
-   "PZ_WoodFoot_01",
-   {
-    "f": 8,
-    "dt": 1.25
-   },
-   -20,
-   {}
-  ],
-  [
-   "PZ_WoodFoot_01",
-   {
-    "f": 8,
-    "dt": 1.61
-   },
-   -20,
-   {}
-  ],
-  [
-   "PZ_WoodFoot_01",
-   {
-    "f": 8,
-    "dt": 1.97
-   },
-   -20,
-   {}
-  ],
-  [
-   "PZ_WoodFoot_01",
-   {
-    "f": 8,
-    "dt": 2.33
-   },
-   -20,
-   {}
-  ],
-  [
-   "PZ_WoodFoot_01",
-   {
-    "f": 8,
-    "dt": 2.69
-   },
-   -20,
    {}
   ],
   [
    "JL_MalePlayer_SleepingNoises_01",
    {
     "f": 8,
-    "dt": 4.9
+    "dt": 4.7
    },
    -19,
    {}
@@ -390,7 +345,7 @@
    "ambientOutsideDayBirds",
    {
     "f": 8,
-    "dt": 7.04
+    "dt": 5.2
    },
    -24,
    {
@@ -401,7 +356,7 @@
    "JL_MalePlayer_ExerciseGrunts_01",
    {
     "f": 8,
-    "dt": 7.34
+    "dt": 5.55
    },
    -18,
    {}
@@ -425,7 +380,7 @@
    "levelup",
    {
     "f": 9,
-    "dt": 0.45
+    "dt": 1.1
    },
    -17,
    {}
@@ -434,7 +389,7 @@
    "levelup",
    {
     "f": 9,
-    "dt": 3.9
+    "dt": 3.6
    },
    -17,
    {}
@@ -477,7 +432,7 @@
  },
  "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
  "post": {
-  "titulo": "Sono no Project Zomboid: como descansar de verdade (B42)",
+  "titulo": "Sono: como descansar de verdade (B42)",
   "gancho": "Sentar não tira o cansaço. Só dormir tira — e onde você dorme muda tudo.",
   "pontos": [
    "4 níveis: Sonolência até Cansaço Absurdo",
