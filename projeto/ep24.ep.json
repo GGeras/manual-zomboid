@@ -20,7 +20,23 @@
    "stormy9mmFire",
    {
     "f": 0,
-    "dt": 1.6
+    "dt": 1.33
+   },
+   -14
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "f": 0,
+    "dt": 3.67
+   },
+   -14
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "f": 0,
+    "dt": 5.83
    },
    -14
   ],
@@ -33,12 +49,68 @@
    -18
   ],
   [
+   "male_heavybreathpanic",
+   {
+    "f": 1,
+    "dt": 7.5
+   },
+   -18
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "f": 2,
+    "dt": 1.0
+   },
+   -14
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "f": 2,
+    "dt": 2.83
+   },
+   -14
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "f": 2,
+    "dt": 4.67
+   },
+   -14
+  ],
+  [
    "PZ_Swallowing",
    {
     "f": 4,
-    "dt": 0.6
+    "dt": 2.6
    },
    -14
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 5,
+    "dt": 1.2
+   },
+   -16
+  ],
+  [
+   "player_use_lighter_01",
+   {
+    "f": 6,
+    "dt": 0.3
+   },
+   -16
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "f": 9,
+    "dt": 1.2
+   },
+   -12
   ]
  ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
@@ -95,7 +167,7 @@
    "survivalgame"
   ]
  },
- "roteiro": "[tenso] Sua mão treme, e o tiro sai torto. [calmo] Isso é pânico. O moodle vai de Nervosismo até Terror. No segundo nível, o jogo já diz: mãos trêmulas. [sério] E os moodles mexem na sua mira e na sua luta: em pânico e cansado, você erra muito mais. [calmo] Estresse é outro moodle: vai de Tensão até À Beira do Colapso. No terceiro nível: mãos trêmulas, impossível pensar direito. [confiante] Pra pânico existem os Calmantes: o remédio reduz o pânico. [confiante] Pra estresse, leitura: livro tira mais, depois quadrinhos, depois revista. E se for fumante, o cigarro acalma, mas sem ele a tristeza sobe. [calmo] Na criação, Corajoso entra menos em pânico, Covarde muito mais, e Dessensibilização quase nada. [tenso] Cuidado com Agorafóbico e Claustrofóbico: um entra em pânico ao ar livre, o outro em lugar fechado pequeno. [confiante] Calma na mão, tiro na cabeça.",
+ "roteiro": "[tenso] Zumbi chegando, sua mão treme, e o tiro sai torto. Uma bala no chão, outra na cerca, e ele continua vindo. [calmo] Isso é pânico. O moodle tem quatro níveis: Nervosismo, Em Alerta, Medo e Terror. No segundo, o jogo já avisa: mãos trêmulas. No terceiro: tremores pelo corpo inteiro. [sério] Os moodles mexem na chance de acertar o tiro. Cansado, em pânico e com pontaria ruim, você não acerta muitos zumbis. E no corpo a corpo, a força e a precisão também dependem dos moodles. [calmo] Estresse é outro moodle. Vai de Tensão, Agitação e Estresse até À Beira do Colapso. No terceiro nível o jogo diz: mãos trêmulas, impossível pensar direito. [confiante] Pra pânico, existem os Calmantes. A descrição do remédio é direta: reduz o pânico. Vale guardar alguns na mochila. [confiante] Pra estresse, leitura. Ler reduz o estresse e o tédio. O livro tira mais, depois a revista em quadrinhos, depois a revista. [calmo] E se o seu personagem é Fumante, o cigarro diminui o estresse e a tristeza. Mas quando fica sem fumar, a tristeza aumenta. [calmo] Na criação, Corajoso custa quatro pontos e entra menos em pânico. Covarde devolve dois pontos, mas entra em pânico muito mais. E Dessensibilização entra em pânico muito menos. [tenso] E cuidado com dois traços. Agorafóbico entra em pânico ao ar livre. Claustrofóbico, em lugar fechado pequeno. Os dois devolvem quatro pontos, mas cobram na hora errada. [confiante] Calma na mão, mira firme, tiro na cabeça.",
  "fatos": [
   "pan-mira",
   "pan-niveis",
@@ -104,7 +176,8 @@
   "pan-calmante",
   "est-leitura",
   "est-fumante",
-  "pan-tracos"
+  "pan-tracos",
+  "pan-tracos-custo"
  ],
  "itens": [
   "Item_PillsBetablocker",

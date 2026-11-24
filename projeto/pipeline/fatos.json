@@ -901,6 +901,14 @@
     "24"
    ]
   },
+  "pan-tracos-custo": {
+   "texto": "Pontos na criação: Corajoso custa 4; Covarde devolve 2; Dessensibilização 0 (custo 0 no arquivo); Agorafóbico devolve 4; Claustrofóbico devolve 4",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/scripts/generated/characters/character_traits.txt (Cost: brave 4, cowardly -2, desensitized 0, agoraphobic -4, claustrophobic -4)",
+   "eps": [
+    "24"
+   ]
+  },
   "peso-agua-auto": {
    "texto": "Água limpa no inventário principal é bebida automaticamente para controlar a sede (padrão)",
    "build": "B42.22",
