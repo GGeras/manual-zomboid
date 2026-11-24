@@ -20,31 +20,31 @@ git checkout -- projeto/ep2?.cfg.js projeto/ep30.cfg.js projeto/ep19.cfg.js 2>nu
 git switch main || goto :erro
 git pull --ff-only || goto :erro
 git lfs pull || goto :erro
-set "SKILL=%REPO%\ferramentas\motionmaxxing"
-set PZ_GPU=1
-set PYTHONUTF8=1
-if "%RENDER_JOBS%"=="" set RENDER_JOBS=6
-set "CHROME_PATH=C:\Program Files\Google\Chrome\Application\chrome.exe"
-if not exist "%CHROME_PATH%" set "CHROME_PATH=%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"
-set "PZ_CHROME=%CHROME_PATH%"
-set PY=python
-where py >nul 2>nul && set PY=py -3
 cd projeto
 if not exist out mkdir out
+for /d %%T in (rpar_*) do rd /s /q "%%T" 2>nul
 echo [2/3] Guardando o final anterior (se houver) como video_anterior.mp4...
 for /d %%D in ("out\Video 21 - *") do if exist "%%~D\video.mp4" (
   if exist "%%~D\video_anterior.mp4" del "%%~D\video_anterior.mp4"
   ren "%%~D\video.mp4" video_anterior.mp4
 )
+cd /d "%REPO%"
 echo [3/3] Renderizando o EP21 FINAL (demora alguns minutos)...
-%PY% pipeline\build.py 21 > out\ep21-final.log 2>&1
+rem rodar.bat detecta a placa (GPU/NVENC). 3 Chromes em paralelo: com 6 a placa disputava e um pedaco falhava (EP18/EP19/EP21).
+set NOPAUSE=1
+if "%RENDER_JOBS%"=="" set RENDER_JOBS=3
+call ferramentas\rodar.bat 21
 if errorlevel 1 (
-  echo ERRO no render. Veja projeto\out\ep21-final.log
+  echo.
+  echo ===== ERRO no render. Logs dos pedacos: =====
+  for /d %%T in ("%REPO%\projeto\rpar_*") do for %%L in ("%%T\p*.log") do (echo ---- %%~nxL & type "%%L")
+  echo Copie tudo desta janela e mande para o Claude.
   pause & exit /b 1
 )
+cd /d "%REPO%\projeto"
 for /d %%D in ("out\Video 21 - *") do set "PASTA=%%~fD"
 if not exist "%PASTA%\video.mp4" (
-  echo ERRO: o render terminou sem video.mp4. Veja projeto\out\ep21-final.log
+  echo ERRO: o render terminou sem video.mp4. Copie esta janela e mande para o Claude.
   pause & exit /b 1
 )
 start "" explorer "%PASTA%"
