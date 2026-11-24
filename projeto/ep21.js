@@ -44,7 +44,8 @@ run([
   (lf, f, len, c) => { dia(f); const k = on(lf, len * .44); clip('s_idle', lf, { x: A(0, 0).x, z: A(0, 0).z, ry: .8, olhar: k * olhando(lf) * .8 });
     camOn(c, A(0, 0).x + .3, A(0, 0).z, 8.4, SY); pinsAtivos([]); busca(S, { on: k, R: 5, f: lf }); },
   // 2 — os itens aparecem dentro do raio: Coleta 0 = 3 quadrados … nível 10 = 10 (câmera abre junto)
-  (lf, f, len, c) => { dia(f); const g = ease(clamp((lf - len * .6) / 50)), R = lerp(3, 10, g);
+  // 24/11 (pedido do Jose): o enquadramento ficava parado quase a cena toda — o zoom/abertura agora começa no meio da cena, não perto do fim
+  (lf, f, len, c) => { dia(f); const g = ease(clamp((lf - len * .35) / 50)), R = lerp(3, 10, g);
     const q = andar([[A(-1, 1).x, A(-1, 1).z], [A(.5, -.5).x, A(.5, -.5).z]], lf, 's_walkslow', VEL.s_walkslow, { olhar: 0, parado: 's_idle' }); S.olhar = olhando(lf); PZ.apoiar(S, 0);
     camOn(c, q.x + .3, q.z, lerp(19, 23, g), .6); pinsAtivos(TODOS); busca(S, { on: 1, R, f: lf }); },
   // 3 — chuva, neblina, neve e escuro encolhem o círculo

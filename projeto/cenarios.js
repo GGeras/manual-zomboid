@@ -282,15 +282,29 @@ export function floresta(x0, z0, o = {}) {
   const C = cena(x0, z0), R = s => { const x = Math.sin(s * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
   C.chao(PISO.grama, -16, -16, 16, 16, { seed: 21 });
   // (sem manchas de terra em ladrilho: no mato do jogo o chão é relva contínua; a terra em losango ficava artificial)
-  const tronco = (n, i, j, verde) => { C.placa(`e_${n}_1_3`, i, j); if (verde) C.placa(`e_${n}_1_${verde}`, i, j, { fz: .55 }); };
-  // árvores: fundo (N e W da clareira) bem fechado; lados abertos; nada entre a câmera e o personagem
-  const AR = [[-7, -6], [-4, -8], [-1, -7], [2, -8], [5, -6], [8, -8], [-9, -2], [-8, 2], [-10, 5], [9, -3], [-6, -10], [0, -11], [4, -11], [-12, -4], [11, -7], [7, 7], [-6, 8]];
-  AR.forEach(([i, j], k) => { const t = k % 4; if (t === 0) tronco('americanlinden', i, j, k % 8 ? 15 : 14); else if (t === 1) C.placa('e_canadianhemlock_1_' + (k % 3 ? 3 : 2), i, j); else if (t === 2) C.placa('e_virginiapine_1_' + (k % 3 ? 3 : 2), i, j); else tronco('riverbirch', i, j, 15); });
-  // arbustos espalhados (caixa baixa: quem passa atrás some atrás)
+  // variação de porte (tamanho) e espelhamento (a árvore é um sprite de frente para a câmera; "rotação" = virar o sprite) por árvore, com semente fixa (prévia sempre igual)
+  const varia = (m, s) => { const esc = .82 + R(s) * .4; m.scale.set(esc * (R(s + 50) < .5 ? -1 : 1), esc, 1); };
+  const tronco = (n, i, j, verde, s = 0) => { const m1 = C.placa(`e_${n}_1_3`, i, j); varia(m1, s);
+    if (verde) { const m2 = C.placa(`e_${n}_1_${verde}`, i, j, { fz: .55 }); varia(m2, s); } };
+  // árvores: fundo (N e W da clareira) bem fechado; lados abertos; nada entre a câmera e o personagem.
+  // 24/11 (pedido do Jose, EP21 v4): bem mais árvores, em profundidades diferentes (perto/meio/fundo), posição com leve jitter (menos "grade")
+  const AR = [[-7, -6], [-4, -8], [-1, -7], [2, -8], [5, -6], [8, -8], [-9, -2], [-8, 2], [-10, 5], [9, -3], [-6, -10], [0, -11], [4, -11], [-12, -4], [11, -7], [7, 7], [-6, 8],
+    // fundo mais fechado
+    [-3, -9], [1, -10], [6, -9], [-11, -8], [10, -9], [-8, -9], [3, -11], [-13, 2], [12, -2], [-11, 8], [10, 6], [13, -5],
+    // meio, mais esparsas e perto das bordas, sem tapar o personagem nem o loot (zona central ±2 livre)
+    [-6, 4], [6, -4], [-9, -5], [8, 4], [-4, 7], [5, 8], [-10, -2], [9, 1],
+    // perto (frente, cantos — longe do centro de câmera)
+    [-11, 7], [11, 5], [-7, -3], [7, 9]];
+  AR.forEach(([i, j], k) => { const s = k * 7 + 1, ii = i + (R(s + 20) - .5) * 1.1, jj = j + (R(s + 30) - .5) * 1.1, t = k % 4;
+    if (t === 0) tronco('americanlinden', ii, jj, k % 8 ? 15 : 14, s); else if (t === 1) { const m = C.placa('e_canadianhemlock_1_' + (k % 3 ? 3 : 2), ii, jj); varia(m, s); }
+    else if (t === 2) { const m = C.placa('e_virginiapine_1_' + (k % 3 ? 3 : 2), ii, jj); varia(m, s); } else tronco('riverbirch', ii, jj, 15, s); });
+  // arbustos espalhados (caixa baixa: quem passa atrás some atrás); posição e tamanho com leve jitter (menos "grade", 24/11 pedido do Jose)
   const livre = new Set((o.livre || []).map(([i, j]) => i + ',' + j));
-  [[-5, -3], [-3, -5], [3, -4], [6, -2], [-6, 1], [5, 3], [-4, 5], [8, 1], [-2, -4], [1, -5], [7, -4], [-8, -5]].forEach(([i, j], k) => { if (!livre.has(i + ',' + j)) C.obj(ARBUSTO[k % ARBUSTO.length], i, j, { w: .6, d: .6 }); });
+  [[-5, -3], [-3, -5], [3, -4], [6, -2], [-6, 1], [5, 3], [-4, 5], [8, 1], [-2, -4], [1, -5], [7, -4], [-8, -5], [-7, 2], [2, 5], [-1, -6], [6, 3]].forEach(([i, j], k) => {
+    if (livre.has(i + ',' + j)) return; const s = k * 11 + 3, esc = .85 + R(s) * .5;
+    C.obj(ARBUSTO[k % ARBUSTO.length], i + (R(s + 5) - .5) * .4, j + (R(s + 6) - .5) * .4, { w: .6 * esc, d: .6 * esc }); });
   // capim alto, plantas rasteiras, pedras, galhos e um tronco caído (sprites em pé, de frente para a câmera)
-  for (let k = 0; k < 70; k++) { const i = Math.round((R(k) - .5) * 26), j = Math.round((R(k + 99) - .5) * 26); if (livre.has(i + ',' + j) || (Math.abs(i) < 2 && Math.abs(j) < 2)) continue;
+  for (let k = 0; k < 100; k++) { const i = Math.round((R(k) - .5) * 28), j = Math.round((R(k + 99) - .5) * 28); if (livre.has(i + ',' + j) || (Math.abs(i) < 2 && Math.abs(j) < 2)) continue;
     const n = k % 5 === 0 ? 'd_plants_1_' + [28, 29, 32, 33, 44, 45, 61, 62][k % 8] : 'e_newgrass_1_' + [40, 41, 42, 43, 16, 17, 18, 64, 65, 66][k % 10];
     C.placa(n, i + (R(k + 7) - .5) * .5, j + (R(k + 3) - .5) * .5); }
   [[-3, 3, 34], [4, -1, 35], [-5, -1, 51], [2, 6, 54], [6, 5, 34], [-7, 4, 35]].forEach(([i, j, n]) => C.placa('d_generic_1_' + n, i, j));

@@ -76,9 +76,9 @@ window.EP = {
     tag(4, "ANDAR EM CÍRCULO ✗", RD, P(4, 0.55), null);
     // 5 — cada lugar tem o seu (mesma ordem dos marcadores no mato)
     row(5, [["Item_Twigs", "FLORESTA", P(5, 0.08)], ["Item_Rock", "ESTRADA", P(5, 0.28)], ["Item_BerryBlue", "FLORESTA", P(5, 0.48)], ["Item_Cricket", "À NOITE", P(5, 0.70)]], { top: 560, size: 140 });
-    // 6 — frutinha pode envenenar; Herbalista (traço do jogo: −4 pontos)
+    // 6 — frutinha pode envenenar; Herbalista ajuda a reconhecer o que é seguro (sem número: não validado em info-validada)
     row(6, [["Item_BerryBlue", "VENENOSA?", P(6, 0.15)]], { top: 560, size: 150 });
-    traco(6, 'trait_herbalist', 'HERBALISTA', '−4', G, P(6, 0.55), 780);
+    row(6, [["trait_herbalist", "HERBALISTA RECONHECE", P(6, 0.55)]], { top: 780, size: 140 });
     // 7 — estação + Foco de Busca: abre o seletor e escolhe Frutas Silvestres
     tag(7, "MÊS E ESTAÇÃO", Y, P(7, 0.02), P(7, 0.22));
     const w7 = janela(7, P(7, .24), null); const cb = w7.querySelector('.cb');
