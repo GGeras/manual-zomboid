@@ -7,6 +7,10 @@ cd /d "%~dp0.."
 set "SKILL=%~dp0motionmaxxing"
 set PZ_GPU=1
 set PYTHONUTF8=1
+rem placa NVIDIA -> liga encode final por hardware (NVENC) no render.mjs, igual ao rodar.bat
+for /f "usebackq delims=" %%G in (`powershell -NoProfile -Command "(Get-CimInstance Win32_VideoController | Select-Object -ExpandProperty Name) -join ' + '" 2^>nul`) do set "PLACA=%%G"
+echo %PLACA%| findstr /i "NVIDIA" >nul
+if not errorlevel 1 set "PZ_NVENC=1"
 if "%RENDER_JOBS%"=="" set RENDER_JOBS=6
 set "CHROME_PATH=C:\Program Files\Google\Chrome\Application\chrome.exe"
 if not exist "%CHROME_PATH%" set "CHROME_PATH=%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"
