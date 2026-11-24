@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-24 · jose · EP21 final v5: voz ElevenLabs (`audio/n21.mp3`, tempos do `check_vo.py`), floresta mais densa (anel de árvores ao fundo, touceiras de todos os arbustos do jogo, manchas de capim e plantas, folhas e pólen no ar) e `ferramentas/render-ep21-final.bat` (só renderiza e abre a pasta).
 - 2026-11-24 · bruno (Claude) · EP20/EP21 ajustes v4/v3 (parte 1, código — pedido do Jose em `ferramentas/ajustes/ep20-21-v3.md`): EP21: floresta bem mais densa (3 profundidades, tamanho e espelhamento variados por semente fixa), enquadramento da cena "Raio: 3 até 10" muda no meio (antes ficava parado quase a cena toda), traço Herbalista sem o "−4" inventado (regra 1: só o efeito validado em `info-validada/coleta.md`, sem número). EP20: ainda sem mudança de código — os pedidos de cama visível em cada fala, zero sobreposição e luz mais suave pedem a prévia renderizada pra conferir (sem GPU neste ambiente); renderizar as duas prévias com `ferramentas/ajustes-20-21-render.bat` fica para a próxima entrega.
 - 2026-11-24 · jose (Claude) · `ferramentas/ajustes-ep20-21.bat` + `ferramentas/ajustes/ep20-21-v3.md`: o Bruno roda e o Claude dele aplica os ajustes do EP20 (cama do jogo ligada à fala, sem atravessar objeto, luz, sprites sem emenda) e do EP21 (vegetação natural, mais árvores, animação) e renderiza as prévias.
 - 2026-11-24 · bruno · EP20/EP21 RASCUNHO v3 (revisão do Bruno; voz provisória Piper):

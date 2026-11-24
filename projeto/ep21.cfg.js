@@ -1,4 +1,4 @@
-// EP 21 — Coleta (B42.22) — RASCUNHO v3 (24/11, revisão do Bruno; voz provisória Piper — T/END de tts_rascunho.py)
+// EP 21 — Coleta (B42.22) — FINAL v5 (24/11): voz ElevenLabs do Jose (T/END de check_vo.py/align.py) + floresta mais densa (sub-bosque, anel de árvores, folhas e pólen)
 // HUD na área segura (regra 4.3: painéis de 800 px em x 140–940, acima do personagem). Janela "Investigar Área" = réplica da janela do jogo
 // (ISSearchWindow.lua + ui/foraging/zoneForest.png + textos do jogo em PT-BR: Foco de Busca / Sem Foco de Busca / Ativar Modo de Busca).
 const LAB = 'PROJECT ZOMBOID · <b>COLETA</b>';
@@ -7,7 +7,7 @@ window.EP = {
   itens: ["Item_BerryBlue", "Item_Flashlight2", "Item_Rock", "Item_Twigs", "Item_Umbrella"],
   OFF: 1.3,
   luz: { padrao: 'exterior-dia', 3: 'chuva' },
-  T: [0.0, 3.65, 10.88, 23.02, 33.61, 40.44, 50.32, 58.24, 64.7], END: 68.89,
+  T: [0.0, 1.42, 5.86, 11.44, 17.0, 20.85, 26.35, 32.31, 35.6], END: 36.99,
   scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6, lab: LAB }, { at: 7, lab: LAB }, { at: 8 }],
   titles: [
     { i: 0, a: "O mato", b: "tem comida", col: 'green', aSize: 110, size: 128 },

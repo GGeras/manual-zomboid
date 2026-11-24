@@ -309,7 +309,35 @@ export function floresta(x0, z0, o = {}) {
     C.placa(n, i + (R(k + 7) - .5) * .5, j + (R(k + 3) - .5) * .5); }
   [[-3, 3, 34], [4, -1, 35], [-5, -1, 51], [2, 6, 54], [6, 5, 34], [-7, 4, 35]].forEach(([i, j, n]) => C.placa('d_generic_1_' + n, i, j));
   [[3, 1, 20], [-4, -2, 24], [1, -3, 21], [-6, 6, 42]].forEach(([i, j, n]) => C.placa('d_generic_1_' + n, i, j));
-  return { C, at: C.at };
+  // ---- EP21 v5 (24/11, pedido do Jose: floresta menos "superficial") — só sprites originais já no repo ----
+  const perto = (i, j, r) => Math.hypot(i, j) < r || livre.has(Math.round(i) + ',' + Math.round(j));
+  // anel externo de árvores (profundidade: o fundo nunca fica vazio)
+  for (let k = 0; k < 34; k++) { const a = k / 34 * Math.PI * 2 + R(k + 400) * .3, r = 13 + R(k + 410) * 3.5, ii = Math.cos(a) * r, jj = Math.sin(a) * r, s = k * 13 + 500;
+    if (ii > 9 && jj > 6) continue;   // canto da câmera aberto
+    const t = k % 4; if (t === 0) tronco('americanlinden', ii, jj, 15, s); else if (t === 1) { const m = C.placa('e_canadianhemlock_1_' + (k % 2 ? 3 : 2), ii, jj); varia(m, s); }
+    else if (t === 2) { const m = C.placa('e_virginiapine_1_' + (k % 2 ? 3 : 2), ii, jj); varia(m, s); } else tronco('riverbirch', ii, jj, 15, s); }
+  // sub-bosque: muitos arbustos de todas as espécies do jogo, em touceiras (2–4 juntos), longe da área de busca (raio 4,5)
+  const ARB2 = ['f_bushes_1_28', 'f_bushes_1_29', 'f_bushes_1_30', 'f_bushes_1_64', 'f_bushes_1_67', 'f_bushes_1_70', 'f_bushes_1_96', 'f_bushes_1_100', 'f_bushes_1_101', 'f_bushes_1_103', 'f_bushes_1_105', ...ARBUSTO];
+  for (let g = 0; g < 16; g++) { const a = R(g + 600) * Math.PI * 2, r = 5 + R(g + 610) * 7, gi = Math.cos(a) * r, gj = Math.sin(a) * r, n = 2 + Math.floor(R(g + 620) * 3);
+    for (let k = 0; k < n; k++) { const ii = gi + (R(g * 9 + k + 630) - .5) * 1.8, jj = gj + (R(g * 9 + k + 640) - .5) * 1.8; if (perto(ii, jj, 4.5)) continue;
+      const esc = .7 + R(g * 9 + k + 650) * .55; C.obj(ARB2[(g * 3 + k) % ARB2.length], ii, jj, { w: .55 * esc, d: .55 * esc }); } }
+  // capim e plantas em manchas (relva densa onde não se anda; mais rala perto da clareira)
+  for (let g = 0; g < 40; g++) { const gi = (R(g + 700) - .5) * 30, gj = (R(g + 710) - .5) * 30, n = 4 + Math.floor(R(g + 720) * 6);
+    for (let k = 0; k < n; k++) { const ii = gi + (R(g * 11 + k + 730) - .5) * 2.2, jj = gj + (R(g * 11 + k + 740) - .5) * 2.2; if (perto(ii, jj, 2.2)) continue;
+      const q = (g + k) % 7, nm = q === 0 ? 'd_plants_1_' + [28, 29, 32, 33, 44, 45, 61, 62][(g + k) % 8] : 'e_newgrass_1_' + [40, 41, 42, 43, 16, 17, 18, 64, 65, 66][(g * 3 + k) % 10];
+      const m = C.placa(nm, ii, jj); if (m) m.scale.multiplyScalar(.8 + R(g * 11 + k + 750) * .45); } }
+  // vida no ar: folhas caindo e pólen/insetos brilhando na luz (efeito leve; não cobre o personagem)
+  const N = 90, pos = new Float32Array(N * 3), col = new Float32Array(N * 3), cor = [new THREE.Color('#c8a040'), new THREE.Color('#9fbf4a'), new THREE.Color('#fff2b0')];
+  for (let k = 0; k < N; k++) cor[k % 3].toArray(col, k * 3);
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  const AR2 = prop(new THREE.Points(geo, new THREE.PointsMaterial({ size: 5, sizeAttenuation: false, vertexColors: true, transparent: true, opacity: .85, depthWrite: false }))); AR2.frustumCulled = false;
+  const vida = (f, k = 1) => { AR2.visible = k > .02; AR2.material.opacity = .85 * k; const c0 = C.at(0, 0);
+    for (let n = 0; n < N; n++) { const r1 = R(n + 900), r2 = R(n + 910), r3 = R(n + 920), folha = n % 3 !== 2, t = f / 30;
+      const y = folha ? 3.2 - ((t * (.35 + r3 * .3) + r1 * 3.2) % 3.2) : .4 + (Math.sin(t * .9 + n) * .5 + .5) * 1.4;
+      const x = c0.x + (r1 - .5) * 14 + Math.sin(t * (folha ? 1.3 : .6) + n) * (folha ? .35 : .5), z = c0.z + (r2 - .5) * 14 + Math.cos(t * .8 + n * 1.7) * (folha ? .25 : .5);
+      pos[n * 3] = x; pos[n * 3 + 1] = y; pos[n * 3 + 2] = z; }
+    geo.attributes.position.needsUpdate = true; };
+  return { C, at: C.at, vida };
 }
 // arbusto de frutinha do jogo: arbusto verde (f_bushes_1_117) + camada de frutinhas azuis por cima (f_bushes_1_95), um pouco maior para ficar na frente
 export function arbustoFruta(C, i, j) { const b = C.obj('f_bushes_1_117', i, j, { w: .62, d: .62 }); const f = C.obj('f_bushes_1_95', i, j, { w: .66, d: .66, h: b.userData.h + .01 }); return { b, f }; }
