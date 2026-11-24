@@ -1,4 +1,4 @@
-// EP 20 — Sono (B42.22) — RASCUNHO v4 (24/11, Jose): camas por fala (boa de madeira / chão da sala com lixo), criado-mudo e lixo no chão.
+// EP 20 — Sono (B42.22) — FINAL v6 (24/11): tempos da voz final ElevenLabs (cenas 4 e 8 refeitas no ritmo da fala) · RASCUNHO v4 (24/11, Jose): camas por fala (boa de madeira / chão da sala com lixo), criado-mudo e lixo no chão.
 // v3 (24/11, revisão do Bruno):
 // • 00:19 falava de cadeira e não tinha cadeira → QUARTO com cadeira do jogo: ele chega pela frente e senta recuando (Bob_SatChairIn → Bob_SatChair)
 //   ofegante (Bob_Idle_HeavyBreathing no tronco) — recupera o fôlego, o sono continua;
@@ -30,6 +30,8 @@ const RUA = rua(300, 0), RC = RUA.C, R = RC.at;
 
 const BAT = PZ.attach(S, 'Bip01_Prop1', PZ.propMesh('w_bat', 'baseballbat'));
 S.g.traverse(o => { o.renderOrder = 2; });
+// v6: luz de preenchimento fraca que acompanha o personagem à noite (inspeção: brilho 42–44, mín 45) — só tira do escuro, sem estourar
+const FILL = new THREE.PointLight('#c9d3ff', 0, 3.2, 1.8); FILL.position.set(.7, 1.5, .9); S.g.add(FILL);
 const SY = .64;
 // cama: cabeceira em (2,0), pé em (2,1); deitado com a pelve no meio (Bob_Asleep: cabeça a −0,58, pés a +0,98 da pelve)
 const LEITO = A(2, .35), BEIRA = A(2.95, .7);
@@ -61,8 +63,8 @@ const andar = (pts, lf, nome = 's_walk', vel = VEL.s_walk) => { const q = rota(p
 const VIN = document.createElement('div'); VIN.style.cssText = 'position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(ellipse at 50% 58%, rgba(0,0,0,0) 30%, rgba(4,4,10,.92) 92%)';
 document.getElementById('gl').insertAdjacentElement('afterend', VIN);
 const cansaco = k => { VIN.style.opacity = clamp(k); };   // "você enxerga menos": a borda da tela fecha
-const noite = f => { light('dark'); clima('', 0); QC.show(); Q.cama.sobrepor(false); Q.cadeira.sobrepor(false); NOITE.mostrar(true); MANHA.mostrar(false); NOITE.set(f); cansaco(0); clarao(0); };
-const manha = f => { light('dawn'); clima('sol', .35); QC.show(); Q.cama.sobrepor(false); Q.cadeira.sobrepor(false); NOITE.mostrar(false); MANHA.mostrar(true); MANHA.set(f); cansaco(0); clarao(0); };
+const noite = f => { FILL.intensity = .9; light('dark'); clima('', 0); QC.show(); Q.cama.sobrepor(false); Q.cadeira.sobrepor(false); NOITE.mostrar(true); MANHA.mostrar(false); NOITE.set(f); cansaco(0); clarao(0); };
+const manha = f => { FILL.intensity = 0; light('dawn'); clima('sol', .35); QC.show(); Q.cama.sobrepor(false); Q.cadeira.sobrepor(false); NOITE.mostrar(false); MANHA.mostrar(true); MANHA.set(f); cansaco(0); clarao(0); };
 const zClip = (z, name, lf, o = {}) => { pose(z, Object.assign({ clip: [name, lf, o.loop !== false] }, o)); PZ.apoiar(z, 0); };
 
 run([
@@ -73,7 +75,7 @@ run([
     if (lf < 86) clip('s_stretch', lf, { x: p.x, z: p.z, ry: .6, loop: false }); else clip('s_breath', lf, { x: p.x, z: p.z, ry: .6 });
     cansaco(.15 + .55 * clamp(lf / len)); camOn(c, p.x - .2, p.z - .3, lerp(7.2, 6.4, easeOut(lf / len)), SY); },
   // 2 — cansado: enxerga menos e perde força — o taco acerta e o zumbi só balança e continua vindo (fim do dia, na rua)
-  (lf, f, len, c) => { light('dawn'); clima('', 0); RC.show(); clarao(0); NOITE.off(); tileLuz('#ffffff'); cansaco(.55); const me = R(0, 1.2), H1 = 40, H2 = 140;
+  (lf, f, len, c) => { FILL.intensity = 0; light('dawn'); clima('', 0); RC.show(); clarao(0); NOITE.off(); tileLuz('#ffffff'); cansaco(.55); const me = R(0, 1.2), H1 = 40, H2 = 140;
     const atk = (lf >= H1 && lf < H1 + 31) ? lf - H1 : (lf >= H2 && lf < H2 + 31) ? lf - H2 : -1;
     if (atk >= 0) clip('s_attackbat', atk, { x: me.x, z: me.z, ry: Math.PI / 2, loop: false, bat: true }); else clip('s_idlebat', lf, { x: me.x, z: me.z, ry: Math.PI / 2, bat: true });
     const zx = me.x + 1.05, z0 = Z[0]; const hit = (lf >= H1 + 6 && lf < H1 + 59) ? lf - H1 - 6 : (lf >= H2 + 6 && lf < H2 + 59) ? lf - H2 - 6 : -1;
@@ -86,31 +88,30 @@ run([
     camOn(c, SEAT.x - .2, SEAT.z + .3, 6.4, SY); },
   // 4 — v4: cada pedaço da fala com o lugar certo: CAMA BOA (madeira, travesseiro) → CHÃO da sala com lixo → acorda no chão com dor no pescoço
   //     (banco de carro: o teto do carro do jogo esconde quem está dentro; fica só no chip "CHÃO / CARRO")
-  (lf, f, len, c) => { const k1 = len * .46, k3 = len * .80;
+  (lf, f, len, c) => { const k1 = len * .38, k3 = len * .72;   // v6 (voz final): troca no "Chão e banco de carro" e no "dor no pescoço"
     if (lf < k1) { noite(f); deitado(lf); camOn(c, LEITO.x + .3, LEITO.z + .5, 5.8, SY); }
-    else if (lf < k3) { light('dark'); clima('', 0); KC.show(); NOITE.off(); NOITE2.mostrar(true); NOITE2.set(f); cansaco(.25); clip('s_asleep', lf, { x: CHAO.x, z: CHAO.z, ry: Math.PI / 2 }); camOn(c, CHAO.x + 1.0, CHAO.z + 1.1, 5.6, SY); }
-    else { light('dark'); clima('', 0); KC.show(); NOITE.off(); NOITE2.mostrar(true); NOITE2.set(f); cansaco(0); clip('s_sitground', lf, { x: CHAO.x, z: CHAO.z, ry: Math.PI / 2, up: ['s_painhead', lf - k3 + 10] }); camOn(c, CHAO.x + 1.0, CHAO.z + 1.1, 5.6, SY); }
+    else if (lf < k3) { FILL.intensity = .9; light('dark'); clima('', 0); KC.show(); NOITE.off(); NOITE2.mostrar(true); NOITE2.set(f); cansaco(.25); clip('s_asleep', lf, { x: CHAO.x, z: CHAO.z, ry: Math.PI / 2 }); camOn(c, CHAO.x + 1.0, CHAO.z + 1.1, 5.6, SY); }
+    else { FILL.intensity = .9; light('dark'); clima('', 0); KC.show(); NOITE.off(); NOITE2.mostrar(true); NOITE2.set(f); cansaco(0); clip('s_sitground', lf, { x: CHAO.x, z: CHAO.z, ry: Math.PI / 2, up: ['s_painhead', lf - k3 + 10] }); camOn(c, CHAO.x + 1.0, CHAO.z + 1.1, 5.6, SY); }
     clarao(Math.max(1 - Math.abs(lf - k1) / 6, 1 - Math.abs(lf - k3) / 5, 0) * .9, '#000'); },
   // 5 — às vezes o jogo nem deixa dormir: zumbi batendo na janela (lado de fora), pânico
   (lf, f, len, c) => { noite(f); deitado(lf + 40); const w = A(4, -.8); zClip(Z[0], 'z_doorbang', lf, { x: w.x, z: w.z, ry: 0 }); zClip(Z[1], 'z_doorbang', lf + 13, { x: w.x - .55, z: w.z - .35, ry: 0 });
     c.shake((lf % 34) - 2, .025); camOn(c, LEITO.x + .9, LEITO.z, 6.8, SY); },
   // 6 — comprimidos soníferos (Bob_IdleTakePills) ao lado da cama; nada de álcool junto
-  (lf, f, len, c) => { noite(f); clip('s_pills', lf + 10, { x: BEIRA.x + .15, z: BEIRA.z + .55, ry: .5 }); camOn(c, BEIRA.x, BEIRA.z + .3, 6.2, SY); },
+  (lf, f, len, c) => { noite(f); clip('s_pills', lf + 10, { x: BEIRA.x + .15, z: BEIRA.z + .55, ry: .5 }); camOn(c, BEIRA.x, BEIRA.z + .3, 6.2, .60); },   // v6: pés fora da área da descrição do app
   // 7 — pílula de cafeína: um empurrão de energia, mas o sono continua (cozinha, de tarde)
-  (lf, f, len, c) => { light('dawn'); clima('', 0); KC.show(); NOITE2.mostrar(false); TARDE.set(f); cansaco(0); clarao(0); const p = K(7.4, 1.7);
+  (lf, f, len, c) => { FILL.intensity = 0; light('dawn'); clima('', 0); KC.show(); NOITE2.mostrar(false); TARDE.set(f); cansaco(0); clarao(0); const p = K(7.4, 1.7);
     if (lf < 100) clip('s_pills', lf + 5, { x: p.x, z: p.z, ry: .9 }); else clip('s_yawn', lf - 100, { x: p.x, z: p.z, ry: .9 });
     camOn(c, p.x - .1, p.z, 6.6, SY); },
-  // 8 — noite chegando com Sonolência: tranca a porta, anda até a cama (chega de frente para a beira), senta, deita e dorme; amanhece e acorda inteiro
-  //     v5: tempo de caminhada = distância ÷ velocidade do Bob_Walk (antes ele não chegava e "pulava" para a cama)
-  (lf, f, len, c) => { const ROTA = [[PORTA.x + .5, PORTA.z], [BEIRA.x + .35, 2.5 + QC.z(0)], [BEIRA.x + .35, BEIRA.z]];
-    const dist = ROTA.slice(1).reduce((a, p, i) => a + Math.hypot(p[0] - ROTA[i][0], p[1] - ROTA[i][1]), 0), t1 = 12, t2 = t1 + Math.ceil(dist / VEL.s_walk * 30), tv = t2 + 10, t4 = len * .9;
+  // 8 — v6 (voz final, 6,5 s): "Exemplo: noite chegando, você já está com Sonolência" = boceja na porta (Bob_EmoteYawn) → "Tranca a casa" = vira
+  //     para a porta (som da porta) → corte seco (clarão) para a beira da cama, já entrando nela (GetInBed → AwakeToAsleep → Asleep, sem pulo:
+  //     o corte esconde o caminho até a cama, que não cabe na fala) → amanhece e acorda inteiro.
+  (lf, f, len, c) => { const P0 = { x: PORTA.x + .5, z: PORTA.z }, tY = 86, tT = 96, tc = Math.round(len * .60), t4 = Math.round(len * .85), ENTRA = 36;
     if (lf < t4) noite(f); else manha(f);
-    if (lf < t1) { clip('s_idle', lf, { x: ROTA[0][0], z: ROTA[0][1], ry: -Math.PI / 2 }); camOn(c, PORTA.x + 1.0, PORTA.z - .4, 6.8, SY); }
-    else if (lf < t2) { const q = andar(ROTA, lf - t1); camOn(c, lerp(PORTA.x + 1.0, LEITO.x + .5, clamp((lf - t1) / (t2 - t1))), lerp(PORTA.z - .4, LEITO.z + .4, clamp((lf - t1) / (t2 - t1))), 6.8, .56); }
-    else if (lf < tv) { const k = easeOut(clamp((lf - t2) / 10)); clip('s_idle', lf, { x: lerp(BEIRA.x + .35, BEIRA.x, k), z: BEIRA.z, ry: lerp(Math.PI, Math.PI / 2, k) }); camOn(c, LEITO.x + .5, LEITO.z + .4, 6.6, SY); }   // vira de costas para a cama
-    else if (lf < t4) { deitar(lf - tv); camOn(c, LEITO.x + .5, LEITO.z + .4, lerp(6.6, 5.8, clamp((lf - tv) / 90)), SY); }
+    if (lf < tY) { clip('s_yawn', lf, { x: P0.x, z: P0.z, ry: .6, loop: false }); camOn(c, P0.x + .4, P0.z - .2, 6.6, SY); }
+    else if (lf < tc) { const k = easeOut(clamp((lf - tY) / (tT - tY))); clip('s_idle', lf, { x: P0.x, z: P0.z, ry: lerp(.6, -Math.PI / 2, k) }); camOn(c, P0.x + .4, P0.z - .2, 6.6, SY); }   // vira para a porta e tranca
+    else if (lf < t4) { deitar(lf - tc + ENTRA); camOn(c, LEITO.x + .5, LEITO.z + .4, lerp(6.4, 5.9, clamp((lf - tc) / (t4 - tc))), SY); }
     else { clip('s_stretch', lf - t4, { x: BEIRA.x + .2, z: BEIRA.z + .6, ry: .6, loop: false }); camOn(c, BEIRA.x, BEIRA.z + .3, 6.4, SY); }
-    clarao(Math.max(1 - Math.abs(lf - t4) / 7, 0), '#000'); },
+    clarao(Math.max(1 - Math.abs(lf - tc) / 5, 1 - Math.abs(lf - t4) / 7, 0), '#000'); },
   // 9 — traços da criação (no cfg, com ícone e valor); manhã, ele bem disposto
   (lf, f, len, c) => { manha(f); if (lf < 86) clip('s_stretch', lf, { x: BEIRA.x + .2, z: BEIRA.z + .6, ry: .6, loop: false }); else clip('s_idle', lf, { x: BEIRA.x + .2, z: BEIRA.z + .6, ry: .6 });
     camOn(c, BEIRA.x, BEIRA.z + .3, 7.0, SY); },
