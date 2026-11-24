@@ -1,4 +1,4 @@
-// EP 20 — Sono (B42.22) — RASCUNHO v3 (24/11, revisão do Bruno; voz provisória Piper — T/END de tts_rascunho.py)
+// EP 20 — Sono (B42.22) — RASCUNHO v4 (24/11, Jose: camas por fala, HUD da fala 4 sem sobrepor) · v3 (24/11, revisão do Bruno; voz provisória Piper — T/END de tts_rascunho.py)
 // HUD na área segura (regra 4.3). Traços do final COM ícone e valor (como na criação do personagem; custos de
 // media/scripts/generated/characters/character_traits.txt: Sono Leve (insomniac) −6 → dá 6 pontos; Madrugador (needslesssleep) 3 → custa 3).
 const LAB = 'PROJECT ZOMBOID · <b>SONO</b>';
@@ -51,10 +51,10 @@ window.EP = {
     M0(3, 'pz:Mood_Exhausted', "FÔLEGO ✓", P(3, 0.40), true, null);
     tag(3, "CANSAÇO, SÓ DORMINDO", RD, P(3, 0.55), null);
     // 4 — onde dorme
-    row(4, [["Item_Mattress", "CAMA BOA ✓", P(4, 0.12)]], { top: 600 });
-    tag(4, "CHÃO / CARRO = DOR NO PESCOÇO", RD, P(4, 0.50), null, 560);
-    M0(4, 'pz:Mood_Pained', "DOR", P(4, 0.80), false, null, 700);
-    row(4, [["Item_Pillow", "TRAVESSEIRO", P(4, 0.88)]], { top: 760, left: 140 });
+    row(4, [["Item_Mattress", "CAMA BOA", P(4, 0.12)]], { top: 690, left: 120 });
+    tag(4, "CHÃO / CARRO = DOR NO PESCOÇO", RD, P(4, 0.50), P(4, 0.80), 560);
+    M0(4, 'pz:Mood_Pained', "DOR", P(4, 0.80), false, null, 560);
+    row(4, [["Item_Pillow", "TRAVESSEIRO", P(4, 0.88)]], { top: 690, left: 310 });
     // 5 — o jogo nem deixa dormir
     tag(5, "ZUMBI PERTO ✗", RD, P(5, 0.12), P(5, 0.40));
     M0(5, 'pz:Mood_Panicked', "PÂNICO", P(5, 0.30), false, P(5, 0.52));

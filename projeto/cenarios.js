@@ -363,7 +363,8 @@ export function quarto(x0, z0, o = {}) {
   arvore(C, 3, -4, 'verao', 0); arvore(C, 7, -6, 'verao', 1);
   // cama: cabeceira (assento com encosto N) + pé; colchão na altura do jogo
   // altura do colchão = a do próprio desenho do pé da cama (caixa automática); a cabeceira usa a mesma altura → as duas peças casam
-  const PE = C.obj('furniture_bedding_01_8', 2, 1), colchao = PE.userData.h, CAMA = C.assento('furniture_bedding_01_9', 2, 0, { encosto: 'N', hs: colchao });
+  const [CBC, CPE] = o.cama || ['furniture_bedding_01_9', 'furniture_bedding_01_8'];   // o.cama = [cabeceira, pé] (EP20 v4: cama boa de madeira 27/26)
+  const PE = C.obj(CPE, 2, 1), colchao = PE.userData.h, CAMA = C.assento(CBC, 2, 0, { encosto: 'N', hs: colchao });
   C.obj('furniture_storage_02_33', 5, 0, { w: .9, d: .7 });                 // guarda-roupa encostado na parede N (frente S)
   C.obj('lighting_indoor_01_on_58', 1, 0, { w: .35, d: .35 });              // abajur de pé ao lado da cabeceira
   const CAD = C.assento('furniture_seating_indoor_01_57', 5, 3, { encosto: 'N', hs: .486 });   // cadeira (frente S) — Bob_SatChair: nádega a 0,486

@@ -1,4 +1,5 @@
-// EP 20 — Sono (B42.22) — RASCUNHO v3 (24/11, revisão do Bruno):
+// EP 20 — Sono (B42.22) — RASCUNHO v4 (24/11, Jose): camas por fala (boa de madeira / chão da sala com lixo), criado-mudo e lixo no chão.
+// v3 (24/11, revisão do Bruno):
 // • 00:19 falava de cadeira e não tinha cadeira → QUARTO com cadeira do jogo: ele chega pela frente e senta recuando (Bob_SatChairIn → Bob_SatChair)
 //   ofegante (Bob_Idle_HeavyBreathing no tronco) — recupera o fôlego, o sono continua;
 // • nada atravessa nada (regra 4.7): de pé/andando/no chão = PZ.apoiar; na cama o corpo fica EM CIMA do colchão (cama do jogo a 0,62 = altura
@@ -12,12 +13,21 @@ import { quarto, casaDentro, rua, luzInterior, camOn as camOn0, clima, clarao, r
 const { clamp, lerp, easeOut } = U;
 const camOn = (c, x, z, h, sy) => window.DBG ? camOn0(c, S.g.position.x, S.g.position.z, window.DBG, .5, .7) : camOn0(c, x, z, h, sy);
 
-const Q = quarto(-120, 60), QC = Q.C, A = QC.at;
+// v4 (24/11, pedido do Jose): cama BOA de madeira com cabeceira alta (furniture_bedding_01_27/26) no quarto, criado-mudo, papéis e lixo no chão
+const Q = quarto(-120, 60, { cama: ['furniture_bedding_01_27', 'furniture_bedding_01_26'] }), QC = Q.C, A = QC.at;
+QC.obj('furniture_storage_01_48', 3, 0, { w: .5, d: .45 });                     // criado-mudo ao lado da cabeceira
+[['trash_01_27', 1, 3.2], ['trash_01_24', 4.1, 4.3], ['d_trash_1_9', 3.6, 1.6], ['trash_01_33', 5.2, 1.4]].forEach(([n, i, j]) => QC.placa(n, i, j));
 const NOITE = luzInterior(QC, { janelas: [['N', 4]], abajur: [1, 0], hora: 'noite', lua: true });
 const MANHA = luzInterior(QC, { janelas: [['N', 4]], hora: 'tarde' });
 const CASA = casaDentro(-60, 80, { completa: true }), KC = CASA.C, K = KC.at;
 const TARDE = luzInterior(KC, { janelas: [['N', 3], ['W', 3]], abajur: [0, 1], hora: 'tarde' });
+// v4: "chão" = sala abandonada, à noite, lixo espalhado, sem colchão (dorme no piso)
+const NOITE2 = luzInterior(KC, { janelas: [['N', 3], ['W', 3]], hora: 'noite', lua: true });
+[['d_trash_1_0', 2.2, 5.6], ['trash_01_18', 4.3, 6.2], ['d_trash_1_13', 1.4, 2.6], ['trash_01_27', 3.6, 3.4], ['trash_01_24', 4.6, 4.8]].forEach(([n, i, j]) => KC.placa(n, i, j));
+const CHAO = K(3.2, 5.3);
+
 const RUA = rua(300, 0), RC = RUA.C, R = RC.at;
+
 const BAT = PZ.attach(S, 'Bip01_Prop1', PZ.propMesh('w_bat', 'baseballbat'));
 S.g.traverse(o => { o.renderOrder = 2; });
 const SY = .66;
@@ -63,19 +73,20 @@ run([
   (lf, f, len, c) => { noite(f); const a = 30;
     if (lf < a) andar([[FRONT.x - .8, FRONT.z + .9], [FRONT.x, FRONT.z]], lf); else sentar(lf - a);
     camOn(c, SEAT.x - .2, SEAT.z + .3, 6.4, SY); },
-  // 4 — cama boa recupera mais rápido; chão: dorme mais e acorda com dor no pescoço; travesseiro ajuda
-  (lf, f, len, c) => { noite(f); const k1 = len * .46, k2 = len * .80, CH = A(3.2, 2.3);
-    if (lf < k1) { deitado(lf); camOn(c, LEITO.x + .3, LEITO.z + .5, 5.8, SY); }
-    else if (lf < k2) { clip('s_asleep', lf, { x: CH.x, z: CH.z, ry: Math.PI / 2 }); camOn(c, CH.x + .2, CH.z, 5.8, SY); }
-    else { clip('s_sitground', lf, { x: CH.x, z: CH.z, ry: Math.PI / 2, up: ['s_painhead', lf - k2 + 10] }); camOn(c, CH.x + .2, CH.z, 5.8, SY); }
-    clarao(Math.max(1 - Math.abs(lf - k1) / 6, 1 - Math.abs(lf - k2) / 5, 0) * .9, '#000'); },
+  // 4 — v4: cada pedaço da fala com o lugar certo: CAMA BOA (madeira, travesseiro) → CHÃO da sala com lixo → acorda no chão com dor no pescoço
+  //     (banco de carro: o teto do carro do jogo esconde quem está dentro; fica só no chip "CHÃO / CARRO")
+  (lf, f, len, c) => { const k1 = len * .46, k3 = len * .80;
+    if (lf < k1) { noite(f); deitado(lf); camOn(c, LEITO.x + .3, LEITO.z + .5, 5.8, SY); }
+    else if (lf < k3) { light('dark'); clima('', 0); KC.show(); NOITE.off(); NOITE2.mostrar(true); NOITE2.set(f); cansaco(.25); clip('s_asleep', lf, { x: CHAO.x, z: CHAO.z, ry: Math.PI / 2 }); camOn(c, CHAO.x + 1.0, CHAO.z + 1.1, 5.6, SY); }
+    else { light('dark'); clima('', 0); KC.show(); NOITE.off(); NOITE2.mostrar(true); NOITE2.set(f); cansaco(0); clip('s_sitground', lf, { x: CHAO.x, z: CHAO.z, ry: Math.PI / 2, up: ['s_painhead', lf - k3 + 10] }); camOn(c, CHAO.x + 1.0, CHAO.z + 1.1, 5.6, SY); }
+    clarao(Math.max(1 - Math.abs(lf - k1) / 6, 1 - Math.abs(lf - k3) / 5, 0) * .9, '#000'); },
   // 5 — às vezes o jogo nem deixa dormir: zumbi batendo na janela (lado de fora), pânico
   (lf, f, len, c) => { noite(f); deitado(lf + 40); const w = A(4, -.8); zClip(Z[0], 'z_doorbang', lf, { x: w.x, z: w.z, ry: 0 }); zClip(Z[1], 'z_doorbang', lf + 13, { x: w.x - .55, z: w.z - .35, ry: 0 });
     c.shake((lf % 34) - 2, .025); camOn(c, LEITO.x + .9, LEITO.z, 6.8, SY); },
   // 6 — comprimidos soníferos (Bob_IdleTakePills) ao lado da cama; nada de álcool junto
   (lf, f, len, c) => { noite(f); clip('s_pills', lf + 10, { x: BEIRA.x + .15, z: BEIRA.z + .55, ry: .5 }); camOn(c, BEIRA.x, BEIRA.z + .3, 6.2, SY); },
   // 7 — pílula de cafeína: um empurrão de energia, mas o sono continua (cozinha, de tarde)
-  (lf, f, len, c) => { light('dawn'); clima('', 0); KC.show(); TARDE.set(f); cansaco(0); clarao(0); const p = K(7.4, 1.7);
+  (lf, f, len, c) => { light('dawn'); clima('', 0); KC.show(); NOITE2.mostrar(false); TARDE.set(f); cansaco(0); clarao(0); const p = K(7.4, 1.7);
     if (lf < 100) clip('s_pills', lf + 5, { x: p.x, z: p.z, ry: .9 }); else clip('s_yawn', lf - 100, { x: p.x, z: p.z, ry: .9 });
     camOn(c, p.x - .1, p.z, 6.6, SY); },
   // 8 — noite chegando com Sonolência: tranca a porta, vai até a melhor cama, deita (Bob_GetInBed) e dorme; amanhece e acorda inteiro
