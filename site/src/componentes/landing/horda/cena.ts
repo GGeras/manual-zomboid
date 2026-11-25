@@ -72,20 +72,22 @@ export async function iniciarHorda(o: OpcoesHorda) {
   const renderer = new THREE.WebGLRenderer({ canvas: o.canvas, antialias: !o.leve, alpha: false, powerPreference: o.leve ? 'low-power' : 'high-performance' })
   renderer.setPixelRatio(Math.min(devicePixelRatio, o.leve ? 1.5 : 2))
   renderer.outputColorSpace = THREE.SRGBColorSpace
-  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0
+  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.08
   renderer.shadowMap.enabled = !o.leve; renderer.shadowMap.type = THREE.PCFSoftShadowMap
   const cena = new THREE.Scene()
-  const NOITE = '#070a10'
+  const NOITE = '#06070b'
   cena.background = new THREE.Color(NOITE)
   cena.fog = new THREE.Fog(NOITE, 46, 64) // o fundo da rua some no escuro, como no jogo à noite
   const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 200)
   const alvo = new THREE.Vector3().copy(CENTRO.paisagem), alvoBase = alvo.clone()
 
-  // ---------- luz: noite de lua, lanterna no ponteiro, postes, janela, fogueira ----------
-  cena.add(new THREE.HemisphereLight('#5d6f9e', '#15141c', 1.0))
-  const lua = new THREE.DirectionalLight('#a8bce8', 0.85); lua.position.set(-7, 12, -3); cena.add(lua, lua.target)
+  // ---------- luz: como a arte da tela de título do jogo (media/ui/Title*.png): quase preto, poças de luz âmbar quente
+  // (postes, janela, fogueira, lanterna) e, de vez em quando, o clarão frio do relâmpago (Title_lightning) ----------
+  const CEU = new THREE.Color('#4f5f8c'), CEU_RAIO = new THREE.Color('#c4d2fa'), BASE = { ceu: 0.78, lua: 0.62 }
+  const ceu = new THREE.HemisphereLight(CEU, '#120f12', BASE.ceu); cena.add(ceu)
+  const lua = new THREE.DirectionalLight('#a8bce8', BASE.lua); lua.position.set(-7, 12, -3); cena.add(lua, lua.target)
   if (!o.leve) { lua.castShadow = true; lua.shadow.mapSize.set(2048, 2048); Object.assign(lua.shadow.camera, { left: -16, right: 16, top: 16, bottom: -16, near: 1, far: 50 }); lua.shadow.bias = -0.0006; lua.shadow.normalBias = 0.03 }
-  const lanterna = new THREE.SpotLight('#fff0d6', 70, 16, 0.42, 0.65, 1.4); cena.add(lanterna, lanterna.target)
+  const lanterna = new THREE.SpotLight('#ffe9c7', 78, 16, 0.42, 0.62, 1.4); cena.add(lanterna, lanterna.target)
 
   // ---------- a rua (sprites do jogo) ----------
   const mundo = new THREE.Group(); cena.add(mundo)
@@ -107,8 +109,9 @@ export async function iniciarHorda(o: OpcoesHorda) {
   const vidroEscuro = new THREE.MeshBasicMaterial({ color: '#141c24' }), vidroAceso = new THREE.MeshBasicMaterial({ color: '#ffb766' })
   const acesas: THREE.Mesh[] = []
   function vidro(i: number, j: number, lado: 'N' | 'W', aceso: boolean) {
-    const g = new THREE.Mesh(new THREE.PlaneGeometry(0.62, 1.05), aceso ? vidroAceso : vidroEscuro)
-    if (lado === 'N') g.position.set(i - 0.05, 1.42, j - 0.56); else { g.rotation.y = Math.PI / 2; g.position.set(i - 0.56, 1.42, j + 0.03) }
+    // mesmo vidro do pipeline (cenarios.js): maior que o vão e atrás da cortina (-0,56) e da parede (-0,5): só aparece pelo buraco da janela
+    const g = new THREE.Mesh(new THREE.PlaneGeometry(0.9, 1.6), aceso ? vidroAceso : vidroEscuro)
+    if (lado === 'N') g.position.set(i, 1.25, j - 0.62); else { g.rotation.y = Math.PI / 2; g.position.set(i - 0.62, 1.25, j) }
     mundo.add(g); if (aceso) acesas.push(g); return g
   }
   function casa(i0: number, i1: number, j0: number, j1: number, o: { parede: 'siding' | 'tijolo'; janelas: (number | string)[]; porta: number; acesa?: number | string; cortina: string }) {
@@ -116,7 +119,7 @@ export async function iniciarHorda(o: OpcoesHorda) {
     for (let i = i0; i <= i1; i++) {
       const jan = o.janelas.includes(i)
       C.parede('N', P_[jan ? 4 : 1], i, j1 + 1)
-      if (jan) { vidro(i, j1 + 1, 'N', o.acesa === i); C.parede('N', o.cortina, i, j1 + 1, { off: -0.06 }); C.parede('N', 'fixtures_windows_01_17', i, j1 + 1, { off: 0.01 }) }
+      if (jan) { vidro(i, j1 + 1, 'N', o.acesa === i); C.parede('N', o.cortina, i, j1 + 1, { off: -0.06, luz: o.acesa === i ? '#ffb45c' : undefined }); C.parede('N', 'fixtures_windows_01_17', i, j1 + 1, { off: 0.01 }) }
       if (i === o.porta) C.parede('N', 'fixtures_doors_01_5', i, j1 + 1, { off: 0.01 })
     }
     for (let j = j0; j <= j1; j++) {
@@ -145,7 +148,7 @@ export async function iniciarHorda(o: OpcoesHorda) {
   ;[[-15, -3], [0, -3], [12, -3], [-9, 6], [10, 6], [15, 4], [-4, 7], [7, -3], [-1, 6]].forEach(([i, j]) => bloqueia(i, j, 0.3, 0.3))
   // arbustos, capim alto, pedras
   const ARB = n4('f_bushes_1_', [100, 101, 103, 105])
-  ;[[-11, -4], [-4, -4], [3, -4], [9, -4], [-13, 4], [8, 4], [12, 3], [-6, 5]].forEach(([i, j], k) => C.obj(ARB[k % 4], i, j, { w: 0.6, d: 0.6 }))
+  ;[[-11, -4], [-5.2, -3.8], [3, -4], [9, -4], [-13, 4], [8, 4], [12, 3], [-6, 5]].forEach(([i, j], k) => C.obj(ARB[k % 4], i, j, { w: 0.6, d: 0.6 }))
   ;[[-2, 8], [6, 10], [-8, 9]].forEach(([i, j], k) => C.obj('f_bushes_1_' + [64, 67, 70][k], i, j, { w: 0.5, d: 0.5 }))
   const CAPIM = n4('e_newgrass_1_', [16, 17, 40, 41, 64])
   ;[[-8, 3], [-3, 3], [6, 3], [11, 3], [-12, 3], [0, -2], [-1, 4], [7, 8], [-5, 9], [12, -2], [-14, -2]].forEach(([i, j], k) => C.obj(CAPIM[k % 5], i, j, { w: 0.7, d: 0.7 }))
@@ -154,37 +157,45 @@ export async function iniciarHorda(o: OpcoesHorda) {
   // postes (um pisca: fiação ruim), placa de PARE, hidrante, caixas de correio, cone e barril (acidente), bueiro
   const postes: { luz: THREE.PointLight; halo: THREE.Sprite; falha: boolean }[] = []
   const haloTex = brilho('rgba(255,196,120,1)')
-  ;[[-9, 2, false], [6, 2, true], [-1, -1, false]].forEach(([i, j, falha]) => {
-    C.obj('lighting_outdoor_01_1', i as number, j as number, { w: 0.3, d: 0.3 }); bloqueia(i as number, j as number, 0.2, 0.2)
-    const luz = new THREE.PointLight('#ffbf73', 16, 8, 1.5); luz.position.set((i as number) + 0.05, 3.05, (j as number) + 0.05); mundo.add(luz)
-    const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTex, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, fog: false })); halo.scale.setScalar(1.3); halo.position.copy(luz.position); mundo.add(halo)
-    postes.push({ luz, halo, falha: falha as boolean })
+  // globo da lâmpada no sprite do jogo: pixel (57, 16) de 128×256 = 2,66 de altura e 7 px à esquerda da âncora (medido no PNG)
+  const GLOBO = new THREE.Vector3(-0.055, 2.66, 0.055)
+  ;([[-9, 2, 0], [6, 2, 0.2], [-1, -1, 0]] as [number, number, number][]).forEach(([i, j, torto]) => {
+    // poste + luz + brilho num grupo só: o poste em que a picape bateu entorta e a lâmpada vai junto
+    const pe = new THREE.Group(); pe.position.set(i, 0, j); mundo.add(pe)
+    const m = C.obj('lighting_outdoor_01_1', i, j, { w: 0.3, d: 0.3 }); m.position.set(0, 0, 0); pe.add(m)
+    pe.rotation.z = torto; bloqueia(i, j, 0.2, 0.2)
+    const luz = new THREE.PointLight('#ffb15c', 20, 8.5, 1.5); luz.position.copy(GLOBO); pe.add(luz)
+    const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTex, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, fog: false })); halo.scale.setScalar(1.2)
+    halo.position.copy(GLOBO).addScaledVector(DIR, 0.3); pe.add(halo) // um pouco para a câmera: o brilho fica na frente do globo, no mesmo ponto da tela
+    postes.push({ luz, halo, falha: torto > 0 })
   })
   C.obj('street_decoration_01_0', -14, 2, { w: 0.4, d: 0.4 }); C.obj('street_roadsigns_01_9', 13, -1, { w: 0.4, d: 0.4 })
-  C.obj('street_decoration_01_12', 3, -1, { w: 0.4, d: 0.4 }); C.obj('street_decoration_01_18', -8, -1, { w: 0.4, d: 0.4 }); C.obj('street_decoration_01_8', 10, 2, { w: 0.6, d: 0.6 })
-  C.obj('street_decoration_01_26', 8.6, 0.2, { w: 0.4, d: 0.4 }); C.obj('street_decoration_01_27', 9.4, 1.5, { w: 0.5, d: 0.5 }); C.obj('street_decoration_01_15', -3, 1, { w: 0.9, d: 0.9, h: 0.05 })
+  C.obj('street_decoration_01_12', -4, -1, { w: 0.4, d: 0.4 }); C.obj('street_decoration_01_18', -8, -1, { w: 0.4, d: 0.4 }); C.obj('street_decoration_01_8', 13.5, 2, { w: 0.6, d: 0.6 })
+  C.obj('street_decoration_01_26', 11.9, 0.15, { w: 0.4, d: 0.4 }); C.obj('street_decoration_01_27', 12.3, 1.7, { w: 0.5, d: 0.5 }); C.obj('street_decoration_01_15', -3, 1, { w: 0.9, d: 0.9, h: 0.05 })
   C.obj('street_decoration_01_28', 14, 0.5, { w: 0.9, d: 0.5 })
-  ;[[3, -1], [-8, -1], [10, 2], [9.4, 1.5], [-14, 2], [13, -1]].forEach(([i, j]) => bloqueia(i, j, 0.25, 0.25))
+  ;[[-4, -1], [-8, -1], [13.5, 2], [12.3, 1.7], [11.9, 0.15], [-14, 2], [13, -1]].forEach(([i, j]) => bloqueia(i, j, 0.25, 0.25))
   // lixo: caçamba e latões ao lado da casa de tijolo, sacos e papel na calçada e na rua
   C.obj('trashcontainers_01_8', 11.4, -3.6, { w: 0.95, d: 0.9 }); C.obj('trashcontainers_01_0', 1, -2, { w: 0.5, d: 0.5 }); C.obj('trashcontainers_01_16', -2, 2, { w: 0.45, d: 0.45 }); C.obj('trashcontainers_01_24', 11, -2.4, { w: 0.6, d: 0.6 })
   bloqueia(11.4, -3.6, 0.6, 0.55); bloqueia(1, -2, 0.3, 0.3); bloqueia(-2, 2, 0.3, 0.3)
   ;[[-5, -1, 'trash_01_18'], [2, 2, 'trash_01_24'], [-11, 1, 'trash_01_27'], [7, -1, 'trash_01_33'], [-2, 0, 'd_trash_1_0'], [4, 1, 'd_trash_1_13'], [-7, 2, 'd_trash_1_9'], [12, 1, 'trash_01_24']].forEach(([i, j, n]) => C.mancha(n as string, i as number, j as number, 0.035))
   // sangue no chão (sprites de sangue do jogo): onde a horda já passou
-  ;[[-3, 2, 'blood_floor_large_01'], [-4, 1, 'blood_floor_med_02'], [3, 5, 'blood_floor_large_03'], [4, 4, 'blood_floor_small_03'], [8, 1, 'blood_floor_large_05'], [-6, 0, 'blood_floor_small_06'], [0, 1, 'blood_floor_med_05'], [-7, -2, 'blood_floor_small_03']].forEach(([i, j, n]) => C.mancha(n as string, i as number, j as number, 0.04))
+  ;[[-3, 2, 'blood_floor_large_01'], [-4, 1, 'blood_floor_med_02'], [1, 4, 'blood_floor_large_03'], [2, 3, 'blood_floor_small_03'], [8, 1, 'blood_floor_large_05'], [-6, 0, 'blood_floor_small_06'], [0, 1, 'blood_floor_med_05'], [-7, -2, 'blood_floor_small_03']].forEach(([i, j, n]) => C.mancha(n as string, i as number, j as number, 0.04, '#7a1616'))
 
   // acampamento abandonado no terreno da frente: barraca, lenha e a fogueira ainda acesa (alguém fugiu às pressas)
-  C.obj('camping_01_0', 4, 6, { w: 1.6, d: 1.6 }); bloqueia(4, 6, 0.85, 0.85)
+  // barraca ao lado da fogueira (não em cima): caixa do tamanho do ladrilho, senão a borda do sprite estica e vira uma faixa escura
+  C.obj('camping_01_0', 4.4, 3.8); bloqueia(4.4, 3.8, 0.55, 0.55)
   C.obj('camping_01_25', 1.6, 6.6, { w: 0.8, d: 0.6 }); bloqueia(1.6, 6.6, 0.45, 0.35)
   C.obj('camping_01_4', 2.6, 4.8, { w: 0.9, d: 0.9, h: 0.12 }); bloqueia(2.6, 4.8, 0.45, 0.45)
-  const fogo = new THREE.PointLight('#ff7a2e', 14, 7, 1.6); fogo.position.set(2.6, 0.7, 4.8); mundo.add(fogo)
+  const fogo = new THREE.PointLight('#ff7a2e', 16, 7.5, 1.6); fogo.position.set(2.6, 0.5, 4.8); mundo.add(fogo)
   const chamaTex = brilho('rgba(255,150,60,1)')
-  const chamas = Array.from({ length: 4 }, (_, k) => { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: chamaTex, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, fog: false })); s.position.set(2.6 + rnd(-0.12, 0.12), 0.3 + k * 0.12, 4.8 + rnd(-0.12, 0.12)); mundo.add(s); return s })
+  // chamas nascem da lenha no meio do anel de pedras (y ≈ 0,1) e afinam para cima
+  const chamas = Array.from({ length: 4 }, (_, k) => { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: chamaTex, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, fog: false })); s.position.set(2.6 + rnd(-0.06, 0.06), 0.12 + k * 0.11, 4.8 + rnd(-0.06, 0.06)).addScaledVector(DIR, 0.35); mundo.add(s); return s })
   const FAG = 40
   const fagPos = new Float32Array(FAG * 3).map((_, k) => (k % 3 === 1 ? Math.random() * 2 : (Math.random() - 0.5) * 0.4))
   const fagulhas = new THREE.Points(new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(fagPos, 3)), new THREE.PointsMaterial({ color: '#ffb35c', size: 0.05, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }))
-  fagulhas.position.set(2.6, 0.2, 4.8); mundo.add(fagulhas)
+  fagulhas.position.set(2.6, 0.15, 4.8); mundo.add(fagulhas)
   // brilho da janela acesa no gramado
-  const luzJanela = new THREE.PointLight('#ffb766', 5, 5, 1.8); luzJanela.position.set(-5, 1.4, -3.6); mundo.add(luzJanela)
+  const luzJanela = new THREE.PointLight('#ffa95a', 7, 5.5, 1.7); luzJanela.position.set(-5, 1.4, -3.6); mundo.add(luzJanela)
 
   // ---------- carros do jogo: o sedã parado na rua (com um zumbi batendo na porta) e a picape que bateu no poste ----------
   const VEH = { normal: ['car_normal', 'vehicle_carnormalshell', 1.47, -1.22, 0.83, 0.31], pickup: ['car_pickup', 'vehicle_pickupshell', 1.62, -1.52, 0.93, 0.37] } as const
@@ -203,11 +214,12 @@ export async function iniciarHorda(o: OpcoesHorda) {
     return { g, L, W, hw }
   }
   const sedan = veiculo('normal', '#5d1d1b', -5.2, 0.35, 0.04, [0.01, 0.02])
-  const picape = veiculo('pickup', '#3d4a3a', 7.6, 1.55, -0.62, [0, -0.03])
-  // farol da picape ainda aceso, apontando para o poste em que bateu
+  // frente (+x do carro) apontada para o poste (6, 2), para-choque encostado nele; levemente torta (roda subiu na calçada)
+  const picape = veiculo('pickup', '#566a4e', 8.62, 1.27, -2.87, [0.02, -0.035])
+  // farol da picape ainda aceso, batendo no poste e no chão à frente
   const farolTex = brilho('rgba(255,236,190,1)')
   const farolHalo = new THREE.Sprite(new THREE.SpriteMaterial({ map: farolTex, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, fog: false })); farolHalo.scale.setScalar(0.7)
-  farolHalo.position.set(picape.L + 0.05, 0.75, 0.6); picape.g.add(farolHalo)
+  farolHalo.position.set(picape.L + 0.18, 0.78, 0.62); picape.g.add(farolHalo)
   let farol: THREE.SpotLight | null = null
   if (!o.leve) { farol = new THREE.SpotLight('#ffe7b0', 22, 9, 0.45, 0.7, 1.5); farol.position.copy(farolHalo.position); const a = new THREE.Object3D(); a.position.set(picape.L + 5, -0.4, 1); picape.g.add(farol, a); farol.target = a }
 
@@ -469,6 +481,13 @@ export async function iniciarHorda(o: OpcoesHorda) {
   const vis = () => { if (!document.hidden) { antes = performance.now(); laco() } }; document.addEventListener('visibilitychange', vis)
 
   let proxFalha = performance.now() + rnd(8000, 16000), falhaAte = 0
+  // relâmpago: clarão duplo, frio, que acende a rua inteira por um instante (a chuva já está caindo)
+  let proxRaio = performance.now() + rnd(7000, 14000), raio = -1e9
+  function clarao(agora: number) {
+    if (agora > proxRaio) { raio = agora; proxRaio = agora + rnd(16000, 34000) }
+    const t = (agora - raio) / 1000
+    return t < 0 ? 0 : t < 0.07 ? 1 : t < 0.15 ? 0.12 : t < 0.22 ? 0.8 : t < 1.2 ? 0.8 * Math.exp(-(t - 0.22) * 5) : 0
+  }
   function quadroDeRender(agora: number) {
     const dt = Math.min(0.05, (agora - antes) / 1000); antes = agora
     const t = agora / 1000
@@ -476,6 +495,8 @@ export async function iniciarHorda(o: OpcoesHorda) {
     miraSuave.lerp(mira, Math.min(1, dt * 6))
     paralaxeSuave.lerp(paralaxe, Math.min(1, dt * 1.6))
     posicionarCamera(t)
+    const k = clarao(agora)
+    ceu.intensity = BASE.ceu + k * 2.1; ceu.color.copy(CEU).lerp(CEU_RAIO, k); lua.intensity = BASE.lua + k * 2.6
     // lanterna: na mão de quem olha (perto da câmera), apontada para o ponteiro; sem ponteiro, varre devagar o meio da rua
     const foco = ponteiro || agora - ultimoMov < 2500 ? miraSuave : _q.set(alvo.x + Math.sin(t * 0.4) * 2.2, 0, alvo.z + Math.cos(t * 0.31) * 1.4)
     lanterna.position.set(foco.x + 2.2, 5.2, foco.z + 2.2); lanterna.target.position.copy(foco); lanterna.target.updateMatrixWorld()
@@ -491,7 +512,7 @@ export async function iniciarHorda(o: OpcoesHorda) {
     vidroAceso.color.setRGB(1 * tv, 0.72 * tv, 0.42 * tv)
     // fogueira
     fogo.intensity = 13 + Math.sin(agora / 90) * 2 + Math.sin(agora / 37) * 1.2
-    chamas.forEach((s, k) => { const v = 0.55 + Math.sin(t * (7 + k * 2.3) + k) * 0.12 + Math.sin(t * 17 + k * 3) * 0.06; s.scale.set(v * 0.9, v * 1.25, 1); (s.material as THREE.SpriteMaterial).opacity = 0.75 - k * 0.12 })
+    chamas.forEach((s, k) => { const v = 0.55 + Math.sin(t * (7 + k * 2.3) + k) * 0.12 + Math.sin(t * 17 + k * 3) * 0.06; const afina = 1 - k * 0.2; s.scale.set(v * 0.75 * afina, v * 1.1 * afina, 1); (s.material as THREE.SpriteMaterial).opacity = 0.85 - k * 0.15 })
     for (let k = 0; k < FAG; k++) { let y = fagPos[k * 3 + 1] + dt * (0.45 + (k % 5) * 0.12); if (y > 2.4) { y = 0; fagPos[k * 3] = (Math.random() - 0.5) * 0.4; fagPos[k * 3 + 2] = (Math.random() - 0.5) * 0.4 } fagPos[k * 3 + 1] = y; fagPos[k * 3] += Math.sin(t * 2.5 + k) * dt * 0.1 }
     ;(fagulhas.geometry.attributes.position as THREE.BufferAttribute).needsUpdate = true
     // farol da picape: bateria morrendo
