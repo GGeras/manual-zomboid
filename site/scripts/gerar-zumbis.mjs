@@ -23,21 +23,22 @@ export const ZUMBIS = [
   { nome: 'camiseta e jeans', sex: 'F', skin: 'f_zedbody03_level2', layers: [J('#4a6a94'), T('#c98aa0'), 'trainers_white'], hair: 'bob', hairColor: '#4a2e1a', blood: 1 },
 ]
 // andares (4 jeitos de andar do jogo), parado, bote, golpe, queda, levantar e bater na lataria
-// + pular cerca: o jogo usa a mesma sequência da janela (apoia, passa por cima, cai do outro lado e levanta)
-const CLIPS = ['z_walk', 'z_walk2', 'z_walk3', 'z_walk4', 'z_idle', 'z_lunge', 'z_hit', 'z_death', 'z_getup', 'z_doorbang', 'z_climbwin_start', 'z_climbwin', 'z_climbwin_end']
+// + pular cerca: a sequência da janela no jogo (start = apoia e sobe; end = cai do outro lado e levanta). A z_climbwin é um pulo inteiro
+// por si só (repetiria a queda), então fica de fora.
+const CLIPS = ['z_walk', 'z_walk2', 'z_walk3', 'z_walk4', 'z_idle', 'z_lunge', 'z_hit', 'z_death', 'z_getup', 'z_doorbang', 'z_climbwin_start', 'z_climbwin_end']
 // cenário: o sedã (Chevalier Nyala) e a picape (Chevalier D6) do jogo, abandonados na rua
 const CENARIO = { malhas: ['car_normal', 'car_pickup'], texturas: ['vehicle_carnormalshell', 'vehicle_pickupshell'] }
 // sprites ORIGINAIS do jogo (projeto/assets/tiles, extraídos do Tiles2x.pack) que a rua da abertura usa: viram public/jogo/tiles/<nome>.webp
 const n = (p, ids) => ids.map((i) => p + i)
 export const TILES = [
-  ...n('blends_natural_01_', [16, 21, 22, 23]), ...n('floors_exterior_street_01_', [0, 1, 2, 3, 4, 5, 16]), ...n('floors_exterior_tilesandstone_01_', [0, 1, 2]),
-  ...n('walls_exterior_house_01_', [32, 33, 34, 40, 41, 4, 5, 6, 12, 13]), 'fixtures_windows_01_16', 'fixtures_windows_01_17', 'fixtures_windows_curtains_01_26', 'fixtures_windows_curtains_01_10', 'fixtures_doors_01_5',
+  ...n('blends_natural_01_', [16, 21, 22, 23]), ...n('floors_exterior_street_01_', [0, 1, 2, 3, 4, 5]), ...n('floors_exterior_tilesandstone_01_', [0, 1, 2]),
+  // paredes: [W, N, pilar da quina, janela W, janela N, batente de porta N] (siding 32.. e tijolo 4..)
+  ...n('walls_exterior_house_01_', [32, 33, 35, 40, 41, 43, 4, 5, 7, 12, 13, 15]), 'fixtures_windows_01_16', 'fixtures_windows_01_17', 'fixtures_windows_curtains_01_26', 'fixtures_windows_curtains_01_10', 'fixtures_doors_01_5',
   'fencing_01_5', 'fencing_01_16', 'fencing_01_17',
-  // árvores INTEIRAS (JumboTrees2x.pack): as de Tiles2x vêm cortadas no topo do ladrilho
-  ...n('e_redmapleJUMBO_1_', [0, 1, 6, 7]), ...n('e_americanlindenJUMBO_1_', [1, 7]), ...n('e_riverbirchJUMBO_1_', [1, 5]), ...n('e_canadianhemlockJUMBO_1_', [0, 1]), ...n('e_virginiapineJUMBO_1_', [0, 1]),
+  // (árvores e postes são 3D: horda/objetos3d.ts, com as cores tiradas dos sprites JUMBO e do poste do jogo)
   ...n('f_bushes_1_', [100, 101, 103, 105, 64, 67, 70]), ...n('e_newgrass_1_', [16, 17, 40, 41, 64]), ...n('d_generic_1_', [21, 24, 51]),
-  ...n('trash_01_', [18, 24, 27, 33]), ...n('d_trash_1_', [0, 9, 13]), 'lighting_outdoor_01_1', 'street_roadsigns_01_9',
-  ...n('street_decoration_01_', [0, 8, 12, 15, 18, 26, 27, 28]), ...n('trashcontainers_01_', [0, 8, 16, 24]), ...n('camping_01_', [0, 1, 4, 25]),
+  ...n('trash_01_', [18, 24, 27, 33]), ...n('d_trash_1_', [0, 9, 13]), 'street_roadsigns_01_9',
+  ...n('street_decoration_01_', [0, 8, 12, 15, 18, 26, 27, 28]), ...n('trashcontainers_01_', [0, 8, 16, 24]), ...n('camping_01_', [0, 1, 4, 24, 25]),
   ...n('blood_floor_large_0', [1, 3, 5]), ...n('blood_floor_med_0', [2, 5]), ...n('blood_floor_small_0', [3, 6]),
 ]
 

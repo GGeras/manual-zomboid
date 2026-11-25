@@ -17,10 +17,22 @@ export interface Humano { g: THREE.Group; bones: Record<string, THREE.Bone>; ord
   /** false = não encosta o corpo no chão (pulando cerca: a animação sobe e desce sozinha) */
   apoio: boolean }
 
-export async function carregarPacote(url: string): Promise<{ P: Pacote; IMG: Record<string, HTMLImageElement> }> {
-  const P = (await (await fetch(url)).json()) as Pacote
-  const IMG: Record<string, HTMLImageElement> = {}
-  await Promise.all(Object.entries(P.tex).map(([k, src]) => new Promise<void>((res) => { const im = new Image(); im.onload = () => { IMG[k] = im; res() }; im.onerror = () => res(); im.src = src })))
+/** baixa o pacote lendo aos pedaços (para o preloader mostrar o progresso de verdade). tamanho = bytes do JSON (gerado no build:
+ *  com gzip/brotli o servidor não manda o tamanho descomprimido). aoProgresso(etapa, 0..1). */
+export async function carregarPacote(url: string, tamanho = 0, aoProgresso?: (etapa: 'baixando' | 'vestindo', f: number) => void): Promise<{ P: Pacote; IMG: Record<string, HTMLImageElement> }> {
+  const res = await fetch(url)
+  let texto: string
+  if (res.body && aoProgresso) {
+    const total = tamanho || Number(res.headers.get('content-length')) || 1_100_000, leitor = res.body.getReader(), partes: Uint8Array[] = []
+    let n = 0
+    for (;;) { const { done, value } = await leitor.read(); if (done) break; partes.push(value); n += value.length; aoProgresso('baixando', Math.min(1, n / total)) }
+    const tudo = new Uint8Array(n); let o = 0; for (const p of partes) { tudo.set(p, o); o += p.length }
+    texto = new TextDecoder().decode(tudo)
+  } else texto = await res.text()
+  const P = JSON.parse(texto) as Pacote
+  const IMG: Record<string, HTMLImageElement> = {}, lista = Object.entries(P.tex)
+  let prontas = 0
+  await Promise.all(lista.map(([k, src]) => new Promise<void>((ok) => { const im = new Image(); const fim = () => { prontas++; aoProgresso?.('vestindo', prontas / lista.length); ok() }; im.onload = () => { IMG[k] = im; fim() }; im.onerror = fim; im.src = src })))
   return { P, IMG }
 }
 

@@ -84,6 +84,9 @@ if (faltando.length) {
 const z = await gerarZumbis(RAIZ, SAIDA)
 console.log(z.ok ? `zumbis: ${z.kb} KB${z.cache ? ' (já estava em dia)' : ''}` : `::warning::zumbis da abertura não gerados (${z.motivo}): a abertura fica na imagem estática`)
 if (!z.ok && process.env.CI) process.exit(1) // no deploy a abertura 3D não pode sumir calada
+// tamanho exato do pacote (o preloader mede o download contra ele: com gzip/brotli o navegador não sabe o tamanho descomprimido)
+const pacote = path.join(SAIDA, 'zumbis.json')
+fs.writeFileSync(path.join(GERADO, 'abertura.json'), JSON.stringify({ bytes: fs.existsSync(pacote) ? fs.statSync(pacote).size : 0 }) + '\n')
 
 // ---- imagem de compartilhamento (1200x630) e favicon ----
 const PUB = path.join(SITE, 'public')

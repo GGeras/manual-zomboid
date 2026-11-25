@@ -2,17 +2,18 @@ import Link from 'next/link'
 import { discord } from '@/config/publico'
 import { Discord, Seta } from '../icones'
 import { Horda, type TopicoHorda } from './horda/horda'
+import { Preloader } from './preloader'
 
 /** Caminhos da abertura: cada zumbi do jogo carrega a placa de um tópico (o visitante já veio das redes, então o site
  *  mostra o que só existe aqui: tierlists, Comunidade, Discord, guias). casa = ladrilho (x, z) da rua onde o zumbi fica:
  *  a rua corre ao longo de x (z 0 a 1), casas ao fundo (z < -4), acampamento na frente (z 4 a 7). Ver horda/cena.ts. */
 function caminhos(): TopicoHorda[] {
   return [
-    { id: 'tierlists', titulo: 'Tierlists', linha: 'Vote no que é S+', href: '/comunidade/tierlists', icone: 'itens/Item_Axe', cor: '#ffb020', modelo: 2, casa: [-6, 1.5], casaRetrato: [-3, 0.8] },
-    { id: 'comunidade', titulo: 'Comunidade', linha: 'Conte como você morreu', href: '/comunidade', icone: 'moodles/Mood_Dead', cor: '#ff3d55', modelo: 1, casa: [-3.5, -2.6], casaRetrato: [-2.5, -3] },
-    { id: 'discord', titulo: 'Discord', linha: 'Ache grupo pro multiplayer', href: discord.convite ?? '#discord', externo: Boolean(discord.convite), icone: null, cor: '#8b95ff', modelo: 4, casa: [2, 0.8], casaRetrato: [1.5, -0.3] },
-    { id: 'guias', titulo: 'Guias', linha: 'Cada dica, por inteiro', href: '/guias', icone: 'itens/Item_Book', cor: '#8fe04a', modelo: 3, casa: [4.5, -2.4], casaRetrato: [-1, -4] },
-    { id: 'shorts', titulo: 'Shorts', linha: '60 segundos, uma lição', href: '#shorts', icone: null, cor: '#efe5cf', modelo: 5, casa: [0.5, 4], casaRetrato: [1.2, 3.2] },
+    { id: 'tierlists', titulo: 'Tierlists', linha: 'Vote no que é S+', href: '/comunidade/tierlists', icone: 'itens/Item_Axe', cor: '#ffb020', modelo: 2, casa: [-9.2, 1], casaRetrato: [-3, 0.8] },
+    { id: 'comunidade', titulo: 'Comunidade', linha: 'Conte como você morreu', href: '/comunidade', icone: 'moodles/Mood_Dead', cor: '#ff3d55', modelo: 1, casa: [-3.8, -2.9], casaRetrato: [-2.5, -3] },
+    { id: 'discord', titulo: 'Discord', linha: 'Ache grupo pro multiplayer', href: discord.convite ?? '#discord', externo: Boolean(discord.convite), icone: null, cor: '#8b95ff', modelo: 4, casa: [2.6, 0.5], casaRetrato: [1.5, -0.3] },
+    { id: 'guias', titulo: 'Guias', linha: 'Cada dica, por inteiro', href: '/guias', icone: 'itens/Item_Book', cor: '#8fe04a', modelo: 3, casa: [5.6, -2.7], casaRetrato: [-1, -4] },
+    { id: 'shorts', titulo: 'Shorts', linha: '60 segundos, uma lição', href: '#shorts', icone: null, cor: '#efe5cf', modelo: 5, casa: [-1, 3.8], casaRetrato: [0, 3] },
   ]
 }
 
@@ -21,6 +22,7 @@ function caminhos(): TopicoHorda[] {
 export function Abertura({ fatos, guias, votos }: { fatos: number; guias: number; votos: number }) {
   return (
     <>
+      <Preloader />
       <section id="abertura" aria-label="Knox County, à noite: escolha seu caminho" className="grao relative isolate overflow-hidden bg-breu">
         {/* sem 3D: a noite fria e a cena do canal ao fundo (somem quando a rua 3D aparece por cima) */}
         <div aria-hidden className="cena-fundo absolute inset-0 -z-10 transition-opacity duration-1000">
