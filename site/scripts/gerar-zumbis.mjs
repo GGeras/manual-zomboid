@@ -24,8 +24,20 @@ export const ZUMBIS = [
 ]
 // andares (4 jeitos de andar do jogo), parado, bote, golpe, queda, levantar e bater na lataria
 const CLIPS = ['z_walk', 'z_walk2', 'z_walk3', 'z_walk4', 'z_idle', 'z_lunge', 'z_hit', 'z_death', 'z_getup', 'z_doorbang']
-// cenário: o sedã do jogo (Chevalier Nyala), abandonado na estrada
-const CENARIO = { malhas: ['car_normal'], texturas: ['vehicle_carnormalshell'] }
+// cenário: o sedã (Chevalier Nyala) e a picape (Chevalier D6) do jogo, abandonados na rua
+const CENARIO = { malhas: ['car_normal', 'car_pickup'], texturas: ['vehicle_carnormalshell', 'vehicle_pickupshell'] }
+// sprites ORIGINAIS do jogo (projeto/assets/tiles, extraídos do Tiles2x.pack) que a rua da abertura usa: viram public/jogo/tiles/<nome>.webp
+const n = (p, ids) => ids.map((i) => p + i)
+export const TILES = [
+  ...n('blends_natural_01_', [16, 21, 22, 23]), ...n('floors_exterior_street_01_', [0, 1, 2, 3, 4, 5, 16]), ...n('floors_exterior_tilesandstone_01_', [0, 1, 2]),
+  ...n('walls_exterior_house_01_', [32, 33, 34, 40, 41, 4, 5, 6, 12, 13]), 'fixtures_windows_01_16', 'fixtures_windows_01_17', 'fixtures_windows_curtains_01_26', 'fixtures_windows_curtains_01_10', 'fixtures_doors_01_5',
+  'fencing_01_5', 'fencing_01_16', 'fencing_01_17',
+  ...n('e_redmaple_1_', [2, 3, 14, 15]), ...n('e_canadianhemlock_1_', [2, 3]), ...n('e_virginiapine_1_', [2, 3]), ...n('e_riverbirch_1_', [3, 15]), ...n('e_americanlinden_1_', [3, 14, 15]),
+  ...n('f_bushes_1_', [100, 101, 103, 105, 64, 67, 70]), ...n('e_newgrass_1_', [16, 17, 40, 41, 64]), ...n('d_generic_1_', [21, 24, 51]),
+  ...n('trash_01_', [18, 24, 27, 33]), ...n('d_trash_1_', [0, 9, 13]), 'lighting_outdoor_01_1', 'street_roadsigns_01_9',
+  ...n('street_decoration_01_', [0, 8, 12, 15, 18, 26, 27, 28]), ...n('trashcontainers_01_', [0, 8, 16, 24]), ...n('camping_01_', [0, 4, 25]),
+  ...n('blood_floor_large_0', [1, 3, 5]), ...n('blood_floor_med_0', [2, 5]), ...n('blood_floor_small_0', [3, 6]),
+]
 
 const r4 = (a) => (a ? a.map((n) => Math.round(n * 1e4) / 1e4) : [])
 const r3 = (a) => (a ? a.map((n) => Math.round(n * 1e3) / 1e3) : [])
@@ -37,7 +49,10 @@ export async function gerarZumbis(raiz, saida) {
   const lfs = (p) => fs.existsSync(p) && !(fs.statSync(p).size < 200 && fs.readFileSync(p, 'utf8').startsWith('version https://git-lfs'))
   if (!lfs(arq('models.js')) || !lfs(arq('tex.js'))) return { ok: false, motivo: 'projeto/assets/pz sem os arquivos do LFS' }
   const destino = path.join(saida, 'zumbis.json')
-  const origemMs = Math.max(fs.statSync(arq('models.js')).mtimeMs, fs.statSync(arq('tex.js')).mtimeMs, fs.statSync(new URL(import.meta.url)).mtimeMs)
+  const PT = path.join(raiz, 'projeto/assets/tiles')
+  const faltam = TILES.filter((t) => !lfs(path.join(PT, t + '.png')))
+  if (faltam.length) return { ok: false, motivo: `sprites do jogo sem arquivo (git lfs pull): ${faltam.slice(0, 5).join(', ')}` }
+  const origemMs = Math.max(fs.statSync(arq('models.js')).mtimeMs, fs.statSync(arq('tex.js')).mtimeMs, fs.statSync(new URL(import.meta.url)).mtimeMs, fs.statSync(path.join(PT, 'meta.js')).mtimeMs)
   if (fs.existsSync(destino) && fs.statSync(destino).mtimeMs > origemMs) return { ok: true, kb: Math.round(fs.statSync(destino).size / 1024), cache: true }
 
   const M = (await import(pathToFileURL(arq('models.js')).href)).default
@@ -71,7 +86,12 @@ export async function gerarZumbis(raiz, saida) {
     const webp = await sharp(png).webp({ quality: 82, alphaQuality: 90, effort: 6 }).toBuffer()
     tex[t] = `data:image/webp;base64,${webp.toString('base64')}`
   }
+  // sprites do cenário: WebP com transparência (mesmo tamanho do sprite do jogo: a projeção depende dele) + o retângulo de cada um (meta.js)
+  const META = (await import(pathToFileURL(path.join(PT, 'meta.js')).href)).default
+  const PS = path.join(saida, 'tiles'); fs.mkdirSync(PS, { recursive: true })
+  const tmeta = {}
+  await Promise.all(TILES.map(async (t) => { tmeta[t] = META[t]; await sharp(path.join(PT, t + '.png')).webp({ quality: 88, alphaQuality: 95, effort: 6 }).toFile(path.join(PS, t + '.webp')) }))
   const skel = { M: M.skel.M.map((b) => ({ ...b, m: r4(b.m) })), F: M.skel.F.map((b) => ({ ...b, m: r4(b.m) })) }
-  fs.writeFileSync(destino, JSON.stringify({ v: 2, zumbis: ZUMBIS, skel, mesh, clips, tex }))
+  fs.writeFileSync(destino, JSON.stringify({ v: 3, zumbis: ZUMBIS, skel, mesh, clips, tex, tmeta }))
   return { ok: true, kb: Math.round(fs.statSync(destino).size / 1024) }
 }
