@@ -26,7 +26,8 @@ function mat(name, o = {}) { const k = name + '|' + (o.op || '') + '|' + (o.tint
 // nunca "cortado" pela caixa do sprite. Cada móvel tem material próprio; m.sobrepor(true) desenha o móvel antes do personagem e sem
 // gravar profundidade (o personagem usa renderOrder 2). Fora do contato: sobrepor(false) = profundidade normal (quem passa atrás some atrás).
 function matProprio(name, o) { const b = mat(name, o), m = b.clone(); m.userData.tint = b.userData.tint; MATS.push(m); return m; }
-function sobreposto(obj) { obj.sobrepor = on => { obj.traverse(c => { if (c.isMesh) { c.material.depthWrite = !on; c.renderOrder = on ? 1 : 0; } }); return obj; }; }
+// transparent = on: o móvel sobreposto entra na fila dos translúcidos (depois dos fachos de luz do chão e antes do personagem); senão o facho aditivo era desenhado POR CIMA dele e o móvel parecia transparente (poltrona do EP24)
+function sobreposto(obj) { obj.sobrepor = on => { obj.traverse(c => { if (c.isMesh) { c.material.depthWrite = !on; c.material.transparent = !!on || !!c.material.userData.op0; c.renderOrder = on ? 1 : 0; } }); return obj; }; }
 // tom geral dos sprites (eles já vêm iluminados pelo jogo): dia '#fff'; neve '#e8eef8'; noite '#6a7290'...
 export function tileLuz(c = '#ffffff') { const col = new THREE.Color(c); MATS.forEach(m => m.color.copy(col).multiply(m.userData.tint)); }
 // UV de cada vértice = onde ele cai no sprite. Âncora = centro do losango do piso (pixel w/2, h-32).
@@ -77,7 +78,7 @@ export function cena(x0, z0) {
       project(g, name); g.translate(0, o.y || 0, 0); return put(new THREE.Mesh(g, mat(name, o)), i, j, 0, name); },
     // objeto: caixa com o sprite projetado; w/d = base (1 = ladrilho inteiro), dx/dz = deslocamento da base dentro do ladrilho
     obj(name, i, j, o = {}) { const w = o.w || .9, d = o.d || .9, dx = o.dx || 0, dz = o.dz || 0, h = o.h || autoH(name, w, d, dx, dz);
-      const g = new THREE.BoxGeometry(w, h, d); g.translate(dx, h / 2, dz); project(g, name);
+      const g = new THREE.BoxGeometry(w, h, d); g.translate(dx, h / 2, dz); project(g, name); if (o.dy) g.translate(0, o.dy, 0);   // o.dy: objeto SOBRE um móvel (TV na mesa): o desenho sobe junto com a caixa
       const m = put(new THREE.Mesh(g, matProprio(name, o)), i, j, 0, name); m.userData.h = h; OBJS.push([name, i, j]); sobreposto(m); return m; },
     // cadeira/sofá onde o personagem SENTA: assento baixo (caixa até a altura do assento) + encosto fino atrás.
     // Assim quem está sentado fica na frente do encosto e em cima do assento (sem o encosto "passar na frente" do corpo).

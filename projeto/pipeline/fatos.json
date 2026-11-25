@@ -909,6 +909,14 @@
     "24"
    ]
   },
+  "pan-veterano-desens": {
+   "texto": "A profissão Veterano (custo −8) concede o traço Dessensibilização já na criação (não se escolhe à parte)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/scripts/generated/characters/character_professions.txt (base:veteran, GrantedTraits = base:desensitized); lua/shared/Translate/PTBR/UI.json UI_prof_Veteran = \"Veterano\"",
+   "eps": [
+    "24"
+   ]
+  },
   "peso-agua-auto": {
    "texto": "Água limpa no inventário principal é bebida automaticamente para controlar a sede (padrão)",
    "build": "B42.22",

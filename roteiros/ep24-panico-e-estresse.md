@@ -4,7 +4,7 @@ tema: Pânico e Estresse
 responsavel: jose
 status: validado
 build: B42.22
-fatos: [pan-mira, pan-niveis, pan-corpo, est-niveis, pan-calmante, est-leitura, est-fumante, pan-tracos, pan-tracos-custo]
+fatos: [pan-mira, pan-niveis, pan-corpo, est-niveis, pan-calmante, est-leitura, est-fumante, pan-tracos, pan-tracos-custo, pan-veterano-desens]
 video: (sem rascunho ainda)
 ---
 
@@ -44,11 +44,11 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 - VISUAL: 3D: fumando na janela (cigarro do jogo na mão, maço na mesa); Item_Cigarette; estresse e tristeza ↓, sem cigarro tristeza ↑
 - FATOS: est-fumante
 
-**7.** [calmo] "Na criação, Corajoso custa quatro pontos e entra menos em pânico. Covarde devolve dois pontos, mas entra em pânico muito mais. E Dessensibilização entra em pânico muito menos."
+**7.** [calmo] "Na criação, Corajoso custa quatro pontos e entra menos em pânico. Covarde devolve dois pontos, mas entra em pânico muito mais. Corajoso é bem melhor que Covarde, e é o que recomendo. E Dessensibilização, que entra em pânico muito menos, já vem com a profissão Veterano."
 - VISUAL: Cartões dos traços com ícone do jogo e pontos: Corajoso −4 (vermelho), Covarde +2 (verde), Dessensibilização 0; 3D: firme × recuando
 - FATOS: pan-tracos, pan-tracos-custo
 
-**8.** [tenso] "E cuidado com dois traços. Agorafóbico entra em pânico ao ar livre. Claustrofóbico, em lugar fechado pequeno. Os dois devolvem quatro pontos, mas cobram na hora errada."
+**8.** [tenso] "E cuidado com dois traços. Agorafóbico entra em pânico ao ar livre. Claustrofóbico, em lugar fechado pequeno. Os dois devolvem quatro pontos, mas cobram na hora errada. Eu não recomendo nenhum dos dois, principalmente para quem está começando."
 - VISUAL: 3D: rua aberta com horda (Agorafóbico +4) × quarto pequeno e escuro (Claustrofóbico +4); Mood_Panicked
 - FATOS: pan-tracos, pan-tracos-custo
 

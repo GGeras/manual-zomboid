@@ -101,6 +101,9 @@ export function casaDentro(x0, z0, o = {}) {
   const porta = o.completa ? 6 : -1;   // casa completa: porta de madeira (batente + porta do jogo) na parede W
   for (let j = 0; j <= 7; j++) C.parede('W', j === porta ? 'walls_interior_house_01_46' : P[j === winW ? 3 : 0], 0, j);
   C.parede('N', P[2], 0, 0);
+  // REGRA 4.8 (25/11, Jose): TODO vão de janela na parede ganha a JANELA (caixilho do jogo) e a cortina — nunca fica só o buraco
+  [winN, win2].filter(i => i >= 0).forEach(i => { C.parede('N', 'fixtures_windows_01_17', i, 0, { off: .02 }); C.parede('N', 'fixtures_windows_curtains_01_30', i, 0, { off: .035 }); });
+  if (winW >= 0) { C.parede('W', 'fixtures_windows_01_16', 0, winW, { off: .02 }); C.parede('W', 'fixtures_windows_curtains_01_28', 0, winW, { off: .035 }); }
   // lado de fora da janela N: grama, cerca e árvore (aparecem pelo vão)
   for (let i = -3; i <= 12; i++) C.parede('N', 'fencing_01_5', i, -5);
   arvore(C, 2, -4, 'verao', 0); arvore(C, 8, -6, 'verao', 1); C.obj('f_bushes_1_101', 4, -2, { w: .6, d: .6 });
@@ -112,11 +115,13 @@ export function casaDentro(x0, z0, o = {}) {
     if (!livreN(i)) C.obj(n, i, 0, n.includes('refrigeration') ? { w: .85, d: .85 } : {}); });
   if (!livreN(6)) C.obj('fixtures_sinks_01_1', 6, 0, { w: .6, d: .6, h: 1.05 });
   // mesa da cozinha com cadeiras viradas PARA a mesa (ao sul da mesa = frente N; a leste = frente W)
-  C.obj('furniture_tables_high_01_8', 7, 4); C.obj('furniture_seating_indoor_01_58', 7, 5); C.obj('furniture_seating_indoor_01_59', 8, 4);
+  C.obj('furniture_tables_high_01_29', 7, 4); C.obj('furniture_seating_indoor_01_58', 7, 5); C.obj('furniture_seating_indoor_01_59', 8, 4);   // mesa de 1 ladrilho INTEIRA (a _8 era só um canto: ficava cortada)
   // sala: estante e cômoda na parede N (frente S), TV na parede N, duas poltronas na parede W (frente E), abajur, planta, tapete
   C.obj('furniture_shelving_01_40', 0, 0); C.obj('furniture_storage_01_13', 1, 0);
-  if (!o.janelaLivre && !livreN(2)) C.obj('vegetation_indoor_01_0', 2, 0, { w: .5, d: .5 });
-  if (!livreN(5)) C.obj('appliances_television_01_1', 5, 0, { w: .7, d: .7 });
+  // vaso de planta EM CIMA da cômoda (mesmo ladrilho, caixa um pouco maior: não briga com a da cômoda) — antes flutuava ao lado dela
+  if (!o.janelaLivre && !livreN(1)) C.obj('vegetation_indoor_01_0', 1, 0, { w: .96, d: .96 });
+  // TV em cima de uma mesinha (no chão ela parecia caída)
+  if (!livreN(5)) { const TV = C.obj('furniture_tables_high_01_12', 5, 0, { w: .8, d: .8 }); C.obj('appliances_television_01_1', 5, 0, { w: .7, d: .7, dy: TV.userData.h * .86 }); }
   if (!o.completa) C.obj('lighting_indoor_01_0', 0, 2, { w: .4, d: .4 });
   [4, 5].forEach(j => { if (j !== winW) C.obj('furniture_seating_indoor_01_8', 0, j); });
   let poltrona = null;
@@ -358,7 +363,8 @@ export function quarto(x0, z0, o = {}) {
   for (let i = 0; i <= 6; i++) C.parede('N', 'walls_interior_detailing_01_33', i, 0, { off: .012 });
   for (let j = 0; j <= 5; j++) if (j !== porta) C.parede('W', 'walls_interior_detailing_01_32', 0, j, { off: .012 });
   const PORTA = C.parede('W', 'fixtures_doors_01_4', 0, porta, { off: .02 });
-  C.parede('N', o.cortinaAberta ? 'fixtures_windows_curtains_01_30' : 'fixtures_windows_curtains_01_26', jan, 0, { off: .03 });
+  C.parede('N', 'fixtures_windows_01_17', jan, 0, { off: .02 });   // regra 4.8: o vão da janela leva a janela
+  C.parede('N', o.cortinaAberta ? 'fixtures_windows_curtains_01_30' : 'fixtures_windows_curtains_01_26', jan, 0, { off: .035 });
   C.parede('N', 'walls_decoration_01_41', 1, 0, { off: .015 }); C.parede('W', 'walls_decoration_01_52', 0, 1.5, { off: .015 });
   for (let i = -3; i <= 10; i++) C.parede('N', 'fencing_01_5', i, -5);
   arvore(C, 3, -4, 'verao', 0); arvore(C, 7, -6, 'verao', 1);
@@ -369,7 +375,7 @@ export function quarto(x0, z0, o = {}) {
   const PE = C.obj(CPE, 2, 1, { d: 1.0, dz: -.03 }), colchao = PE.userData.h, CAMA = C.assento(CBC, 2, 0, { encosto: 'N', hs: colchao, d: 1.0, dz: .05 });
   C.obj('furniture_storage_02_33', 5, 0, { w: .9, d: .7 });                 // guarda-roupa encostado na parede N (frente S)
   C.obj('lighting_indoor_01_on_58', 1, 0, { w: .35, d: .35 });              // abajur de pé ao lado da cabeceira
-  const CAD = C.assento('furniture_seating_indoor_01_57', 5, 3, { encosto: 'N', hs: .486 });   // cadeira (frente S) — Bob_SatChair: nádega a 0,486
+  const CAD = C.assento('furniture_seating_indoor_01_57', 5, 3, { encosto: 'N', hs: .486 }); if (o.semCadeira) CAD.visible = false;   // cadeira solta no meio do quarto (EP22/24): some   // cadeira (frente S) — Bob_SatChair: nádega a 0,486
   const cama = { sobrepor: on => { CAMA.sobrepor(on); PE.sobrepor(on); } };
   return { C, at: C.at, cama, cadeira: CAD, porta: PORTA, colchao };
 }

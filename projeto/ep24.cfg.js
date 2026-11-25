@@ -69,12 +69,15 @@ window.EP = {
     // 7 — Corajoso / Covarde / Dessensibilização (ícone + pontos)
     card(7, 'trait_brave', 'Corajoso', 'menos pânico', -4, P(7, 0.06), null, 560);
     card(7, 'trait_cowardly', 'Covarde', 'muito mais pânico', 2, P(7, 0.38), null, 730);
-    card(7, 'trait_desensitized', 'Dessensibilização', 'muito menos pânico', 0, P(7, 0.72), null, 900);
+    card(7, 'trait_desensitized', 'Dessensibilização', 'vem com o Veterano', 0, P(7, 0.72), null, 900);
+    tag(7, "CORAJOSO > COVARDE", G, P(7, 0.46), P(7, 0.72), 1080, 36);
+    tag(7, "VEM COM O VETERANO", Y, P(7, 0.80), null, 1080, 36);
     // 8 — Agorafóbico / Claustrofóbico
     card(8, 'trait_agoraphobic', 'Agorafóbico', 'pânico ao ar livre', 4, P(8, 0.10), null, 560);
     card(8, 'trait_claustrophobic', 'Claustrofóbico', 'pânico em lugar fechado pequeno', 4, P(8, 0.40), null, 730);
     mood(8, 'pz:Mood_Panicked', "PÂNICO", P(8, 0.24), P(8, 0.50), 840, false);
-    mood(8, 'pz:Mood_Panicked', "PÂNICO", P(8, 0.62), null, 840, false);
+    mood(8, 'pz:Mood_Panicked', "PÂNICO", P(8, 0.62), P(8, 0.76), 840, false);
+    tag(8, "NÃO RECOMENDO OS DOIS", RD, P(8, 0.78), null, 960, 36);
     // 9 — CTA
     tag(9, "SALVA E COMENTA", G, P(9, 0.50), null);
   }
