@@ -11,6 +11,7 @@
 // Carregado sob demanda (import dinâmico) depois que a página já apareceu; pausa fora da tela e com a aba escondida.
 import { carregarPacote, criarFabrica, posar, THREE, type Humano, type Pacote } from './pz-leve'
 import { criarTiles, DIR, WALL_H, type MetaTile } from './tiles-leve'
+import { ALTURA_GLOBO, arvore3d, balancar, poste3d, telhado } from './objetos3d'
 
 export interface OpcoesHorda {
   canvas: HTMLCanvasElement
@@ -20,6 +21,9 @@ export interface OpcoesHorda {
   leve: boolean // celular / máquina fraca: menos pixels, sem sombra projetada, menos chuva
   aoAbrir: (i: number) => void
   aoPronto: () => void
+  /** progresso da carga para o preloader: p de 0 a 1 e a etapa (baixando, vestindo, montando, acendendo) */
+  aoProgresso?: (p: number, etapa: 'baixando' | 'vestindo' | 'montando' | 'acendendo') => void
+  tamanhoPacote?: number
   aoMirar: (i: number | null) => void
 }
 type Estado = 'parado' | 'andando' | 'bote' | 'golpe' | 'caindo' | 'caido' | 'levantando' | 'batendo' | 'pulando'
@@ -35,15 +39,16 @@ interface Agente {
 interface Caixa { x: number; z: number; hx: number; hz: number; r: number }
 /** cerca baixa: linha em x (eixo 'x', na altura z = em) ou em z (eixo 'z', em x = em), de..ate; portões = ladrilhos abertos */
 interface Cerca { eixo: 'x' | 'z'; em: number; de: number; ate: number; portoes: number[] }
-// pular cerca = a sequência da janela no jogo: apoia (start), passa por cima e cai (climbwin), levanta do outro lado (end)
-const PULO = [{ clip: 'z_climbwin_start', vel: 1 }, { clip: 'z_climbwin', vel: 1.5 }, { clip: 'z_climbwin_end', vel: 1.5 }]
+// pular cerca = a sequência da janela no jogo: apoia e sobe (start) -> cai do outro lado e levanta (end). A z_climbwin NÃO entra:
+// ela já é um pulo inteiro (sobe, cai e levanta) e repetia a queda da end. A altura do quadril bate na emenda (start termina e end começa em y 0,08).
+const PULO = [{ clip: 'z_climbwin_start', vel: 1 }, { clip: 'z_climbwin_end', vel: 1.2 }]
 
 const ANDARES = ['z_walk', 'z_walk2', 'z_walk3', 'z_walk4']
 const FPS = 30
 const RUMO_CAMERA = Math.atan2(DIR.x, DIR.z) // de frente para quem olha
 // centro do quadro (ladrilho) e tamanho da vista (em ladrilhos): paisagem pela altura, retrato pela largura
 const CENTRO = { paisagem: new THREE.Vector3(-0.7, 0, -0.3), retrato: new THREE.Vector3(-0.6, 0, -0.2) }
-const VISTA = { altura: 10.4, largura: 6.3 }
+const VISTA = { altura: 11.2, largura: 6.6 } // um pouco mais aberta: os elementos respiram
 
 /** velocidade de cada jeito de andar, medida no próprio clip: o pé de apoio fica parado no chão (o pé não "patina") */
 function medirAndar(P: Pacote, h: Humano, clip: string) {
@@ -69,7 +74,9 @@ function brilho(cor: string) {
 }
 
 export async function iniciarHorda(o: OpcoesHorda) {
-  const { P, IMG } = await carregarPacote('/jogo/zumbis.json')
+  // pesos do preloader: baixar o pacote 60%, texturas dos zumbis 8%, sprites da rua 27%, primeiro quadro 5%
+  const avisar = o.aoProgresso ?? (() => {})
+  const { P, IMG } = await carregarPacote('/jogo/zumbis.json', o.tamanhoPacote, (e, f) => avisar(e === 'baixando' ? f * 0.6 : 0.6 + f * 0.08, e))
   const fab = criarFabrica(P, IMG)
   const T = criarTiles((P as Pacote & { tmeta: Record<string, MetaTile> }).tmeta)
   const rnd = (a: number, b: number) => a + Math.random() * (b - a)
@@ -111,7 +118,8 @@ export async function iniciarHorda(o: OpcoesHorda) {
 
   // casas vistas da rua: parede da frente (N do ladrilho j1+1) + lateral (W do ladrilho i1+1) + telhado plano. Toda janela tem
   // o caixilho do jogo (regra 4.8) + cortina; atrás, vidro escuro (ou aceso: tem alguém lá dentro).
-  const PAR = { siding: n4('walls_exterior_house_01_', [32, 33, 34, 40, 41]), tijolo: n4('walls_exterior_house_01_', [4, 5, 6, 12, 13]) }
+  // paredes do jogo: [W, N, pilar da quina, janela W, janela N, batente de porta N]
+  const PAR = { siding: n4('walls_exterior_house_01_', [32, 33, 35, 40, 41, 43]), tijolo: n4('walls_exterior_house_01_', [4, 5, 7, 12, 13, 15]) }
   const vidroEscuro = new THREE.MeshBasicMaterial({ color: '#141c24' }), vidroAceso = new THREE.MeshBasicMaterial({ color: '#ffb766' })
   const acesas: THREE.Mesh[] = []
   function vidro(i: number, j: number, lado: 'N' | 'W', aceso: boolean) {
@@ -120,11 +128,11 @@ export async function iniciarHorda(o: OpcoesHorda) {
     if (lado === 'N') g.position.set(i, 1.25, j - 0.62); else { g.rotation.y = Math.PI / 2; g.position.set(i - 0.62, 1.25, j) }
     mundo.add(g); if (aceso) acesas.push(g); return g
   }
-  function casa(i0: number, i1: number, j0: number, j1: number, o: { parede: 'siding' | 'tijolo'; janelas: (number | string)[]; porta: number; acesa?: number | string; cortina: string }) {
+  function casa(i0: number, i1: number, j0: number, j1: number, o: { parede: 'siding' | 'tijolo'; janelas: (number | string)[]; porta: number; acesa?: number | string; cortina: string; chamine?: [number, number] }) {
     const P_ = PAR[o.parede]
     for (let i = i0; i <= i1; i++) {
       const jan = o.janelas.includes(i)
-      C.parede('N', P_[jan ? 4 : 1], i, j1 + 1)
+      C.parede('N', P_[jan ? 4 : i === o.porta ? 5 : 1], i, j1 + 1) // porta: parede com batente (não parede lisa com porta colada)
       if (jan) { vidro(i, j1 + 1, 'N', o.acesa === i); C.parede('N', o.cortina, i, j1 + 1, { off: -0.06, luz: o.acesa === i ? '#ffb45c' : undefined }); C.parede('N', 'fixtures_windows_01_17', i, j1 + 1, { off: 0.01 }) }
       if (i === o.porta) C.parede('N', 'fixtures_doors_01_5', i, j1 + 1, { off: 0.01 })
     }
@@ -133,11 +141,14 @@ export async function iniciarHorda(o: OpcoesHorda) {
       C.parede('W', P_[jan ? 3 : 0], i1 + 1, j)
       if (jan) { vidro(i1 + 1, j, 'W', o.acesa === 'w' + j); C.parede('W', 'fixtures_windows_01_16', i1 + 1, j, { off: 0.01 }) }
     }
-    C.chao('floors_exterior_street_01_16', i0, j0, i1, j1, { y: WALL_H + 0.02, tint: '#8a8f9c' })
+    // quina: no jogo o encontro da parede da frente com a lateral leva o PILAR (sem ele fica uma fresta de 1 px)
+    C.obj(P_[2], i1 + 1, j1 + 1, { w: 0.13, d: 0.13, dx: -0.5, dz: -0.5, h: WALL_H + 0.2 })
+    // telhado de 4 águas por fora (o jogo mostra o telhado, não o dentro da casa); beiral passa um pouco das paredes
+    mundo.add(telhado(i0 - 0.5, j0 - 0.5, i1 + 0.5, j1 + 0.5, WALL_H + 0.02, { beiral: 0.32, chamine: o.chamine }))
     bloqueia((i0 + i1) / 2, (j0 + j1) / 2, (i1 - i0) / 2 + 0.6, (j1 - j0) / 2 + 0.6)
   }
-  casa(-13, -3, -13, -5, { parede: 'siding', janelas: [-10, -5, 'w-7', 'w-10'], porta: -7, acesa: -5, cortina: 'fixtures_windows_curtains_01_26' })
-  casa(2, 10, -13, -5, { parede: 'tijolo', janelas: [3, 8, 'w-8'], porta: 5, acesa: 'w-8', cortina: 'fixtures_windows_curtains_01_10' })
+  casa(-13, -3, -13, -5, { parede: 'siding', janelas: [-10, -5, 'w-7', 'w-10'], porta: -7, acesa: -5, cortina: 'fixtures_windows_curtains_01_26', chamine: [-10.5, -8.2] })
+  casa(2, 10, -13, -5, { parede: 'tijolo', janelas: [3, 8, 'w-8'], porta: 5, acesa: 'w-8', cortina: 'fixtures_windows_curtains_01_10', chamine: [4, -10.6] })
 
   // cercas contínuas: cerquinha branca na frente dos dois quintais (portão nos caminhos das portas) e cerca de postes fechando o
   // terreno do acampamento (fundo + lateral até a calçada). Os zumbis PULAM as cercas, como no jogo (ver "pular" no comportamento).
@@ -150,17 +161,15 @@ export async function iniciarHorda(o: OpcoesHorda) {
   for (let i = -20; i <= 20; i++) C.parede('N', 'fencing_01_17', i, 9)
   for (let j = 3; j <= 8; j++) C.parede('W', 'fencing_01_16', 9, j)
 
-  // árvores INTEIRAS do jogo (JumboTrees2x: as de Tiles2x vêm cortadas no topo) = tronco + copa do mesmo tamanho, na mesma âncora;
-  // pinheiros já vêm inteiros; uma árvore seca (só o tronco). De noite elas ainda mostram folha (luz própria fraca, azul).
-  const NOITE_ARV = { luz: '#3a4866', forca: 0.55 }
-  const arvore = (i: number, j: number, k: number) => {
-    const [tronco, copa] = ([['e_redmapleJUMBO_1_1', 'e_redmapleJUMBO_1_7'], ['e_americanlindenJUMBO_1_1', 'e_americanlindenJUMBO_1_7'], ['e_redmapleJUMBO_1_0', 'e_redmapleJUMBO_1_6'], ['e_riverbirchJUMBO_1_1', 'e_riverbirchJUMBO_1_5']] as const)[k % 4]
-    C.placa(tronco, i, j, NOITE_ARV); C.placa(copa, i, j, { fz: 0.55, ...NOITE_ARV })
+  // árvores 3D (volume de verdade, sombra da lua, copa balançando), com as cores das árvores do jogo
+  const arvores: THREE.Group[] = []
+  const plantar = (especie: Parameters<typeof arvore3d>[0], x: number, z: number, seed: number, escala = 1) => {
+    const a = arvore3d(especie, seed, escala); a.position.set(x, 0, z); a.rotation.y = seed; mundo.add(a); arvores.push(a); bloqueia(x, z, 0.3, 0.3)
   }
-  ;[[-15, -3], [0, -3], [12, -3], [-9, 6], [13, 8], [16, 4], [-16, 8]].forEach(([i, j], k) => arvore(i, j, k)) // nada na frente da batida da picape
-  ;[[-4, 7], [13, 10], [-12, 11]].forEach(([i, j], k) => C.placa(k % 2 ? 'e_virginiapineJUMBO_1_1' : 'e_canadianhemlockJUMBO_1_1', i, j, NOITE_ARV))
-  arvore(7, -3, 3); C.placa('e_americanlindenJUMBO_1_1', -1, 6, NOITE_ARV) // a seca, perto do acampamento
-  ;[[-15, -3], [0, -3], [12, -3], [-9, 6], [13, 8], [16, 4], [-4, 7], [7, -3], [-1, 6]].forEach(([i, j]) => bloqueia(i, j, 0.3, 0.3))
+  plantar('bordo', -15, -3, 3); plantar('tilia', 0, -3.2, 5, 0.95); plantar('bordo', 13.2, -2.8, 7); plantar('tilia', -9.5, 6.2, 11)
+  plantar('bordo', 13.5, 8.2, 13); plantar('betula', 16.5, 4, 17); plantar('bordo', -16, 8, 19); plantar('betula', 7.6, -3.2, 23, 0.9)
+  plantar('pinheiro', -5.4, 7.6, 29); plantar('pinheiroVirginia', 13.4, 10.6, 31); plantar('pinheiro', -12.4, 11, 37)
+  plantar('seca', -2.6, 7.2, 41, 0.95) // a seca, perto do acampamento
   // arbustos, capim alto, pedras
   const ARB = n4('f_bushes_1_', [100, 101, 103, 105])
   ;[[-11, -4], [-5.2, -3.8], [3, -4], [9, -4], [-13, 4], [8, 4], [12, 3], [-6, 5]].forEach(([i, j], k) => C.obj(ARB[k % 4], i, j))
@@ -172,43 +181,43 @@ export async function iniciarHorda(o: OpcoesHorda) {
   // postes (um pisca: fiação ruim), placa de PARE, hidrante, caixas de correio, cone e barril (acidente), bueiro
   const postes: { luz: THREE.PointLight; halo: THREE.Sprite; falha: boolean }[] = []
   const haloTex = brilho('rgba(255,196,120,1)')
-  // globo da lâmpada no sprite do jogo: pixel (57, 16) de 128×256 = 2,66 de altura e 7 px à esquerda da âncora (medido no PNG)
-  const GLOBO = new THREE.Vector3(-0.055, 2.66, 0.055)
-  ;([[-9, 2, 0], [6, 2, 0.2], [-1, -1, 0]] as [number, number, number][]).forEach(([i, j, torto]) => {
-    // poste + luz + brilho num grupo só: o poste em que a picape bateu entorta e a lâmpada vai junto
-    const pe = new THREE.Group(); pe.position.set(i, 0, j); mundo.add(pe)
-    const m = C.obj('lighting_outdoor_01_1', i, j); m.position.set(0, 0, 0); pe.add(m)
+  // poste 3D (como o lighting_outdoor_01_1 do jogo); luz e brilho no globo, tudo num grupo: o poste em que a picape bateu entorta junto
+  const GLOBO = new THREE.Vector3(0, ALTURA_GLOBO, 0)
+  ;([[-10.5, 2, 0], [7, 2, 0.2], [-2, -1, 0]] as [number, number, number][]).forEach(([i, j, torto]) => {
+    const pe = poste3d(); pe.position.set(i, 0, j); mundo.add(pe)
     pe.rotation.z = torto; bloqueia(i, j, 0.2, 0.2)
     const luz = new THREE.PointLight('#ffb15c', 20, 8.5, 1.5); luz.position.copy(GLOBO); pe.add(luz)
     const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTex, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, fog: false })); halo.scale.setScalar(1.2)
-    halo.position.copy(GLOBO).addScaledVector(DIR, 0.3); pe.add(halo) // um pouco para a câmera: o brilho fica na frente do globo, no mesmo ponto da tela
+    halo.position.copy(GLOBO).addScaledVector(DIR, 0.3); pe.add(halo) // um pouco para a câmera: o brilho fica na frente do globo
     postes.push({ luz, halo, falha: torto > 0 })
   })
-  C.obj('street_decoration_01_0', -14, 2); C.obj('street_roadsigns_01_9', 13, -1)
-  C.obj('street_decoration_01_12', -4, -1); C.obj('street_decoration_01_18', -8, -1); C.obj('street_decoration_01_8', 13.5, 2)
-  C.obj('street_decoration_01_26', 11.9, 0.15); C.obj('street_decoration_01_27', 12.3, 1.7); C.obj('street_decoration_01_15', -3, 1, { w: 0.9, d: 0.9, h: 0.05 })
-  C.obj('street_decoration_01_28', 14, 0.5)
-  ;[[-4, -1], [-8, -1], [13.5, 2], [12.3, 1.7], [11.9, 0.15], [-14, 2], [13, -1]].forEach(([i, j]) => bloqueia(i, j, 0.25, 0.25))
+  C.obj('street_decoration_01_0', -15, 2); C.obj('street_roadsigns_01_9', 14.5, -1)
+  C.obj('street_decoration_01_12', -4.6, -1); C.obj('street_decoration_01_18', -8.8, -1); C.obj('street_decoration_01_8', 15.5, 2)
+  C.obj('street_decoration_01_26', 13, 0.15); C.obj('street_decoration_01_27', 13.4, 1.7); C.obj('street_decoration_01_15', -3, 1, { w: 0.9, d: 0.9, h: 0.05 })
+  C.obj('street_decoration_01_28', 16, 0.5)
+  ;[[-4.6, -1], [-8.8, -1], [15.5, 2], [13.4, 1.7], [13, 0.15], [-15, 2], [14.5, -1]].forEach(([i, j]) => bloqueia(i, j, 0.25, 0.25))
   // lixo: caçamba e latões ao lado da casa de tijolo, sacos e papel na calçada e na rua
-  C.obj('trashcontainers_01_8', 11.4, -3.6); C.obj('trashcontainers_01_0', 1, -2); C.obj('trashcontainers_01_16', -2, 2); C.obj('trashcontainers_01_24', 11, -2.4)
-  bloqueia(11.4, -3.6, 0.6, 0.55); bloqueia(1, -2, 0.3, 0.3); bloqueia(-2, 2, 0.3, 0.3)
-  ;[[-5, -1, 'trash_01_18'], [2, 2, 'trash_01_24'], [-11, 1, 'trash_01_27'], [7, -1, 'trash_01_33'], [-2, 0, 'd_trash_1_0'], [4, 1, 'd_trash_1_13'], [-7, 2, 'd_trash_1_9'], [12, 1, 'trash_01_24']].forEach(([i, j, n]) => C.mancha(n as string, i as number, j as number, 0.035))
+  C.obj('trashcontainers_01_8', 11.6, -3.7); C.obj('trashcontainers_01_0', 0.8, -2.6); C.obj('trashcontainers_01_16', -0.6, 2.3); C.obj('trashcontainers_01_24', 10.6, -2.3)
+  bloqueia(11.6, -3.7, 0.6, 0.55); bloqueia(0.8, -2.6, 0.3, 0.3); bloqueia(-0.6, 2.3, 0.3, 0.3)
+  ;[[-5, -1, 'trash_01_18'], [3, 2, 'trash_01_24'], [-12, 1, 'trash_01_27'], [5, -1, 'trash_01_33'], [4, 1, 'd_trash_1_13'], [-9, 2, 'd_trash_1_9'], [12, 1, 'trash_01_24']].forEach(([i, j, n]) => C.mancha(n as string, i as number, j as number, 0.035))
   // sangue no chão (sprites de sangue do jogo): onde a horda já passou
-  ;[[-3, 2, 'blood_floor_large_01'], [-4, 1, 'blood_floor_med_02'], [1, 4, 'blood_floor_large_03'], [2, 3, 'blood_floor_small_03'], [8, 1, 'blood_floor_large_05'], [-6, 0, 'blood_floor_small_06'], [0, 1, 'blood_floor_med_05'], [-7, -2, 'blood_floor_small_03']].forEach(([i, j, n]) => C.mancha(n as string, i as number, j as number, 0.04, '#7a1616'))
+  ;[[-4, 2, 'blood_floor_large_01'], [-3, 1, 'blood_floor_med_02'], [1, 4, 'blood_floor_large_03'], [2, 3, 'blood_floor_small_03'], [9, 1, 'blood_floor_large_05'], [-8, 0, 'blood_floor_small_06'], [1, 1, 'blood_floor_med_05'], [-6, -2, 'blood_floor_small_03']].forEach(([i, j, n]) => C.mancha(n as string, i as number, j as number, 0.04, '#7a1616'))
 
   // acampamento abandonado no terreno da frente: barraca, lenha e a fogueira ainda acesa (alguém fugiu às pressas)
+  const FOGO = new THREE.Vector3(3, 0, 5.4)
   // barraca do jogo = 2 peças (frente com a entrada + fundo, no ladrilho de trás), ao lado da fogueira
-  C.obj('camping_01_0', 4, 4); C.obj('camping_01_1', 4, 3); bloqueia(4, 3.5, 0.55, 1.05)
-  C.obj('camping_01_25', 1.6, 6.6); bloqueia(1.6, 6.6, 0.45, 0.35)
-  C.obj('camping_01_4', 2.6, 4.8, { h: 0.12 }); bloqueia(2.6, 4.8, 0.45, 0.45)
-  const fogo = new THREE.PointLight('#ff7a2e', 16, 7.5, 1.6); fogo.position.set(2.6, 0.5, 4.8); mundo.add(fogo)
+  C.obj('camping_01_0', 6, 5); C.obj('camping_01_1', 6, 4); bloqueia(6, 4.5, 0.55, 1.05)
+  // lenha do jogo = 2 peças também: toras (camping_01_24, atrás) + pontas cortadas (camping_01_25, na frente)
+  C.obj('camping_01_25', 0, 7); C.obj('camping_01_24', 0, 6); bloqueia(0, 6.5, 0.5, 1)
+  C.obj('camping_01_4', FOGO.x, FOGO.z, { h: 0.12 }); bloqueia(FOGO.x, FOGO.z, 0.45, 0.45)
+  const fogo = new THREE.PointLight('#ff7a2e', 16, 7.5, 1.6); fogo.position.set(FOGO.x, 0.5, FOGO.z); mundo.add(fogo)
   const chamaTex = brilho('rgba(255,150,60,1)')
   // chamas nascem da lenha no meio do anel de pedras (y ≈ 0,1) e afinam para cima
-  const chamas = Array.from({ length: 4 }, (_, k) => { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: chamaTex, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, fog: false })); s.position.set(2.6 + rnd(-0.06, 0.06), 0.12 + k * 0.11, 4.8 + rnd(-0.06, 0.06)).addScaledVector(DIR, 0.35); mundo.add(s); return s })
+  const chamas = Array.from({ length: 4 }, (_, k) => { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: chamaTex, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, fog: false })); s.position.set(FOGO.x + rnd(-0.06, 0.06), 0.12 + k * 0.11, FOGO.z + rnd(-0.06, 0.06)).addScaledVector(DIR, 0.35); mundo.add(s); return s })
   const FAG = 40
   const fagPos = new Float32Array(FAG * 3).map((_, k) => (k % 3 === 1 ? Math.random() * 2 : (Math.random() - 0.5) * 0.4))
   const fagulhas = new THREE.Points(new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(fagPos, 3)), new THREE.PointsMaterial({ color: '#ffb35c', size: 0.05, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }))
-  fagulhas.position.set(2.6, 0.15, 4.8); mundo.add(fagulhas)
+  fagulhas.position.set(FOGO.x, 0.15, FOGO.z); mundo.add(fagulhas)
   // brilho da janela acesa no gramado
   const luzJanela = new THREE.PointLight('#ffa95a', 7, 5.5, 1.7); luzJanela.position.set(-5, 1.4, -3.6); mundo.add(luzJanela)
 
@@ -228,9 +237,9 @@ export async function iniciarHorda(o: OpcoesHorda) {
     bloqueia(x, z, L + 0.25, W + 0.25, r)
     return { g, L, W, hw }
   }
-  const sedan = veiculo('normal', '#5d1d1b', -5.2, 0.35, 0.04, [0.01, 0.02])
-  // frente (+x do carro) apontada para o poste (6, 2), para-choque encostado nele; levemente torta (roda subiu na calçada)
-  const picape = veiculo('pickup', '#566a4e', 8.62, 1.27, -2.87, [0.02, -0.035])
+  const sedan = veiculo('normal', '#5d1d1b', -5.6, 0.35, 0.04, [0.01, 0.02])
+  // frente (+x do carro) apontada para o poste (7, 2), para-choque encostado nele; levemente torta (roda subiu na calçada)
+  const picape = veiculo('pickup', '#566a4e', 9.62, 1.27, -2.87, [0.02, -0.035])
   // farol da picape ainda aceso, batendo no poste e no chão à frente
   const farolTex = brilho('rgba(255,236,190,1)')
   const farolHalo = new THREE.Sprite(new THREE.SpriteMaterial({ map: farolTex, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, fog: false })); farolHalo.scale.setScalar(0.7)
@@ -278,7 +287,7 @@ export async function iniciarHorda(o: OpcoesHorda) {
   }
   o.topicos.forEach((t, i) => novo(t.modelo, 'topico', i, new THREE.Vector3(t.casa[0], 0, t.casa[1]), i * 7 + 3))
   let extra = o.topicos.length
-  const PONTOS_HORDA = [[-9, 0.8], [10.5, -0.6], [-12, 4], [11, 5], [-2, -4.2], [5, 9]]
+  const PONTOS_HORDA = [[-12.5, 0.6], [11.5, -0.6], [-12, 4.5], [11, 5.5], [-1.4, -5.2], [6, 7.4]]
   for (let i = 0; i < o.horda; i++) { const [x, z] = PONTOS_HORDA[i % PONTOS_HORDA.length]; novo(extra++ % P.zumbis.length, 'horda', null, new THREE.Vector3(x, 0, z), i * 13 + 5) }
   // o que bate no sedã: do lado da calçada de baixo, de frente para a porta
   {
@@ -289,11 +298,11 @@ export async function iniciarHorda(o: OpcoesHorda) {
   }
   // corpos: um caído perto da fogueira (levanta quando o ponteiro chega) e um que não levanta mais, na calçada
   {
-    const a = novo(extra++ % P.zumbis.length, 'caido', null, new THREE.Vector3(1.2, 0, 3.7), 23)
+    const a = novo(extra++ % P.zumbis.length, 'caido', null, new THREE.Vector3(1.4, 0, 3.6), 23)
     a.rumo = a.h.g.rotation.y = 2.3; a.estado = 'caido'; a.h.clip = ['z_death', P.clips.z_death.n - 1, false]
   }
   if (!o.leve) {
-    const a = novo(extra++ % P.zumbis.length, 'morto', null, new THREE.Vector3(-3.4, 0, 2.3), 31)
+    const a = novo(extra++ % P.zumbis.length, 'morto', null, new THREE.Vector3(-4, 0, 2.4), 31)
     a.rumo = a.h.g.rotation.y = -0.6; a.estado = 'caido'; a.h.clip = ['z_death', P.clips.z_death.n - 1, false]
   }
 
@@ -392,11 +401,11 @@ export async function iniciarHorda(o: OpcoesHorda) {
         const fase = PULO[a.pulo.fase], n = P.clips[fase.clip].n
         a.f += dt * FPS * fase.vel; a.h.clip = [fase.clip, a.f, false]
         const t = Math.min(1, a.f / (n - 1))
+        // fase 0 chega na cerca; fase 1: o corpo passa por cima e cai (primeiro terço da end), depois só levanta onde caiu
         if (a.pulo.fase === 0) g.position.lerpVectors(a.pulo.de, a.pulo.meio, t)
-        else if (a.pulo.fase === 1) g.position.lerpVectors(a.pulo.meio, a.pulo.para, THREE.MathUtils.smoothstep(t, 0.15, 0.75))
-        else g.position.copy(a.pulo.para)
+        else g.position.lerpVectors(a.pulo.meio, a.pulo.para, THREE.MathUtils.smoothstep(t, 0, 0.32))
         if (a.f >= n - 1) {
-          if (a.pulo.fase < 2) { a.pulo.fase++; a.f = 0; a.h.mix = [fase.clip, n - 1, false, 1]; a.trocou = 0; a.mistura = 0.12 }
+          if (a.pulo.fase < PULO.length - 1) { a.pulo.fase++; a.f = 0; a.h.mix = [fase.clip, n - 1, false, 1]; a.trocou = 0; a.mistura = 0.12 }
           else { a.pulo = null; a.h.apoio = true; a.espera = 0.3; trocar(a, 'parado', 0.3) }
         }
         continue
@@ -572,6 +581,7 @@ export async function iniciarHorda(o: OpcoesHorda) {
     const tv = 0.85 + Math.sin(t * 5.3) * 0.08 + Math.sin(t * 11.7) * 0.05; luzJanela.intensity = 5 * tv
     vidroAceso.color.setRGB(1 * tv, 0.72 * tv, 0.42 * tv)
     // fogueira
+    balancar(arvores, t) // vento nas copas
     fogo.intensity = 13 + Math.sin(agora / 90) * 2 + Math.sin(agora / 37) * 1.2
     chamas.forEach((s, k) => { const v = 0.55 + Math.sin(t * (7 + k * 2.3) + k) * 0.12 + Math.sin(t * 17 + k * 3) * 0.06; const afina = 1 - k * 0.2; s.scale.set(v * 0.75 * afina, v * 1.1 * afina, 1); (s.material as THREE.SpriteMaterial).opacity = 0.85 - k * 0.15 })
     for (let k = 0; k < FAG; k++) { let y = fagPos[k * 3 + 1] + dt * (0.45 + (k % 5) * 0.12); if (y > 2.4) { y = 0; fagPos[k * 3] = (Math.random() - 0.5) * 0.4; fagPos[k * 3 + 2] = (Math.random() - 0.5) * 0.4 } fagPos[k * 3 + 1] = y; fagPos[k * 3] += Math.sin(t * 2.5 + k) * dt * 0.1 }
@@ -612,7 +622,8 @@ export async function iniciarHorda(o: OpcoesHorda) {
     quadroId = requestAnimationFrame(function f(tt) { if (!rodando || !visivel || document.hidden) return; quadroDeRender(tt); quadroId = requestAnimationFrame(f) })
   }
   // só mostra a rua depois que todos os sprites chegaram (nada de zumbi andando no vazio)
-  await T.pronto()
+  await T.pronto((f) => avisar(0.68 + f * 0.27, 'montando'))
+  avisar(0.96, 'acendendo')
   if (rodando) laco()
 
   return {

@@ -16,10 +16,11 @@ export const WALL_H = (192 * K) / UP.y // altura de uma parede do jogo (≈2,45)
 
 export function criarTiles(META: Record<string, MetaTile>, base = '/jogo/tiles/') {
   const TEX: Record<string, THREE.Texture> = {}, MAT: Record<string, THREE.MeshLambertMaterial> = {}, espera: Promise<void>[] = []
+  let carregadas = 0, aviso: ((f: number) => void) | undefined
   function tex(nome: string) {
     if (TEX[nome]) return TEX[nome]
     const t = new THREE.Texture(); t.colorSpace = THREE.SRGBColorSpace; t.generateMipmaps = false; t.minFilter = THREE.LinearFilter; t.magFilter = THREE.LinearFilter
-    espera.push(new Promise((res) => { const im = new Image(); im.onload = () => { t.image = im; t.needsUpdate = true; res() }; im.onerror = () => res(); im.src = base + nome + '.webp' }))
+    espera.push(new Promise((res) => { const im = new Image(); const fim = () => { carregadas++; aviso?.(carregadas / espera.length); res() }; im.onload = () => { t.image = im; t.needsUpdate = true; fim() }; im.onerror = fim; im.src = base + nome + '.webp' }))
     return (TEX[nome] = t)
   }
   // luz: o sprite brilha com essa cor por trás (cortina de janela acesa: a luz do cômodo atravessa o pano)
@@ -85,5 +86,7 @@ export function criarTiles(META: Record<string, MetaTile>, base = '/jogo/tiles/'
     }
     return C
   }
-  return { cena, pronto: () => Promise.all(espera), mats: () => Object.values(MAT) }
+  /** espera todas as texturas; aoProgresso(0..1) a cada uma que chega */
+  const pronto = (aoProgresso?: (f: number) => void) => { aviso = aoProgresso; aoProgresso?.(espera.length ? carregadas / espera.length : 1); return Promise.all(espera) }
+  return { cena, pronto, mats: () => Object.values(MAT) }
 }

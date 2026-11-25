@@ -4,7 +4,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { cx } from '@/lib/util'
+import ABERTURA from '@/gerado/abertura.json'
 import { Discord, Jogo, Play, Seta } from '../../icones'
+import { preloaderFechar, preloaderLigarPular, preloaderProgresso } from '../preloader'
 
 export interface TopicoHorda { id: string; titulo: string; linha: string; href: string; icone: string | null; cor: string; externo?: boolean; modelo: number; casa: [number, number]; casaRetrato: [number, number] }
 
@@ -20,8 +22,9 @@ export function Horda({ topicos }: { topicos: TopicoHorda[] }) {
   useEffect(() => {
     const c = canvas.current; if (!c) return
     const nav = navigator as Navigator & { connection?: { saveData?: boolean }; deviceMemory?: number }
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches || nav.connection?.saveData) return
-    if (!document.createElement('canvas').getContext('webgl2')) return
+    const soltar = preloaderLigarPular()
+    // sem 3D (movimento reduzido, economia de dados, sem WebGL): o preloader sai logo e fica a abertura estática
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || nav.connection?.saveData || !document.createElement('canvas').getContext('webgl2')) { preloaderFechar(300); return soltar }
     let ctrl: { destruir(): void } | null = null, vivo = true
     const leve = innerWidth < 768 || (nav.hardwareConcurrency ?? 8) <= 4 || (nav.deviceMemory ?? 8) <= 4
     const r0 = c.getBoundingClientRect(), retrato = r0.width < r0.height // mesmo critério da cena (vista pela largura)
@@ -32,19 +35,20 @@ export function Horda({ topicos }: { topicos: TopicoHorda[] }) {
         const { iniciarHorda } = await import('./cena')
         if (!vivo) return
         ctrl = await iniciarHorda({
-          canvas: c, placas: placas.current, horda: leve ? 2 : 4, leve,
+          canvas: c, placas: placas.current, horda: leve ? 2 : 4, leve, tamanhoPacote: ABERTURA.bytes, aoProgresso: preloaderProgresso,
           topicos: topicos.map((t) => ({ modelo: t.modelo, casa: retrato ? t.casaRetrato : t.casa })),
-          aoPronto: () => { if (!vivo) return; setModo('3d'); document.getElementById('abertura')?.setAttribute('data-horda', '') },
+          aoPronto: () => { if (!vivo) return; setModo('3d'); document.getElementById('abertura')?.setAttribute('data-horda', ''); preloaderFechar() },
           aoMirar: (i) => setMirado(i),
           aoAbrir: (i) => { const t = topicos[i]; if (t.externo) window.open(t.href, '_blank', 'noopener'); else router.push(t.href) },
         })
         if (!vivo) ctrl.destruir()
-      } catch { if (vivo) setModo('estatico') }
+      } catch { if (vivo) setModo('estatico'); preloaderFechar(0) }
     }
-    // só depois que a página já apareceu (não disputa com o LCP)
+    // com o preloader na tela, carrega já (é para isso que ele existe); sem ele (navegação dentro do site), espera a página aparecer
+    const comPreloader = document.getElementById('preloader')?.dataset.estado === 'carregando'
     const ric = (window as Window & { requestIdleCallback?: (f: () => void, o?: { timeout: number }) => number }).requestIdleCallback
-    const id = ric ? ric(iniciar, { timeout: 2500 }) : window.setTimeout(iniciar, 1200)
-    return () => { vivo = false; if (!ric) clearTimeout(id); ctrl?.destruir() }
+    const id = comPreloader ? window.setTimeout(iniciar, 0) : ric ? ric(iniciar, { timeout: 2500 }) : window.setTimeout(iniciar, 1200)
+    return () => { vivo = false; if (comPreloader || !ric) clearTimeout(id); ctrl?.destruir(); soltar() }
   }, [topicos, router])
 
   const tres = modo === '3d'
