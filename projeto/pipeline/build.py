@@ -42,9 +42,12 @@ def find(folder, name):
         if folder == 'sfx' and os.environ.get('PZ_FALTA_SOM_OK') == '1': print(f'AVISO: som "{name}" não está em assets/sfx — rascunho segue SEM ele'); return None
         sys.exit(f'ERRO: "{name}" não existe em assets/{folder} (veja o índice na pasta de referências)')
     return sorted(hits, key=lambda p: p.endswith('.ogg'))[0]
-def when(t):  # número = segundos no vídeo final | {"c": i, "dt": s} = corte da frase i | {"f": i, "dt": s} = início da frase i
+def when(t):  # número = segundos no vídeo final | {"c": i, "dt": s} = corte da frase i | {"f": i, "dt": s} = início da frase i | + "k": fração da cena
     if isinstance(t, (int, float)): return float(t)
-    return (C(t['c']) if 'c' in t else F[t['f']]) / FPS + t.get('dt', 0)
+    i = t['c'] if 'c' in t else t['f']; base = C(i) if 'c' in t else F[i]
+    # "k" (25/11): fração da cena, igual ao len * k do epNN.js — o som acompanha a ação quando a voz muda de tamanho
+    L = ((C(i + 1) if i + 1 < len(F) else round(DUR * FPS)) - C(i)) if 'k' in t else 0
+    return (base + t.get('k', 0) * L) / FPS + t.get('dt', 0)
 
 def st_audio():
     N = int(TOTAL * SR); z = lambda: np.zeros((N, 2), np.float32)

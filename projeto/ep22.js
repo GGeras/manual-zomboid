@@ -32,7 +32,7 @@ const SYP = .43, SY = .62, VRUN = 3.1, VWALK = 1.25;
 const clip = (name, lf, o = {}) => { pose(S, Object.assign({ ry: Math.PI / 2, clip: [name, lf, o.loop !== false, o.up] }, o)); S.bat.visible = false; S.hammer.visible = false;
   AXE.visible = o.axe !== false; PILL.visible = !!o.pill; S.olhar = 0; (S.userData ??= {}).assento = o.assento; PZ.apoiar(S, o.base ?? 0); };
 const zClip = (z, name, lf, o = {}) => { pose(z, Object.assign({ clip: [name, lf, o.loop !== false] }, o)); PZ.apoiar(z, 0); };
-const rua0 = (f, k = 0) => { light('dawn'); clima('', 0); RC.show(); clarao(0); tileLuz('#fff0dc'); };
+const rua0 = (f, k = 0) => { light('dawn'); clima('', 0); RC.show(); clarao(0); tileLuz('#fffaf0'); };   // v6: um pouco mais claro (inspeção 93, mín 95)
 // golpe completo: zumbi chega andando, machado acerta no quadro H+18, zumbi cai em câmera lenta (70%) e fica no chão
 const golpe = (lf, me, H, o = {}) => { const HIT = H + 18;
   if (lf >= H && lf < H + 76) clip('s_attack2h', lf - H, { x: me.x, z: me.z, loop: false }); else clip(o.cansado ? 's_breath2h' : 's_idle2h', lf, { x: me.x, z: me.z });
