@@ -2,10 +2,10 @@
 ep: 20
 tema: Sono
 responsavel: jose
-status: validado
+status: final
 build: B42.22
 fatos: [sono-niveis, sono-efeito, sono-descanso, sono-cama, sono-travesseiro, sono-bloqueio, sono-remedio, sono-cafeina, sono-tracos]
-video: (sem rascunho ainda)
+video: final v6 renderizado em 24/11 (voz ElevenLabs final, 66,9 s) — link do Drive entra quando os 5 sons do personagem estiverem no repo
 ---
 
 # EP 20 — Sono · ROTEIRO v6 (revisado 23/11/2026)
