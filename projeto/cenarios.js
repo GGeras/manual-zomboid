@@ -122,7 +122,7 @@ export function casaDentro(x0, z0, o = {}) {
   if (!o.janelaLivre && !livreN(1)) C.obj('vegetation_indoor_01_0', 1, 0, { w: .96, d: .96 });
   // TV em cima de uma mesinha (no chão ela parecia caída)
   if (!livreN(5)) { const TV = C.obj('furniture_tables_high_01_12', 5, 0, { w: .8, d: .8 }); C.obj('appliances_television_01_1', 5, 0, { w: .7, d: .7, dy: TV.userData.h * .86 }); }
-  if (!o.completa) C.obj('lighting_indoor_01_0', 0, 2, { w: .4, d: .4 });
+  if (!o.completa) C.placa('lighting_indoor_01_on_58', 0, 2, { fz: .2, solida: true });   // 25/11: abajur de pé = placa (sprite inteiro); antes era o interruptor (lighting_indoor_01_0) em pé no chão
   [4, 5].forEach(j => { if (j !== winW) C.obj('furniture_seating_indoor_01_8', 0, j); });
   let poltrona = null;
   if (o.completa) {
@@ -136,7 +136,7 @@ export function casaDentro(x0, z0, o = {}) {
     C.parede('W', 'walls_decoration_01_52', 0, 4.5, { off: .015 });
     // canto de leitura: poltrona de couro encostada na parede W (frente E) com abajur de pé aceso ao lado
     poltrona = C.assento('furniture_seating_indoor_02_45', 0, 2, { encosto: 'W', hs: .486 });   // assento na altura do jogo (Bob_SatChair: nádega a 0,486 — regra 4.7)
-    C.obj('lighting_indoor_01_on_58', 0, 1, { w: .35, d: .35 });
+    C.placa('lighting_indoor_01_on_58', 0, 1, { fz: .2, solida: true });   // 25/11: placa (antes a caixa de .35 cortava a base e a cúpula — EP23/EP24)
     // mesa de centro na frente das poltronas, em cima do tapete
     C.obj('furniture_tables_low_01_16', 1.2, 4.5, { w: .8, d: .9 });
   }
@@ -375,7 +375,7 @@ export function quarto(x0, z0, o = {}) {
   // o.sacos (EP25, 25/11): sem cama de verdade — quarto triste com sacos de dormir no chão (o chamador põe os sacos)
   const PE = o.sacos ? { sobrepor() {}, userData: { h: .1 } } : C.obj(CPE, 2, 1, { d: 1.0, dz: -.03 }), colchao = PE.userData.h, CAMA = o.sacos ? { sobrepor() {} } : C.assento(CBC, 2, 0, { encosto: 'N', hs: colchao, d: 1.0, dz: .05 });
   C.obj('furniture_storage_02_33', 5, 0, { w: .9, d: .7 });                 // guarda-roupa encostado na parede N (frente S)
-  C.obj('lighting_indoor_01_on_58', 1, 0, { w: .35, d: .35 });              // abajur de pé ao lado da cabeceira
+  C.placa('lighting_indoor_01_on_58', 1, 0, { fz: .2, solida: true });                    // abajur de pé ao lado da cabeceira (placa: sprite inteiro)
   const CAD = C.assento('furniture_seating_indoor_01_57', 5, 3, { encosto: 'N', hs: .486 }); if (o.semCadeira) CAD.visible = false;   // cadeira solta no meio do quarto (EP22/24): some   // cadeira (frente S) — Bob_SatChair: nádega a 0,486
   const cama = { sobrepor: on => { CAMA.sobrepor(on); PE.sobrepor(on); } };
   return { C, at: C.at, cama, cadeira: CAD, porta: PORTA, colchao };

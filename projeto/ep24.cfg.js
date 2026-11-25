@@ -6,7 +6,7 @@ window.EP = {
   itens: ["Item_PillsBetablocker", "Item_Book", "Item_ComicBook", "Item_Magazine", "Item_Cigarette", "trait_brave", "trait_cowardly", "trait_desensitized", "trait_agoraphobic", "trait_claustrophobic"],
   OFF: 1.3,
   luz: { padrao: 'exterior-dia', 3: 'interior-noite', 4: 'interior-tarde', 5: 'interior-tarde', 6: 'interior-tarde' },
-  T: [0.0, 8.06, 20.86, 34.41, 46.33, 55.48, 65.81, 73.76, 86.8, 99.69], END: 103.12,
+  T: [0.0, 8.59, 20.59, 34.23, 46.33, 55.91, 66.31, 74.24, 95.17, 112.89], END: 116.32, cauda: 99,   // v5: final de tiros mais longo (câmera lenta + recarga) depois da última fala
   scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6, lab: LAB }, { at: 7, lab: LAB }, { at: 8, lab: LAB }, { at: 9 }],
   titles: [
     { i: 0, a: "Mão treme,", b: "tiro torto", aSize: 110, size: 128 },
@@ -73,12 +73,12 @@ window.EP = {
     tag(7, "CORAJOSO > COVARDE", G, P(7, 0.46), P(7, 0.72), 1080, 36);
     tag(7, "VEM COM O VETERANO", Y, P(7, 0.80), null, 1080, 36);
     // 8 — Agorafóbico / Claustrofóbico
-    card(8, 'trait_agoraphobic', 'Agorafóbico', 'pânico ao ar livre', 4, P(8, 0.10), null, 560);
-    card(8, 'trait_claustrophobic', 'Claustrofóbico', 'pânico em lugar fechado pequeno', 4, P(8, 0.40), null, 730);
+    card(8, 'trait_agoraphobic', 'Agorafóbico', 'pânico ao ar livre', 4, P(8, 0.10), P(8, 0.40), 560);   // v5: sai quando entra o 2º (não cobre o personagem)
+    card(8, 'trait_claustrophobic', 'Claustrofóbico', 'pânico em lugar fechado pequeno', 4, P(8, 0.40), null, 560);
     mood(8, 'pz:Mood_Panicked', "PÂNICO", P(8, 0.24), P(8, 0.50), 840, false);
     mood(8, 'pz:Mood_Panicked', "PÂNICO", P(8, 0.62), P(8, 0.76), 840, false);
-    tag(8, "NÃO RECOMENDO OS DOIS", RD, P(8, 0.78), null, 960, 36);
+    tag(8, "NÃO RECOMENDO OS DOIS", RD, P(8, 0.78), null, 740, 36);
     // 9 — CTA
-    tag(9, "SALVA E COMENTA", G, P(9, 0.50), null);
+    tag(9, "SALVA E COMENTA", G, P(9, 0.80), null);
   }
 };

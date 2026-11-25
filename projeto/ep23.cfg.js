@@ -7,7 +7,7 @@ window.EP = {
   itens: ["Item_Duffelbag", "Item_Backpack_Black", "Item_Hiking_Green", "Item_BigHiking_Green", "Item_AliceBag"],
   OFF: 1.3,
   luz: { padrao: 'interior-tarde', 2: 'exterior-dia', 3: 'exterior-dia', 6: 'exterior-dia', 8: 'exterior-dia' },
-  T: [0, 3.5, 10, 20, 25, 32, 41, 47, 52], END: 57,
+  T: [0.0, 4.21, 12.59, 24.03, 29.0, 36.68, 46.45, 52.95, 59.12], END: 64.45,
   scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6, lab: LAB }, { at: 7, lab: LAB }, { at: 8 }],
   titles: [
     { i: 0, a: "Pegar tudo", b: "te mata", aSize: 110, size: 128 },

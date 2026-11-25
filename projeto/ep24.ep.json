@@ -84,7 +84,7 @@
    "PZ_Swallowing",
    {
     "f": 4,
-    "dt": 2.6
+    "dt": 2.47
    },
    -14
   ],
@@ -105,12 +105,84 @@
    -16
   ],
   [
+   "batSwing",
+   {
+    "f": 2,
+    "dt": 9.75
+   },
+   -14
+  ],
+  [
+   "bathit",
+   {
+    "f": 2,
+    "dt": 10.03
+   },
+   -12
+  ],
+  [
+   "zombiehit1",
+   {
+    "f": 2,
+    "dt": 10.08
+   },
+   -16
+  ],
+  [
+   "batSwing",
+   {
+    "f": 2,
+    "dt": 11.49
+   },
+   -14
+  ],
+  [
+   "bathit",
+   {
+    "f": 2,
+    "dt": 11.77
+   },
+   -12
+  ],
+  [
+   "zombiehit2",
+   {
+    "f": 2,
+    "dt": 11.82
+   },
+   -16
+  ],
+  [
    "stormy9mmFire",
    {
     "f": 9,
-    "dt": 1.2
+    "dt": 0.87
    },
    -12
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "f": 9,
+    "dt": 2.17
+   },
+   -12
+  ],
+  [
+   "stormy9mmFire",
+   {
+    "f": 9,
+    "dt": 3.83
+   },
+   -11
+  ],
+  [
+   "stormy9mmClipLoad",
+   {
+    "f": 9,
+    "dt": 4.75
+   },
+   -14
   ]
  ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
