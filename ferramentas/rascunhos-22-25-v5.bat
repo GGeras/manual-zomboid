@@ -42,6 +42,17 @@ if not exist "%SONS%\JL_MalePlayer_ExerciseGrunts_01.ogg" (
   set PZ_FALTA_SOM_OK=1
 )
 
+echo [2b/3] Conferindo programas do render (so instala o que faltar)...
+cd /d "%REPO%"
+if not exist "%REPO%\node_modules\playwright-core" (
+  echo Instalando bibliotecas Node ^(npm install^)...
+  call npm install --no-audit --no-fund || (echo ERRO no npm install. Rode ferramentas\instalar.bat e chame o Claude. & pause & exit /b 1)
+)
+%PY% -c "import piper" >nul 2>nul
+if errorlevel 1 (
+  echo Instalando a voz provisoria ^(piper-tts^)...
+  %PY% -m pip install -r "%REPO%\requirements.txt" || echo AVISO: piper-tts falhou - o rascunho usa a voz que ja estiver em projeto\audio.
+)
 echo [3/3] Gerando os 4 rascunhos (voz Piper + previa + inspecao). Pode deixar rodando.
 rem 25/11: caminhos ABSOLUTOS — o rodar.bat entra em projeto\ e nao volta; com caminho relativo o 2o episodio em diante dava
 rem "O sistema nao conseguiu localizar o caminho especificado"
