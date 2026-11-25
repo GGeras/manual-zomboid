@@ -23,7 +23,8 @@ export const ZUMBIS = [
   { nome: 'camiseta e jeans', sex: 'F', skin: 'f_zedbody03_level2', layers: [J('#4a6a94'), T('#c98aa0'), 'trainers_white'], hair: 'bob', hairColor: '#4a2e1a', blood: 1 },
 ]
 // andares (4 jeitos de andar do jogo), parado, bote, golpe, queda, levantar e bater na lataria
-const CLIPS = ['z_walk', 'z_walk2', 'z_walk3', 'z_walk4', 'z_idle', 'z_lunge', 'z_hit', 'z_death', 'z_getup', 'z_doorbang']
+// + pular cerca: o jogo usa a mesma sequência da janela (apoia, passa por cima, cai do outro lado e levanta)
+const CLIPS = ['z_walk', 'z_walk2', 'z_walk3', 'z_walk4', 'z_idle', 'z_lunge', 'z_hit', 'z_death', 'z_getup', 'z_doorbang', 'z_climbwin_start', 'z_climbwin', 'z_climbwin_end']
 // cenário: o sedã (Chevalier Nyala) e a picape (Chevalier D6) do jogo, abandonados na rua
 const CENARIO = { malhas: ['car_normal', 'car_pickup'], texturas: ['vehicle_carnormalshell', 'vehicle_pickupshell'] }
 // sprites ORIGINAIS do jogo (projeto/assets/tiles, extraídos do Tiles2x.pack) que a rua da abertura usa: viram public/jogo/tiles/<nome>.webp
@@ -32,10 +33,11 @@ export const TILES = [
   ...n('blends_natural_01_', [16, 21, 22, 23]), ...n('floors_exterior_street_01_', [0, 1, 2, 3, 4, 5, 16]), ...n('floors_exterior_tilesandstone_01_', [0, 1, 2]),
   ...n('walls_exterior_house_01_', [32, 33, 34, 40, 41, 4, 5, 6, 12, 13]), 'fixtures_windows_01_16', 'fixtures_windows_01_17', 'fixtures_windows_curtains_01_26', 'fixtures_windows_curtains_01_10', 'fixtures_doors_01_5',
   'fencing_01_5', 'fencing_01_16', 'fencing_01_17',
-  ...n('e_redmaple_1_', [2, 3, 14, 15]), ...n('e_canadianhemlock_1_', [2, 3]), ...n('e_virginiapine_1_', [2, 3]), ...n('e_riverbirch_1_', [3, 15]), ...n('e_americanlinden_1_', [3, 14, 15]),
+  // árvores INTEIRAS (JumboTrees2x.pack): as de Tiles2x vêm cortadas no topo do ladrilho
+  ...n('e_redmapleJUMBO_1_', [0, 1, 6, 7]), ...n('e_americanlindenJUMBO_1_', [1, 7]), ...n('e_riverbirchJUMBO_1_', [1, 5]), ...n('e_canadianhemlockJUMBO_1_', [0, 1]), ...n('e_virginiapineJUMBO_1_', [0, 1]),
   ...n('f_bushes_1_', [100, 101, 103, 105, 64, 67, 70]), ...n('e_newgrass_1_', [16, 17, 40, 41, 64]), ...n('d_generic_1_', [21, 24, 51]),
   ...n('trash_01_', [18, 24, 27, 33]), ...n('d_trash_1_', [0, 9, 13]), 'lighting_outdoor_01_1', 'street_roadsigns_01_9',
-  ...n('street_decoration_01_', [0, 8, 12, 15, 18, 26, 27, 28]), ...n('trashcontainers_01_', [0, 8, 16, 24]), ...n('camping_01_', [0, 4, 25]),
+  ...n('street_decoration_01_', [0, 8, 12, 15, 18, 26, 27, 28]), ...n('trashcontainers_01_', [0, 8, 16, 24]), ...n('camping_01_', [0, 1, 4, 25]),
   ...n('blood_floor_large_0', [1, 3, 5]), ...n('blood_floor_med_0', [2, 5]), ...n('blood_floor_small_0', [3, 6]),
 ]
 
@@ -43,6 +45,38 @@ const r4 = (a) => (a ? a.map((n) => Math.round(n * 1e4) / 1e4) : [])
 const r3 = (a) => (a ? a.map((n) => Math.round(n * 1e3) / 1e3) : [])
 // trilha de um osso: 3 casas bastam (erro < 0,1°); osso parado o clip inteiro guarda 1 quadro só (posar() segura o último)
 const trilha = (a, k) => { const v = r3(a); for (let i = k; i < v.length; i++) if (v[i] !== v[i % k]) return v; return v.slice(0, k) }
+
+// ---- caixa 3D de cada sprite (para C.obj): a menor base (w = d, até 1 ladrilho) e altura em que o desenho INTEIRO cai dentro da
+// silhueta da caixa. Caixa pequena demais corta o desenho (barraca, arbusto, pedra "pela metade"). Mesma projeção de tiles-leve.ts.
+const K = Math.SQRT2 / 128
+const DIRv = (() => { const v = [1, 0.82, 1], n = Math.hypot(...v); return v.map((x) => x / n) })()
+const RTv = [Math.SQRT1_2, 0, -Math.SQRT1_2]
+const UPv = (() => { const v = [-DIRv[0] * DIRv[1], 1 - DIRv[1] * DIRv[1], -DIRv[2] * DIRv[1]], n = Math.hypot(...v); return v.map((x) => x / n) })()
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
+function casco(pts) {
+  pts = [...pts].sort((a, b) => a[0] - b[0] || a[1] - b[1]); const cr = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]), lo = [], up = []
+  for (const p of pts) { while (lo.length >= 2 && cr(lo.at(-2), lo.at(-1), p) <= 0) lo.pop(); lo.push(p) }
+  for (const p of pts.reverse()) { while (up.length >= 2 && cr(up.at(-2), up.at(-1), p) <= 0) up.pop(); up.push(p) }
+  return lo.slice(0, -1).concat(up.slice(0, -1))
+}
+const dentro = (h, p) => h.every((a, i) => { const b = h[(i + 1) % h.length]; return (b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]) >= -0.5 })
+async function caixaDoSprite(png, [, y0, , , W, H]) {
+  const { data, info } = await sharp(png).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+  const op = []; for (let y = 0; y < info.height; y += 2) for (let x = 0; x < info.width; x += 2) if (data[(y * info.width + x) * 4 + 3] > 115) op.push([x + 0.5, y + 0.5])
+  if (!op.length) return [0.9, 0.5]
+  let melhor = null
+  for (let w = 0.3; w <= 1.0001; w += 0.05) {
+    const h0 = Math.max(0.04, ((H - 32 - y0) * K - dot([-w / 2, 0, -w / 2], UPv)) / UPv[1] + 0.03)
+    for (const f of [1, 1.15, 1.3]) {
+      const h = h0 * f, vs = []
+      for (const x of [-w / 2, w / 2]) for (const yy of [0, h]) for (const z of [-w / 2, w / 2]) vs.push([W / 2 + dot([x, yy, z], RTv) / K, H - 32 - dot([x, yy, z], UPv) / K])
+      const hl = casco(vs), fora = op.filter((p) => !dentro(hl, p)).length / op.length
+      if (!melhor || fora < melhor[2] - 1e-9) melhor = [w, h, fora]
+      if (fora < 0.004) return [+w.toFixed(2), +h.toFixed(3)]
+    }
+  }
+  return [+melhor[0].toFixed(2), +melhor[1].toFixed(3)]
+}
 
 export async function gerarZumbis(raiz, saida) {
   const arq = (n) => path.join(raiz, 'projeto/assets/pz', n)
@@ -90,7 +124,11 @@ export async function gerarZumbis(raiz, saida) {
   const META = (await import(pathToFileURL(path.join(PT, 'meta.js')).href)).default
   const PS = path.join(saida, 'tiles'); fs.mkdirSync(PS, { recursive: true })
   const tmeta = {}
-  await Promise.all(TILES.map(async (t) => { tmeta[t] = META[t]; await sharp(path.join(PT, t + '.png')).webp({ quality: 88, alphaQuality: 95, effort: 6 }).toFile(path.join(PS, t + '.webp')) }))
+  await Promise.all(TILES.map(async (t) => {
+    const png = path.join(PT, t + '.png')
+    tmeta[t] = [...META[t], ...(await caixaDoSprite(png, META[t]))]
+    await sharp(png).webp({ quality: 88, alphaQuality: 95, effort: 6 }).toFile(path.join(PS, t + '.webp'))
+  }))
   const skel = { M: M.skel.M.map((b) => ({ ...b, m: r4(b.m) })), F: M.skel.F.map((b) => ({ ...b, m: r4(b.m) })) }
   fs.writeFileSync(destino, JSON.stringify({ v: 3, zumbis: ZUMBIS, skel, mesh, clips, tex, tmeta }))
   return { ok: true, kb: Math.round(fs.statSync(destino).size / 1024) }

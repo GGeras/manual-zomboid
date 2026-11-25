@@ -13,7 +13,9 @@ export interface Pacote { zumbis: ZumbiBase[]; skel: Record<'M' | 'F', Osso[]>; 
 /** clip = animação atual; mix = animação anterior congelada, misturada com peso w (transição suave, como o jogo faz entre estados). */
 export interface Humano { g: THREE.Group; bones: Record<string, THREE.Bone>; order: THREE.Bone[]; clip: [string, number, boolean]; mix: [string, number, boolean, number] | null; mats: THREE.MeshLambertMaterial[]; sombra: THREE.Mesh
   /** cabeça virando para um ponto: guinada (y, rad, + = esquerda do zumbi) e inclinação (+ = olha para baixo), por cima da animação */
-  olhar: { y: number; p: number } }
+  olhar: { y: number; p: number }
+  /** false = não encosta o corpo no chão (pulando cerca: a animação sobe e desce sozinha) */
+  apoio: boolean }
 
 export async function carregarPacote(url: string): Promise<{ P: Pacote; IMG: Record<string, HTMLImageElement> }> {
   const P = (await (await fetch(url)).json()) as Pacote
@@ -95,7 +97,7 @@ export function criarFabrica(P: Pacote, IMG: Record<string, HTMLImageElement>) {
     // sombra de contato (barata, sem shadow map)
     const sombra = new THREE.Mesh(new THREE.CircleGeometry(0.36, 20), new THREE.MeshBasicMaterial({ color: '#000', transparent: true, opacity: 0.45, depthWrite: false }))
     sombra.rotation.x = -Math.PI / 2; sombra.position.y = 0.012; g.add(sombra)
-    return { g, bones, order, clip: ['z_idle', 0, true], mix: null, mats, sombra, olhar: { y: 0, p: 0 } }
+    return { g, bones, order, clip: ['z_idle', 0, true], mix: null, mats, sombra, olhar: { y: 0, p: 0 }, apoio: true }
   }
   /** Malha parada do jogo (cenário), com a textura pintada por cima de uma cor de fundo (o jogo pinta a lataria assim). */
   function cenario(nome: string, texNome: string, fundo: string) {
@@ -151,6 +153,7 @@ export function posar(P: Pacote, h: Humano) {
     b.updateMatrix(); b.matrixWorld.multiplyMatrices(par.matrixWorld, b.matrix)
   }
   // REGRA 4.7 do canal: o ponto mais baixo do corpo encosta no chão (nem afunda, nem flutua)
+  if (!h.apoio) return
   const B = h.bones, Y = (n: string) => _v.setFromMatrixPosition(B[n].matrixWorld).y
   // em pé só os pés contam; caído (z_death, z_getup) a cabeça, o quadril e as mãos também encostam
   const min = Math.min(Y('Bip01_L_Toe0'), Y('Bip01_R_Toe0'), Y('Bip01_L_Foot') - 0.1, Y('Bip01_R_Foot') - 0.1,

@@ -6,7 +6,8 @@
 // das peças em pé apontam para a câmera: o sprite já vem sombreado pelo jogo, e assim cada face da caixa recebe a mesma luz (sem emenda).
 import { THREE } from './pz-leve'
 
-export type MetaTile = [number, number, number, number, number, number] // retângulo opaco (x0, y0, x1, y1) + largura e altura do sprite
+// retângulo opaco (x0, y0, x1, y1) + largura e altura do sprite + caixa 3D que cobre o desenho inteiro (base e altura; gerar-zumbis.mjs)
+export type MetaTile = [number, number, number, number, number, number, number?, number?]
 const K = Math.SQRT2 / 128 // unidades de mundo por pixel do sprite (no plano da câmera)
 export const DIR = new THREE.Vector3(1, 0.82, 1).normalize() // de onde a câmera olha (igual ao engine.js)
 const RT = new THREE.Vector3(1, 0, -1).normalize() // direita da tela
@@ -22,10 +23,10 @@ export function criarTiles(META: Record<string, MetaTile>, base = '/jogo/tiles/'
     return (TEX[nome] = t)
   }
   // luz: o sprite brilha com essa cor por trás (cortina de janela acesa: a luz do cômodo atravessa o pano)
-  function mat(nome: string, o: { tint?: string; op?: number; luz?: string } = {}) {
-    const k = nome + '|' + (o.tint ?? '') + '|' + (o.op ?? '') + '|' + (o.luz ?? '')
+  function mat(nome: string, o: { tint?: string; op?: number; luz?: string; forca?: number } = {}) {
+    const k = nome + '|' + (o.tint ?? '') + '|' + (o.op ?? '') + '|' + (o.luz ?? '') + '|' + (o.forca ?? '')
     return (MAT[k] ??= new THREE.MeshLambertMaterial({ map: tex(nome), color: o.tint ?? '#ffffff', alphaTest: o.op ? 0.02 : 0.45, side: THREE.DoubleSide, transparent: Boolean(o.op), opacity: o.op ?? 1, depthWrite: !o.op,
-      ...(o.luz ? { emissive: o.luz, emissiveMap: tex(nome), emissiveIntensity: 1.5 } : {}) }))
+      ...(o.luz ? { emissive: o.luz, emissiveMap: tex(nome), emissiveIntensity: o.forca ?? 1.5 } : {}) }))
   }
   const meta = (nome: string) => { const m = META[nome]; if (!m) throw new Error('tiles: sprite ausente: ' + nome); return m }
   // UV de cada vértice = onde ele cai no sprite. Âncora = centro do losango do piso (pixel w/2, h-32).
@@ -68,12 +69,14 @@ export function criarTiles(META: Record<string, MetaTile>, base = '/jogo/tiles/'
       },
       /** objeto: caixa com o sprite projetado; w/d = base (1 = ladrilho inteiro), dx/dz = deslocamento da base dentro do ladrilho */
       obj(nome: string, i: number, j: number, o: { w?: number; d?: number; dx?: number; dz?: number; h?: number; tint?: string } = {}) {
-        const w = o.w ?? 0.9, d = o.d ?? 0.9, dx = o.dx ?? 0, dz = o.dz ?? 0, h = o.h ?? autoH(nome, w, d, dx, dz)
+        // sem w/d: a caixa medida para o sprite (cobre o desenho inteiro); com w/d: a caixa pedida e a altura calculada
+        const [, , , , , , cw, ch] = meta(nome), auto = o.w == null && o.d == null && cw != null
+        const w = o.w ?? cw ?? 0.9, d = o.d ?? cw ?? 0.9, dx = o.dx ?? 0, dz = o.dz ?? 0, h = o.h ?? (auto ? ch! : autoH(nome, w, d, dx, dz))
         const g = new THREE.BoxGeometry(w, h, d); g.translate(dx, h / 2, dz); projetar(g, nome); deFrente(g)
         const m = new THREE.Mesh(g, mat(nome, o)); m.position.set(i, 0, j); m.userData.h = h; G.add(m); return m
       },
       /** sprite em pé de frente para a câmera (árvores, postes, capim alto), com a âncora no ponto (i, j) do chão */
-      placa(nome: string, i: number, j: number, o: { fz?: number; tint?: string } = {}) {
+      placa(nome: string, i: number, j: number, o: { fz?: number; tint?: string; luz?: string; forca?: number } = {}) {
         const [, , , , w, h] = meta(nome), g = new THREE.PlaneGeometry(w * K, h * K)
         const m = new THREE.Mesh(g, mat(nome, o)); m.quaternion // normal do plano (0,0,1) vira DIR pela própria base.setFromRotationMatrix(new THREE.Matrix4().makeBasis(RT, UP, DIR))
         m.position.set(i, 0, j).addScaledVector(UP, (h / 2 - 32) * K).addScaledVector(DIR, o.fz ?? 0.5) // fz: puxa para a frente (não afunda no chão)
