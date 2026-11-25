@@ -130,9 +130,12 @@
 }
 @keyframes chama { 0%, 100% { opacity: .85; transform: scale(1) } 30% { opacity: 1; transform: scale(1.06) } 55% { opacity: .75; transform: scale(.97) } 80% { opacity: .95; transform: scale(1.03) } }
 
-/* entrada ao rolar: cada bloco sobe uma vez (IntersectionObserver em componentes/revelar.tsx) */
-[data-revelar] { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease-suave), transform .7s var(--ease-suave); transition-delay: var(--atraso, 0ms); }
-[data-revelar].visivel { opacity: 1; transform: none; }
+/* entrada ao rolar: cada bloco sobe uma vez (IntersectionObserver em componentes/revelar.tsx). Só esconde com JS ligado:
+   sem JS (ou com o JS bloqueado) o conteúdo aparece direto. */
+@media (scripting: enabled) {
+  [data-revelar] { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease-suave), transform .7s var(--ease-suave); transition-delay: var(--atraso, 0ms); }
+  [data-revelar].visivel { opacity: 1; transform: none; }
+}
 
 /* rolagem lateral sem barra feia */
 .trilho { scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
@@ -165,7 +168,11 @@
 .placa-3d:hover, .placa-3d[data-mirado] { border-color: var(--cor); box-shadow: 0 14px 40px -12px rgba(0, 0, 0, .9), 0 0 26px -6px var(--cor); }
 .placa-3d .placa-linha { max-width: 0; overflow: hidden; opacity: 0; transition: max-width .35s var(--ease-suave, ease), opacity .25s; }
 .placa-3d:hover .placa-linha, .placa-3d[data-mirado] .placa-linha, .placa-3d:focus-visible .placa-linha { max-width: 14rem; opacity: 1; }
-@media (min-width: 1024px) { .placa-3d .placa-linha { max-width: 14rem; opacity: 1; } }
+/* vinheta da horda: escurece as bordas (lanterna no meio) e, no desktop, o lado do texto */
+.vinheta { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 1.4s;
+  background: radial-gradient(120% 95% at 62% 48%, transparent 52%, rgba(4, 5, 8, .72) 100%); }
+#abertura[data-horda] .vinheta { opacity: 1; }
+@media (min-width: 768px) { .vinheta { background: radial-gradient(120% 95% at 62% 48%, transparent 52%, rgba(4, 5, 8, .72) 100%), linear-gradient(90deg, rgba(8, 9, 11, .78) 0%, rgba(8, 9, 11, .45) 28%, transparent 48%); } }
 @media (max-width: 767px) { .placa-3d { gap: .4rem; padding: .3rem .55rem .3rem .3rem; } .placa-3d .placa-icone { width: 1.6rem; height: 1.6rem; } .placa-3d .placa-icone img { width: 1.15rem; height: 1.15rem; } .placa-3d .placa-titulo { font-size: .68rem; } .placa-3d .placa-seta { display: none; } }
 
 #abertura[data-horda] .cena-fundo { opacity: 0; }

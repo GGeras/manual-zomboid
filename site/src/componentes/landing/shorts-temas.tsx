@@ -4,14 +4,15 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import type { Dica } from '@/lib/conteudo'
+import type { Capa } from '@/lib/externos'
 import { cx } from '@/lib/util'
 import { FatoConferido } from '../fato'
 import { Balao, Jogo, Play, Seta } from '../icones'
 import { LiteYoutube } from '../lite-youtube'
 import { Modal } from '../modal'
 
-export interface ShortCartao { chave: string; id: string | null; titulo: string; capa: string | null; nn: string | null; tema: { nome: string; moodle: string; guia?: string } | null; dicas: Dica[] }
-export interface TemaCartao { nome: string; texto: string; moodle: string; guia?: string; videos: number; noAr: number; dicas: Dica[]; shorts: { id: string; titulo: string; capa: string }[] }
+export interface ShortCartao { chave: string; id: string | null; titulo: string; capa: Capa | null; nn: string | null; tema: { nome: string; moodle: string; guia?: string } | null; dicas: Dica[] }
+export interface TemaCartao { nome: string; texto: string; moodle: string; guia?: string; videos: number; noAr: number; dicas: Dica[]; shorts: { id: string; titulo: string; capa: Capa }[] }
 
 const COR = ['#ff3d55', '#8fe04a', '#ffb020', '#6fb7ff']
 
@@ -26,15 +27,16 @@ export function ShortsTrilho({ lista, canalUrl }: { lista: ShortCartao[]; canalU
               <span className="relative block aspect-[9/16] overflow-hidden rounded-xl border border-white/10 bg-[#0c0d10] transition-transform duration-300 group-hover:-translate-y-1">
                 {s.capa ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={s.capa} alt="" loading="lazy" decoding="async" className="absolute inset-0 size-full scale-[1.02] object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <img src={s.capa.src} srcSet={s.capa.srcSet ?? undefined} sizes="(min-width: 640px) 15rem, 13.5rem" alt="" loading="lazy" decoding="async" width={720} height={1280}
+                    className={cx('absolute inset-0 size-full object-cover transition-transform duration-500', s.capa.oficial ? 'group-hover:scale-105' : 'scale-[1.02] group-hover:scale-110')} />
                 ) : (
                   <span aria-hidden className="absolute inset-0" style={{ background: `radial-gradient(120% 70% at 50% 100%, ${COR[i % 4]}38, transparent 65%), radial-gradient(90% 50% at 50% 0%, #1b2430, transparent)` }}>
                     <span className="titulo absolute inset-x-3 top-14 text-[1.45rem] leading-[.95] text-osso">{s.titulo}</span>
                     {s.tema && <span className="moodle absolute bottom-16 left-1/2 size-20 -translate-x-1/2"><Jogo nome={s.tema.moodle} tamanho={64} className="size-16" /></span>}
                   </span>
                 )}
-                <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
-                {s.nn && <span className="chip absolute left-2.5 top-2.5 border-osso/60 bg-black/50 text-osso">EP {s.nn}</span>}
+                <span aria-hidden className={cx('absolute inset-0 bg-gradient-to-t to-transparent', s.capa?.oficial ? 'from-black/90 via-transparent via-25%' : 'from-black/85 via-black/10')} />
+                {s.nn && !s.capa?.oficial && <span className="chip absolute left-2.5 top-2.5 border-osso/60 bg-black/50 text-osso">EP {s.nn}</span>}
                 {s.dicas.length > 0 && <span className="chip absolute right-2.5 top-2.5 border-vivo/50 bg-black/60 text-vivo">✓ {s.dicas.length}</span>}
                 <span className="absolute inset-x-3 bottom-3 flex items-center justify-between font-mono text-[.66rem] font-extrabold uppercase tracking-widest text-osso">
                   Ver resumo <Seta className="size-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -49,7 +51,9 @@ export function ShortsTrilho({ lista, canalUrl }: { lista: ShortCartao[]; canalU
         {aberto && (
           <div className="grid gap-0 md:grid-cols-[minmax(0,17rem)_1fr]">
             <div className="border-b border-borda bg-black p-4 md:border-b-0 md:border-r md:p-5">
-              {aberto.id ? <LiteYoutube id={aberto.id} titulo={aberto.titulo} vertical className="mx-auto max-w-[15rem]" /> : <div className="aspect-[9/16] rounded-xl bg-chao" />}
+              {aberto.id ? <LiteYoutube id={aberto.id} titulo={aberto.titulo} vertical capa={aberto.capa} className="mx-auto max-w-[15rem]" />
+                : aberto.capa ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={aberto.capa.src} alt="" className="mx-auto aspect-[9/16] max-w-[15rem] rounded-xl object-cover" />
+                : <div className="aspect-[9/16] rounded-xl bg-chao" />}
               {aberto.id && <a href={`https://www.youtube.com/shorts/${aberto.id}`} target="_blank" rel="noopener" className="mt-3 block text-center text-xs font-bold text-apagado hover:text-osso">Abrir no YouTube ↗</a>}
             </div>
             <div className="p-5 pr-14 sm:p-7 sm:pr-14">
@@ -119,7 +123,7 @@ export function TemasGrade({ temas }: { temas: TemaCartao[] }) {
                       <a href={`https://www.youtube.com/shorts/${v.id}`} target="_blank" rel="noopener" className="group block">
                         <span className="relative block aspect-[9/16] overflow-hidden rounded-lg border border-white/10">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={v.capa} alt="" loading="lazy" className="absolute inset-0 size-full object-cover transition-transform group-hover:scale-105" />
+                          <img src={v.capa.src} srcSet={v.capa.srcSet ?? undefined} sizes="9rem" alt="" loading="lazy" className="absolute inset-0 size-full object-cover transition-transform group-hover:scale-105" />
                           <span className="absolute inset-0 grid place-items-center bg-black/20"><span className="grid size-10 place-items-center rounded-full bg-sangue text-noite"><Play className="size-4 translate-x-0.5" /></span></span>
                         </span>
                         <span className="mt-2 line-clamp-2 block text-xs font-semibold text-osso-2 group-hover:text-osso">{v.titulo}</span>
