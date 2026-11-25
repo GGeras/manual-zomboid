@@ -177,7 +177,9 @@ export async function iniciarHorda(o: OpcoesHorda) {
     const retrato = r.width < 768 // mesmo critério do horda.tsx (casas do celular)
     // paisagem: a horda ocupa a metade direita (o texto fica à esquerda); retrato: a horda fica embaixo do texto
     cam.fov = retrato ? 46 : 40
-    if (retrato) { cam.position.set(0, 3.7, 6.4); cam.lookAt(0, 0.55, -0.7) } // de cima: cada fileira de zumbis (e de placas) fica numa altura else { cam.position.set(0.4, 2.3, 7.2); cam.lookAt(0.4, 0.95, 0) }
+    // retrato: de cima, cada fileira de zumbis (e de placas) fica numa altura
+    if (retrato) { cam.position.set(0, 3.7, 6.4); cam.lookAt(0, 0.55, -0.7) }
+    else { cam.position.set(0.4, 2.3, 7.2); cam.lookAt(0.4, 0.95, 0) }
     cam.updateProjectionMatrix()
   }
   const ro = new ResizeObserver(ajustar); ro.observe(o.canvas); ajustar()
