@@ -21,9 +21,11 @@ export function criarTiles(META: Record<string, MetaTile>, base = '/jogo/tiles/'
     espera.push(new Promise((res) => { const im = new Image(); im.onload = () => { t.image = im; t.needsUpdate = true; res() }; im.onerror = () => res(); im.src = base + nome + '.webp' }))
     return (TEX[nome] = t)
   }
-  function mat(nome: string, o: { tint?: string; op?: number } = {}) {
-    const k = nome + '|' + (o.tint ?? '') + '|' + (o.op ?? '')
-    return (MAT[k] ??= new THREE.MeshLambertMaterial({ map: tex(nome), color: o.tint ?? '#ffffff', alphaTest: o.op ? 0.02 : 0.45, side: THREE.DoubleSide, transparent: Boolean(o.op), opacity: o.op ?? 1, depthWrite: !o.op }))
+  // luz: o sprite brilha com essa cor por trás (cortina de janela acesa: a luz do cômodo atravessa o pano)
+  function mat(nome: string, o: { tint?: string; op?: number; luz?: string } = {}) {
+    const k = nome + '|' + (o.tint ?? '') + '|' + (o.op ?? '') + '|' + (o.luz ?? '')
+    return (MAT[k] ??= new THREE.MeshLambertMaterial({ map: tex(nome), color: o.tint ?? '#ffffff', alphaTest: o.op ? 0.02 : 0.45, side: THREE.DoubleSide, transparent: Boolean(o.op), opacity: o.op ?? 1, depthWrite: !o.op,
+      ...(o.luz ? { emissive: o.luz, emissiveMap: tex(nome), emissiveIntensity: 1.5 } : {}) }))
   }
   const meta = (nome: string) => { const m = META[nome]; if (!m) throw new Error('tiles: sprite ausente: ' + nome); return m }
   // UV de cada vértice = onde ele cai no sprite. Âncora = centro do losango do piso (pixel w/2, h-32).
@@ -54,9 +56,9 @@ export function criarTiles(META: Record<string, MetaTile>, base = '/jogo/tiles/'
         return C
       },
       /** mancha no chão (sangue, lixo achatado): um ladrilho só, sem sortear */
-      mancha(nome: string, i: number, j: number, y = 0.03) { return C.chao(nome, i, j, i, j, { y }) },
+      mancha(nome: string, i: number, j: number, y = 0.03, tint?: string) { return C.chao(nome, i, j, i, j, { y, tint }) },
       /** parede (ou o que fica colado nela: janela, cortina, porta, cerca) na borda N (ao longo de x) ou W (ao longo de z) do ladrilho */
-      parede(lado: 'N' | 'W', nome: string, i: number, j: number, o: { off?: number; h?: number; y?: number; tint?: string } = {}) {
+      parede(lado: 'N' | 'W', nome: string, i: number, j: number, o: { off?: number; h?: number; y?: number; tint?: string; luz?: string } = {}) {
         const off = o.off ?? 0, H = o.h ?? WALL_H + 0.2
         // o desenho da parede N do jogo começa 4 px antes do ladrilho e termina 2 px antes do fim: a peça cobre essa sobra (sem fresta)
         const g = new THREE.PlaneGeometry(lado === 'N' ? 1.07 : 1.035, H); g.translate(lado === 'N' ? -0.035 : 0.0175, H / 2, 0)

@@ -21,7 +21,7 @@ function caminhos(): TopicoHorda[] {
 export function Abertura({ fatos, guias, votos }: { fatos: number; guias: number; votos: number }) {
   return (
     <>
-      <section id="abertura" aria-label="Knox County, à noite: escolha seu caminho" className="relative isolate overflow-hidden bg-breu">
+      <section id="abertura" aria-label="Knox County, à noite: escolha seu caminho" className="grao relative isolate overflow-hidden bg-breu">
         {/* sem 3D: a noite fria e a cena do canal ao fundo (somem quando a rua 3D aparece por cima) */}
         <div aria-hidden className="cena-fundo absolute inset-0 -z-10 transition-opacity duration-1000">
           <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_0%,#1a2533_0%,#0d1117_45%,#08090b_80%)]" />
