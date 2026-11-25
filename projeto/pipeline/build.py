@@ -26,7 +26,8 @@ cfg = open(f'ep{ep}.cfg.js', encoding='utf-8').read()
 T = json.loads(re.search(r'T: (\[[^\]]*\])', cfg).group(1)); END = float(re.search(r'END: ([\d.]+)', cfg).group(1))
 SC = re.findall(r'\{ at: (\d+)(, red: true)?', cfg)
 F = [round((t + OFF) * FPS) for t in T]; C = lambda i: F[i] - 3
-DUR = (round((END + OFF) * FPS) + 24) / FPS; TOTAL = DUR + TAIL
+_cd = re.search(r'cauda: (\d+)', cfg); CAUDA = int(_cd.group(1)) if _cd else 24   # quadros depois da última fala (EP.cauda no cfg)
+DUR = (round((END + OFF) * FPS) + CAUDA) / FPS; TOTAL = DUR + TAIL
 OUT = f'out/Video {ep} - {MAN["nome"]}'; os.makedirs(OUT, exist_ok=True)
 run = lambda *a, **k: subprocess.run(list(a), check=True, **k)
 db = lambda g: 10 ** (g / 20)

@@ -1,4 +1,6 @@
-// EP 22 — Fadiga Muscular (B42.22) — RASCUNHO v3 (24/11, Jose):
+// EP 22 — Fadiga Muscular (B42.22) — RASCUNHO v5 (25/11, Bruno): machado de volta no Bip01_Prop1 SEM rotação (as duas mãos no cabo nas
+//   animações 2H do jogo — no Prop2 girado ficava numa mão só e "voando"), frasco de remédio em escala de embalagem (.45, como no EP24) com câmera
+//   perto na hora de tomar, caminhada fora da placa PARE (atravessava). · RASCUNHO v3 (24/11, Jose):
 // • arma = MACHADO do jogo (malha FireAxe.x, ícone Item_Axe é o mesmo machado vermelho) em TODAS as cenas — o ícone e a habilidade (Machados) batem com a mão;
 // • animações originais de arma pesada de duas mãos: Bob_Idle2H_Heavy, Bob_Attack2H_Heavy01_Hit, Bob_Run2H_Heavy/Bob_Sprint2H_Heavy, Bob_Walk2H_Heavy,
 //   Bob_AttackFloorStamp_2Hheavy (pisão), Bob_Idle_HeavyBreathing_2Hheavy, Bob_EmotePainRightArm2H/Torso2H;
@@ -20,10 +22,10 @@ QC.obj('furniture_storage_01_48', 3, 0, { w: .5, d: .45 });
 const MANHA = luzInterior(QC, { janelas: [['N', 4]], hora: 'tarde' });
 const CASA = casaDentro(-60, 80, { completa: true }), KC = CASA.C, K = KC.at;
 const TARDE = luzInterior(KC, { janelas: [['N', 3], ['W', 3]], abajur: [0, 1], hora: 'tarde' });
-// o jogo prende o FireAxe no osso Bip01_Prop2 com rotate 180 -86.03 180 (models_weapons.txt: attachment Bip01_Prop2) — no Prop1 a mão agarrava a ponta do cabo
-const AXE = PZ.attach(S, 'Bip01_Prop2', PZ.propMesh('w_axe', 'fireaxe'));
-AXE.rotation.set(Math.PI, -86.0322 * Math.PI / 180, Math.PI);
-const PILL = PZ.attach(S, 'Bip01_Prop2', PZ.propMesh('pillbottle', 'pillbottle')); PILL.visible = false;
+// v5: machado no osso da arma (Bip01_Prop1), sem rotação extra — é como o taco/martelo dos outros EPs; nas animações 2H do jogo
+//     (Bob_Attack2H_Heavy01_Hit, Idle2H_Heavy) a mão esquerda vai sozinha para o cabo. O Prop2 girado (v4) deixava o machado numa mão e solto.
+const AXE = PZ.attach(S, 'Bip01_Prop1', PZ.propMesh('w_axe', 'fireaxe'));
+const PILL = PZ.attach(S, 'Bip01_Prop2', PZ.propMesh('pillbottle', 'pillbottle')); PILL.visible = false; PILL.scale.setScalar(.45);   // v5: embalagem pequena (≈ 5 cm), igual ao EP24
 S.g.traverse(o => { o.renderOrder = 2; });
 const SYP = .43, SY = .62, VRUN = 3.1, VWALK = 1.25;
 
@@ -67,8 +69,8 @@ run([
     if (lf < k1) { const me = R(-2, 1.2); const HIT = golpe(lf, me, 6, { cansado: true }); c.shake(lf - HIT, .06); camOn(c, me.x + .6, me.z, 6.2, SY); }
     else if (lf < k2) { const l = lf - k1, x = R(0, 1.2).x + l / 30 * VRUN, z = R(0, 1.2).z;   // começa depois do carro estacionado (i -13…-9)
       clip(l < 12 ? 's_run2h' : 's_sprint2h', l * 1.05, { x, z }); horda(f, l, x, z, 12, 2.5);
-      camOn(c, x - 1.4, z, 8.0, .64); }
-    else { const l = lf - k2, x = R(-6, 1.3).x + l / 30 * VWALK * .7, z = R(0, 1.3).z;
+      camOn(c, x - 1.4, z, 8.0, .60); }   // v5: pés fora da descrição do app
+    else { const l = lf - k2, x = R(-3, 1.3).x + l / 30 * VWALK * .7, z = R(0, 1.3).z;   // v5: começa depois da placa PARE (i -4) — antes passava por trás dela
       clip('s_walk2h', l * .75, { x, z, up: ['s_paintorso2h', l + 20] }); camOn(c, x + .3, z, 6.0, SY); }
     clarao(Math.max(1 - Math.abs(lf - k1) / 5, 1 - Math.abs(lf - k2) / 5, 0) * .8, '#000'); },
   // 3 — arma pesada cansa mais (golpe pesado) · pisão em zumbi caído cansa menos (pisão no lugar certo)
@@ -80,10 +82,13 @@ run([
   (lf, f, len, c) => { rua0(f); const me = R(7, 1.2), HIT = golpe(lf, me, 14); c.shake(lf - HIT, .07); camOn(c, me.x + .6, me.z, 6.4, SY); },
   // 5 — analgésico tira a dor, a distensão continua (cozinha, tarde): pega o frasco, toma o comprimido, segura o braço
   (lf, f, len, c) => { light('dawn'); clima('', 0); KC.show(); TARDE.set(f); clarao(0); const p = K(7.4, 1.7);
-    if (lf < 18) clip('s_breath', lf, { x: p.x, z: p.z, ry: .9, axe: false });
-    else if (lf < 18 + 110) clip('s_pills', lf - 18, { x: p.x, z: p.z, ry: .9, axe: false, pill: true, loop: false });
-    else clip('s_painarm', lf - 128, { x: p.x, z: p.z, ry: .9, axe: false });
-    camOn(c, p.x - .1, p.z, 7.5, SYP); },
+    // v5: Bob_IdleTakePills inteiro (101 quadros) com o frasco só durante a ação; câmera fecha no tronco enquanto toma, depois abre para o painel
+    const P0 = 14, P1 = P0 + 101;
+    if (lf < P0) clip('s_breath', lf, { x: p.x, z: p.z, ry: .9, axe: false });
+    else if (lf < P1) clip('s_pills', lf - P0, { x: p.x, z: p.z, ry: .9, axe: false, pill: lf - P0 > 4 && lf - P0 < 96, loop: false });
+    else clip('s_painarm', lf - P1, { x: p.x, z: p.z, ry: .9, axe: false });
+    const zk = easeOut(clamp((lf - P0 + 6) / 14)) * (1 - easeOut(clamp((lf - P1) / 16)));
+    camOn(c, p.x - .1, p.z, lerp(7.5, 4.8, zk), lerp(SYP, .51, zk)); },
   // 6 — exercício demais: "no dia seguinte, dores terríveis" — de manhã no quarto, levanta da cama com dor
   (lf, f, len, c) => { light('dawn'); clima('sol', .35); QC.show(); MANHA.mostrar(true); MANHA.set(f); clarao(0); const p = A(3.1, 1.15);
     if (lf < 70) clip('s_stretch', lf, { x: p.x, z: p.z, ry: .6, loop: false, axe: false }); else clip('s_painarm', lf - 70, { x: p.x, z: p.z, ry: .6, axe: false, up: ['s_painleg', lf - 70] });
@@ -92,7 +97,7 @@ run([
   (lf, f, len, c) => { const q = len / 4, i = Math.min(3, Math.floor(lf / q)), l = lf - i * q;
     if (i === 0) { rua0(f); const me = R(-2, 1.2), HIT = golpe(l, me, 0, {}); c.shake(l - HIT, .06); camOn(c, me.x + .6, me.z, 6.2, SY); }
     else if (i === 1) { rua0(f); const me = R(3, 1.2); pisao(l, me, 0); camOn(c, me.x + .7, me.z + .1, 5.0, SY); }
-    else if (i === 2) { rua0(f); const x = R(-6, 1.3).x + l / 30 * VWALK, z = R(0, 1.3).z; clip('s_walk2h', l, { x, z }); camOn(c, x + .3, z, 6.2, SY); }
+    else if (i === 2) { rua0(f); const x = R(-3, 1.3).x + l / 30 * VWALK, z = R(0, 1.3).z; clip('s_walk2h', l, { x, z }); camOn(c, x + .3, z, 6.2, SY); }
     else { light('dawn'); clima('sol', .35); QC.show(); MANHA.mostrar(true); MANHA.set(f); const p = A(3.1, 1.15); clip('s_breath', l, { x: p.x, z: p.z, ry: .6, axe: false }); camOn(c, p.x - .35, p.z - .45, 6.6, SY); }
     clarao(Math.max(...[1, 2, 3].map(k => 1 - Math.abs(lf - k * q) / 4), 0) * .7, '#000'); },
 ]);

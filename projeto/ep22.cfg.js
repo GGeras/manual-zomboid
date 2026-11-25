@@ -1,4 +1,4 @@
-// EP 22 — Fadiga Muscular (B42.22) — RASCUNHO v3 (24/11, Jose): machado em todas as cenas (ícone = arma na mão),
+// EP 22 — Fadiga Muscular (B42.22) — RASCUNHO v5 (25/11): rótulos dos moodles sem vazar · RASCUNHO v3 (24/11, Jose): machado em todas as cenas (ícone = arma na mão),
 // réplica do painel de saúde (mesma do EP15) com "Distensão Muscular Leve" → "Distensão Muscular" no Braço Direito,
 // textos fora da área do personagem e dos botões do app. T/END vêm da voz provisória (tts_rascunho.py) no PC.
 const LAB = 'PROJECT ZOMBOID · <b>FADIGA MUSCULAR</b>';
@@ -7,7 +7,7 @@ window.EP = {
   itens: ["Item_Axe", "Item_PillsPainkiller"],
   OFF: 1.3,
   luz: { padrao: 'exterior-dia', 5: 'interior-tarde', 6: 'interior-dia' },
-  T: [0, 4.5, 11, 19, 26, 31, 37, 43], END: 50,
+  T: [0.0, 3.6, 10.57, 17.15, 22.3, 28.36, 33.81, 40.93], END: 46.03,
   scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6, lab: LAB }, { at: 7 }],
   titles: [
     { i: 0, a: "Seu braço", b: "cansa de bater", aSize: 110, size: 100 },
@@ -25,7 +25,7 @@ window.EP = {
     let n = 0; const nid = p => 'k' + p + (n++);
     const tag = (k, txt, col, at, end, top = 560, fs = 42) => { const id = H.chip(k, txt, at, `left:0;right:0;margin:0 auto;width:max-content;max-width:820px;white-space:nowrap;text-align:center;top:${top}px;color:${col};font:800 ${fs}px/1.15 var(--mono);padding:16px 28px;border-color:${col}`); if (end != null) M.hide('#' + id, end); return id; };
     const row = (k, list, o = {}) => H.items(k, list, Object.assign({ top: 640, size: 150, gap: 26, left: 120 }, o));
-    el('style', null, '.moodle{left:770px;width:150px;height:150px}.mtag{left:660px;width:370px;font-size:28px;margin-top:30px}', document.head);
+    el('style', null, '.moodle{left:770px;width:150px;height:150px}.mtag{left:660px;width:370px;font-size:28px;line-height:1.35;margin-top:24px}', document.head);
     // RÉPLICA da janela do personagem, aba Saúde (layout do print do jogo; textos de IG_UI/ContextMenu PTBR 42.22)
     el('style', null, `
       .hp{position:absolute;left:240px;top:990px;width:480px;height:430px;transform:scale(1.25);transform-origin:0 0;background:#080808;border:1px solid #5a5a5a;font-family:'Noto Sans','DejaVu Sans',Arial,sans-serif;color:#fff}
@@ -69,12 +69,12 @@ window.EP = {
     tag(4, "MACHADOS ↑", G, P(4, 0.38), P(4, 0.64));
     tag(4, "DISTENSÃO ↓", G, P(4, 0.64), null);
     // 5 — analgésico: a dor sai, a distensão fica (no painel)
-    row(5, [["Item_PillsPainkiller", "ANALGÉSICO", P(5, 0.08)]], { top: 640, left: 50 });
+    row(5, [["Item_PillsPainkiller", "ANALGÉSICO", P(5, 0.08)]], { top: 640, left: 50, size: 176 });
     H.moodle(5, 'pz:Mood_Pained', "DOR ✓", P(5, 0.30), true, P(5, 0.55), 560);
     healthPanel(5, P(5, 0.72), '', [['Braço Direito', ['Distensão Muscular'], P(5, 0.76)]]);
     // 6 — exercício
     tag(6, "\"DORES TERRÍVEIS NO DIA SEGUINTE\"", B, P(6, 0.14), null, 560, 34);
-    H.moodle(6, 'pz:Mood_Pained', "DOR", P(6, 0.50), false, null, 640);
+    H.moodle(6, 'pz:Mood_Pained', "DOR", P(6, 0.50), false, null, 652);
     // 7 — divide o esforço
     tag(7, "GOLPE · PISÃO · CAMINHADA · DESCANSO", G, P(7, 0.06), P(7, 0.70), 560, 32);
     tag(7, "SALVA E COMENTA", G, P(7, 0.72), null);
