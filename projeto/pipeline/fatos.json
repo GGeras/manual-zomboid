@@ -909,6 +909,14 @@
     "24"
    ]
   },
+  "pan-veterano-desens": {
+   "texto": "A profissão Veterano (custo −8) concede o traço Dessensibilização já na criação (não se escolhe à parte)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/scripts/generated/characters/character_professions.txt (base:veteran, GrantedTraits = base:desensitized); lua/shared/Translate/PTBR/UI.json UI_prof_Veteran = \"Veterano\"",
+   "eps": [
+    "24"
+   ]
+  },
   "peso-agua-auto": {
    "texto": "Água limpa no inventário principal é bebida automaticamente para controlar a sede (padrão)",
    "build": "B42.22",
@@ -1147,6 +1155,14 @@
    "texto": "Comida tem atributos Tédio e Tristeza no tooltip; algumas pedem \"Cozinhe para remover a penalidade de tristeza\"",
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: Tooltip.json Tooltip_food_Boredom/Unhappiness + Tooltip_food_CookToRemoveUnhappiness",
+   "eps": [
+    "25"
+   ]
+  },
+  "tri-comida-bons": {
+   "texto": "Alimentos que tiram tristeza (UnhappyChange negativo): Panela de Ensopado, Sorvete, Croissant (também bolo, donut, sopa). Carne crua (Bife, Frango) não tem valor de tristeza no arquivo",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22: media/scripts/generated/items/food.txt (PotForgedStew/PotOfStew −20, Icecream −10, Croissant −15; Steak/Chicken sem UnhappyChange); PTBR ItemName.json Base.PotOfStew \"Panela de Ensopado\", Base.Icecream \"Sorvete\", Base.Croissant \"Croissant\"",
    "eps": [
     "25"
    ]

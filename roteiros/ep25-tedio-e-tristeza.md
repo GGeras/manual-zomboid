@@ -4,7 +4,7 @@ tema: Tédio e Tristeza
 responsavel: jose
 status: validado
 build: B42.22
-fatos: [ted-niveis, tri-niveis, tri-leitura, tri-comida, est-fumante, tri-antidep]
+fatos: [ted-niveis, tri-niveis, tri-leitura, tri-comida, tri-comida-bons, est-fumante, tri-antidep]
 video: (sem rascunho ainda)
 ---
 
@@ -36,10 +36,10 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 - ÍCONES: Item_Book, Item_ComicBook, Item_Magazine
 - FATOS: tri-leitura
 
-**4.** [calmo] "Comida também conta: olha o tooltip. Tem comida que deixa triste até ser cozida."
-- VISUAL: Tooltip simulado com linhas "Tédio" e "Tristeza" (nomes do jogo).
-- ÍCONES: —
-- FATOS: tri-comida
+**4.** [calmo] "Comida também conta: ensopado, sorvete e croissant tiram tristeza. E tem comida que só funciona depois de cozida."
+- VISUAL: 3D: floresta, fogueira, panela de ensopado, come a tigela; ícones Panela de Ensopado, Sorvete, Croissant (tristeza ↓) + chip "Cozinhe para remover a penalidade".
+- ÍCONES: Item_Pot_Forged_Stew, Item_Icecream, Item_Croissant
+- FATOS: tri-comida, tri-comida-bons
 
 **5.** [calmo] "Fumante fica triste sem cigarro. E o antidepressivo reduz a tristeza devagar, ao longo de vários dias."
 - VISUAL: Cigarro; Item_PillsAntidepressant com barra caindo devagar.

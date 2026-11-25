@@ -124,6 +124,10 @@ A luz é o que faz parecer o jogo e dá imersão. Luz chapada (tudo com a mesma 
 - **Casa com sentido**: cada cômodo tem função clara e os móveis do lugar (sala = poltrona de leitura + abajur + mesinha + estante; oficina = bancada + ferramentas); acabamento de construção (rodapé, batente e porta, quadros, relógio, cortina) e luz de acordo com a 4.5. Móveis seguem a 4.4.
 - `inspect.mjs` confere sozinho: **PERSONAGEM ATRAVESSANDO MÓVEL** (corpo dentro da caixa de um móvel), **AFUNDANDO NO CHÃO** (pé abaixo do piso, medida absoluta). Grava `inspecao/sonda.json` (posição do personagem na tela em cada momento) para achar o motivo de um aviso. Relatório tem de dar 0 avisos.
 
+## 4.8 JANELA EM TODO BURACO DE PAREDE (25/11, pedido do Jose)
+Todo vão aberto na parede de uma casa recebe **janela com caixilho + cortina** (sprites `fixtures_windows_01_16/17` + `fixtures_windows_curtains_01_28/30`). Parede com buraco vazio é erro de ambientação: reprova o take.
+- Móvel não flutua: vaso, TV e abajur ficam **em cima** de um móvel (use `dy`); cama inteira, tapete 2×2, sem cadeira solta nem lixo sem lógica.
+
 ## 4.7 CONTATO COM AS SUPERFÍCIES — REGRA DEFINITIVA PARA TODOS OS VÍDEOS (23/11, pedido do Bruno)
 O personagem **encosta** nas superfícies e fica **sempre por cima delas**: nunca atravessa nada (piso, assento, móvel, parede) e nunca flutua.
 - **Medidas do próprio jogo** (animações originais): em pé (`Bob_Idle`) o osso do dedo `Toe0` fica exatamente no chão. Pontos de contato: **sola** = Toe0; **calcanhar** = Foot − 0,10; **joelho** = Calf − 0,05; **nádega** = Pelvis − 0,10.
