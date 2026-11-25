@@ -5,6 +5,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import matter from 'gray-matter'
+import { gerarZumbis } from './gerar-zumbis.mjs'
 
 const SITE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const RAIZ = path.resolve(SITE, '..')
@@ -46,7 +47,7 @@ const episodios = fs.readdirSync(path.join(RAIZ, 'roteiros')).filter((f) => /^ep
 })
 fs.writeFileSync(path.join(GERADO, 'episodios.json'), JSON.stringify(episodios, null, 1) + '\n')
 const fatos = JSON.parse(fs.readFileSync(path.join(RAIZ, 'projeto/pipeline/fatos.json'), 'utf8')).fatos
-fs.writeFileSync(path.join(GERADO, 'fatos.json'), JSON.stringify(Object.fromEntries(Object.entries(fatos).map(([k, v]) => [k, { texto: v.texto, build: v.build, fonte: v.fonte }])), null, 1) + '\n')
+fs.writeFileSync(path.join(GERADO, 'fatos.json'), JSON.stringify(Object.fromEntries(Object.entries(fatos).map(([k, v]) => [k, { texto: v.texto, build: v.build, fonte: v.fonte, eps: v.eps ?? [] }])), null, 1) + '\n')
 
 // guias: lidos aqui (o Worker não tem sistema de arquivos) e embutidos no bundle como JSON
 const PASTA_GUIAS = path.join(SITE, 'content/guias')
@@ -62,6 +63,11 @@ if (faltando.length) {
   console.log(`::warning::assets sem arquivo (rode git lfs pull): ${faltando.join(', ')}`)
   if (process.env.CI) process.exit(1)
 }
+
+// ---- zumbis da abertura 3D (modelos e animações originais do jogo, recortados de projeto/assets/pz) ----
+const z = await gerarZumbis(RAIZ, SAIDA)
+console.log(z.ok ? `zumbis: ${z.kb} KB${z.cache ? ' (já estava em dia)' : ''}` : `::warning::zumbis da abertura não gerados (${z.motivo}): a abertura fica na imagem estática`)
+if (!z.ok && process.env.CI) process.exit(1) // no deploy a abertura 3D não pode sumir calada
 
 // ---- imagem de compartilhamento (1200x630) e favicon ----
 const PUB = path.join(SITE, 'public')

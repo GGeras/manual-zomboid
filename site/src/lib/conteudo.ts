@@ -2,8 +2,17 @@
 import fatosJson from '@/gerado/fatos.json'
 import guiasJson from '@/gerado/guias.json'
 
-export interface Fato { texto: string; build: string; fonte: string }
+export interface Fato { texto: string; build: string; fonte: string; eps: string[] }
 export const FATOS = fatosJson as Record<string, Fato>
+
+/** Dica = fato validado (texto exato de info-validada/), pronto para a tela: o site nunca escreve dado do jogo por conta própria. */
+export interface Dica { id: string; texto: string; build: string; fonte: string }
+const dica = ([id, f]: [string, Fato]): Dica => ({ id, texto: f.texto, build: f.build, fonte: f.fonte })
+/** dicas dos episódios, na ordem dos episódios pedidos (o 1º episódio do tema vem primeiro) */
+export function dicasDosEpisodios(eps: string[], limite = 99) {
+  const pos = (f: Fato) => Math.min(...f.eps.map((e) => eps.indexOf(e)).filter((i) => i >= 0))
+  return Object.entries(FATOS).filter(([, f]) => f.eps.some((e) => eps.includes(e))).sort(([, a], [, b]) => pos(a) - pos(b)).map(dica).slice(0, limite)
+}
 
 export * from './repo'
 

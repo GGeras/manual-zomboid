@@ -8,7 +8,7 @@ Plano de etapas e chaves: `plataforma/plano.md`.
 
 ## 1. Princípios
 - **Cada dado tem um dono.** A Central lê; só edita o que nasce nela.
-- **Slack é o barramento de eventos.** A pipeline já avisa tudo no Slack; a Central escuta. Nenhuma mudança nos PCs.
+- **A Central é o lugar de acompanhar o projeto** (decisão de 25/11). O feed ao vivo, as prévias e os finais nascem nela, não no Slack: quem quiser entender o que aconteceu abre a Central. Os avisos do Slack (`publicar.py`, `resumo_push.py`) continuam como estão até a C3 nova substituir.
 - **Regra nº 1 vale no site.** Fato do jogo só de `info-validada/`. Post que cita fato fora dela não builda.
 - **Segredo nunca no git.** Ficam em Supabase Secrets, GitHub Secrets ou na hospedagem.
 - **Custo zero no início.** Tudo em plano grátis; nada pago sem o Jose aprovar.
@@ -16,8 +16,8 @@ Plano de etapas e chaves: `plataforma/plano.md`.
 | dado | dono (fonte da verdade) | Central |
 |---|---|---|
 | episódio, tema, status, responsável, fatos | repo: cabeçalho de `roteiros/epNN-*.md` | só leitura |
-| prévias e finais (link, versão, autor) | Slack: mensagens do `publicar.py` | só leitura |
-| atualizações do GitHub | Slack `#atualizações-projeto` | só leitura |
+| prévias e finais (link, versão, autor) | `publicar.py` grava direto na Central (C3) | só leitura |
+| atualizações do GitHub | GitHub (push/PR) → Central (C3) | só leitura |
 | tarefas, notas, relatórios | Supabase | edita |
 | métricas dos Shorts | chat de análises (grava no banco) | só leitura |
 | notícias do Zomboid | Steam News → fila | aprova / descarta |
@@ -63,7 +63,7 @@ flowchart LR
 | **Painel** | episódios por status (quadro), próximas postagens (seg/qua/sex), últimos alertas, tarefas abertas |
 | **Episódios** | lista + ficha: status, responsável, build, fatos, prévias (v1, v2...), final + capa, vídeo no YouTube, métricas |
 | **Prévias e finais** | linha do tempo de entregas, com player do Drive e filtro por episódio/pessoa |
-| **Ao vivo** | feed do Slack em tempo real (3 canais), filtros por canal |
+| **Ao vivo** | feed do projeto em tempo real (prévias, finais, pushes e PRs, tarefas), sem depender do Slack |
 | **Métricas** | tabela de `canal/metricas.md` automática, gráficos por vídeo/tema, relatório quinzenal |
 | **Tarefas** | quadro a-fazer / fazendo / feito, por pessoa e episódio |
 | **Notícias PZ** | fila de patch notes da Steam: resumir em PT-BR, pôr build e fonte, aprovar para o site |
@@ -100,8 +100,7 @@ plataforma/
 
 ### Fluxos
 - **Episódios:** push na `main` → GitHub Action roda `sync_repo.py` → upsert em `episodios`.
-- **Prévias/finais + Ao vivo:** mensagem no Slack → `slack-eventos` (confere assinatura) → grava `alertas` e, se for 🎬/✅ do `publicar.py`, grava `entregas` → Realtime atualiza a tela.
-  - Na primeira vez: importa o histórico dos 3 canais.
+- **Prévias/finais + Ao vivo (C3, sem Slack):** `publicar.py` e o GitHub (Action no push/PR) gravam direto em `entregas` e `alertas` → Realtime atualiza a tela. O desenho do Slack (`slack-eventos`) foi cancelado em 25/11: a Central faz o mesmo sozinha, sem app do Slack.
 - **Métricas:** o chat de análises grava em `metricas_diarias` pelo conector do Supabase. Relatório quinzenal na Central (mesma tabela de `canal/metricas.md`). Futuro: cron com a API do YouTube.
   - Métrica que a API não der (ex.: "viewed vs swiped away"): campo manual, sem inventar.
 

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { cx } from '@/lib/util'
 import { Play } from './icones'
 
-/** Player leve: só a miniatura até o clique (o iframe do YouTube pesa ~1 MB). Vertical para Shorts. */
+/** Player leve: só a miniatura até o clique (o iframe do YouTube pesa ~1 MB). Vertical para Shorts (a hqdefault 4:3 cortada em 9:16 = a capa). */
 export function LiteYoutube({ id, titulo, vertical = false, className }: { id: string; titulo: string; vertical?: boolean; className?: string }) {
   const [tocar, setTocar] = useState(false)
   return (
@@ -13,7 +13,7 @@ export function LiteYoutube({ id, titulo, vertical = false, className }: { id: s
       ) : (
         <button type="button" onClick={() => setTocar(true)} className="group absolute inset-0 size-full" aria-label={`Assistir: ${titulo}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`https://i.ytimg.com/vi/${id}/${vertical ? 'oar2' : 'hqdefault'}.jpg`} alt="" loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105" />
           <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
           <span className="absolute left-1/2 top-1/2 grid size-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-sangue text-noite shadow-xl transition-transform group-hover:scale-110"><Play className="size-6 translate-x-0.5" /></span>
         </button>

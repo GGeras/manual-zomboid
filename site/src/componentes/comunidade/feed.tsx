@@ -22,6 +22,7 @@ export async function Feed({ base, cat, ordem, q, build }: { base: string; cat?:
         <p className="hud mb-3 hidden px-3 text-apagado lg:block">Categorias</p>
         <ul className="trilho -mx-3 flex gap-1.5 overflow-x-auto px-3 lg:mx-0 lg:flex-col lg:gap-0.5 lg:overflow-visible lg:px-0">
           <li><ItemCat href="/comunidade" ativo={!cat} rotulo="Tudo" icone="moodles/Mood_Happy" cor="#efe5cf" /></li>
+          <li><ItemCat href="/comunidade/tierlists" ativo={false} rotulo="Tierlists (S+ a D)" curto="Tierlists" icone="itens/Item_Axe" cor="#ffb020" /></li>
           {CATEGORIAS.map((c) => <li key={c.slug}><ItemCat href={`/comunidade/c/${c.slug}`} ativo={cat?.slug === c.slug} rotulo={c.nome} curto={c.curto} icone={c.icone} cor={c.cor} /></li>)}
         </ul>
       </nav>

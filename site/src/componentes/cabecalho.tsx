@@ -6,6 +6,7 @@ import { ContaBotao } from './conta-botao'
 const NAV = [
   { href: '/#shorts', rotulo: 'Vídeos' },
   { href: '/guias', rotulo: 'Guias' },
+  { href: '/comunidade/tierlists', rotulo: 'Tierlists' },
   { href: '/comunidade', rotulo: 'Comunidade' },
   { href: discord.convite ?? '/#discord', rotulo: 'Discord' },
 ]

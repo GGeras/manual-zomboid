@@ -5,7 +5,7 @@ type T = string | null
 export interface ConfigPublica {
   site: { url: T; dominioImagens: T }
   youtube: { canalId: T; handle: T }
-  discord: { servidorId: T; convite: T }
+  discord: { servidorId: T; convite: T; appId?: T; canais?: Partial<Record<'jogarJunto' | 'dicas' | 'bases' | 'regras', string>> }
   comunidade: { supabaseUrl: T; supabaseChavePublica: T; turnstileSiteKey: T }
   central: { supabaseUrl: string; supabaseChavePublica: string }
   legal: { emailContato: T; idadeMinima: number | null }
@@ -25,6 +25,8 @@ export const discord = {
   ativo: Boolean(cfg.discord.convite),
   convite: cfg.discord.convite,
   widget: cfg.discord.servidorId ? `https://discord.com/api/guilds/${cfg.discord.servidorId}/widget.json` : null,
+  /** link direto para um canal (abre no app do Discord; quem ainda não entrou no servidor vê o convite primeiro) */
+  canal: (c: 'jogarJunto' | 'dicas' | 'bases' | 'regras') => (cfg.discord.servidorId && cfg.discord.canais?.[c] ? `https://discord.com/channels/${cfg.discord.servidorId}/${cfg.discord.canais[c]}` : null),
 }
 /** Comunidade "de verdade" só quando o projeto Supabase dela existir. Até lá: modo prévia (dados de exemplo, nada salvo no servidor). */
 export const comunidadeAtiva = Boolean(cfg.comunidade.supabaseUrl && cfg.comunidade.supabaseChavePublica)
