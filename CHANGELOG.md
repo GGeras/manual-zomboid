@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-25 · bruno (Claude) · `rascunhos-22-25-v5.bat` instala o que faltar antes do render (npm install se não houver `playwright-core`; `piper-tts` se não houver a voz provisória).
 - 2026-11-25 · bruno (Claude) · Main recebe os arquivos do Jose (`jose/sons-e-tiles-22-25`: 29 sons do personagem, sprites de camping/janela/mesa, voz do EP24); `rascunhos-22-25-v5.bat` com caminhos absolutos (o 2º episódio em diante dava "não conseguiu localizar o caminho"). EP25 conferido com os sprites: sacos de dormir inteiros, uma fogueira, toras e tenda perto.
 - 2026-11-25 · bruno (Claude) · Rascunho sem os sons novos do personagem: `PZ_FALTA_SOM_OK=1` (o `rascunhos-22-25-v5.bat` liga sozinho quando faltam) faz o build seguir sem o som e avisar, em vez de parar.
 - 2026-11-25 · bruno (Claude) · `rascunhos-22-25-v5.bat` roda de qualquer pasta (acha o repo sozinho ou pergunta o caminho) e usa a main (PR #38 já juntado).
