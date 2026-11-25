@@ -37,9 +37,9 @@ if not exist "%SONS%\JL_MalePlayer_ExerciseGrunts_01.ogg" (
   )
 )
 if not exist "%SONS%\JL_MalePlayer_ExerciseGrunts_01.ogg" (
-  echo ERRO: faltam os sons do personagem em %SONS%. Salve sons-personagem-b42.zip na pasta Downloads e rode de novo.
-  pause
-  exit /b 1
+  echo AVISO: faltam sons do personagem em %SONS% ^(suspiros, gemido, sono, isqueiro^).
+  echo        O rascunho segue SEM eles. Para o final, salve sons-personagem-b42.zip na pasta Downloads.
+  set PZ_FALTA_SOM_OK=1
 )
 
 echo [3/3] Gerando os 4 rascunhos (voz Piper + previa + inspecao). Pode deixar rodando.

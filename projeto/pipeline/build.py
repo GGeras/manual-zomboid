@@ -37,7 +37,10 @@ def load(f):
     return np.frombuffer(r, np.float32).reshape(-1, 2).copy()
 def find(folder, name):
     hits = [p for p in glob.glob(f'assets/{folder}/**/*', recursive=True) if os.path.splitext(os.path.basename(p))[0].lower() == name.lower()]
-    if not hits: sys.exit(f'ERRO: "{name}" não existe em assets/{folder} (veja o índice na pasta de referências)')
+    if not hits:
+        # rascunho num PC sem os sons novos do personagem (PZ_FALTA_SOM_OK=1, ligado pelo .bat): segue sem o som e avisa. No final nunca.
+        if folder == 'sfx' and os.environ.get('PZ_FALTA_SOM_OK') == '1': print(f'AVISO: som "{name}" não está em assets/sfx — rascunho segue SEM ele'); return None
+        sys.exit(f'ERRO: "{name}" não existe em assets/{folder} (veja o índice na pasta de referências)')
     return sorted(hits, key=lambda p: p.endswith('.ogg'))[0]
 def when(t):  # número = segundos no vídeo final | {"c": i, "dt": s} = corte da frase i | {"f": i, "dt": s} = início da frase i
     if isinstance(t, (int, float)): return float(t)
@@ -60,7 +63,9 @@ def st_audio():
     CUTS_S = [C(int(at)) / FPS for k, (at, red) in enumerate(SC) if k]
     REL = []; ns = MAN['vo'].replace('audio/n', 'audio/ns').rsplit('.', 1)[0] + '.json'; FRASES = json.load(open(ns, encoding='utf-8')) if os.path.exists(ns) else []
     for e in MAN.get('sfx', []):                               # ["nome", tempo, dB, {opções}]
-        x = load(find('sfx', e[0])); x /= (np.abs(x).max() + 1e-9); t = when(e[1]); o = e[3] if len(e) > 3 else {}
+        fp = find('sfx', e[0])
+        if fp is None: continue
+        x = load(fp); x /= (np.abs(x).max() + 1e-9); t = when(e[1]); o = e[3] if len(e) > 3 else {}
         if 'trim' in o: x = x[int(o['trim'][0] * SR):int(o['trim'][1] * SR)]
         if 'ate' in o:                                         # repete em loop até o tempo "ate"
             L = max(1, int((when(o['ate']) - t) * SR)); x = np.tile(x, (L // len(x) + 2, 1))[:L]
