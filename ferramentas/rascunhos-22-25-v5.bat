@@ -1,20 +1,31 @@
 @echo off
 chcp 65001 >nul
 setlocal EnableDelayedExpansion
-rem Manual Zomboid - rascunhos v5 do EP22 ao EP25 (ajustes do Bruno de 25/11 ja aplicados na branch bruno/ep22-25-v5).
+rem Manual Zomboid - rascunhos v5 do EP22 ao EP25 (ajustes do Bruno de 25/11 ja na main, PR #38). Pode rodar de qualquer pasta.
 rem Faz tudo sozinho: atualiza a branch, gera a voz provisoria (Piper) de cada episodio e renderiza a previa + inspecao.
 rem Saida: projeto\out\Video NN - Nome\previa.mp4 (+ inspecao\relatorio.txt)  e resumo em projeto\out\rascunhos-22-25-v5.txt
 rem Quando a voz do ElevenLabs chegar: salve em projeto\audio\nNN.mp3, rode check_vo.py e troque o T/END do cfg (a voz Piper e so para o rascunho).
-cd /d "%~dp0.."
+rem acha a pasta do repositorio: 1) o .bat dentro de ferramentas\ do repo; 2) lugares comuns; 3) pergunta
+set "REPO="
+if exist "%~dp0..\.git" set "REPO=%~dp0.."
+if not defined REPO for %%D in ("C:\Projetos\manual-zomboid" "%USERPROFILE%\manual-zomboid" "%USERPROFILE%\Documents\manual-zomboid" "%USERPROFILE%\Desktop\manual-zomboid" "%USERPROFILE%\source\repos\manual-zomboid" "D:\manual-zomboid" "D:\Projetos\manual-zomboid") do if not defined REPO if exist "%%~D\.git" set "REPO=%%~D"
+if not defined REPO (
+  echo Nao achei a pasta do repositorio manual-zomboid.
+  set /p "REPO=Cole aqui o caminho da pasta manual-zomboid e aperte Enter: "
+)
+set "REPO=%REPO:"=%"
+if not exist "%REPO%\.git" (echo ERRO: "%REPO%" nao e o repositorio manual-zomboid. & pause & exit /b 1)
+cd /d "%REPO%"
+echo Repositorio: %CD%
 set PYTHONUTF8=1
 set NOPAUSE=1
 if "%RENDER_JOBS%"=="" set RENDER_JOBS=3
 set PY=python
 where py >nul 2>nul && set PY=py -3
 
-echo [1/3] Atualizando o repo na branch bruno/ep22-25-v5...
+echo [1/3] Atualizando o repo na main (os ajustes v5 ja foram juntados: PR #38)...
 git fetch origin || goto :erro_git
-git switch bruno/ep22-25-v5 2>nul || git switch -c bruno/ep22-25-v5 --track origin/bruno/ep22-25-v5 || goto :erro_git
+git switch main || goto :erro_git
 git pull --ff-only || goto :erro_git
 git lfs pull
 
