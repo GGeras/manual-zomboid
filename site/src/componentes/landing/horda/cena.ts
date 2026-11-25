@@ -22,15 +22,21 @@ export interface OpcoesHorda {
   aoPronto: () => void
   aoMirar: (i: number | null) => void
 }
-type Estado = 'parado' | 'andando' | 'bote' | 'golpe' | 'caindo' | 'caido' | 'levantando' | 'batendo'
+type Estado = 'parado' | 'andando' | 'bote' | 'golpe' | 'caindo' | 'caido' | 'levantando' | 'batendo' | 'pulando'
 type Papel = 'topico' | 'horda' | 'carro' | 'caido' | 'morto'
 interface Agente {
   h: Humano; papel: Papel; topico: number | null; casa: THREE.Vector3; rumo: number; estado: Estado; f: number; espera: number
   andar: string; vel: number; trocou: number; brilho: number; golpes: number; ultimoGolpe: number; vago: THREE.Vector3; proxVago: number
   olharY: number; olharP: number; acordado: boolean; mistura: number
+  antes: THREE.Vector3 // posição no começo do passo (para saber se cruzou uma cerca)
+  pulo: { de: THREE.Vector3; meio: THREE.Vector3; para: THREE.Vector3; fase: number } | null
 }
 /** obstáculo no chão (casa, carro, lixeira, cerca): retângulo girado; ninguém atravessa */
 interface Caixa { x: number; z: number; hx: number; hz: number; r: number }
+/** cerca baixa: linha em x (eixo 'x', na altura z = em) ou em z (eixo 'z', em x = em), de..ate; portões = ladrilhos abertos */
+interface Cerca { eixo: 'x' | 'z'; em: number; de: number; ate: number; portoes: number[] }
+// pular cerca = a sequência da janela no jogo: apoia (start), passa por cima e cai (climbwin), levanta do outro lado (end)
+const PULO = [{ clip: 'z_climbwin_start', vel: 1 }, { clip: 'z_climbwin', vel: 1.5 }, { clip: 'z_climbwin_end', vel: 1.5 }]
 
 const ANDARES = ['z_walk', 'z_walk2', 'z_walk3', 'z_walk4']
 const FPS = 30
@@ -127,32 +133,41 @@ export async function iniciarHorda(o: OpcoesHorda) {
       C.parede('W', P_[jan ? 3 : 0], i1 + 1, j)
       if (jan) { vidro(i1 + 1, j, 'W', o.acesa === 'w' + j); C.parede('W', 'fixtures_windows_01_16', i1 + 1, j, { off: 0.01 }) }
     }
-    C.parede('N', P_[2], i1 + 1, j1 + 1)
     C.chao('floors_exterior_street_01_16', i0, j0, i1, j1, { y: WALL_H + 0.02, tint: '#8a8f9c' })
     bloqueia((i0 + i1) / 2, (j0 + j1) / 2, (i1 - i0) / 2 + 0.6, (j1 - j0) / 2 + 0.6)
   }
   casa(-13, -3, -13, -5, { parede: 'siding', janelas: [-10, -5, 'w-7', 'w-10'], porta: -7, acesa: -5, cortina: 'fixtures_windows_curtains_01_26' })
   casa(2, 10, -13, -5, { parede: 'tijolo', janelas: [3, 8, 'w-8'], porta: 5, acesa: 'w-8', cortina: 'fixtures_windows_curtains_01_10' })
 
-  // cerquinha branca na frente da casa da esquerda (portão no caminho) e cerca de postes atrás do acampamento
-  for (let i = -13; i <= -3; i++) if (i !== -7) C.parede('N', 'fencing_01_5', i, -1)
-  bloqueia(-10.5, -1.5, 3.1, 0.12); bloqueia(-4.9, -1.5, 1.8, 0.12)
-  for (let i = -2; i <= 8; i++) C.parede('N', 'fencing_01_17', i, 9)
-  for (let j = 4; j <= 8; j++) C.parede('W', 'fencing_01_16', 9, j)
+  // cercas contínuas: cerquinha branca na frente dos dois quintais (portão nos caminhos das portas) e cerca de postes fechando o
+  // terreno do acampamento (fundo + lateral até a calçada). Os zumbis PULAM as cercas, como no jogo (ver "pular" no comportamento).
+  const CERCAS: Cerca[] = [
+    { eixo: 'x', em: -1.5, de: -20.5, ate: 20.5, portoes: [-7, 5] },
+    { eixo: 'x', em: 8.5, de: -20.5, ate: 20.5, portoes: [] },
+    { eixo: 'z', em: 8.5, de: 2.5, ate: 8.5, portoes: [] },
+  ]
+  for (let i = -20; i <= 20; i++) if (i !== -7 && i !== 5) C.parede('N', 'fencing_01_5', i, -1)
+  for (let i = -20; i <= 20; i++) C.parede('N', 'fencing_01_17', i, 9)
+  for (let j = 3; j <= 8; j++) C.parede('W', 'fencing_01_16', 9, j)
 
-  // árvores do jogo = tronco/galhos + copa por cima (mesma receita do pipeline); pinheiros e bétulas para variar; uma árvore morta
-  const arvore = (i: number, j: number, k: number) => { C.placa(k % 2 ? 'e_redmaple_1_2' : 'e_redmaple_1_3', i, j); C.placa(k % 2 ? 'e_redmaple_1_14' : 'e_redmaple_1_15', i, j, { fz: 0.55 }) }
-  ;[[-15, -3], [0, -3], [12, -3], [-9, 6], [10, 6], [15, 4], [-16, 8]].forEach(([i, j], k) => arvore(i, j, k))
-  ;[[-4, 7], [13, 10], [-12, 11]].forEach(([i, j], k) => C.placa(k % 2 ? 'e_virginiapine_1_3' : 'e_canadianhemlock_1_3', i, j))
-  C.placa('e_riverbirch_1_3', 7, -3); C.placa('e_americanlinden_1_3', -1, 6)
-  ;[[-15, -3], [0, -3], [12, -3], [-9, 6], [10, 6], [15, 4], [-4, 7], [7, -3], [-1, 6]].forEach(([i, j]) => bloqueia(i, j, 0.3, 0.3))
+  // árvores INTEIRAS do jogo (JumboTrees2x: as de Tiles2x vêm cortadas no topo) = tronco + copa do mesmo tamanho, na mesma âncora;
+  // pinheiros já vêm inteiros; uma árvore seca (só o tronco). De noite elas ainda mostram folha (luz própria fraca, azul).
+  const NOITE_ARV = { luz: '#3a4866', forca: 0.55 }
+  const arvore = (i: number, j: number, k: number) => {
+    const [tronco, copa] = ([['e_redmapleJUMBO_1_1', 'e_redmapleJUMBO_1_7'], ['e_americanlindenJUMBO_1_1', 'e_americanlindenJUMBO_1_7'], ['e_redmapleJUMBO_1_0', 'e_redmapleJUMBO_1_6'], ['e_riverbirchJUMBO_1_1', 'e_riverbirchJUMBO_1_5']] as const)[k % 4]
+    C.placa(tronco, i, j, NOITE_ARV); C.placa(copa, i, j, { fz: 0.55, ...NOITE_ARV })
+  }
+  ;[[-15, -3], [0, -3], [12, -3], [-9, 6], [13, 8], [16, 4], [-16, 8]].forEach(([i, j], k) => arvore(i, j, k)) // nada na frente da batida da picape
+  ;[[-4, 7], [13, 10], [-12, 11]].forEach(([i, j], k) => C.placa(k % 2 ? 'e_virginiapineJUMBO_1_1' : 'e_canadianhemlockJUMBO_1_1', i, j, NOITE_ARV))
+  arvore(7, -3, 3); C.placa('e_americanlindenJUMBO_1_1', -1, 6, NOITE_ARV) // a seca, perto do acampamento
+  ;[[-15, -3], [0, -3], [12, -3], [-9, 6], [13, 8], [16, 4], [-4, 7], [7, -3], [-1, 6]].forEach(([i, j]) => bloqueia(i, j, 0.3, 0.3))
   // arbustos, capim alto, pedras
   const ARB = n4('f_bushes_1_', [100, 101, 103, 105])
-  ;[[-11, -4], [-5.2, -3.8], [3, -4], [9, -4], [-13, 4], [8, 4], [12, 3], [-6, 5]].forEach(([i, j], k) => C.obj(ARB[k % 4], i, j, { w: 0.6, d: 0.6 }))
-  ;[[-2, 8], [6, 10], [-8, 9]].forEach(([i, j], k) => C.obj('f_bushes_1_' + [64, 67, 70][k], i, j, { w: 0.5, d: 0.5 }))
+  ;[[-11, -4], [-5.2, -3.8], [3, -4], [9, -4], [-13, 4], [8, 4], [12, 3], [-6, 5]].forEach(([i, j], k) => C.obj(ARB[k % 4], i, j))
+  ;[[-2, 8], [6, 10], [-8, 9]].forEach(([i, j], k) => C.obj('f_bushes_1_' + [64, 67, 70][k], i, j))
   const CAPIM = n4('e_newgrass_1_', [16, 17, 40, 41, 64])
-  ;[[-8, 3], [-3, 3], [6, 3], [11, 3], [-12, 3], [0, -2], [-1, 4], [7, 8], [-5, 9], [12, -2], [-14, -2]].forEach(([i, j], k) => C.obj(CAPIM[k % 5], i, j, { w: 0.7, d: 0.7 }))
-  ;[[-6, 3], [9, 7], [3, 8]].forEach(([i, j], k) => C.obj('d_generic_1_' + [24, 21, 51][k], i, j, { w: 0.6, d: 0.6 }))
+  ;[[-8, 3], [-3, 3], [6, 3], [11, 3], [-12, 3], [0, -2], [-1, 4], [7, 8], [-5, 9], [12, -2], [-14, -2]].forEach(([i, j], k) => C.obj(CAPIM[k % 5], i, j))
+  ;[[-6, 3], [9, 7], [3, 8]].forEach(([i, j], k) => C.obj('d_generic_1_' + [24, 21, 51][k], i, j))
 
   // postes (um pisca: fiação ruim), placa de PARE, hidrante, caixas de correio, cone e barril (acidente), bueiro
   const postes: { luz: THREE.PointLight; halo: THREE.Sprite; falha: boolean }[] = []
@@ -162,30 +177,30 @@ export async function iniciarHorda(o: OpcoesHorda) {
   ;([[-9, 2, 0], [6, 2, 0.2], [-1, -1, 0]] as [number, number, number][]).forEach(([i, j, torto]) => {
     // poste + luz + brilho num grupo só: o poste em que a picape bateu entorta e a lâmpada vai junto
     const pe = new THREE.Group(); pe.position.set(i, 0, j); mundo.add(pe)
-    const m = C.obj('lighting_outdoor_01_1', i, j, { w: 0.3, d: 0.3 }); m.position.set(0, 0, 0); pe.add(m)
+    const m = C.obj('lighting_outdoor_01_1', i, j); m.position.set(0, 0, 0); pe.add(m)
     pe.rotation.z = torto; bloqueia(i, j, 0.2, 0.2)
     const luz = new THREE.PointLight('#ffb15c', 20, 8.5, 1.5); luz.position.copy(GLOBO); pe.add(luz)
     const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTex, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, fog: false })); halo.scale.setScalar(1.2)
     halo.position.copy(GLOBO).addScaledVector(DIR, 0.3); pe.add(halo) // um pouco para a câmera: o brilho fica na frente do globo, no mesmo ponto da tela
     postes.push({ luz, halo, falha: torto > 0 })
   })
-  C.obj('street_decoration_01_0', -14, 2, { w: 0.4, d: 0.4 }); C.obj('street_roadsigns_01_9', 13, -1, { w: 0.4, d: 0.4 })
-  C.obj('street_decoration_01_12', -4, -1, { w: 0.4, d: 0.4 }); C.obj('street_decoration_01_18', -8, -1, { w: 0.4, d: 0.4 }); C.obj('street_decoration_01_8', 13.5, 2, { w: 0.6, d: 0.6 })
-  C.obj('street_decoration_01_26', 11.9, 0.15, { w: 0.4, d: 0.4 }); C.obj('street_decoration_01_27', 12.3, 1.7, { w: 0.5, d: 0.5 }); C.obj('street_decoration_01_15', -3, 1, { w: 0.9, d: 0.9, h: 0.05 })
-  C.obj('street_decoration_01_28', 14, 0.5, { w: 0.9, d: 0.5 })
+  C.obj('street_decoration_01_0', -14, 2); C.obj('street_roadsigns_01_9', 13, -1)
+  C.obj('street_decoration_01_12', -4, -1); C.obj('street_decoration_01_18', -8, -1); C.obj('street_decoration_01_8', 13.5, 2)
+  C.obj('street_decoration_01_26', 11.9, 0.15); C.obj('street_decoration_01_27', 12.3, 1.7); C.obj('street_decoration_01_15', -3, 1, { w: 0.9, d: 0.9, h: 0.05 })
+  C.obj('street_decoration_01_28', 14, 0.5)
   ;[[-4, -1], [-8, -1], [13.5, 2], [12.3, 1.7], [11.9, 0.15], [-14, 2], [13, -1]].forEach(([i, j]) => bloqueia(i, j, 0.25, 0.25))
   // lixo: caçamba e latões ao lado da casa de tijolo, sacos e papel na calçada e na rua
-  C.obj('trashcontainers_01_8', 11.4, -3.6, { w: 0.95, d: 0.9 }); C.obj('trashcontainers_01_0', 1, -2, { w: 0.5, d: 0.5 }); C.obj('trashcontainers_01_16', -2, 2, { w: 0.45, d: 0.45 }); C.obj('trashcontainers_01_24', 11, -2.4, { w: 0.6, d: 0.6 })
+  C.obj('trashcontainers_01_8', 11.4, -3.6); C.obj('trashcontainers_01_0', 1, -2); C.obj('trashcontainers_01_16', -2, 2); C.obj('trashcontainers_01_24', 11, -2.4)
   bloqueia(11.4, -3.6, 0.6, 0.55); bloqueia(1, -2, 0.3, 0.3); bloqueia(-2, 2, 0.3, 0.3)
   ;[[-5, -1, 'trash_01_18'], [2, 2, 'trash_01_24'], [-11, 1, 'trash_01_27'], [7, -1, 'trash_01_33'], [-2, 0, 'd_trash_1_0'], [4, 1, 'd_trash_1_13'], [-7, 2, 'd_trash_1_9'], [12, 1, 'trash_01_24']].forEach(([i, j, n]) => C.mancha(n as string, i as number, j as number, 0.035))
   // sangue no chão (sprites de sangue do jogo): onde a horda já passou
   ;[[-3, 2, 'blood_floor_large_01'], [-4, 1, 'blood_floor_med_02'], [1, 4, 'blood_floor_large_03'], [2, 3, 'blood_floor_small_03'], [8, 1, 'blood_floor_large_05'], [-6, 0, 'blood_floor_small_06'], [0, 1, 'blood_floor_med_05'], [-7, -2, 'blood_floor_small_03']].forEach(([i, j, n]) => C.mancha(n as string, i as number, j as number, 0.04, '#7a1616'))
 
   // acampamento abandonado no terreno da frente: barraca, lenha e a fogueira ainda acesa (alguém fugiu às pressas)
-  // barraca ao lado da fogueira (não em cima): caixa do tamanho do ladrilho, senão a borda do sprite estica e vira uma faixa escura
-  C.obj('camping_01_0', 4.4, 3.8); bloqueia(4.4, 3.8, 0.55, 0.55)
-  C.obj('camping_01_25', 1.6, 6.6, { w: 0.8, d: 0.6 }); bloqueia(1.6, 6.6, 0.45, 0.35)
-  C.obj('camping_01_4', 2.6, 4.8, { w: 0.9, d: 0.9, h: 0.12 }); bloqueia(2.6, 4.8, 0.45, 0.45)
+  // barraca do jogo = 2 peças (frente com a entrada + fundo, no ladrilho de trás), ao lado da fogueira
+  C.obj('camping_01_0', 4, 4); C.obj('camping_01_1', 4, 3); bloqueia(4, 3.5, 0.55, 1.05)
+  C.obj('camping_01_25', 1.6, 6.6); bloqueia(1.6, 6.6, 0.45, 0.35)
+  C.obj('camping_01_4', 2.6, 4.8, { h: 0.12 }); bloqueia(2.6, 4.8, 0.45, 0.45)
   const fogo = new THREE.PointLight('#ff7a2e', 16, 7.5, 1.6); fogo.position.set(2.6, 0.5, 4.8); mundo.add(fogo)
   const chamaTex = brilho('rgba(255,150,60,1)')
   // chamas nascem da lenha no meio do anel de pedras (y ≈ 0,1) e afinam para cima
@@ -258,7 +273,7 @@ export async function iniciarHorda(o: OpcoesHorda) {
     cena.add(h.g)
     const andar = ANDARES[seed % ANDARES.length]
     const a: Agente = { h, papel, topico, casa, rumo: h.g.rotation.y, estado: 'parado', f: Math.random() * 30, espera: 0, andar, vel: VEL[andar] * rnd(0.9, 1.1), trocou: 1, brilho: 0, golpes: 0, ultimoGolpe: -9,
-      vago: casa.clone(), proxVago: rnd(1, 5), olharY: 0, olharP: 0, acordado: papel === 'topico' || papel === 'horda', mistura: 0.28 }
+      vago: casa.clone(), proxVago: rnd(1, 5), olharY: 0, olharP: 0, acordado: papel === 'topico' || papel === 'horda', mistura: 0.28, antes: casa.clone(), pulo: null }
     h.clip = ['z_idle', a.f, true]; agentes.push(a); return a
   }
   o.topicos.forEach((t, i) => novo(t.modelo, 'topico', i, new THREE.Vector3(t.casa[0], 0, t.casa[1]), i * 7 + 3))
@@ -312,6 +327,7 @@ export async function iniciarHorda(o: OpcoesHorda) {
     const toque = e.pointerType === 'touch' || e.pointerType === 'pen'
     if (a.topico != null && (!toque || mirado === i)) { o.aoAbrir(a.topico); return } // toque: 1º toque mira (mostra a placa), 2º abre
     if (a.topico != null) { mirado = i; o.aoMirar(a.topico); return }
+    if (a.estado === 'pulando') return // em cima da cerca: termina de pular primeiro
     const agora = performance.now() / 1000
     a.golpes = agora - a.ultimoGolpe < 2.2 ? a.golpes + 1 : 1; a.ultimoGolpe = agora; a.acordado = true
     _b.setFromMatrixPosition(a.h.bones.Bip01_Spine1.matrixWorld); respingo(_b, RUMO_CAMERA + Math.PI)
@@ -321,7 +337,7 @@ export async function iniciarHorda(o: OpcoesHorda) {
   o.canvas.addEventListener('pointerleave', sair); o.canvas.addEventListener('click', clicar as unknown as EventListener)
 
   // ---------- comportamento ----------
-  const CLIP: Record<Estado, [string, boolean]> = { parado: ['z_idle', true], andando: ['', true], bote: ['z_lunge', false], golpe: ['z_hit', false], caindo: ['z_death', false], caido: ['z_death', false], levantando: ['z_getup', false], batendo: ['z_doorbang', true] }
+  const CLIP: Record<Estado, [string, boolean]> = { parado: ['z_idle', true], andando: ['', true], bote: ['z_lunge', false], golpe: ['z_hit', false], caindo: ['z_death', false], caido: ['z_death', false], levantando: ['z_getup', false], batendo: ['z_doorbang', true], pulando: ['z_climbwin_start', false] }
   function trocar(a: Agente, e: Estado, mistura = 0.28) {
     if (a.estado === e) return
     const atual = a.h.clip
@@ -331,15 +347,34 @@ export async function iniciarHorda(o: OpcoesHorda) {
     a.h.clip = [e === 'andando' ? a.andar : c, a.f, loop]
   }
   const _alvo = new THREE.Vector3(), _d = new THREE.Vector3(), _cab = new THREE.Vector3(), _q = new THREE.Vector3()
+  // cerca cruzada entre a e b (fora dos portões), ou null
+  function cruza(a: THREE.Vector3, b: THREE.Vector3) {
+    for (const c of CERCAS) {
+      const pa = c.eixo === 'x' ? a.z : a.x, pb = c.eixo === 'x' ? b.z : b.x
+      if ((pa - c.em) * (pb - c.em) >= 0) continue
+      const t = (c.em - pa) / (pb - pa), ao = c.eixo === 'x' ? a.x + (b.x - a.x) * t : a.z + (b.z - a.z) * t
+      if (ao < c.de || ao > c.ate || c.portoes.some((g) => Math.abs(ao - g) < 0.45)) continue
+      return { c, ao }
+    }
+    return null
+  }
+  function comecarPulo(a: Agente, c: Cerca, ao: number, lado: number) {
+    const n = c.eixo === 'x' ? new THREE.Vector3(0, 0, lado) : new THREE.Vector3(lado, 0, 0)
+    const linha = c.eixo === 'x' ? new THREE.Vector3(ao, 0, c.em) : new THREE.Vector3(c.em, 0, ao)
+    a.pulo = { de: linha.clone().addScaledVector(n, -0.42), meio: linha.clone().addScaledVector(n, -0.22), para: linha.clone().addScaledVector(n, 0.5), fase: 0 }
+    a.h.g.position.copy(a.antes); a.rumo = a.h.g.rotation.y = Math.atan2(n.x, n.z)
+    trocar(a, 'pulando', 0.2); a.h.apoio = false // em cima da cerca o corpo não "gruda" no chão
+  }
   function passo(dt: number, agora: number) {
     const ativo = ponteiro != null || agora - ultimoMov < 2500
     for (const a of agentes) {
       const g = a.h.g
       if (a.papel === 'morto') continue
+      a.antes.copy(g.position)
       a.trocou = Math.min(1, a.trocou + dt / a.mistura); if (a.h.mix) { a.h.mix[3] = 1 - a.trocou; if (a.trocou >= 1) a.h.mix = null }
       a.espera = Math.max(0, a.espera - dt)
       // ---- cabeça: segue o ponteiro (ou olha para quem está vendo, quando não há ponteiro); só de pé ----
-      const dePe = a.estado !== 'caido' && a.estado !== 'caindo' && a.estado !== 'levantando'
+      const dePe = a.estado !== 'caido' && a.estado !== 'caindo' && a.estado !== 'levantando' && a.estado !== 'pulando'
       let qy = 0, qp = 0
       if (dePe && !(a.estado === 'batendo' && !a.acordado)) {
         _cab.setFromMatrixPosition(a.h.bones.Bip01_Head.matrixWorld)
@@ -352,6 +387,20 @@ export async function iniciarHorda(o: OpcoesHorda) {
       a.olharY += (qy - a.olharY) * Math.min(1, dt * 4); a.olharP += (qp - a.olharP) * Math.min(1, dt * 4)
       a.h.olhar.y = a.olharY; a.h.olhar.p = a.olharP
 
+      // ---- pulando a cerca: as 3 fases do jogo, o corpo atravessa junto ----
+      if (a.estado === 'pulando' && a.pulo) {
+        const fase = PULO[a.pulo.fase], n = P.clips[fase.clip].n
+        a.f += dt * FPS * fase.vel; a.h.clip = [fase.clip, a.f, false]
+        const t = Math.min(1, a.f / (n - 1))
+        if (a.pulo.fase === 0) g.position.lerpVectors(a.pulo.de, a.pulo.meio, t)
+        else if (a.pulo.fase === 1) g.position.lerpVectors(a.pulo.meio, a.pulo.para, THREE.MathUtils.smoothstep(t, 0.15, 0.75))
+        else g.position.copy(a.pulo.para)
+        if (a.f >= n - 1) {
+          if (a.pulo.fase < 2) { a.pulo.fase++; a.f = 0; a.h.mix = [fase.clip, n - 1, false, 1]; a.trocou = 0; a.mistura = 0.12 }
+          else { a.pulo = null; a.h.apoio = true; a.espera = 0.3; trocar(a, 'parado', 0.3) }
+        }
+        continue
+      }
       // ---- animações que tocam até o fim ----
       if (a.estado === 'golpe' || a.estado === 'bote' || a.estado === 'caindo' || a.estado === 'levantando') {
         a.f += dt * FPS; a.h.clip[1] = a.f
@@ -385,7 +434,10 @@ export async function iniciarHorda(o: OpcoesHorda) {
       if (perto) _alvo.copy(mira)
       else if (a.papel === 'horda') {
         a.proxVago -= dt
-        if (a.proxVago <= 0) { a.vago.set(a.casa.x + rnd(-2.5, 2.5), 0, a.casa.z + rnd(-1.8, 1.8)); a.proxVago = rnd(5, 11) }
+        if (a.proxVago <= 0) { // ao léu, do mesmo lado da cerca (sem estímulo ninguém pula à toa)
+          for (let k = 0; k < 6; k++) { a.vago.set(a.casa.x + rnd(-2.5, 2.5), 0, a.casa.z + rnd(-1.8, 1.8)); if (!cruza(g.position, a.vago)) break; a.vago.copy(g.position) }
+          a.proxVago = rnd(5, 11)
+        }
         _alvo.copy(a.vago)
       } else _alvo.copy(a.casa)
       if (a.papel === 'topico' && perto) { _d.subVectors(_alvo, a.casa); if (_d.length() > 1.2) _alvo.copy(a.casa).addScaledVector(_d.normalize(), 1.2) } // coleira: a placa não sai do lugar
@@ -415,7 +467,7 @@ export async function iniciarHorda(o: OpcoesHorda) {
     for (let i = 0; i < agentes.length; i++) {
       const A = agentes[i]; if (A.papel === 'morto') continue
       const p = A.h.g.position
-      if (A.estado !== 'batendo') for (const c of caixas) {
+      if (A.estado !== 'batendo' && A.estado !== 'pulando') for (const c of caixas) {
         _d.set(p.x - c.x, 0, p.z - c.z).applyAxisAngle(THREE.Object3D.DEFAULT_UP, -c.r)
         const fx = Math.abs(_d.x) - c.hx, fz = Math.abs(_d.z) - c.hz
         if (fx < 0 && fz < 0) { if (fx > fz) _d.x = Math.sign(_d.x || 1) * c.hx; else _d.z = Math.sign(_d.z || 1) * c.hz; _d.applyAxisAngle(THREE.Object3D.DEFAULT_UP, c.r); p.x = c.x + _d.x; p.z = c.z + _d.z }
@@ -424,8 +476,17 @@ export async function iniciarHorda(o: OpcoesHorda) {
       for (let j = i + 1; j < agentes.length; j++) {
         const B = agentes[j]; if (B.estado === 'caido' || B.estado === 'caindo' || B.papel === 'morto') continue
         const q = B.h.g.position; _d.subVectors(p, q); _d.y = 0; const d = _d.length()
-        if (d < 0.62 && d > 1e-4) { _d.multiplyScalar((0.62 - d) / d / 2); p.add(_d); q.sub(_d) }
+        if (d < 0.62 && d > 1e-4 && A.estado !== 'pulando' && B.estado !== 'pulando') { _d.multiplyScalar((0.62 - d) / d / 2); p.add(_d); q.sub(_d) }
       }
+    }
+    // cerca: quem persegue PULA (como no jogo); zumbi-tópico (preso à placa), parado ou caído não passa
+    for (const A of agentes) {
+      if (A.papel === 'morto' || A.estado === 'pulando') continue
+      const x = cruza(A.antes, A.h.g.position); if (!x) continue
+      const pode = A.papel !== 'topico' && A.estado === 'andando'
+      const lado = Math.sign((x.c.eixo === 'x' ? A.h.g.position.z : A.h.g.position.x) - x.c.em)
+      if (pode) comecarPulo(A, x.c, x.ao, lado)
+      else A.h.g.position.copy(A.antes)
     }
   }
 
