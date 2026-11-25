@@ -24,7 +24,7 @@ export function Horda({ topicos }: { topicos: TopicoHorda[] }) {
     if (!document.createElement('canvas').getContext('webgl2')) return
     let ctrl: { destruir(): void } | null = null, vivo = true
     const leve = innerWidth < 768 || (nav.hardwareConcurrency ?? 8) <= 4 || (nav.deviceMemory ?? 8) <= 4
-    const retrato = innerWidth < 768 // celular: palco embaixo do texto, quase quadrado
+    const r0 = c.getBoundingClientRect(), retrato = r0.width < r0.height // mesmo critério da cena (vista pela largura)
     const iniciar = async () => {
       if (!vivo) return
       setModo('carregando')
@@ -52,8 +52,7 @@ export function Horda({ topicos }: { topicos: TopicoHorda[] }) {
     <>
       <canvas ref={canvas} aria-hidden className={cx('absolute inset-0 z-0 size-full touch-pan-y transition-opacity duration-[1400ms]', tres ? 'opacity-100' : 'opacity-0')} />
       <div aria-hidden className="vinheta z-[5]" />
-      {modo === 'carregando' && <p aria-hidden className="hud pointer-events-none absolute bottom-6 right-6 z-10 hidden text-[.62rem] text-apagado md:block">Eles estão vindo<span className="cursor" /></p>}
-      <nav aria-label="Escolha seu caminho" className={cx(tres ? 'pointer-events-none absolute inset-0 z-20' : 'relative z-20 mx-auto max-w-7xl px-4 pb-12 pt-4 sm:px-6 md:absolute md:inset-x-0 md:bottom-0')}>
+      <nav aria-label="Escolha seu caminho" className={cx(tres ? 'pointer-events-none absolute inset-0 z-20' : 'absolute inset-x-0 bottom-0 z-20 mx-auto max-w-7xl px-4 pb-20 sm:px-6')}>
         {!tres && <p className="hud mb-3 text-[.66rem] text-apagado">Escolha seu caminho</p>}
         <ul className={cx(tres ? 'contents' : 'grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5')}>
           {topicos.map((t, i) => (

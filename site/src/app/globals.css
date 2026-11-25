@@ -168,11 +168,12 @@
 .placa-3d:hover, .placa-3d[data-mirado] { border-color: var(--cor); box-shadow: 0 14px 40px -12px rgba(0, 0, 0, .9), 0 0 26px -6px var(--cor); }
 .placa-3d .placa-linha { max-width: 0; overflow: hidden; opacity: 0; transition: max-width .35s var(--ease-suave, ease), opacity .25s; }
 .placa-3d:hover .placa-linha, .placa-3d[data-mirado] .placa-linha, .placa-3d:focus-visible .placa-linha { max-width: 14rem; opacity: 1; }
-/* vinheta da horda: escurece as bordas (lanterna no meio) e, no desktop, o lado do texto */
+/* vinheta da rua: escurece as bordas como a visão de noite do jogo (o centro fica com a lanterna) */
 .vinheta { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 1.4s;
-  background: radial-gradient(120% 95% at 62% 48%, transparent 52%, rgba(4, 5, 8, .72) 100%); }
+  background: radial-gradient(130% 110% at 50% 50%, transparent 50%, rgba(3, 4, 7, .78) 100%); }
 #abertura[data-horda] .vinheta { opacity: 1; }
-@media (min-width: 768px) { .vinheta { background: radial-gradient(120% 95% at 62% 48%, transparent 52%, rgba(4, 5, 8, .72) 100%), linear-gradient(90deg, rgba(8, 9, 11, .78) 0%, rgba(8, 9, 11, .45) 28%, transparent 48%); } }
+.seta-rolar { animation: rolar 2.4s var(--ease-suave, ease) infinite; }
+@keyframes rolar { 0%, 100% { transform: translate(-50%, 0) } 50% { transform: translate(-50%, 5px) } }
 @media (max-width: 767px) { .placa-3d { gap: .4rem; padding: .3rem .55rem .3rem .3rem; } .placa-3d .placa-icone { width: 1.6rem; height: 1.6rem; } .placa-3d .placa-icone img { width: 1.15rem; height: 1.15rem; } .placa-3d .placa-titulo { font-size: .68rem; } .placa-3d .placa-seta { display: none; } }
 
 #abertura[data-horda] .cena-fundo { opacity: 0; }

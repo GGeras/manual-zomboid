@@ -1,7 +1,7 @@
 # assets/tiles — sprites ORIGINAIS do Project Zomboid (B42.22)
 
 Extraídos de `media/texturepacks/Tiles2x.pack` e `Tiles2x.floor.pack` com `pipeline/pz/unpack.py`.
-Só ficam aqui os sprites que os episódios usam (lista: `node pipeline/pz/tiles_usados.mjs 16 17 18 19`).
+Só ficam aqui os sprites que os episódios e a abertura do site (lista `TILES` em `site/scripts/gerar-zumbis.mjs`) usam (lista: `node pipeline/pz/tiles_usados.mjs 16 17 18 19`).
 `meta.js` (retângulo opaco de cada sprite) é gerado por `python pipeline/pz/tiles_meta.py projeto/assets/tiles` — não editar à mão.
 
 Para adicionar um sprite novo:
