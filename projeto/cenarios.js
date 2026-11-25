@@ -372,7 +372,8 @@ export function quarto(x0, z0, o = {}) {
   // altura do colchão = a do próprio desenho do pé da cama (caixa automática); a cabeceira usa a mesma altura → as duas peças casam
   const [CBC, CPE] = o.cama || ['furniture_bedding_01_9', 'furniture_bedding_01_8'];   // o.cama = [cabeceira, pé] (EP20 v4: cama boa de madeira 27/26)
   // 24/11 (Jose: "cama rachada no meio"): as duas caixas vão até a junta (j = 0,5) — antes sobrava 0,1 entre elas e o desenho "quebrava" ao meio
-  const PE = C.obj(CPE, 2, 1, { d: 1.0, dz: -.03 }), colchao = PE.userData.h, CAMA = C.assento(CBC, 2, 0, { encosto: 'N', hs: colchao, d: 1.0, dz: .05 });
+  // o.sacos (EP25, 25/11): sem cama de verdade — quarto triste com sacos de dormir no chão (o chamador põe os sacos)
+  const PE = o.sacos ? { sobrepor() {}, userData: { h: .1 } } : C.obj(CPE, 2, 1, { d: 1.0, dz: -.03 }), colchao = PE.userData.h, CAMA = o.sacos ? { sobrepor() {} } : C.assento(CBC, 2, 0, { encosto: 'N', hs: colchao, d: 1.0, dz: .05 });
   C.obj('furniture_storage_02_33', 5, 0, { w: .9, d: .7 });                 // guarda-roupa encostado na parede N (frente S)
   C.obj('lighting_indoor_01_on_58', 1, 0, { w: .35, d: .35 });              // abajur de pé ao lado da cabeceira
   const CAD = C.assento('furniture_seating_indoor_01_57', 5, 3, { encosto: 'N', hs: .486 }); if (o.semCadeira) CAD.visible = false;   // cadeira solta no meio do quarto (EP22/24): some   // cadeira (frente S) — Bob_SatChair: nádega a 0,486
