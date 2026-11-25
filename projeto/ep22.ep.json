@@ -9,20 +9,168 @@
  "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
  "sfx": [
   [
-   "bathit",
+   "zombierand2",
    {
-    "f": 0,
-    "dt": 0.5
+    "c": 0,
+    "dt": 0.3
+   },
+   -18
+  ],
+  [
+   "batSwing",
+   {
+    "c": 0,
+    "dt": 1.07
    },
    -14
   ],
   [
-   "male_outofbreath_01",
+   "zombiehit1",
    {
-    "f": 2,
-    "dt": 1.2
+    "c": 0,
+    "dt": 1.47
+   },
+   -13
+  ],
+  [
+   "zombieImpact",
+   {
+    "c": 0,
+    "dt": 2.8
    },
    -16
+  ],
+  [
+   "male_outofbreath_01",
+   {
+    "c": 1,
+    "dt": 0.2
+   },
+   -17
+  ],
+  [
+   "batSwing",
+   {
+    "c": 2,
+    "dt": 0.55
+   },
+   -14
+  ],
+  [
+   "zombiehit2",
+   {
+    "c": 2,
+    "dt": 0.8
+   },
+   -13
+  ],
+  [
+   "PZ_FootSteps_Concrete_01",
+   {
+    "c": 2,
+    "k": 0.3,
+    "dt": 0.2
+   },
+   -16
+  ],
+  [
+   "zombierand3",
+   {
+    "c": 2,
+    "k": 0.32
+   },
+   -17
+  ],
+  [
+   "PZ_MaleZombie_01",
+   {
+    "c": 2,
+    "k": 0.46
+   },
+   -18
+  ],
+  [
+   "male_outofbreath_01",
+   {
+    "c": 2,
+    "k": 0.64
+   },
+   -16
+  ],
+  [
+   "batSwing",
+   {
+    "c": 3,
+    "dt": 0.45
+   },
+   -14
+  ],
+  [
+   "zombiehit3",
+   {
+    "c": 3,
+    "dt": 0.73
+   },
+   -13
+  ],
+  [
+   "PZ_HeadSmash_01",
+   {
+    "c": 3,
+    "k": 0.45,
+    "dt": 0.7
+   },
+   -13
+  ],
+  [
+   "splat1",
+   {
+    "c": 3,
+    "k": 0.45,
+    "dt": 0.75
+   },
+   -18
+  ],
+  [
+   "PZ_HeadSmash_01",
+   {
+    "c": 3,
+    "k": 0.45,
+    "dt": 2.23
+   },
+   -13
+  ],
+  [
+   "batSwing",
+   {
+    "c": 4,
+    "dt": 0.8
+   },
+   -14
+  ],
+  [
+   "zombiehit1",
+   {
+    "c": 4,
+    "dt": 1.07
+   },
+   -13
+  ],
+  [
+   "zombieImpact",
+   {
+    "c": 4,
+    "dt": 2.4
+   },
+   -16
+  ],
+  [
+   "PZ_Swallowing",
+   {
+    "c": 5,
+    "dt": 2.4
+   },
+   -14
   ],
   [
    "JL_MalePlayer_ExerciseGrunts_01",
@@ -31,6 +179,49 @@
     "dt": 0.3
    },
    -16
+  ],
+  [
+   "batSwing",
+   {
+    "c": 7,
+    "dt": 0.3
+   },
+   -14
+  ],
+  [
+   "zombiehit2",
+   {
+    "c": 7,
+    "dt": 0.6
+   },
+   -13
+  ],
+  [
+   "PZ_HeadSmash_01",
+   {
+    "c": 7,
+    "k": 0.25,
+    "dt": 0.43
+   },
+   -14
+  ],
+  [
+   "PZ_FootSteps_Concrete_01",
+   {
+    "c": 7,
+    "k": 0.5,
+    "dt": 0.05
+   },
+   -17
+  ],
+  [
+   "BH_MalePlayer_SubtleReliefSigh_01",
+   {
+    "c": 7,
+    "k": 0.75,
+    "dt": 0.2
+   },
+   -15
   ]
  ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",

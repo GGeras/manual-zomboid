@@ -34,7 +34,7 @@ const V_SPRINT = 2.8, V_WALK = 1.35, V_SLOW = .75, V_ZS = 1.78;
 const clip = (name, lf, o = {}) => { pose(S, Object.assign({ ry: Math.PI / 2, clip: [name, lf, o.loop !== false, o.up] }, o)); S.bat.visible = false; S.hammer.visible = false;
   S.olhar = 0; PZ.apoiar(S, o.base ?? 0); };
 const zClip = (z, name, lf, o = {}) => { pose(z, Object.assign({ clip: [name, lf, o.loop !== false] }, o)); PZ.apoiar(z, 0); };
-const rua0 = (k = 'dawn') => { light(k); clima('', 0); RC.show(); clarao(0); tileLuz('#fff0dc'); };
+const rua0 = (k = 'day') => { light(k); clima('', 0); RC.show(); clarao(0); tileLuz(k === 'day' ? '#ffffff' : '#fffaf0'); };   // v6: sprites um pouco mais claros (inspeção: exterior-dia 90, mín 95)
 const casa0 = f => { light('dawn'); clima('', 0); KC.show(); TARDE.set(f); clarao(0); tileLuz('#fff2e0'); };
 // perseguidores: corpo e pés na mesma velocidade (sem deslizar). x = posição do personagem; gap = distância do 1º zumbi até ele; os outros ficam atrás (+0,9 m cada).
 // só corredores (z_sprint 1,78 m/s): a distância muda com o tempo, então o chamador passa o gap já calculado.
@@ -71,7 +71,7 @@ run([
   // 5 — as 5 mochilas do jogo no chão; ele agachado mexendo nelas (tabela no cfg)
   (lf, f, len, c) => { casa0(f); BAGM.forEach(m => m.visible = true); const p = K(3.05, 4.85), q = Math.floor(lf / 80) % 3;
     const ry = [-.5, 0, .6][q]; clip(q === 1 ? 's_makinglow' : 's_lootlow', lf % 80, { x: p.x, z: p.z, ry });
-    camOn(c, p.x + .15, p.z + .75, 5.2, .66); },
+    camOn(c, p.x + .15, p.z + .75, 6.0, .74); },   // v6: personagem mais baixo no quadro (a tabela das mochilas cobria a cabeça)
   // 6 — Movimento Restrito: NÃO corre — só anda (Bob_Walk 1,35 m/s); a horda corre e fecha o cerco, take troca quando está quase nele
   (lf, f, len, c) => { rua0(); const q = perseg(lf, len, 8, V_WALK, 1.1, R(0, 1.2).z);
     clip('s_walk', lf, { x: q.x, z: faixa(q.x, q.z), ry: rumo(q.x, q.z) }); atras(f, q.x, q.z, q.gap); camOn(c, q.x - .9, faixa(q.x, q.z), 7.6, .6); },

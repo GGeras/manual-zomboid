@@ -7,7 +7,7 @@ window.EP = {
   itens: ["Item_Axe", "Item_PillsPainkiller"],
   OFF: 1.3,
   luz: { padrao: 'exterior-dia', 5: 'interior-tarde', 6: 'interior-dia' },
-  T: [0.0, 3.6, 10.57, 17.15, 22.3, 28.36, 33.81, 40.93], END: 46.03,
+  T: [0.0, 3.18, 9.88, 15.82, 20.66, 26.2, 31.19, 37.55], END: 42.21,
   scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6, lab: LAB }, { at: 7 }],
   titles: [
     { i: 0, a: "Seu braço", b: "cansa de bater", aSize: 110, size: 100 },

@@ -54,7 +54,7 @@ if errorlevel 1 (
   %PY% -m pip install -r "%REPO%\requirements.txt" || echo AVISO: piper-tts falhou - o rascunho usa a voz que ja estiver em projeto\audio.
 )
 echo [3/3] Gerando os 4 rascunhos (voz Piper + previa + inspecao). Pode deixar rodando.
-rem 25/11: caminhos ABSOLUTOS — o rodar.bat entra em projeto\ e nao volta; com caminho relativo o 2o episodio em diante dava
+rem 25/11: caminhos ABSOLUTOS - o rodar.bat entra em projeto\ e nao volta; com caminho relativo o 2o episodio em diante dava
 rem "O sistema nao conseguiu localizar o caminho especificado"
 if not exist "%REPO%\projeto\out" mkdir "%REPO%\projeto\out"
 set "RES=%REPO%\projeto\out\rascunhos-22-25-v5.txt"

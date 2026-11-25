@@ -167,10 +167,10 @@ run([
     const m = lf % 91; if (m > 52 && m < 80) { S.pz.bones.Bip01_Head.getWorldPosition(_v); const fx = Math.sin(S.g.rotation.y) * .14, fz = Math.cos(S.g.rotation.y) * .14;
       puff(_v.x + fx, _v.y - .08, _v.z + fz, m - 52, { n: 4, seed: 17 + Math.floor(lf / 91), life: 26, size: .06, spread: .12, rise: .3, color: '#f4f4f4', op: .28 }); }
     camOn(c, p.x + .15, p.z + .45, 4.5, SYI); },
-  // 7 — traços: Corajoso fica firme mirando; Covarde recua (cartões com pontos no cfg)
+  // 7 — traços: Corajoso fica firme mirando; Covarde recua (cartões com pontos no cfg). v6: o recuo começa em i 1,6 (antes passava pela placa PARE em i −4; em 3,5 o poste em i 6 tampava a cena)
   (lf, f, len, c) => { rua0(f); const k = len * .5, z = R(0, 1.2).z;
     if (lf < k) { const x = R(0, 1.2).x; clip('s_aimhg', lf, { x, z, gun: true }); tremor(f, .1); horda(f, lf, x, z, 3, 3.6, len * .5, 2.2); camOn(c, x + 1.2, z, 6.8, SY); }
-    else { const l = lf - k, x = R(0, 1.2).x - l / 30 * V_BWD * 1.4; clip('s_bwdaimhg', l * 1.4, { x, z, gun: true }); tremor(f, 1.6); horda(f, l, R(0, 1.2).x - len * .5 / 30 * V_BWD * 1.4, z, 3, 3.0 + len * .5 / 30 * V_BWD * 1.4, len * .5, 1.6); camOn(c, x + 1.2, z, 6.8, SY); }
+    else { const l = lf - k, x = R(1.6, 1.2).x - l / 30 * V_BWD * 1.0; clip('s_bwdaimhg', l, { x, z, gun: true }); tremor(f, 1.6); horda(f, l, R(1.6, 1.2).x - len * .5 / 30 * V_BWD * 1.0, z, 3, 3.0 + len * .5 / 30 * V_BWD * 1.0, len * .5, 1.6); camOn(c, x + 1.2, z, 6.8, SY); }
     flash(-1); clarao(Math.max(1 - Math.abs(lf - k) / 5, 0) * .8, '#000'); },
   // 8 — Agorafóbico: rua aberta com horda ao longe; Claustrofóbico: quartinho escuro, fechado
   (lf, f, len, c) => { const k = len * .5; flash(-1);

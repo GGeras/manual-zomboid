@@ -5,12 +5,12 @@ window.EP = {
   pz: true, versao: 'BUILD 42.22',
   itens: ["Item_Book", "Item_Cigarette", "Item_ComicBook", "Item_Magazine", "Item_PillsAntidepressant", "Item_Pot_Forged_Stew", "Item_Icecream", "Item_Croissant"],
   OFF: 1.3,
-  T: [0.0, 4.94, 12.8, 17.31, 24.06, 32.09, 39.76], END: 45.35,
+  T: [0.0, 4.4, 11.71, 15.82, 21.69, 28.69, 35.59], END: 40.79,
   scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6 }],
   titles: [
     { i: 0, a: "Até o tédio", b: "é perigoso", aSize: 110, size: 128 },
     { i: 1, a: "Ocupe-se", b: "", col: 'yellow', aSize: 110, size: 128 },
-    { i: 2, a: "Triste até", b: "sem esperança", aSize: 110, size: 128 },
+    { i: 2, a: "Triste até", b: "sem esperança", aSize: 110, size: 104 },   // v6: em 128 a linha passava da largura da tela
     { i: 3, a: "Leitura", b: "tira os dois", col: 'green', aSize: 110, size: 128 },
     { i: 4, a: "Comida que", b: "tira tristeza", col: 'yellow', aSize: 110, size: 128 },
     { i: 5, a: "Antidepressivo:", b: "devagar", col: 'green', aSize: 96, size: 128 },
