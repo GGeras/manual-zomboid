@@ -43,17 +43,19 @@ if not exist "%SONS%\JL_MalePlayer_ExerciseGrunts_01.ogg" (
 )
 
 echo [3/3] Gerando os 4 rascunhos (voz Piper + previa + inspecao). Pode deixar rodando.
-if not exist projeto\out mkdir projeto\out
-set "RES=projeto\out\rascunhos-22-25-v5.txt"
+rem 25/11: caminhos ABSOLUTOS — o rodar.bat entra em projeto\ e nao volta; com caminho relativo o 2o episodio em diante dava
+rem "O sistema nao conseguiu localizar o caminho especificado"
+if not exist "%REPO%\projeto\out" mkdir "%REPO%\projeto\out"
+set "RES=%REPO%\projeto\out\rascunhos-22-25-v5.txt"
 echo Rascunhos v5 EP22-25 - inicio %date% %time%> "%RES%"
 for %%N in (22 23 24 25) do (
   echo.
   echo ===== EP %%N =====
-  if exist "projeto\audio\n%%N.mp3" copy /y "projeto\audio\n%%N.mp3" "projeto\audio\n%%N_antes.mp3" >nul
-  pushd projeto
-  %PY% pipeline\tts_rascunho.py %%N > "out\rascunho%%N-v5.log" 2>&1
-  popd
-  call ferramentas\rodar.bat %%N rascunho >> "projeto\out\rascunho%%N-v5.log" 2>&1
+  set "LOG=%REPO%\projeto\out\rascunho%%N-v5.log"
+  cd /d "%REPO%\projeto"
+  if exist "audio\n%%N.mp3" copy /y "audio\n%%N.mp3" "audio\n%%N_antes.mp3" >nul
+  %PY% pipeline\tts_rascunho.py %%N > "!LOG!" 2>&1
+  call "%REPO%\ferramentas\rodar.bat" %%N rascunho >> "!LOG!" 2>&1
   if !errorlevel! equ 0 (
     echo EP%%N: OK>> "%RES%"
     echo EP%%N ok
@@ -61,6 +63,7 @@ for %%N in (22 23 24 25) do (
     echo EP%%N: ERRO - veja projeto\out\rascunho%%N-v5.log>> "%RES%"
     echo EP%%N com erro - veja projeto\out\rascunho%%N-v5.log
   )
+  cd /d "%REPO%"
 )
 echo Fim %date% %time%>> "%RES%"
 echo.
