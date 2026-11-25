@@ -51,6 +51,7 @@ export function Horda({ topicos }: { topicos: TopicoHorda[] }) {
   return (
     <>
       <canvas ref={canvas} aria-hidden className={cx('absolute inset-0 z-0 size-full touch-pan-y transition-opacity duration-[1400ms]', tres ? 'opacity-100' : 'opacity-0')} />
+      <div aria-hidden className="vinheta z-[5]" />
       {modo === 'carregando' && <p aria-hidden className="hud pointer-events-none absolute bottom-6 right-6 z-10 hidden text-[.62rem] text-apagado md:block">Eles estão vindo<span className="cursor" /></p>}
       <nav aria-label="Escolha seu caminho" className={cx(tres ? 'pointer-events-none absolute inset-0 z-20' : 'relative z-20 mx-auto max-w-7xl px-4 pb-12 pt-4 sm:px-6 md:absolute md:inset-x-0 md:bottom-0')}>
         {!tres && <p className="hud mb-3 text-[.66rem] text-apagado">Escolha seu caminho</p>}

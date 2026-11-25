@@ -5,13 +5,15 @@ import * as THREE from 'three'
 
 type Camada = string | [string, string?, number?]
 export interface ZumbiBase { nome: string; sex: 'M' | 'F'; skin: string; layers: Camada[]; masks?: string[]; hair?: string; hairColor?: string; wear?: [string, string, string?, number?][]; pack?: [string, string, string?, number?]; blood?: number }
-interface Malha { pos: number[]; uv: number[]; idx: number[]; nrm?: number[]; bones: string[]; inv: number[][]; si: number[]; sw: number[] }
+interface Malha { pos: number[]; uv: number[]; idx: number[]; nrm?: number[]; bones: string[]; inv: number[][]; si: number[]; sw: number[]; ext?: number[] }
 interface Osso { n: string; p: string | null; m: number[] }
 interface Clip { n: number; b: Record<string, { r: number[]; t: number[] }> }
 export interface Pacote { zumbis: ZumbiBase[]; skel: Record<'M' | 'F', Osso[]>; mesh: Record<string, Malha>; clips: Record<string, Clip>; tex: Record<string, string> }
 
 /** clip = animação atual; mix = animação anterior congelada, misturada com peso w (transição suave, como o jogo faz entre estados). */
-export interface Humano { g: THREE.Group; bones: Record<string, THREE.Bone>; order: THREE.Bone[]; clip: [string, number, boolean]; mix: [string, number, boolean, number] | null; mats: THREE.MeshLambertMaterial[]; sombra: THREE.Mesh }
+export interface Humano { g: THREE.Group; bones: Record<string, THREE.Bone>; order: THREE.Bone[]; clip: [string, number, boolean]; mix: [string, number, boolean, number] | null; mats: THREE.MeshLambertMaterial[]; sombra: THREE.Mesh
+  /** cabeça virando para um ponto: guinada (y, rad, + = esquerda do zumbi) e inclinação (+ = olha para baixo), por cima da animação */
+  olhar: { y: number; p: number } }
 
 export async function carregarPacote(url: string): Promise<{ P: Pacote; IMG: Record<string, HTMLImageElement> }> {
   const P = (await (await fetch(url)).json()) as Pacote
@@ -46,7 +48,7 @@ export function criarFabrica(P: Pacote, IMG: Record<string, HTMLImageElement>) {
   }
   const cacheTex: Record<string, THREE.Texture> = {}
   const tex1 = (n: string, tinta?: string, ganho?: number) => (cacheTex[n + (tinta ?? '') + (ganho ?? '')] ??= textura([[n, tinta, ganho]]))
-  const material = (map: THREE.Texture) => new THREE.MeshLambertMaterial({ map, alphaTest: 0.5, side: THREE.DoubleSide, emissive: '#ffffff', emissiveMap: map, emissiveIntensity: 0.2 })
+  const material = (map: THREE.Texture) => new THREE.MeshLambertMaterial({ map, alphaTest: 0.5, side: THREE.DoubleSide, emissive: '#ffffff', emissiveMap: map, emissiveIntensity: 0.08 })
 
   // ---------- geometria ----------
   const cacheGeo: Record<string, THREE.BufferGeometry> = {}
@@ -55,6 +57,7 @@ export function criarFabrica(P: Pacote, IMG: Record<string, HTMLImageElement>) {
     const m = P.mesh[nome], g = new THREE.BufferGeometry()
     g.setAttribute('position', new THREE.Float32BufferAttribute(m.pos, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(m.uv, 2)); g.setIndex(m.idx)
     if (m.nrm?.length) g.setAttribute('normal', new THREE.Float32BufferAttribute(m.nrm, 3)); else g.computeVertexNormals()
+    if (!m.si) return (cacheGeo[nome] = g) // cenário (carro): malha parada, sem esqueleto
     g.setAttribute('skinIndex', new THREE.Uint16BufferAttribute(m.si, 4)); g.setAttribute('skinWeight', new THREE.Float32BufferAttribute(m.sw, 4))
     return (cacheGeo[nome] = g)
   }
@@ -92,13 +95,23 @@ export function criarFabrica(P: Pacote, IMG: Record<string, HTMLImageElement>) {
     // sombra de contato (barata, sem shadow map)
     const sombra = new THREE.Mesh(new THREE.CircleGeometry(0.36, 20), new THREE.MeshBasicMaterial({ color: '#000', transparent: true, opacity: 0.45, depthWrite: false }))
     sombra.rotation.x = -Math.PI / 2; sombra.position.y = 0.012; g.add(sombra)
-    return { g, bones, order, clip: ['z_idle', 0, true], mix: null, mats, sombra }
+    return { g, bones, order, clip: ['z_idle', 0, true], mix: null, mats, sombra, olhar: { y: 0, p: 0 } }
   }
-  return { zumbi }
+  /** Malha parada do jogo (cenário), com a textura pintada por cima de uma cor de fundo (o jogo pinta a lataria assim). */
+  function cenario(nome: string, texNome: string, fundo: string) {
+    const { c, x } = cnv(512); x.fillStyle = fundo; x.fillRect(0, 0, 512, 512); if (IMG[texNome]) x.drawImage(IMG[texNome], 0, 0, 512, 512)
+    const t = new THREE.CanvasTexture(c); t.flipY = false; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4
+    const me = new THREE.Mesh(geom(nome), new THREE.MeshLambertMaterial({ map: t })); me.castShadow = me.receiveShadow = true
+    return { me, ext: P.mesh[nome].ext ?? [1.9, 1.2, 4.7] }
+  }
+  return { zumbi, cenario }
 }
 
 // ---------- animação: toca o clip do jogo (30 fps) direto no esqueleto Bip01 ----------
 const _qa = new THREE.Quaternion(), _qb = new THREE.Quaternion(), _qm = new THREE.Quaternion(), _pm = new THREE.Vector3(), _v = new THREE.Vector3()
+const _qp = new THREE.Quaternion(), _qd = new THREE.Quaternion(), _qy = new THREE.Quaternion(), _s = new THREE.Vector3(), _dir = new THREE.Vector3(), _Y = new THREE.Vector3(0, 1, 0)
+// quanto do olhar vai no pescoço e quanto na cabeça (somam 1)
+const OLHAR: Record<string, number> = { Bip01_Neck: 0.45, Bip01_Head: 0.55 }
 export const quadro = (c: { n: number }, f: number, loop: boolean) => { const n = c.n; return loop ? ((f % (n - 1)) + (n - 1)) % (n - 1) : Math.max(0, Math.min(n - 1, f)) }
 /** amostra um osso do clip no quadro ff -> q (e p, se o osso tiver translação) */
 function amostra(d: { r: number[]; t: number[] }, ff: number, q: THREE.Quaternion, p: THREE.Vector3) {
@@ -124,12 +137,24 @@ export function posar(P: Pacote, h: Humano) {
         const tem = amostra(dm, fm, _qm, _pm); b.quaternion.slerp(_qm, wm)
         if (tem) { if (b.name === 'Bip01') { _pm.x = 0; _pm.y = 0 } b.position.lerp(_pm, wm) }
       }
+      const parte = OLHAR[b.name]
+      if (parte && (h.olhar.y || h.olhar.p)) {
+        // giro no espaço do mundo (guinada em volta do eixo vertical, inclinação em volta do eixo "direita" do zumbi),
+        // levado para o espaço do osso: local' = pai⁻¹ · giro · pai · local
+        par.matrixWorld.decompose(_pm, _qp, _s)
+        const ry = h.g.rotation.y
+        _dir.set(Math.cos(ry), 0, -Math.sin(ry))
+        _qd.setFromAxisAngle(_dir, h.olhar.p * parte); _qy.setFromAxisAngle(_Y, h.olhar.y * parte); _qd.premultiply(_qy)
+        b.quaternion.premultiply(_qd.premultiply(_qp.clone().invert()).multiply(_qp))
+      }
     }
     b.updateMatrix(); b.matrixWorld.multiplyMatrices(par.matrixWorld, b.matrix)
   }
   // REGRA 4.7 do canal: o ponto mais baixo do corpo encosta no chão (nem afunda, nem flutua)
   const B = h.bones, Y = (n: string) => _v.setFromMatrixPosition(B[n].matrixWorld).y
-  const min = Math.min(Y('Bip01_L_Toe0'), Y('Bip01_R_Toe0'), Y('Bip01_L_Foot') - 0.1, Y('Bip01_R_Foot') - 0.1) - h.g.position.y
+  // em pé só os pés contam; caído (z_death, z_getup) a cabeça, o quadril e as mãos também encostam
+  const min = Math.min(Y('Bip01_L_Toe0'), Y('Bip01_R_Toe0'), Y('Bip01_L_Foot') - 0.1, Y('Bip01_R_Foot') - 0.1,
+    Y('Bip01_Head') - 0.11, Y('Bip01_Pelvis') - 0.12, Y('Bip01_Spine1') - 0.12, Y('Bip01_L_Hand') - 0.04, Y('Bip01_R_Hand') - 0.04) - h.g.position.y
   h.g.position.y = -min
   h.sombra.position.y = 0.012 + min // a sombra fica no chão, mesmo com o corpo erguido
 }

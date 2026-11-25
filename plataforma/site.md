@@ -50,13 +50,13 @@ Prévia no ar, prints de celular e desktop, Lighthouse anexado, PR com o que + p
 
 ## 3. Landing (estrutura)
 Quem chega no site vem do Instagram, Facebook, TikTok ou YouTube: **não repetir "assista os Shorts"** no topo (decisão de 25/11). O topo mostra o que só existe aqui.
-1. **Abertura (horda 3D):** noite de Knox County com os **zumbis e as animações originais do jogo** (`site/src/componentes/landing/horda/`, dados recortados de `projeto/assets/pz` por `scripts/gerar-zumbis.mjs`).
+1. **Abertura (horda 3D):** noite de Knox County com os **zumbis e as animações originais do jogo** (`site/src/componentes/landing/horda/`, dados recortados de `projeto/assets/pz` por `scripts/gerar-zumbis.mjs`). Imersão: cada zumbi anda de um dos 4 jeitos do jogo (velocidade medida no próprio clip, sem pé patinando) e vira a cabeça para o ponteiro; sem ponteiro, a horda vaga; um zumbi bate no sedã abandonado do jogo e outro está caído e levanta quando o ponteiro chega; 2 golpes seguidos derrubam (z_death) e ele levanta de novo (z_getup); estrada, pinheiros, névoa baixa, lanterna que falha e farol do carro piscando; placas só com o título (a linha aparece no foco) e nunca uma por cima da outra.
    - Os zumbis seguem o mouse (ou o dedo), dão o bote quando alcançam e levam golpe no clique; a lanterna segue o ponteiro.
    - **Cada caminho é um zumbi** com a placa do tópico na cabeça: Tierlists, Comunidade, Discord, Guias, Shorts. A placa é um link de verdade (teclado e leitor de tela).
    - Carrega depois da página aparecer; sem WebGL, com movimento reduzido ou economia de dados: noite estática + cartões dos caminhos. Celular: palco embaixo do texto, menos zumbis.
    - Botões: Votar nas tierlists, Entrar no Discord.
 2. **Tierlists da comunidade:** as 3 oficiais com o placar ao vivo (S+, S, A) e o convite para sugerir.
-3. **Shorts recentes:** a capa de cada vídeo; o clique abre uma modal com o player e o **resumo do guia** (fatos de `info-validada/` com "✓ Conferido · build · ver fonte").
+3. **Shorts recentes:** a **capa oficial** de cada vídeo (`referencias/capas/oficiais/epNN.jpg` → WebP no build; sem capa oficial, a miniatura do YouTube); o clique abre uma modal com o player e o **resumo do guia** (fatos de `info-validada/` com "✓ Conferido · build · ver fonte").
 4. **O que você aprende:** cada tema abre uma modal com dicas diretas (fatos validados) e os vídeos do tema.
 - **Olhos no escuro:** pares de olhos aparecem nas margens enquanto a pessoa rola, piscam e somem (somem rápido se o ponteiro chegar perto). Discreto, só na landing.
 5. **Em alta na Comunidade:** 3 a 5 tópicos quentes, ao vivo. É o que mostra que o site tem gente.

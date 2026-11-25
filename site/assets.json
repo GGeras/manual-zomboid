@@ -1,5 +1,6 @@
 {
-  "_ajuda": "Lista curada de assets do jogo/canal que o site usa. O build copia só estes arquivos de projeto/assets para public/jogo (nunca a pasta inteira). Sons e músicas do jogo: proibidos no site (plataforma/site.md §2). Cenas: renders do pipeline do canal (modelos do jogo), em site/arte/. Modelos: arquivos do jogo de onde scripts/gerar-zumbis.mjs recorta os zumbis da abertura 3D (public/jogo/zumbis.json).",
+  "_ajuda": "Lista curada de assets do jogo/canal que o site usa. O build copia só estes arquivos de projeto/assets para public/jogo (nunca a pasta inteira). Sons e músicas do jogo: proibidos no site (plataforma/site.md §2). Cenas: renders do pipeline do canal (modelos do jogo), em site/arte/. Modelos: arquivos do jogo de onde scripts/gerar-zumbis.mjs recorta os zumbis da abertura 3D (public/jogo/zumbis.json). Capas: pasta das capas oficiais dos Shorts (epNN.jpg), viram public/jogo/capas/epNN-{360,720}.webp.",
+  "capas": "referencias/capas/oficiais",
   "logos": {
     "logo-horizontal": {
       "de": "projeto/assets/logo/logo-horizontal-3x1.png",
