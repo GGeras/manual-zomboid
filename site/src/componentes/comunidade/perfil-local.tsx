@@ -21,7 +21,7 @@ export function PerfilLocal({ usuario }: { usuario: string }) {
     <div className="mx-auto max-w-3xl px-3 pb-24 pt-8 sm:px-6">
       <header className="flex items-center gap-4 rounded-2xl border border-borda bg-chao p-5">
         <Avatar perfil={conta} tamanho={72} />
-        <div><h1 className="text-2xl font-black tracking-tight">{conta.usuario}</h1><p className="mt-1 text-sm text-apagado">Conta de teste (modo prévia), só neste navegador.</p></div>
+        <div><h1 className="text-2xl font-black tracking-tight">{conta.usuario}</h1><p className="mt-1 text-sm text-apagado">Conta só neste navegador.</p></div>
       </header>
       <PreferenciaVoto usuario={usuario} />
       <h2 className="mt-8 px-1 text-lg font-extrabold">Tópicos</h2>

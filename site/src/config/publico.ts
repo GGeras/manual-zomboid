@@ -14,7 +14,6 @@ export interface ConfigPublica {
 const cfg = json as unknown as ConfigPublica
 export const CONFIG = cfg
 export const SITE_URL = (cfg.site.url ?? 'https://manual-zomboid-site.mundomix.workers.dev').replace(/\/$/, '')
-export const REPO_URL = 'https://github.com/GGeras/manual-zomboid'
 
 export const youtube = {
   ativo: Boolean(cfg.youtube.canalId),
