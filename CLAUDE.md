@@ -54,6 +54,18 @@ Leia este arquivo inteiro, depois `README.md` e `COLABORACAO.md`, antes de qualq
 4. **Tela do jogo no vídeo = réplica fiel** de um print real (`referencias/telas-do-jogo/`), com textos de `nomes-ptbr.md`. Sem print, use ícone ou chip, nunca tela inventada.
 5. **Rascunho (prévia) antes do render final.** O Jose aprova a prévia.
 6. Respostas ao Jose: **poucas palavras, diretas, em blocos, em português.**
+7. **Faça só o que foi pedido.** Não invente regra, fluxo, etapa ou extra que o Jose não pediu. Pediu X, entregue X.
+8. **Render é SEMPRE pelo `.bat`** (`ferramentas/rodar.bat` ou o `.bat` do episódio, que chama o `rodar.bat`). Ele detecta o hardware de cada PC (NVIDIA/NVENC, placa integrada ou só processador) e ajusta os renders em paralelo. Não renderize chamando `build.py` direto nem fixe GPU/jobs na mão.
+9. **Capas:** padrão v5 em `canal/padrao-capas.md` (arte própria por vídeo, grupos de 3 em ordem de publicação).
+10. **Depois de cada trabalho:** atualize o repositório (CHANGELOG + docs do que mudou). Vídeo/capa já entregue nunca é sobrescrito: a versão anterior vai para `versoes/`.
+
+### Economia de tokens e voz
+- Render não gasta token: não fique checando, o sistema avisa quando termina.
+- Um chat por 1–2 vídeos; o contexto fica no repo.
+- Listar pasta grande do PC custa caro: peça arquivos pelo nome.
+- **Não peça o roteiro ao Jose:** está em `roteiros/epNN-*.md` e `projeto/epNN.ep.json`. O prompt do ElevenLabs é o campo `roteiro` do `epNN.ep.json`, com tags de emoção.
+- Voz: Jhony Tygas – Natural Mature, Eleven v4, velocidade 1.00, estabilidade 40–50, similaridade 75. **Não clonar a voz.** Provisória: Piper (`tts_rascunho.py`).
+- Música só entra com aprovação do Jose (`aprovadas.json`); Claude não ouve áudio.
 
 ## 5. Onde está cada coisa
 | pasta | conteúdo |
@@ -81,7 +93,7 @@ Leia este arquivo inteiro, depois `README.md` e `COLABORACAO.md`, antes de qualq
   py3 pipeline/build.py NN rascunho                       # prévia + inspeção
   py3 pipeline/build.py NN                                # final
   ```
-  O `env.sh` já entra em `projeto/`. Rode o final em segundo plano.
+  O `env.sh` já entra em `projeto/`. **Render (prévia e final) sempre pelo `.bat`** (regra 4.8): ele usa o hardware de cada um. Os comandos acima servem para voz e conferência; rode o final em segundo plano.
 - A saída vai para `projeto/out/` (ignorado pelo git). Depois de cada prévia ou final, faça a seção 8.
 
 ## 7. Antes de cada commit
