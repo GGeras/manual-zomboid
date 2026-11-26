@@ -162,7 +162,7 @@ function clipPose(h, name, f, loop = true, up = null, mix = null) { const c = MO
 // Dividido entre peito, pescoço e cabeça como no corpo de verdade; gira em volta do eixo vertical do mundo, no lugar de cada osso.
 const OLHAR = { Bip01_Spine1: .2, Bip01_Neck: .35, Bip01_Head: .45 };
 export function sync(h) { if (!h.g.visible) return; h.g.updateMatrixWorld(true); const { order, s } = h.pz;
-  if (h.clip) { clipPose(h, h.clip[0], h.clip[1], h.clip[2] !== false, h.clip[3], h.clip[4]); return; }
+  if (h.clip) { clipPose(h, h.clip[0], h.clip[1], h.clip[2] !== false, h.clip[3], h.clip[4]); h.posClip?.(h); return; }   // posClip (25/11): ajuste por cima da animação (empunhar.js)
   for (const b of order) { const par = b.parent, d = b.userData.drv;
     if (d) { d.D.matrixWorld.decompose(_p, _q, _s); _p.copy(d.off).applyMatrix4(d.D.matrixWorld); _q.multiply(d.A); _m.compose(_p, _q, _s.multiplyScalar(s));
       b.matrix.copy(_i.copy(par.matrixWorld).invert()).multiply(_m); b.matrix.decompose(b.position, b.quaternion, b.scale); b.matrixWorld.copy(_m); }
