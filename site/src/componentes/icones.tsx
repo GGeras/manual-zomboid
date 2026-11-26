@@ -48,3 +48,10 @@ export function Jogo({ nome, tamanho = 32, alt = '', className }: { nome: string
 export const Globo = (p: P) => <S {...p}><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z" /></S>
 export const Video = (p: P) => <S {...p}><rect x="3" y="6" width="13" height="12" rx="2.5" /><path d="m16 10.5 5-3v9l-5-3z" /></S>
 export const Rede = (p: P) => <S {...p}><circle cx="12" cy="12" r="3" /><path d="M12 3v3M12 18v3M3 12h3M18 12h3" /></S>
+
+/* Marcas das redes (traço simples, mesmo estilo dos ícones de interface) */
+export const YouTube = (p: P) => <S {...p}><rect x="2.5" y="5.5" width="19" height="13" rx="4" /><path d="M10 9.2v5.6l5-2.8z" fill="currentColor" stroke="none" /></S>
+export const Instagram = (p: P) => <S {...p}><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="3.9" /><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none" /></S>
+export const TikTok = (p: P) => <S {...p}><path d="M14.5 3v10.6a3.9 3.9 0 1 1-3.9-3.9M14.5 3c.3 2.7 2 4.5 4.8 4.8" /></S>
+export const Threads = (p: P) => <S {...p}><path d="M17.8 9.6C17 6.8 15 5.2 12 5.2c-3.7 0-6 2.7-6 6.8s2.3 6.8 6 6.8c3.1 0 5.1-1.6 5.1-3.9 0-2.4-2-3.6-4.6-3.6-1.7 0-3 .8-3 2.1s1.2 2.1 2.7 2.1c2.2 0 3.6-1.5 3.6-4.4v-.7" /></S>
+export const Facebook = (p: P) => <S {...p}><path d="M14.2 21v-7.6h2.6l.5-3.2h-3.1V8.4c0-.9.4-1.7 1.8-1.7h1.5V3.9c-.4 0-1.4-.2-2.6-.2-2.5 0-4.1 1.5-4.1 4.2v2.3H8v3.2h2.8V21z" /></S>
