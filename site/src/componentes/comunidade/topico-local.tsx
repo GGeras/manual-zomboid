@@ -16,7 +16,7 @@ export function TopicoLocal({ id }: { id: string }) {
   if (!t) return (
     <div className="mx-auto max-w-xl px-4 py-24 text-center">
       <p className="titulo text-4xl">Sumiu.</p>
-      <p className="mt-3 text-osso-2">No modo prévia, os tópicos ficam só no navegador onde foram criados.</p>
+      <p className="mt-3 text-osso-2">Este tópico fica só neste navegador.</p>
       <Link href="/comunidade" className="botao botao-contorno mt-6">Voltar para a Comunidade</Link>
     </div>
   )

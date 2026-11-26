@@ -39,7 +39,7 @@ export function TierlistLocal({ slug }: { slug: string }) {
         <span className="chip border-white/20 text-osso-2">Sugestão da comunidade · não verificada pelo canal</span>
         <h1 className="titulo mt-3 text-[clamp(2rem,5.5vw,3.2rem)]">{t.titulo}</h1>
         {t.descricao && <p className="mt-2 text-lg text-osso-2">{t.descricao}</p>}
-        <p className="mt-3 text-xs text-apagado">Modo prévia: esta sugestão existe só neste navegador.</p>
+        <p className="mt-3 text-xs text-apagado">Esta sugestão fica só neste navegador.</p>
       </header>
       <div className="mt-6"><QuadroTierlist t={t} votosServidor={[]} /></div>
       <ConversaTierlist slug={t.slug} servidor={[]} />

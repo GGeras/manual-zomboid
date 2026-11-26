@@ -133,7 +133,7 @@ export function DiscordSecao({ widget }: { widget: DiscordWidget | null }) {
               <p className="mt-5 max-w-lg text-lg leading-relaxed text-osso-2">Ache grupo para o multiplayer, mostre sua base, troque dicas e receba os vídeos novos primeiro.</p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 {discord.convite
-                  ? <a href={discord.convite} className="botao !min-h-[3.2rem] bg-[#5865F2] !px-6 text-base text-white hover:bg-[#6a76f6]"><Discord /> Entrar no Discord</a>
+                  ? <a href={discord.convite} target="_blank" rel="noopener" className="botao !min-h-[3.2rem] bg-[#5865F2] !px-6 text-base text-white hover:bg-[#6a76f6]"><Discord /> Entrar no Discord</a>
                   : <span className="botao !min-h-[3.2rem] cursor-default border border-dashed border-[#5865F2]/50 !px-6 text-base text-[#aab1ff]"><Discord /> Convite chegando</span>}
                 {widget && <span className="inline-flex items-center gap-2 text-sm font-semibold text-osso-2"><span className="size-2.5 rounded-full bg-vivo shadow-[0_0_12px] shadow-vivo" />{widget.online.toLocaleString('pt-BR')} online agora</span>}
               </div>

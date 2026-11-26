@@ -65,7 +65,7 @@ export function EditorTopico({ categoriaInicial, episodioInicial, episodios }: {
       router.push(`/comunidade/t/${id}`)
     } catch (x) {
       setEnviando(false)
-      setErro(x instanceof ErroEspaco ? 'No modo prévia o navegador guarda pouco. Tente com menos imagens.' : (x as Error).message || 'A conexão caiu como a energia no dia 7. Tente de novo.')
+      setErro(x instanceof ErroEspaco ? 'O navegador guarda pouco. Tente com menos imagens.' : (x as Error).message || 'A conexão caiu como a energia no dia 7. Tente de novo.')
     }
   }
 
