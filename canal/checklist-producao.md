@@ -39,7 +39,8 @@ Uma mensagem só, com todos os pontos: `EPNN · tempo · o que está errado · c
 
 1. Voz final recebida e tempos refeitos.
 2. Cada ponto da revisão conferido em foto.
-3. Depois do render: ler `inspecao/relatorio.txt` e olhar os trechos revisados no `video.mp4`.
+3. Antes do render final: rodar a inspeção e ler `inspecao/relatorio.txt`.
+4. Depois do render: olhar os trechos revisados no `video.mp4`.
 
 ## Economia nos ajustes
 
