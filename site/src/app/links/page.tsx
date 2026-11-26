@@ -39,7 +39,7 @@ export default function Links() {
         </div>
         <p className="hud mt-6 text-sangue cursor">Sobrevivente, escolha um caminho</p>
         <h1 className="titulo mt-3 text-[clamp(2.2rem,9vw,3.1rem)]">Manual <span className="text-sangue">Zomboid</span></h1>
-        <p className="mt-3 max-w-xs text-sm leading-relaxed text-osso-2">Dicas de Project Zomboid (Build 42) em 60 segundos. Cada dado conferido antes de virar vídeo.</p>
+        <p className="mt-3 max-w-xs text-sm leading-relaxed text-osso-2">Dicas de Project Zomboid (Build 42) em 60 segundos.</p>
 
         <ul className="mt-9 w-full space-y-3">
           {itens.map((i, n) => (
