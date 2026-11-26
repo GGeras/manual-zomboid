@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-26 · jose (Claude) · Regras dos EP23 e EP24 finais: doc 11 (seções 4.9 e 4.10), critérios de aceite e checklist; o código final desses episódios ainda não está no repo. Por quê: melhorar as próximas criações e ajustes de vídeo (pedido do Jose).
 - 2026-11-26 · jose (Claude) · Regras dos chats que não estavam no repo: capas v5 (`canal/padrao-capas.md` reescrito), render sempre pelo `.bat`, só o pedido, economia de tokens, voz/roteiro, atualizar repo após cada trabalho (`CLAUDE.md` 4.7–4.10). Por quê: o Jose repetia essas regras a cada chat.
 - 2026-11-25 · jose (Claude) · EP22 v8: machado na guarda de duas mãos do próprio jogo (parado, andar, correr, pisão); carregando peso com o machado baixo; na dor do braço o machado fica no chão; mão do remédio para nos lábios sem atravessar o rosto; voz final do ElevenLabs em `audio/n22.mp3` com tempos refeitos (≈38 s) e a cena do remédio encaixada na frase; `ferramentas/render-ep22-v8-final.bat`. Por quê: revisão do Jose (braços tortos, machado virado, mão dentro do rosto).
 - 2026-11-25 · jose (Claude) · EP22 v7 (prévia a renderizar): machado seguro pelo cabo, poste da rua movido, pia e rack da TV corretos, remédio em pé na mão com os pés no chão, criado-mudo inteiro, abajur com base, lixo reposicionado; `ferramentas/render-ep22-v7.bat`. Por quê: revisão do Jose (erros de animação e cenário).
