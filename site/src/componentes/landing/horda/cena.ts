@@ -208,7 +208,7 @@ export async function iniciarHorda(o: OpcoesHorda) {
   // barraca do jogo = 2 peças (frente com a entrada + fundo, no ladrilho de trás), ao lado da fogueira
   C.obj('camping_01_0', 6, 5); C.obj('camping_01_1', 6, 4); bloqueia(6, 4.5, 0.55, 1.05)
   // lenha do jogo = 2 peças também: toras (camping_01_24, atrás) + pontas cortadas (camping_01_25, na frente)
-  C.obj('camping_01_25', 0, 7); C.obj('camping_01_24', 0, 6); bloqueia(0, 6.5, 0.5, 1)
+  C.obj('camping_01_25', 1, 6); C.obj('camping_01_24', 0, 6); bloqueia(0.5, 6, 1, 0.5)
   C.obj('camping_01_4', FOGO.x, FOGO.z, { h: 0.12 }); bloqueia(FOGO.x, FOGO.z, 0.45, 0.45)
   const fogo = new THREE.PointLight('#ff7a2e', 16, 7.5, 1.6); fogo.position.set(FOGO.x, 0.5, FOGO.z); mundo.add(fogo)
   const chamaTex = brilho('rgba(255,150,60,1)')
