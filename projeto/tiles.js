@@ -11,6 +11,7 @@ const K = Math.SQRT2 / 128;                                 // unidades de mundo
 const D = new THREE.Vector3(1, .82, 1).normalize();         // = DIR do engine.js
 const RT = new THREE.Vector3(1, 0, -1).normalize();         // direita da tela
 const UP = new THREE.Vector3(0, 1, 0).addScaledVector(D, -D.y).normalize();   // cima da tela
+export const PX_Y = K / UP.y;                                // altura de mundo de 1 px vertical do sprite
 export const WALL_H = 192 * K / UP.y;                       // altura de uma parede do jogo (≈2,45)
 const MATS = [], PEND = []; window.__TILES = PEND;
 const TEX = {}, MAT = {}; window.__TILE_NAMES = () => Object.keys(TEX);   // lista dos sprites usados (pipeline/pz/tiles_usados.mjs)

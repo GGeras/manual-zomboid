@@ -2,7 +2,7 @@
 // Regra do canal (revisão 2026-11-20): lugar nunca vazio — rua com casas, árvores, grama e postes; casa com móveis e eletrodomésticos;
 // fazenda com cercados, feno e cocho. Cada função devolve { C (cena), pontos úteis }. Chame .show() na cena do episódio.
 import { THREE, PZ, prop, box, mat, U } from './engine.js';
-import { cena, tileLuz, WALL_H } from './tiles.js';
+import { cena, tileLuz, WALL_H, PX_Y } from './tiles.js';
 export { tileLuz, WALL_H };
 const { R, clamp, lerp, T } = U;
 const n4 = (p, ids) => ids.map(i => p + i);
@@ -34,7 +34,7 @@ export function arvore(C, i, j, est = 'verao', k = 0) { if (est === 'inverno') r
 
 // ---------- RUA DE BAIRRO (EP18): estação = 'verao' | 'inverno' | 'chuva' | 'calor' (verão de seca: grama queimada, asfalto desbotado, sombras duras) ----------
 // estrada ao longo de x nas linhas j = 0..1, calçadas j = -1 e j = 2, jardins e duas casas ao fundo, grama, árvores e postes na frente.
-export function rua(x0, z0, est = 'verao') {
+export function rua(x0, z0, est = 'verao', o = {}) {   // o.postes = posição dos postes (EP22: o da calçada da frente passava na frente do personagem)
   const C = cena(x0, z0), inv = est === 'inverno', chu = est === 'chuva', cal = est === 'calor';
   const gr = inv ? PISO.neve : PISO.grama, tA = inv ? '#e9eef6' : chu ? '#a9b2bc' : cal ? '#efe4cf' : null, tR = inv ? '#d8dde6' : cal ? '#fff4e2' : null;
   C.chao(gr, -16, -14, 16, 12, { seed: 3, tint: cal ? '#f2cf7e' : null });   // calor: grama do jogo queimada pelo sol (tinta amarelada)
@@ -57,7 +57,7 @@ export function rua(x0, z0, est = 'verao') {
   [[-10, -4], [-3, -4], [3, -4], [9, -4], [cal ? 12 : -3, cal ? 6 : 4], [3, 4], [10, 3], [-12, 4]].forEach(([i, j], k) => C.obj(ar[k % ar.length], i, j, { w: .6, d: .6 }));
   if (!inv) [[-1, 6], [5, 9], [-6, 8]].forEach(([i, j], k) => C.obj('f_bushes_1_' + (64 + k * 3), i, j, { w: .5, d: .5 }));
   // postes de rua na calçada
-  [[-9, 2], [6, 2]].forEach(([i, j]) => C.obj('lighting_outdoor_01_1', i, j, { w: .3, d: .3 }));
+  (o.postes ?? [[-9, 2], [6, 2]]).forEach(([i, j]) => C.obj('lighting_outdoor_01_1', i, j, { w: .3, d: .3 }));
   if (!cal) C.obj('street_decoration_01_0', -4, 2, { w: .5, d: .5 });   // calor: sem a placa (ficava atrás dos textos)
   // carro estacionado (modelo original do jogo)
   const car = PZ.vehicle('normal', inv ? '#5a6f8a' : '#7a1f1c'); car.position.set(-11, 0, 1.15); car.scale.setScalar(1); C.G.add(car);
@@ -113,7 +113,8 @@ export function casaDentro(x0, z0, o = {}) {
   const livreN = i => i === winN || i === win2;
   [[6, 'fixtures_counters_01_45'], [7, 'fixtures_counters_01_45'], [8, 'appliances_cooking_01_13'], [9, 'appliances_refrigeration_01_1']].forEach(([i, n]) => {
     if (!livreN(i)) C.obj(n, i, 0, n.includes('refrigeration') ? { w: .85, d: .85 } : {}); });
-  if (!livreN(6)) C.obj('fixtures_sinks_01_1', 6, 0, { w: .6, d: .6, h: 1.05 });
+  // o.pia = sprite de pia DE BANCADA (mesmo ladrilho e mesma âncora da bancada: assenta no tampo como no jogo; EP22, 25/11 — a _1 é pia de banheiro e sobrava para fora)
+  if (!livreN(6)) { if (o.pia) C.obj(o.pia, 6, 0, { w: .96, d: .96 }); else C.obj('fixtures_sinks_01_1', 6, 0, { w: .6, d: .6, h: 1.05 }); }
   // mesa da cozinha com cadeiras viradas PARA a mesa (ao sul da mesa = frente N; a leste = frente W)
   C.obj('furniture_tables_high_01_29', 7, 4); C.obj('furniture_seating_indoor_01_58', 7, 5); C.obj('furniture_seating_indoor_01_59', 8, 4);   // mesa de 1 ladrilho INTEIRA (a _8 era só um canto: ficava cortada)
   // sala: estante e cômoda na parede N (frente S), TV na parede N, duas poltronas na parede W (frente E), abajur, planta, tapete
@@ -121,7 +122,9 @@ export function casaDentro(x0, z0, o = {}) {
   // vaso de planta EM CIMA da cômoda (mesmo ladrilho, caixa um pouco maior: não briga com a da cômoda) — antes flutuava ao lado dela
   if (!o.janelaLivre && !livreN(1)) C.obj('vegetation_indoor_01_0', 1, 0, { w: .96, d: .96 });
   // TV em cima de uma mesinha (no chão ela parecia caída)
-  if (!livreN(5)) { const TV = C.obj('furniture_tables_high_01_12', 5, 0, { w: .8, d: .8 }); C.obj('appliances_television_01_1', 5, 0, { w: .7, d: .7, dy: TV.userData.h * .86 }); }
+  // o.rackTV = TV no rack do jogo (EP22, 25/11): a TV já é desenhada na altura de apoio; só sobe 7 px do desenho para assentar no meio do tampo
+  if (!livreN(5)) { if (o.rackTV) { C.obj('furniture_tables_low_01_13', 5, 0, { w: .96, d: .96 }); C.obj('appliances_television_01_1', 5, 0, { w: .96, d: .96, dy: 7 * PX_Y }); }
+    else { const TV = C.obj('furniture_tables_high_01_12', 5, 0, { w: .8, d: .8 }); C.obj('appliances_television_01_1', 5, 0, { w: .7, d: .7, dy: TV.userData.h * .86 }); } }
   if (!o.completa) C.placa('lighting_indoor_01_on_58', 0, 2, { fz: .2, solida: true });   // 25/11: abajur de pé = placa (sprite inteiro); antes era o interruptor (lighting_indoor_01_0) em pé no chão
   [4, 5].forEach(j => { if (j !== winW) C.obj('furniture_seating_indoor_01_8', 0, j); });
   let poltrona = null;
@@ -375,7 +378,9 @@ export function quarto(x0, z0, o = {}) {
   // o.sacos (EP25, 25/11): sem cama de verdade — quarto triste com sacos de dormir no chão (o chamador põe os sacos)
   const PE = o.sacos ? { sobrepor() {}, userData: { h: .1 } } : C.obj(CPE, 2, 1, { d: 1.0, dz: -.03 }), colchao = PE.userData.h, CAMA = o.sacos ? { sobrepor() {} } : C.assento(CBC, 2, 0, { encosto: 'N', hs: colchao, d: 1.0, dz: .05 });
   C.obj('furniture_storage_02_33', 5, 0, { w: .9, d: .7 });                 // guarda-roupa encostado na parede N (frente S)
-  C.placa('lighting_indoor_01_on_58', 1, 0, { fz: .2, solida: true });                    // abajur de pé ao lado da cabeceira (placa: sprite inteiro)
+  // abajur de pé ao lado da cabeceira (placa: sprite inteiro). o.abajurAceso (EP22, 25/11): como no jogo — peça sólida (_58) + camada de luz (_on_58) por cima
+  if (o.abajurAceso) { C.placa('lighting_indoor_01_58', 1, 0, { fz: .2 }); C.placa('lighting_indoor_01_on_58', 1, 0, { fz: .21, op: .999 }); }
+  else C.placa('lighting_indoor_01_on_58', 1, 0, { fz: .2, solida: true });
   const CAD = C.assento('furniture_seating_indoor_01_57', 5, 3, { encosto: 'N', hs: .486 }); if (o.semCadeira) CAD.visible = false;   // cadeira solta no meio do quarto (EP22/24): some   // cadeira (frente S) — Bob_SatChair: nádega a 0,486
   const cama = { sobrepor: on => { CAMA.sobrepor(on); PE.sobrepor(on); } };
   return { C, at: C.at, cama, cadeira: CAD, porta: PORTA, colchao };
