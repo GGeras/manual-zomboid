@@ -6,13 +6,14 @@ export interface ConfigPublica {
   site: { url: T; dominioImagens: T }
   youtube: { canalId: T; handle: T }
   discord: { servidorId: T; convite: T; appId?: T; canais?: Partial<Record<'jogarJunto' | 'dicas' | 'bases' | 'regras', string>> }
+  redes: { instagram: T; tiktok: T; facebook: T }
   comunidade: { supabaseUrl: T; supabaseChavePublica: T; turnstileSiteKey: T }
   central: { supabaseUrl: string; supabaseChavePublica: string }
   legal: { emailContato: T; idadeMinima: number | null }
 }
 const cfg = json as unknown as ConfigPublica
 export const CONFIG = cfg
-export const SITE_URL = cfg.site.url ?? 'https://manual-zomboid-site.mundomix.workers.dev'
+export const SITE_URL = (cfg.site.url ?? 'https://manual-zomboid-site.mundomix.workers.dev').replace(/\/$/, '')
 export const REPO_URL = 'https://github.com/GGeras/manual-zomboid'
 
 export const youtube = {
@@ -20,6 +21,12 @@ export const youtube = {
   canalUrl: cfg.youtube.handle ? `https://www.youtube.com/@${cfg.youtube.handle.replace(/^@/, '')}` : cfg.youtube.canalId ? `https://www.youtube.com/channel/${cfg.youtube.canalId}` : null,
   shortsUrl: cfg.youtube.canalId ? `https://www.youtube.com/channel/${cfg.youtube.canalId}/shorts` : null,
   rss: cfg.youtube.canalId ? `https://www.youtube.com/feeds/videos.xml?channel_id=${cfg.youtube.canalId}` : null,
+}
+/** Perfis nas redes (só URL completa; null = não aparece em /links nem no rodapé). */
+export const redes = {
+  instagram: cfg.redes?.instagram ?? null,
+  tiktok: cfg.redes?.tiktok ?? null,
+  facebook: cfg.redes?.facebook ?? null,
 }
 export const discord = {
   ativo: Boolean(cfg.discord.convite),

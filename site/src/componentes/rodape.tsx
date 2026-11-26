@@ -1,10 +1,14 @@
 import Link from 'next/link'
-import { discord, REPO_URL, youtube } from '@/config/publico'
+import { discord, redes as perfis, REPO_URL, youtube } from '@/config/publico'
 
 export function Rodape() {
   const redes = [
     youtube.canalUrl && { href: youtube.canalUrl, rotulo: 'YouTube' },
     discord.convite && { href: discord.convite, rotulo: 'Discord' },
+    perfis.instagram && { href: perfis.instagram, rotulo: 'Instagram' },
+    perfis.tiktok && { href: perfis.tiktok, rotulo: 'TikTok' },
+    perfis.facebook && { href: perfis.facebook, rotulo: 'Facebook' },
+    { href: '/links', rotulo: 'Todos os links' },
     { href: '/rss.xml', rotulo: 'RSS dos guias' },
   ].filter(Boolean) as { href: string; rotulo: string }[]
   return (
