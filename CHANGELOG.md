@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-26 · claude · `/links`: removida a frase "Cada dado conferido antes de virar vídeo".
 - 2026-11-26 · claude · `/links` imersiva: ícones das redes, cartões com a cor de cada rede, neblina, grão, vinheta e lanterna que segue o ponteiro.
 - 2026-11-26 · claude · Redes em `/links` e no rodapé (Instagram, TikTok, Threads, Facebook página); Central ganha rota `central.manualzomboid.site` (o endereço workers.dev segue valendo).
 - 2026-11-26 · claude · Domínio `manualzomboid.site` ligado ao site (`site.url`, rota do Worker); nova página `/links` (estilo linktree: site, YouTube, Discord; Instagram/TikTok/Facebook entram ao preencher `redes` em `config.publico.json`); sem link da Central. Comunidade (modo prévia) fora do robots/sitemap até abrir.
