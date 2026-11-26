@@ -6,7 +6,7 @@ export interface ConfigPublica {
   site: { url: T; dominioImagens: T }
   youtube: { canalId: T; handle: T }
   discord: { servidorId: T; convite: T; appId?: T; canais?: Partial<Record<'jogarJunto' | 'dicas' | 'bases' | 'regras', string>> }
-  redes: { instagram: T; tiktok: T; facebook: T }
+  redes: { instagram: T; tiktok: T; threads: T; facebook: T }
   comunidade: { supabaseUrl: T; supabaseChavePublica: T; turnstileSiteKey: T }
   central: { supabaseUrl: string; supabaseChavePublica: string }
   legal: { emailContato: T; idadeMinima: number | null }
@@ -26,6 +26,7 @@ export const youtube = {
 export const redes = {
   instagram: cfg.redes?.instagram ?? null,
   tiktok: cfg.redes?.tiktok ?? null,
+  threads: cfg.redes?.threads ?? null,
   facebook: cfg.redes?.facebook ?? null,
 }
 export const discord = {

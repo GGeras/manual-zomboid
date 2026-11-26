@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-26 · claude · Redes em `/links` e no rodapé (Instagram, TikTok, Threads, Facebook página); Central ganha rota `central.manualzomboid.site` (o endereço workers.dev segue valendo).
 - 2026-11-26 · claude · Domínio `manualzomboid.site` ligado ao site (`site.url`, rota do Worker); nova página `/links` (estilo linktree: site, YouTube, Discord; Instagram/TikTok/Facebook entram ao preencher `redes` em `config.publico.json`); sem link da Central. Comunidade (modo prévia) fora do robots/sitemap até abrir.
 - 2026-11-26 · jose (Claude) · Regras dos EP23 e EP24 finais: doc 11 (seções 4.9 e 4.10), critérios de aceite e checklist; o código final desses episódios ainda não está no repo. Por quê: melhorar as próximas criações e ajustes de vídeo (pedido do Jose).
 - 2026-11-26 · jose (Claude) · Regras dos chats que não estavam no repo: capas v5 (`canal/padrao-capas.md` reescrito), render sempre pelo `.bat`, só o pedido, economia de tokens, voz/roteiro, atualizar repo após cada trabalho (`CLAUDE.md` 4.7–4.10). Por quê: o Jose repetia essas regras a cada chat.

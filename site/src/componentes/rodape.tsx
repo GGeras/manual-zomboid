@@ -7,6 +7,7 @@ export function Rodape() {
     discord.convite && { href: discord.convite, rotulo: 'Discord' },
     perfis.instagram && { href: perfis.instagram, rotulo: 'Instagram' },
     perfis.tiktok && { href: perfis.tiktok, rotulo: 'TikTok' },
+    perfis.threads && { href: perfis.threads, rotulo: 'Threads' },
     perfis.facebook && { href: perfis.facebook, rotulo: 'Facebook' },
     { href: '/links', rotulo: 'Todos os links' },
     { href: '/rss.xml', rotulo: 'RSS dos guias' },

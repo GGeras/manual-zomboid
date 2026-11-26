@@ -18,6 +18,7 @@ export default function Links() {
     discord.convite && { href: discord.convite, rotulo: 'Discord', sub: 'Entre no servidor e jogue junto', icone: <Discord />, externo: true },
     redes.instagram && { href: redes.instagram, rotulo: 'Instagram', sub: 'Reels do canal', icone: <Rede />, externo: true },
     redes.tiktok && { href: redes.tiktok, rotulo: 'TikTok', sub: 'Os Shorts também aqui', icone: <Rede />, externo: true },
+    redes.threads && { href: redes.threads, rotulo: 'Threads', sub: 'Conversa e novidades', icone: <Rede />, externo: true },
     redes.facebook && { href: redes.facebook, rotulo: 'Facebook', sub: 'Reels e novidades', icone: <Rede />, externo: true },
   ].filter(Boolean) as Item[]
   return (

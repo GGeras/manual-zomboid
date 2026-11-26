@@ -128,7 +128,7 @@ O site já está no ar em modo prévia: https://manual-zomboid-site.mundomix.wor
 | `youtube.canalId` ✅, `youtube.handle` | §5 | Shorts com a capa de cada vídeo e a modal com o resumo conferido |
 | `discord.convite`, `discord.servidorId` ✅ | §6.1 | botão "Entrar no Discord", contador de online (widget) e o zumbi "Discord" da abertura |
 | `discord.canais.*`, `discord.appId` ✅ | §6.1, §6.3 | atalhos para Jogar junto, Dicas e truques, Bases e Regras |
-| `redes.instagram`, `redes.tiktok`, `redes.facebook` | — | URL completa do perfil: aparece em `/links` e no rodapé (vazio = escondido) |
+| `redes.instagram`, `redes.tiktok`, `redes.threads`, `redes.facebook` | — | URL completa do perfil: aparece em `/links` e no rodapé (vazio = escondido) |
 | `site.url` ✅ (`https://manualzomboid.site`), `site.dominioImagens` | §7 | domínio, SEO liberado (hoje o `robots` bloqueia indexação) e `img.<dominio>` |
 | `comunidade.supabaseUrl`, `comunidade.supabaseChavePublica` | §8 | sai do modo prévia: contas, posts, votos e **tierlists** de verdade |
 | `comunidade.turnstileSiteKey` | §8 | anti-spam no cadastro e no 1º post |
