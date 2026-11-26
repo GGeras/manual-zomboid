@@ -9,6 +9,8 @@
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
   "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "manual-zomboid-site" }],
+  // Domínio próprio (S4): o deploy liga manualzomboid.site ao Worker (a zona precisa estar na mesma conta Cloudflare).
+  "routes": [{ "pattern": "manualzomboid.site", "custom_domain": true }],
   "observability": { "enabled": true }
   // S4: "r2_buckets": [{ "binding": "IMAGENS", "bucket_name": "manual-zomboid-imagens" }]
 }
