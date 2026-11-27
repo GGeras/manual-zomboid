@@ -49,14 +49,21 @@ O site tem três partes, e cada uma tem uma função.
 Prévia no ar, prints de celular e desktop, Lighthouse anexado, PR com o que + por quê e a lista do que depende de chave.
 
 ## 3. Landing (estrutura)
-1. **Abertura imersiva:** cena noturna 3D (neblina, lanterna, zumbis do jogo ao fundo, `PZ.SOBREVIVENTE` em primeiro plano). Botões: Assistir, Entrar no Discord.
-2. **Shorts recentes:** carrossel vertical, cada vídeo carrega só quando aparece na tela.
-3. **O que você aprende:** temas em cards estilo moodle/HUD.
-4. **Em alta na Comunidade:** 3 a 5 tópicos quentes, ao vivo. É o que mostra que o site tem gente.
-5. **Guias:** os últimos posts oficiais, com o vídeo no topo.
-6. **Discord:** convite, widget e regras.
-7. **Atualizações do Zomboid:** só as notícias aprovadas na Central, cada uma com build e fonte.
-8. **Rodapé:** redes, contato, termos, privacidade e "Canal de fã, sem ligação com a The Indie Stone."
+Quem chega no site vem do Instagram, Facebook, TikTok ou YouTube: **não repetir "assista os Shorts"** no topo (decisão de 25/11). O topo mostra o que só existe aqui.
+1. **Abertura (rua de Knox County):** entra com um **preloader** (`landing/preloader.tsx`: progresso real da carga, botão Pular, some sozinho se travar). a tela inteira é a cena, sem texto por cima (título, botões e números ficam no bloco logo abaixo, `#recado`). **Câmera do jogo** (isométrica 2:1, 30°, a mesma do pipeline dos vídeos) e rua montada com os **sprites originais do jogo** (`projeto/assets/tiles`: grama, asfalto, calçada, 2 casas com janela/caixilho/cortina/porta, cercas, árvores, arbustos, postes, PARE, hidrante, caixas de correio, caçamba, lixo, sangue no chão, acampamento) + **zumbis, sedã e picape originais** (3D, `scripts/gerar-zumbis.mjs` recorta de `projeto/assets/pz`). Noite no tom da arte da tela de título do jogo (`media/ui/Title*.png`): quase preto, poças de luz âmbar (lanterna no ponteiro, postes, janela acesa com a cortina iluminada por dentro, fogueira, farol da picape), chuva fina, sombras da lua e, de vez em quando, o clarão frio do relâmpago (`Title_lightning`). Peças que dependem de outras ficam juntas: luz no globo do poste (medido no sprite), poste torto com a lâmpada junto, picape com a frente no poste, chamas na lenha da fogueira. Zumbis: 4 andares do jogo, cabeça segue o ponteiro, horda vaga, um bate no sedã, um caído levanta, um corpo na calçada, 2 golpes derrubam e ele levanta; ninguém atravessa casa, carro ou poste; **cerca baixa os zumbis pulam** (mesma sequência da janela no jogo: apoia, passa por cima, cai e levanta), menos os zumbis-tópico. Árvores e postes em 3D (`horda/objetos3d.ts`, cores tiradas dos sprites do jogo), telhado de 4 águas com beiral e chaminé, pilar do jogo nas quinas e batente na porta; barraca e lenha de 2 peças; caixa 3D de cada sprite medida no gerador para nenhum desenho sair cortado. Placas só com o título e sem sobreposição. Código: `site/src/componentes/landing/horda/` (`cena.ts`, `tiles-leve.ts`, `pz-leve.ts`).
+   - Os zumbis seguem o mouse (ou o dedo), dão o bote quando alcançam e levam golpe no clique; a lanterna segue o ponteiro.
+   - **Cada caminho é um zumbi** com a placa do tópico na cabeça: Tierlists, Comunidade, Discord, Guias, Shorts. A placa é um link de verdade (teclado e leitor de tela).
+   - Carrega depois da página aparecer; sem WebGL, com movimento reduzido ou economia de dados: noite estática + cartões dos caminhos. Celular: palco embaixo do texto, menos zumbis.
+   - Botões: Votar nas tierlists, Entrar no Discord.
+2. **Tierlists da comunidade:** as 3 oficiais com o placar ao vivo (S+, S, A) e o convite para sugerir.
+3. **Shorts recentes:** a **capa oficial** de cada vídeo (`referencias/capas/oficiais/epNN.jpg` → WebP no build; sem capa oficial, a miniatura do YouTube); o clique abre uma modal com o player e o **resumo do guia** (fatos de `info-validada/` com "✓ Conferido · build · ver fonte").
+4. **O que você aprende:** cada tema abre uma modal com dicas diretas (fatos validados) e os vídeos do tema.
+- **Olhos no escuro:** pares de olhos aparecem nas margens enquanto a pessoa rola, piscam e somem (somem rápido se o ponteiro chegar perto). Discreto, só na landing.
+5. **Em alta na Comunidade:** 3 a 5 tópicos quentes, ao vivo. É o que mostra que o site tem gente.
+6. **Guias:** os últimos posts oficiais, com o vídeo no topo.
+7. **Discord:** convite, widget, atalhos dos canais (Jogar junto, Dicas e truques, Bases, Regras) e regras.
+8. **Atualizações do Zomboid:** só as notícias aprovadas na Central, cada uma com build e fonte.
+9. **Rodapé:** redes, contato, termos, privacidade e "Canal de fã, sem ligação com a The Indie Stone."
 
 ## 4. Comunidade — produto
 ### Princípios (o que faz as pessoas usarem)
@@ -90,6 +97,18 @@ Prévia no ar, prints de celular e desktop, Lighthouse anexado, PR com o que + p
 | **Denunciar** | botão em todo post, com motivo. 3 denúncias escondem o post até um moderador ver |
 | **Links** | link do YouTube vira player leve; link da Steam ou do Workshop vira cartão |
 | **SEO** | cada tópico é uma página real (renderizada no servidor), com imagem de compartilhamento própria. Perguntas do Google trazem gente |
+
+### Tierlists (etapa S4b)
+Votação do jogo em formato tierlist (S+ · S · A · B · C · D): visual, fácil de entender e dá vontade de participar.
+| recurso | como funciona |
+|---|---|
+| **Oficiais do canal** | 3 por enquanto: melhor arma corpo a corpo, melhor mochila, traços que valem os pontos. Itens = nomes de `info-validada/nomes-ptbr.md` (Regra nº 1) |
+| **Voto** | por item, de S+ a D; sem data limite; a média decide a linha. Ler não precisa de conta; votar precisa |
+| **Anônimo ou com nome** | escolhido a cada voto. No 1º voto a pessoa escolhe o padrão (sempre anônimo, sempre com nome ou perguntar); muda quando quiser no perfil, com opção de aplicar aos votos antigos |
+| **Quem votou** | só para quem está logado: nomes por tier + "N votos anônimos". Voto anônimo nunca expõe o usuário (nem no banco: a tabela só mostra os próprios votos) |
+| **Comentários** | estilo rede social: comentar, responder (2 níveis), Brabo 👊 |
+| **Sugestões** | qualquer pessoa sugere uma tierlist nova (título + 2 a 30 itens). A sugestão também é votada (tiers + Brabo). Selo "da comunidade, não verificada pelo canal". As mais apoiadas viram oficiais (nomes conferidos antes) |
+| **Banco** | `site/supabase/migrations/20261125000000_tierlists.sql` (tabelas, RLS, views `tierlist_placar` e `tierlist_votantes`, funções de voto) |
 
 ### Fica para a v2 (etapa S5)
 - Sino de notificações em tempo real.

@@ -1,5 +1,5 @@
 {
- "_ajuda": "Preencha e rode: python3 pipeline/build.py 25   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 28   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
  "num": "28",
  "nome": "Tédio e Tristeza",
  "vo": "audio/n28.mp3",
@@ -17,6 +17,30 @@
    -14
   ],
   [
+   "zombierand1",
+   {
+    "c": 0,
+    "k": 0.3
+   },
+   -22
+  ],
+  [
+   "PZ_WoodFoot_01",
+   {
+    "c": 1,
+    "dt": 0.2
+   },
+   -18
+  ],
+  [
+   "BH_MalePlayer_SubtleBoredSigh_02",
+   {
+    "c": 1,
+    "k": 0.6
+   },
+   -15
+  ],
+  [
    "BH_MalePlayer_SubtleSadSigh_01",
    {
     "f": 2,
@@ -25,10 +49,65 @@
    -14
   ],
   [
+   "ambientOutsideCricketsNight",
+   {
+    "c": 2
+   },
+   -24
+  ],
+  [
+   "player_reading_book_open_01",
+   {
+    "c": 3,
+    "dt": 0.2
+   },
+   -16
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "c": 3,
+    "k": 0.55
+   },
+   -16
+  ],
+  [
+   "campfire",
+   {
+    "c": 4
+   },
+   -19
+  ],
+  [
    "PZ_Eating",
    {
-    "f": 4,
-    "dt": 0.4
+    "c": 4,
+    "k": 0.56
+   },
+   -15
+  ],
+  [
+   "player_use_lighter_01",
+   {
+    "c": 5,
+    "dt": 0.3
+   },
+   -16
+  ],
+  [
+   "PZ_Swallowing",
+   {
+    "c": 5,
+    "k": 0.42,
+    "dt": 1.93
+   },
+   -14
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "c": 6,
+    "dt": 0.6
    },
    -16
   ],

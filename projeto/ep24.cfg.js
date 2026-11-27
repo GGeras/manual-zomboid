@@ -6,7 +6,7 @@ window.EP = {
   itens: ["Item_PillsBetablocker", "Item_Book", "Item_ComicBook", "Item_Magazine", "Item_Cigarette", "trait_brave", "trait_cowardly", "trait_desensitized", "trait_agoraphobic", "trait_claustrophobic"],
   OFF: 1.3,
   luz: { padrao: 'exterior-dia', 3: 'interior-noite', 4: 'interior-tarde', 5: 'interior-tarde', 6: 'interior-tarde' },
-  T: [0.0, 8.06, 20.86, 34.41, 46.33, 55.48, 65.81, 73.76, 86.8, 99.69], END: 103.12,
+  T: [0.0, 7.15, 17.92, 30.31, 41.18, 49.89, 59.64, 66.67, 85.82, 101.85], END: 104.76, cauda: 99,   // v5: final de tiros mais longo (câmera lenta + recarga) depois da última fala
   scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6, lab: LAB }, { at: 7, lab: LAB }, { at: 8, lab: LAB }, { at: 9 }],
   titles: [
     { i: 0, a: "Mão treme,", b: "tiro torto", aSize: 110, size: 128 },
@@ -30,7 +30,7 @@ window.EP = {
       .tr img{width:110px;height:110px;margin-left:22px;image-rendering:pixelated}.tr .nm{font:800 40px/1.1 var(--mono);color:${B}}.tr .ds{font:700 24px/1.2 var(--mono);color:#b9b29c;margin-top:6px}
       .tr .pt{font:900 54px/1.2 var(--mono);text-align:center;white-space:nowrap}`, document.head);
     const card = (k, ic, nm, ds, pts, at, end, top) => { const col = pts > 0 ? G : pts < 0 ? RD : B, sg = pts > 0 ? '+' + pts : pts < 0 ? '−' + (-pts) : '0';
-      const e = el('div', 'tr', `<img src="assets/items/${ic}.png"><div><div class="nm">${nm}</div><div class="ds">${ds}</div></div><div class="pt" style="color:${col}">${sg}</div>`, H.sc(k), `top:${top}px;border-color:${col}`); e.id = nid('tr');
+      const e = el('div', 'tr ins', `<img src="assets/items/${ic}.png"><div><div class="nm">${nm}</div><div class="ds">${ds}</div></div><div class="pt" style="color:${col}">${sg}</div>`, H.sc(k), `top:${top}px;border-color:${col}`); e.id = nid('tr');
       M.enter('#' + e.id, { at, frames: 10, ease: 'snapSettle', from: { x: -60, opacity: 0 } }); if (end != null) M.hide('#' + e.id, end); };
     const mood = (k, ic, tg, at, off, left = 840, ok = false, top = 560) => { const id = H.moodle(k, ic, tg, at, ok, off, top), m = document.getElementById(id); m.style.left = left + 'px'; m.nextElementSibling.style.left = (left - 35) + 'px'; return id; };
     // 0 — tiros errados
@@ -47,7 +47,9 @@ window.EP = {
     mood(2, 'pz:Mood_Panicked', "PÂNICO", P(2, 0.06), null, 840, false);
     mood(2, 'pz:Mood_Sleepy', "CANSAÇO", P(2, 0.14), null, 600, false);
     tag(2, "PONTARIA RUIM = ERRA MAIS", RD, P(2, 0.24), P(2, 0.56), 800, 34);
-    tag(2, "CORPO A CORPO: FORÇA E PRECISÃO ↓", RD, P(2, 0.60), null, 800, 30);
+    tag(2, "3º TIRO: ACERTOU", G, P(2, 0.38), P(2, 0.56), 560, 32);   // v6: no tiro que derruba o zumbi
+    tag(2, "CORPO A CORPO: FORÇA E PRECISÃO ↓", RD, P(2, 0.60), P(2, 0.80), 800, 30);
+    tag(2, "GOLPE FRACO: ELE NÃO CAI", RD, P(2, 0.80), null, 800, 34);   // v6: junto do 1º golpe do taco (ritmo + leitura sem som)
     // 3 — estresse
     mood(3, 'pz:Mood_Stressed', "TENSÃO", P(3, 0.10), P(3, 0.20), 840, false);
     mood(3, 'pz:Mood_Stressed', "AGITAÇÃO", P(3, 0.20), P(3, 0.28), 840, false);
@@ -67,18 +69,22 @@ window.EP = {
     tag(6, "FUMOU: ESTRESSE ↓ · TRISTEZA ↓", G, P(6, 0.30), P(6, 0.62), 800, 34);
     tag(6, "SEM CIGARRO: TRISTEZA ↑", RD, P(6, 0.62), null, 800, 34);
     // 7 — Corajoso / Covarde / Dessensibilização (ícone + pontos)
-    card(7, 'trait_brave', 'Corajoso', 'menos pânico', -4, P(7, 0.06), null, 560);
+    card(7, 'trait_brave', 'Corajoso', 'menos pânico', -4, P(7, 0.06), P(7, 0.72), 560);
+    tag(7, "CORAJOSO: MIRA FIRME", G, P(7, 0.20), P(7, 0.38), 905, 36);   // v6: ritmo
     card(7, 'trait_cowardly', 'Covarde', 'muito mais pânico', 2, P(7, 0.38), null, 730);
-    card(7, 'trait_desensitized', 'Dessensibilização', 'vem com o Veterano', 0, P(7, 0.72), null, 900);
-    tag(7, "CORAJOSO > COVARDE", G, P(7, 0.46), P(7, 0.72), 1080, 36);
-    tag(7, "VEM COM O VETERANO", Y, P(7, 0.80), null, 1080, 36);
+    card(7, 'trait_desensitized', 'Dessensibilização', 'vem com o Veterano', 0, P(7, 0.72), null, 560);   // v6: no lugar do Corajoso (em 900 cobria o personagem)
+    tag(7, "CORAJOSO > COVARDE", G, P(7, 0.46), P(7, 0.72), 905, 36);
+    tag(7, "VEM COM O VETERANO", Y, P(7, 0.80), null, 905, 36);
     // 8 — Agorafóbico / Claustrofóbico
-    card(8, 'trait_agoraphobic', 'Agorafóbico', 'pânico ao ar livre', 4, P(8, 0.10), null, 560);
-    card(8, 'trait_claustrophobic', 'Claustrofóbico', 'pânico em lugar fechado pequeno', 4, P(8, 0.40), null, 730);
+    card(8, 'trait_agoraphobic', 'Agorafóbico', 'pânico ao ar livre', 4, P(8, 0.10), P(8, 0.40), 560);   // v5: sai quando entra o 2º (não cobre o personagem)
+    card(8, 'trait_claustrophobic', 'Claustrofóbico', 'pânico em lugar fechado pequeno', 4, P(8, 0.40), null, 560);
     mood(8, 'pz:Mood_Panicked', "PÂNICO", P(8, 0.24), P(8, 0.50), 840, false);
     mood(8, 'pz:Mood_Panicked', "PÂNICO", P(8, 0.62), P(8, 0.76), 840, false);
-    tag(8, "NÃO RECOMENDO OS DOIS", RD, P(8, 0.78), null, 960, 36);
+    tag(8, "OS DOIS: +4 PONTOS", Y, P(8, 0.58), P(8, 0.78), 740, 36);   // v6: "devolvem quatro pontos, mas cobram na hora errada"
+    tag(8, "NÃO RECOMENDO OS DOIS", RD, P(8, 0.78), null, 740, 36);
     // 9 — CTA
-    tag(9, "SALVA E COMENTA", G, P(9, 0.50), null);
+    tag(9, "MIRA FIRME = TIRO NA CABEÇA", G, P(9, 0.05), P(9, 0.78), 560, 34);   // v6
+    tag(9, "SALVA E COMENTA", G, P(9, 0.80), null);
+    tag(9, "3 TIROS · 3 NA CABEÇA", Y, P(9, 1.45), null, 560, 34);   // v6: na cauda (câmera lenta + recarga), depois da última fala
   }
 };

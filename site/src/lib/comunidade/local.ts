@@ -3,11 +3,16 @@
 //  - Modo prévia: conta de teste, votos, tópicos e comentários ficam SÓ neste navegador (localStorage). Nada vai para servidor.
 //  - Modo real: a conta vem do Supabase (cliente-real.ts); aqui fica só o cache de votos para a tela responder na hora.
 import { useSyncExternalStore } from 'react'
+import type { ComentarioTier, Tier, Tierlist, Visibilidade } from '../tierlist/tipos'
 import type { Comentario, Perfil, Topico } from './tipos'
 
-interface Estado { conta: Perfil | null; votos: Record<string, true>; topicos: Topico[]; comentarios: Comentario[]; melhores: Record<string, string>; denuncias: Record<string, true> }
+interface Estado {
+  conta: Perfil | null; votos: Record<string, true>; topicos: Topico[]; comentarios: Comentario[]; melhores: Record<string, string>; denuncias: Record<string, true>
+  // tierlists: voto da pessoa por item (chave "slug::item"), visibilidade padrão do voto, conversas e sugestões feitas no modo prévia
+  tlVotos: Record<string, { tier: Tier; anonimo: boolean }>; visibilidade: Visibilidade; tlComentarios: ComentarioTier[]; tlSugestoes: Tierlist[]
+}
 const CHAVE = 'mz-comunidade-v1'
-const VAZIO: Estado = { conta: null, votos: {}, topicos: [], comentarios: [], melhores: {}, denuncias: {} }
+const VAZIO: Estado = { conta: null, votos: {}, topicos: [], comentarios: [], melhores: {}, denuncias: {}, tlVotos: {}, visibilidade: 'perguntar', tlComentarios: [], tlSugestoes: [] }
 
 let estado: Estado = VAZIO
 let carregado = false

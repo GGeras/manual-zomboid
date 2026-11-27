@@ -3,7 +3,7 @@
 const EP = window.EP, FPS = 30, OFF = EP.OFF ?? 0.3, L = 3;
 window.__INTRO = EP.OFF ? Math.round(EP.OFF * 30) - 3 : 0;
 const F = EP.T.map(t => Math.round((t + OFF) * FPS)), C = i => F[i] - L;
-const VO_END = Math.round((EP.END + OFF) * FPS), DUR = (VO_END + 24) / FPS;
+const VO_END = Math.round((EP.END + OFF) * FPS), DUR = (VO_END + (EP.cauda ?? 24)) / FPS;   // cauda (25/11): quadros depois da última fala (padrão 24)
 window.__F = F; window.__VO_END = VO_END; window.__DUR = DUR;
 const main = document.getElementById('main');
 const el = (tag, cls, html, parent, style) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; if (style) e.style.cssText = style; (parent || main).appendChild(e); return e; };

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Voz provisória (Piper pt-BR) para rascunho antes do ElevenLabs. Uso: tts_rascunho.py NN  (lê audio/nsNN.json)
-Gera audio/nNN.mp3 e imprime T/END para o cfg. Trocar pela voz real depois e refazer os tempos com check_vo.py."""
+Gera audio/nNN.mp3 e imprime T/END para o cfg.
+--noise-w 0 (25/11): duração de cada fala igual em qualquer PC — o T/END do cfg (feito na nuvem) bate com a voz gerada pelo .bat. Trocar pela voz real depois e refazer os tempos com check_vo.py."""
 import sys, json, subprocess, os, wave, tempfile
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 n = int(sys.argv[1]); V = 'tools/voices/pt-br-edresson-low.onnx'
@@ -8,7 +9,7 @@ fr = json.load(open(f'audio/ns{n}.json')); tmp = tempfile.mkdtemp(prefix=f'tts{n
 T, t, parts = [], 0.0, []
 for i, s in enumerate(fr):
     w = f'{tmp}/{i:02d}.wav'
-    subprocess.run([sys.executable, '-m', 'piper', '-m', V, '--length-scale', '0.92', '-f', w], input=s.encode(), check=True, capture_output=True)
+    subprocess.run([sys.executable, '-m', 'piper', '-m', V, '--length-scale', '0.92', '--noise-w', '0', '-f', w], input=s.encode(), check=True, capture_output=True)
     d = wave.open(w).getnframes() / wave.open(w).getframerate(); T.append(round(t, 2)); t += d + .35; parts.append(w)
 open(f'{tmp}/l.txt', 'w').write(''.join(f"file '{p}'\nfile '{SIL}'\n" for p in parts))
 sr = wave.open(parts[0]).getframerate()

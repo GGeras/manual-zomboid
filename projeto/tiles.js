@@ -11,16 +11,24 @@ const K = Math.SQRT2 / 128;                                 // unidades de mundo
 const D = new THREE.Vector3(1, .82, 1).normalize();         // = DIR do engine.js
 const RT = new THREE.Vector3(1, 0, -1).normalize();         // direita da tela
 const UP = new THREE.Vector3(0, 1, 0).addScaledVector(D, -D.y).normalize();   // cima da tela
+export const PX_Y = K / UP.y;                                // altura de mundo de 1 px vertical do sprite
 export const WALL_H = 192 * K / UP.y;                       // altura de uma parede do jogo (≈2,45)
 const MATS = [], PEND = []; window.__TILES = PEND;
 const TEX = {}, MAT = {}; window.__TILE_NAMES = () => Object.keys(TEX);   // lista dos sprites usados (pipeline/pz/tiles_usados.mjs)
 export const hasTile = n => !!META[n];
+// solida (25/11): sprites com trecho semitransparente no desenho (o pé do abajur do jogo some aos poucos) ficam com alfa 0/255 — senão o alphaTest
+// apagava o meio da haste e o abajur parecia "quebrado/transparente" embaixo (EP23/EP24/EP25)
+function texSolida(name) { const k = name + '#solida'; if (TEX[k]) return TEX[k]; const t = new THREE.Texture(); t.colorSpace = THREE.SRGBColorSpace; t.generateMipmaps = false; t.minFilter = THREE.LinearFilter; t.magFilter = THREE.LinearFilter;
+  PEND.push(new Promise(res => { const im = new Image(); im.onload = () => { const cv = document.createElement('canvas'); cv.width = im.width; cv.height = im.height; const g = cv.getContext('2d'); g.drawImage(im, 0, 0);
+    const d = g.getImageData(0, 0, cv.width, cv.height); for (let i = 3; i < d.data.length; i += 4) d.data[i] = d.data[i] > 8 ? 255 : 0; g.putImageData(d, 0, 0); t.image = cv; t.needsUpdate = true; res(); };
+    im.onerror = () => { console.warn('tile ausente: ' + name); res(); }; im.src = './assets/tiles/' + name + '.png'; }));
+  return TEX[k] = t; }
 function tex(name) { if (TEX[name]) return TEX[name]; if (!META[name]) throw new Error('tiles: sprite ausente: ' + name);
   const t = new THREE.Texture(); t.colorSpace = THREE.SRGBColorSpace; t.generateMipmaps = false; t.minFilter = THREE.LinearFilter; t.magFilter = THREE.LinearFilter;
   PEND.push(new Promise(res => { const im = new Image(); im.onload = () => { t.image = im; t.needsUpdate = true; res(); }; im.onerror = () => { console.warn('tile ausente: ' + name); res(); }; im.src = './assets/tiles/' + name + '.png'; }));
   return TEX[name] = t; }
-function mat(name, o = {}) { const k = name + '|' + (o.op || '') + '|' + (o.tint || ''); if (MAT[k]) return MAT[k];
-  const m = new THREE.MeshBasicMaterial({ map: tex(name), alphaTest: o.op ? .02 : .45, side: THREE.DoubleSide, transparent: !!o.op, opacity: o.op || 1, depthWrite: !o.op });
+function mat(name, o = {}) { const k = name + '|' + (o.op || '') + '|' + (o.tint || '') + '|' + (o.solida ? 's' : ''); if (MAT[k]) return MAT[k];
+  const m = new THREE.MeshBasicMaterial({ map: o.solida ? texSolida(name) : tex(name), alphaTest: o.op ? .02 : .45, side: THREE.DoubleSide, transparent: !!o.op, opacity: o.op || 1, depthWrite: !o.op });
   m.userData.tint = new THREE.Color(o.tint || '#ffffff'); m.color.copy(m.userData.tint); MATS.push(m); return MAT[k] = m; }
 // REGRA 4.7 (23/11): o personagem em contato com um móvel (sentado na poltrona, mão na bancada) fica SEMPRE por cima do desenho dele,
 // nunca "cortado" pela caixa do sprite. Cada móvel tem material próprio; m.sobrepor(true) desenha o móvel antes do personagem e sem

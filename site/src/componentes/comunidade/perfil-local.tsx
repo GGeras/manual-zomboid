@@ -4,6 +4,7 @@ import { useLocal } from '@/lib/comunidade/local'
 import type { Topico } from '@/lib/comunidade/tipos'
 import { Avatar } from '../avatar'
 import { CartaoTopico } from './cartao-topico'
+import { PreferenciaVoto } from '../tierlist/preferencia'
 
 const VAZIA: Topico[] = []
 export function PerfilLocal({ usuario }: { usuario: string }) {
@@ -20,8 +21,9 @@ export function PerfilLocal({ usuario }: { usuario: string }) {
     <div className="mx-auto max-w-3xl px-3 pb-24 pt-8 sm:px-6">
       <header className="flex items-center gap-4 rounded-2xl border border-borda bg-chao p-5">
         <Avatar perfil={conta} tamanho={72} />
-        <div><h1 className="text-2xl font-black tracking-tight">{conta.usuario}</h1><p className="mt-1 text-sm text-apagado">Conta de teste (modo prévia), só neste navegador.</p></div>
+        <div><h1 className="text-2xl font-black tracking-tight">{conta.usuario}</h1><p className="mt-1 text-sm text-apagado">Conta só neste navegador.</p></div>
       </header>
+      <PreferenciaVoto usuario={usuario} />
       <h2 className="mt-8 px-1 text-lg font-extrabold">Tópicos</h2>
       <div className="mt-3 grid gap-2.5">
         {topicos.length ? topicos.map((t) => <CartaoTopico key={t.id} t={t} />) : <p className="rounded-xl border border-dashed border-white/10 p-8 text-center text-osso-2">Nenhum tópico ainda. <Link href="/comunidade/novo" className="font-semibold text-alerta hover:underline">Criar o primeiro</Link></p>}

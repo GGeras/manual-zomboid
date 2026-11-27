@@ -3,6 +3,7 @@
 // borda  = sprite de parede/cortina: em qual borda do ladrilho ele foi desenhado (N, W, S, E). Só pode ir em C.parede(<mesma borda>).
 // encosta = móvel que no jogo fica com as costas na parede (fogão, geladeira, bancada, estante, cômoda, pia)
 export default {
+  fixtures_sinks_01_9: { frente: 'S', encosta: 1 }, furniture_tables_low_01_13: { frente: 'S', encosta: 1 },   // 25/11 (EP22): pia dupla de bancada e rack de TV
   fixtures_windows_01_16: { borda: 'W' }, fixtures_windows_01_17: { borda: 'N' },
   appliances_cooking_01_12: { frente: 'E', encosta: 1 }, appliances_cooking_01_13: { frente: 'S', encosta: 1 }, appliances_cooking_01_14: { frente: 'W', encosta: 1 }, appliances_cooking_01_15: { frente: 'N', encosta: 1 },
   appliances_refrigeration_01_0: { frente: 'E', encosta: 1 }, appliances_refrigeration_01_1: { frente: 'S', encosta: 1 }, appliances_refrigeration_01_2: { frente: 'W', encosta: 1 }, appliances_refrigeration_01_3: { frente: 'N', encosta: 1 },

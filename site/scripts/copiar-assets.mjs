@@ -5,6 +5,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import matter from 'gray-matter'
+import { gerarZumbis } from './gerar-zumbis.mjs'
 
 const SITE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const RAIZ = path.resolve(SITE, '..')
@@ -33,6 +34,21 @@ for (const [nome, { de, larguras }] of Object.entries(lista.cenas)) {
   const p = origem(de); if (!p) continue
   for (const w of larguras) tarefas.push(sharp(p).resize({ width: w }).webp({ quality: 78 }).toFile(path.join(SAIDA, `${nome}-${w}.webp`)))
 }
+// capas oficiais dos Shorts (referencias/capas/oficiais/epNN.jpg): o site mostra a capa de verdade, não a miniatura do YouTube
+const capas = []
+{
+  const pasta = path.join(RAIZ, lista.capas ?? '')
+  const PC = path.join(SAIDA, 'capas'); fs.mkdirSync(PC, { recursive: true })
+  for (const f of fs.existsSync(pasta) ? fs.readdirSync(pasta).filter((f) => /^ep\d+\.jpg$/.test(f)).sort() : []) {
+    const p = origem(path.join(lista.capas, f)); if (!p) continue
+    const nn = f.match(/^ep(\d+)/)[1]; capas.push(nn)
+    for (const w of [360, 720]) {
+      const dest = path.join(PC, `ep${nn}-${w}.webp`)
+      if (fs.existsSync(dest) && fs.statSync(dest).mtimeMs > fs.statSync(p).mtimeMs) continue
+      tarefas.push(sharp(p).resize({ width: w }).webp({ quality: w > 400 ? 80 : 76 }).toFile(dest))
+    }
+  }
+}
 await Promise.all(tarefas)
 
 // ---- dados do repo (o repo é o dono): episódios e fatos validados ----
@@ -45,8 +61,9 @@ const episodios = fs.readdirSync(path.join(RAIZ, 'roteiros')).filter((f) => /^ep
   return { nn: fm.ep, slug: f.replace(/\.md$/, ''), tema: fm.tema, status: fm.status, titulo, youtube: /^[\w-]{11}$/.test(fm.youtube ?? '') ? fm.youtube : null }
 })
 fs.writeFileSync(path.join(GERADO, 'episodios.json'), JSON.stringify(episodios, null, 1) + '\n')
+fs.writeFileSync(path.join(GERADO, 'capas.json'), JSON.stringify(capas) + '\n')
 const fatos = JSON.parse(fs.readFileSync(path.join(RAIZ, 'projeto/pipeline/fatos.json'), 'utf8')).fatos
-fs.writeFileSync(path.join(GERADO, 'fatos.json'), JSON.stringify(Object.fromEntries(Object.entries(fatos).map(([k, v]) => [k, { texto: v.texto, build: v.build, fonte: v.fonte }])), null, 1) + '\n')
+fs.writeFileSync(path.join(GERADO, 'fatos.json'), JSON.stringify(Object.fromEntries(Object.entries(fatos).map(([k, v]) => [k, { texto: v.texto, build: v.build, fonte: v.fonte, eps: v.eps ?? [] }])), null, 1) + '\n')
 
 // guias: lidos aqui (o Worker não tem sistema de arquivos) e embutidos no bundle como JSON
 const PASTA_GUIAS = path.join(SITE, 'content/guias')
@@ -57,11 +74,19 @@ const guias = fs.readdirSync(PASTA_GUIAS).filter((f) => f.endsWith('.mdx')).map(
 fs.writeFileSync(path.join(GERADO, 'guias.json'), JSON.stringify(guias, null, 1) + '\n')
 
 const n = lista.moodles.length + lista.itens.length + Object.keys(lista.logos).length + Object.keys(lista.cenas).length
-console.log(`assets: ${n - faltando.length}/${n} copiados; ${episodios.length} episódios; ${Object.keys(fatos).length} fatos validados`)
+console.log(`assets: ${n - faltando.length}/${n} copiados; ${capas.length} capas; ${episodios.length} episódios; ${Object.keys(fatos).length} fatos validados`)
 if (faltando.length) {
   console.log(`::warning::assets sem arquivo (rode git lfs pull): ${faltando.join(', ')}`)
   if (process.env.CI) process.exit(1)
 }
+
+// ---- zumbis da abertura 3D (modelos e animações originais do jogo, recortados de projeto/assets/pz) ----
+const z = await gerarZumbis(RAIZ, SAIDA)
+console.log(z.ok ? `zumbis: ${z.kb} KB${z.cache ? ' (já estava em dia)' : ''}` : `::warning::zumbis da abertura não gerados (${z.motivo}): a abertura fica na imagem estática`)
+if (!z.ok && process.env.CI) process.exit(1) // no deploy a abertura 3D não pode sumir calada
+// tamanho exato do pacote (o preloader mede o download contra ele: com gzip/brotli o navegador não sabe o tamanho descomprimido)
+const pacote = path.join(SAIDA, 'zumbis.json')
+fs.writeFileSync(path.join(GERADO, 'abertura.json'), JSON.stringify({ bytes: fs.existsSync(pacote) ? fs.statSync(pacote).size : 0 }) + '\n')
 
 // ---- imagem de compartilhamento (1200x630) e favicon ----
 const PUB = path.join(SITE, 'public')

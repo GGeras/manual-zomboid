@@ -1,5 +1,7 @@
 {
-  "_ajuda": "Lista curada de assets do jogo/canal que o site usa. O build copia só estes arquivos de projeto/assets para public/jogo (nunca a pasta inteira). Sons e músicas do jogo: proibidos no site (plataforma/site.md §2). Cenas: renders do pipeline do canal (modelos do jogo), em site/arte/.",
+  "_ajuda": "Lista curada de assets do jogo/canal que o site usa. O build copia só estes arquivos de projeto/assets para public/jogo (nunca a pasta inteira). Sons e músicas do jogo: proibidos no site (plataforma/site.md §2). Cenas: renders do pipeline do canal (modelos do jogo), em site/arte/. Modelos: arquivos do jogo de onde scripts/gerar-zumbis.mjs recorta os zumbis da abertura 3D (public/jogo/zumbis.json). Capas: pasta das capas oficiais dos Shorts (epNN.jpg), viram public/jogo/capas/epNN-{360,720}.webp. Tiles: sprites originais do jogo; a rua da abertura usa a lista TILES de scripts/gerar-zumbis.mjs (public/jogo/tiles/*.webp).",
+  "capas": "referencias/capas/oficiais",
+  "tiles": "projeto/assets/tiles",
   "logos": {
     "logo-horizontal": {
       "de": "projeto/assets/logo/logo-horizontal-3x1.png",
@@ -74,7 +76,13 @@
     "Item_Book",
     "Item_Steak",
     "Item_Notebook",
-    "Item_Candle"
+    "Item_Candle",
+    "Item_Sledgehamer",
+    "Item_AliceBag",
+    "Item_BigHiking_Green",
+    "Item_Hiking_Green",
+    "Item_Duffelbag",
+    "Item_Backpack_Black"
   ],
   "cenas": {
     "cena-fogueira": {
@@ -98,5 +106,9 @@
         1080
       ]
     }
-  }
+  },
+  "modelos": [
+    "projeto/assets/pz/models.js",
+    "projeto/assets/pz/tex.js"
+  ]
 }

@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: 'Privacidade', robots: { index: false
 
 export default function Privacidade() {
   return (
-    <PaginaTexto rotulo="Legal" titulo="Privacidade" rascunho>
+    <PaginaTexto rotulo="Legal" titulo="Privacidade">
       <p>Coletamos o mínimo para a Comunidade funcionar, de acordo com a LGPD.</p>
       <h2>O que guardamos</h2>
       <ul><li>Da conta: nome de usuário, nome e foto do Discord ou Google, e-mail (para o login).</li><li>O que você posta: tópicos, respostas, imagens, votos e denúncias.</li><li>Registros técnicos de acesso pelo tempo exigido pelo Marco Civil da Internet.</li></ul>

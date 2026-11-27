@@ -26,7 +26,8 @@ cfg = open(f'ep{ep}.cfg.js', encoding='utf-8').read()
 T = json.loads(re.search(r'T: (\[[^\]]*\])', cfg).group(1)); END = float(re.search(r'END: ([\d.]+)', cfg).group(1))
 SC = re.findall(r'\{ at: (\d+)(, red: true)?', cfg)
 F = [round((t + OFF) * FPS) for t in T]; C = lambda i: F[i] - 3
-DUR = (round((END + OFF) * FPS) + 24) / FPS; TOTAL = DUR + TAIL
+_cd = re.search(r'cauda: (\d+)', cfg); CAUDA = int(_cd.group(1)) if _cd else 24   # quadros depois da última fala (EP.cauda no cfg)
+DUR = (round((END + OFF) * FPS) + CAUDA) / FPS; TOTAL = DUR + TAIL
 OUT = f'out/Video {ep} - {MAN["nome"]}'; os.makedirs(OUT, exist_ok=True)
 run = lambda *a, **k: subprocess.run(list(a), check=True, **k)
 db = lambda g: 10 ** (g / 20)
@@ -36,11 +37,17 @@ def load(f):
     return np.frombuffer(r, np.float32).reshape(-1, 2).copy()
 def find(folder, name):
     hits = [p for p in glob.glob(f'assets/{folder}/**/*', recursive=True) if os.path.splitext(os.path.basename(p))[0].lower() == name.lower()]
-    if not hits: sys.exit(f'ERRO: "{name}" não existe em assets/{folder} (veja o índice na pasta de referências)')
+    if not hits:
+        # rascunho num PC sem os sons novos do personagem (PZ_FALTA_SOM_OK=1, ligado pelo .bat): segue sem o som e avisa. No final nunca.
+        if folder == 'sfx' and os.environ.get('PZ_FALTA_SOM_OK') == '1': print(f'AVISO: som "{name}" não está em assets/sfx — rascunho segue SEM ele'); return None
+        sys.exit(f'ERRO: "{name}" não existe em assets/{folder} (veja o índice na pasta de referências)')
     return sorted(hits, key=lambda p: p.endswith('.ogg'))[0]
-def when(t):  # número = segundos no vídeo final | {"c": i, "dt": s} = corte da frase i | {"f": i, "dt": s} = início da frase i
+def when(t):  # número = segundos no vídeo final | {"c": i, "dt": s} = corte da frase i | {"f": i, "dt": s} = início da frase i | + "k": fração da cena
     if isinstance(t, (int, float)): return float(t)
-    return (C(t['c']) if 'c' in t else F[t['f']]) / FPS + t.get('dt', 0)
+    i = t['c'] if 'c' in t else t['f']; base = C(i) if 'c' in t else F[i]
+    # "k" (25/11): fração da cena, igual ao len * k do epNN.js — o som acompanha a ação quando a voz muda de tamanho
+    L = ((C(i + 1) if i + 1 < len(F) else round(DUR * FPS)) - C(i)) if 'k' in t else 0
+    return (base + t.get('k', 0) * L) / FPS + t.get('dt', 0)
 
 def st_audio():
     N = int(TOTAL * SR); z = lambda: np.zeros((N, 2), np.float32)
@@ -59,7 +66,9 @@ def st_audio():
     CUTS_S = [C(int(at)) / FPS for k, (at, red) in enumerate(SC) if k]
     REL = []; ns = MAN['vo'].replace('audio/n', 'audio/ns').rsplit('.', 1)[0] + '.json'; FRASES = json.load(open(ns, encoding='utf-8')) if os.path.exists(ns) else []
     for e in MAN.get('sfx', []):                               # ["nome", tempo, dB, {opções}]
-        x = load(find('sfx', e[0])); x /= (np.abs(x).max() + 1e-9); t = when(e[1]); o = e[3] if len(e) > 3 else {}
+        fp = find('sfx', e[0])
+        if fp is None: continue
+        x = load(fp); x /= (np.abs(x).max() + 1e-9); t = when(e[1]); o = e[3] if len(e) > 3 else {}
         if 'trim' in o: x = x[int(o['trim'][0] * SR):int(o['trim'][1] * SR)]
         if 'ate' in o:                                         # repete em loop até o tempo "ate"
             L = max(1, int((when(o['ate']) - t) * SR)); x = np.tile(x, (L // len(x) + 2, 1))[:L]
