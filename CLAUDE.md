@@ -32,6 +32,7 @@ Ler este arquivo, `README.md` e `COLABORACAO.md` antes de trabalhar.
 9. Capas: v5, `canal/padrao-capas.md`.
 10. Depois de cada trabalho: CHANGELOG + docs do que mudou. Entregue nunca é sobrescrito: anterior vai para `versoes/`.
 11. Gancho, texto por rede, horário e temas: `canal/regras-conteudo-redes.md` (REGRA obriga; INDICATIVO orienta). Roteiro, capa, post e ideias leem só esse doc.
+12. **Lugares de gravação** (`canal/lugares-de-gravacao.md`): lugar fixo, melhorado a cada episódio com detalhes fiéis ao jogo. Aprovado = travado, nunca trocar. Ler antes de mexer em cenário.
 
 ### Economia de tokens e voz
 - Render não gasta token: não checar. Um chat por 1–2 vídeos. Pedir arquivos do PC pelo nome.

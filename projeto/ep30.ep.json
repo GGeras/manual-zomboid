@@ -1,42 +1,74 @@
 {
- "_ajuda": "Preencha e rode: python3 pipeline/build.py 30   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 27   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
  "num": "30",
- "nome": "Cadáveres e Mau Cheiro",
+ "nome": "Resfriado e Doença",
  "vo": "audio/n30.mp3",
  "vo_db": 1.5,
- "musica": "they_were_once_here",
+ "musica": "the_inevitable",
  "musica_lufs": -30,
  "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
  "sfx": [
   [
-   "JL_MalePlayer_Coughing_02",
+   "JL_MalePlayer_SneezingHeavy_01",
    {
-    "f": 3,
-    "dt": 0.5
-   },
-   -14
-  ],
-  [
-   "shoveling",
-   {
-    "f": 6,
-    "dt": 0.3
-   },
-   -14
-  ],
-  [
-   "player_use_lighter_01",
-   {
-    "f": 7,
-    "dt": 0.5
+    "f": 0,
+    "dt": 0.4
    },
    -12
   ],
   [
-   "PZ_Fire",
+   "zombierand3",
    {
-    "f": 7,
+    "f": 0,
+    "dt": 1.2
+   },
+   -18
+  ],
+  [
+   "ambientOutsideHeavyRain",
+   {
+    "f": 1,
+    "dt": 0
+   },
+   -22
+  ],
+  [
+   "JL_MalePlayer_Coughing_01",
+   {
+    "f": 2,
+    "dt": 0.8
+   },
+   -14
+  ],
+  [
+   "JL_MalePlayer_SneezingLight_01",
+   {
+    "f": 3,
+    "dt": 0.2
+   },
+   -12
+  ],
+  [
+   "zombierand5",
+   {
+    "f": 3,
     "dt": 1.0
+   },
+   -18
+  ],
+  [
+   "JL_MalePlayer_Muffled_Cough_01",
+   {
+    "f": 4,
+    "dt": 0.4
+   },
+   -14
+  ],
+  [
+   "JL_MalePlayer_Vomiting_01",
+   {
+    "f": 5,
+    "dt": 0.6
    },
    -16
   ]
@@ -50,48 +82,36 @@
   "tint": "rgba(0,0,0,.15)",
   "linhas": [
    [
-    "MATOU",
+    "UM ESPIRRO",
     "osso"
    ],
    [
-    "TEM QUE",
+    "E A HORDA",
     "osso"
    ],
    [
-    "LIMPAR",
+    "TE ACHA",
     "vermelho"
    ]
   ],
   "gancho": {
-   "tipo": "seq",
-   "itens": [
-    [
-     "QUANTIDADE",
-     "amarelo"
-    ],
-    [
-     "DECOMPOSIÇÃO",
-     "amarelo"
-    ],
-    [
-     "TEMPO",
-     "vermelho"
-    ]
-   ]
+   "tipo": "selo",
+   "texto": "LENÇO ABAFA",
+   "cor": "#8fe04a"
   }
  },
  "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
  "post": {
-  "titulo": "Cadáveres no Project Zomboid B42: doença, mau cheiro e como limpar",
-  "gancho": "Os zumbis que você mata continuam te matando. Corpo apodrecendo deixa doente.",
+  "titulo": "Resfriado e doença no Project Zomboid: espirro atrai zumbi (B42)",
+  "gancho": "Um espirro na hora errada e a horda te acha. O lenço de papel abafa.",
   "pontos": [
-   "Doença = quantidade + decomposição + tempo perto",
-   "Moscas são o sinal",
-   "Mau Cheiro impede dormir",
-   "Cova da pá cabe 5 corpos",
-   "Queimar: gasolina e fogo, longe da casa"
+   "Chuva e frio por muito tempo = resfriado",
+   "Espirro e tosse atraem zumbi",
+   "Lenço de Papel equipado abafa",
+   "Malva-comum alivia o resfriado",
+   "Capim-limão trata intoxicação leve"
   ],
-  "pergunta": "Você enterra ou queima?",
+  "pergunta": "Você anda com lenço no bolso?",
   "tags": [
    "pzdicas",
    "projectzomboidbr",
@@ -99,26 +119,22 @@
    "survivalgame"
   ]
  },
- "roteiro": "[sério] Os zumbis que você mata continuam te matando. [calmo] A doença vem de três coisas juntas: quantos corpos, o quanto já apodreceram, e quanto tempo você fica perto. Não tem número mágico. [sério] O sinal de perigo são as moscas zumbindo. [tenso] Aparece o moodle Mau Cheiro. Ele vai até Vapores Mortais: você não consegue respirar, saia daí. [calmo] E com Mau Cheiro você nem consegue dormir. [confiante] Arrasta o corpo para longe. Dá até pra jogar por cima da cerca ou pela janela. [confiante] Com a pá, cava uma cova: cabem cinco corpos em cada uma. [confiante] Ou queima: gasolina e uma fonte de fogo, longe da casa e com saco de areia por perto. O jogo diz que é melhor pras suas costas. [calmo] E máscara protege: de gás, respirador, cirúrgica ou de pó. A de gás precisa de filtro. [confiante] Matou, limpou.",
+ "roteiro": "[sério] Um espirro na hora errada e a horda te acha. [calmo] Chuva, neve e neblina te deixam molhado e com frio. Ficou assim muito tempo, vem o resfriado. [calmo] Ele vai de Nariz Escorrendo até Resfriado Terrível: espirro, depois tosse, e você fica lento. [tenso] E espirro e tosse fazem barulho: atraem zumbi. [confiante] Lenço de papel na mão abafa os dois. E a malva-comum, achada na coleta, alivia o resfriado. [sério] Doença é outro moodle: de Mal-estar até Febre. O jogo avisa: risco crescente de virar comida de rato. [calmo] Comida estragada ou mal cozida dá intoxicação. Cozinhar reduz o risco, e o capim-limão trata a intoxicação leve. [calmo] E se lava: corpo sujo aumenta a chance de ferida infeccionar. [confiante] Na criação, Resiliente fica menos doente; Baixa Imunidade, mais. [confiante] Seco, limpo e com malva no bolso.",
  "fatos": [
-  "cad-doenca",
-  "cad-combinacao",
-  "cad-moscas",
-  "cad-niveis",
-  "sono-bloqueio",
-  "cad-arrastar",
-  "cad-cova",
-  "cad-queimar",
-  "fogo-apagar",
-  "cad-mascara"
+  "resf-espirro",
+  "resf-causa",
+  "resf-niveis",
+  "resf-lenco",
+  "resf-malva",
+  "doe-niveis",
+  "peso-cozida",
+  "doe-capim",
+  "doe-limpeza",
+  "doe-tracos"
  ],
  "itens": [
-  "Item_Shovel",
-  "Item_Petrol",
-  "Item_Lighter",
-  "Item_Sandbag",
-  "Item_GasMask",
-  "Item_SurgicalMaskBlue",
-  "Item_DustMask"
+  "Item_Tissue",
+  "Item_CommonMallow",
+  "Item_LemonGrass"
  ]
 }

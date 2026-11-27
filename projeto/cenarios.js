@@ -12,7 +12,7 @@ export const PISO = {
   madeira: ['floors_interior_tilesandwood_01_42'], cozinha: ['floors_interior_tilesandwood_01_0'], telhado: ['floors_exterior_street_01_16'],
 };
 // paredes do jogo: [W, N, canto, janela W, janela N] (walls_*_house_01: cada grupo de 16 tem duas cores)
-const PAR = { siding: [32, 33, 34, 40, 41].map(i => 'walls_exterior_house_01_' + i), tijolo: [4, 5, 6, 12, 13].map(i => 'walls_exterior_house_01_' + i),
+const PAR = { tora: [0, 1, 2, 9, 8].map(i => 'walls_logs_' + i), siding: [32, 33, 34, 40, 41].map(i => 'walls_exterior_house_01_' + i), tijolo: [4, 5, 6, 12, 13].map(i => 'walls_exterior_house_01_' + i),
   bege: [36, 37, 38, 44, 45].map(i => 'walls_interior_house_01_' + i), azul: [64, 65, 66, 72, 73].map(i => 'walls_interior_house_01_' + i) };
 
 // fachada de casa vista da rua: parede da frente (N do ladrilho j0) + lateral (W do ladrilho i1+1) + telhado plano. Janela nas posições dadas.
@@ -384,4 +384,49 @@ export function quarto(x0, z0, o = {}) {
   const CAD = C.assento('furniture_seating_indoor_01_57', 5, 3, { encosto: 'N', hs: .486 }); if (o.semCadeira) CAD.visible = false;   // cadeira solta no meio do quarto (EP22/24): some   // cadeira (frente S) — Bob_SatChair: nádega a 0,486
   const cama = { sobrepor: on => { CAMA.sobrepor(on); PE.sobrepor(on); } };
   return { C, at: C.at, cama, cadeira: CAD, porta: PORTA, colchao };
+}
+
+// ---------- HORTA (EP25): horta cercada atrás de casa rural — tudo sprite do jogo (B42.22) ----------
+// Casa de madeira ao fundo (parede N em j = -5), quintal de grama, horta com cerca branca (fencing_01_4/5, portão aberto em i = 0 na frente),
+// 4 canteiros (vegetation_farming_01: o mesmo desenho do jogo para cada planta e estágio): tomate (escora), batata, repolho, cenoura.
+// Galpão de ferramentas (location_farm_accesories_01_42), barril de chuva com lona (carpentry_02_122), compostor (carpentry_02_117), espantalho.
+// Fora da cerca: capim alto (e_newgrass_1 24–29 / 48–51). Estado de cada canteiro: H.planta(nome, 'ok'|'unhealthy'|'dying'|'dead', estágio).
+// o.mato = ervas daninhas nos canteiros (e_newgrass_1 40–43, como no jogo: mato = capim no mesmo quadrado). o.inverno = grama com neve.
+const HORTA_SPR = { tomate: 64, batata: 40, repolho: 16, cenoura: 32 };   // primeiro sprite de cada planta (farming_vegetableconf_vegetables_sprites.lua)
+export function horta(x0, z0, o = {}) {
+  const C = cena(x0, z0), inv = !!o.inverno, tn = inv ? '#e6ecf4' : null;
+  C.chao(inv ? PISO.neve : PISO.grama, -22, -22, 22, 22, { seed: 25 });
+  casaFora(C, -10, 5, -15, -9, { parede: 'tora', janelas: [-6, 3, 'w-12'], tetoTint: inv ? '#f4f7fb' : '#c8a47c', cortina: 'fixtures_windows_curtains_01_10' });
+  C.chao(['blends_natural_01_96', 'blends_natural_01_101', 'blends_natural_01_102', 'blends_natural_01_103'], -4, -4, 4, 3, { y: .018, seed: 4, tint: inv ? '#c9c4bd' : null });   // chão de terra dentro da cerca
+  // cerca de estacas branca (portão aberto na frente, i = 0)
+  for (let i = -4; i <= 4; i++) { C.parede('N', 'fencing_01_5', i, -4, { tint: tn }); if (i !== 0) C.parede('N', 'fencing_01_5', i, 4, { tint: tn }); }
+  for (let j = -4; j <= 3; j++) { C.parede('W', 'fencing_01_4', -4, j, { tint: tn }); C.parede('W', 'fencing_01_4', 5, j, { tint: tn }); }
+  // canteiros: 2 quadrados por planta (colunas), fileiras j = -2 e 1
+  const POS = { tomate: [[-3, -2], [-2, -2]], batata: [[0, -2], [1, -2]], repolho: [[-3, 1], [-2, 1]], cenoura: [[0, 1], [1, 1]] };
+  const est = o.estagio || {}, P = {};
+  for (const nome in POS) { P[nome] = POS[nome].map(([i, j]) => {
+    const v = {}, base = HORTA_SPR[nome], st = est[nome] ?? 5;
+    v.ok = C.placa('vegetation_farming_01_' + (base + st), i, j, { fz: .2 });
+    const k = base + 4;   // estágio adulto nos desenhos unhealthy/dying/dead
+    for (const s of ['unhealthy', 'dying', 'dead']) { v[s] = C.placa(`vegetation_farming_${s}_01_${k}`, i, j, { fz: .2 }); v[s].visible = false; }
+    v.solo = C.placa('vegetation_farming_01_1', i, j, { fz: .15 }); v.solo.visible = false;   // terra arada (antes de plantar)
+    return v; }); }
+  // mato nos canteiros (opcional, ligado/desligado por cena)
+  const MATO = [[-3, -2], [0, 1], [1, -2], [-2, 1]].map(([i, j], k) => { const m = C.placa('e_newgrass_1_' + (40 + k), i + .25, j + .2, { fz: .3 }); m.visible = !!o.mato; return m; });
+  // galpão de ferramentas, barril de chuva, compostor, espantalho
+  C.placa('location_farm_accesories_01_114', -7, -5, { fz: .5, tint: tn });   // galpão de ferramentas, fora da cerca, encostado no quintal
+  C.obj('carpentry_02_122', -3, 3, { w: .55, d: .55, tint: tn }); C.obj('carpentry_02_117', 3, 3, { w: .9, d: .9, tint: tn });
+  C.placa('location_farm_accesories_01_36', 3, -3, { fz: .3 });
+  // capim alto fora da cerca + árvores
+  const CAP = [24, 25, 26, 27, 28, 29, 48, 49, 50, 51];
+  for (let k = 0; k < 90; k++) { const a = k * 2.399, r = 6 + (k % 7) * 1.1, i = Math.round(Math.cos(a) * r), j = Math.round(Math.sin(a) * r * .8 + 2);
+    if (j < -8 || (i >= -8 && i <= -6 && j >= -6 && j <= -4) || (Math.abs(i) <= 5 && j >= -5 && j <= 5)) continue; const m = C.placa('e_newgrass_1_' + CAP[k % CAP.length], i, j, { fz: .4, tint: tn }); if (inv) m.visible = false; }   // inverno: capim coberto de neve (o jogo esconde a relva)
+  // mais grama: tufos curtos em volta da casa, do galinheiro e junto da cerca
+  if (!inv) for (let i = -12; i <= 8; i++) for (const j of [-8, -4, 5, 6]) { if (Math.abs(i) <= 5 && j >= -4 && j <= 5) continue; if ((i * 7 + j * 3) % 3) C.placa('e_newgrass_1_' + CAP[Math.abs(i * 5 + j) % CAP.length], i + .3, j + .2, { fz: .35 }); }
+  [[-12, -4], [11, -6], [-11, 7], [12, 8]].forEach(([i, j], k) => arvore(C, i, j, inv ? 'inverno' : 'verao', k));
+  const H = { C, at: C.at, P, MATO,
+    planta(nome, s = 'ok', solo = false) { (nome === '*' ? Object.keys(P) : [nome]).forEach(n => P[n].forEach(v => { for (const k of ['ok', 'unhealthy', 'dying', 'dead']) v[k].visible = !solo && k === s; v.solo.visible = solo; })); return H; },
+    mato(on) { MATO.forEach(m => { m.visible = on; }); return H; },
+    canteiro: nome => C.at(...POS[nome][0]) };
+  return H;
 }
