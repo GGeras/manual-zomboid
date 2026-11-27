@@ -1,172 +1,210 @@
 {
- "_ajuda": "Preencha e rode: python3 pipeline/build.py 25   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 12   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
  "num": "25",
- "nome": "Tédio e Tristeza",
- "vo": "audio/n25.mp3",
+ "nome": "Agricultura",
+ "vo": "audio/n12.mp3",
  "vo_db": 1.5,
- "musica": "saying_goodbye",
+ "musica": "where_is_everyone",
  "musica_lufs": -30,
  "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
  "sfx": [
   [
-   "BH_MalePlayer_SubtleBoredSigh_01",
-   {
-    "f": 0,
-    "dt": 0.5
-   },
-   -14
-  ],
-  [
-   "zombierand1",
+   "ambientOutsideDayBirds",
    {
     "c": 0,
-    "k": 0.3
+    "dt": 0
    },
-   -22
-  ],
-  [
-   "PZ_WoodFoot_01",
+   -24,
    {
-    "c": 1,
-    "dt": 0.2
-   },
-   -18
+    "ate": {
+     "c": 2,
+     "dt": 0
+    },
+    "fin": 0.2,
+    "fout": 0.2
+   }
   ],
   [
-   "BH_MalePlayer_SubtleBoredSigh_02",
+   "zombierand3",
    {
-    "c": 1,
-    "k": 0.6
+    "f": 1,
+    "dt": 0.6
    },
-   -15
+   -20
   ],
   [
-   "BH_MalePlayer_SubtleSadSigh_01",
+   "shoveling",
    {
     "f": 2,
     "dt": 0.3
    },
-   -14
-  ],
-  [
-   "ambientOutsideCricketsNight",
+   -16,
    {
-    "c": 2
-   },
-   -24
+    "trim": [
+     0,
+     2.2
+    ],
+    "fout": 0.3
+   }
   ],
   [
-   "player_reading_book_open_01",
-   {
-    "c": 3,
-    "dt": 0.2
-   },
-   -16
-  ],
-  [
-   "player_reading_book_page_flip_01",
-   {
-    "c": 3,
-    "k": 0.55
-   },
-   -16
-  ],
-  [
-   "campfire",
-   {
-    "c": 4
-   },
-   -19
-  ],
-  [
-   "PZ_Eating",
-   {
-    "c": 4,
-    "k": 0.56
-   },
-   -15
-  ],
-  [
-   "player_use_lighter_01",
-   {
-    "c": 5,
-    "dt": 0.3
-   },
-   -16
-  ],
-  [
-   "PZ_Swallowing",
-   {
-    "c": 5,
-    "k": 0.42,
-    "dt": 1.93
-   },
-   -14
-  ],
-  [
-   "player_reading_book_page_flip_01",
-   {
-    "c": 6,
-    "dt": 0.6
-   },
-   -16
-  ],
-  [
-   "BH_MalePlayer_SubtleReliefSigh_01",
+   "PZ_GetWater",
    {
     "f": 6,
-    "dt": 0.3
+    "dt": 0.4
+   },
+   -16,
+   {
+    "trim": [
+     0,
+     1.4
+    ],
+    "fout": 0.3
+   }
+  ],
+  [
+   "ambientOutsideLightRainWoods",
+   {
+    "f": 8,
+    "dt": 0
+   },
+   -14,
+   {
+    "ate": {
+     "c": 9,
+     "dt": 0
+    },
+    "fin": 0.3,
+    "fout": 0.2
+   }
+  ],
+  [
+   "PZ_PutInBag",
+   {
+    "f": 9,
+    "dt": 1.2
    },
    -14
+  ],
+  [
+   "PZ_PutInBag",
+   {
+    "f": 10,
+    "dt": 0.2
+   },
+   -14
+  ],
+  [
+   "PZ_PutInBag",
+   {
+    "f": 11,
+    "dt": 0.2
+   },
+   -14
+  ],
+  [
+   "PZ_PutInBag",
+   {
+    "f": 14,
+    "dt": 0.9
+   },
+   -12
+  ],
+  [
+   "waterSplash",
+   {
+    "f": 16,
+    "dt": 0.9
+   },
+   -12
+  ],
+  [
+   "waterSplash",
+   {
+    "f": 18,
+    "dt": 0.4
+   },
+   -12
+  ],
+  [
+   "fishingline",
+   {
+    "f": 20,
+    "dt": 1.0
+   },
+   -8
+  ],
+  [
+   "waterSplash",
+   {
+    "f": 21,
+    "dt": 0.4
+   },
+   -14
+  ],
+  [
+   "getFish",
+   {
+    "f": 21,
+    "dt": 3.4
+   },
+   -12
+  ],
+  [
+   "vehicle_horn",
+   {
+    "f": 22,
+    "dt": 0.1
+   },
+   -16,
+   {
+    "trim": [
+     0,
+     1.0
+    ],
+    "fout": 0.2
+   }
   ]
  ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
  "capa": {
-  "t": 8.0,
-  "opcoes": [],
-  "zoom": 1.05,
+  "t": 48.0,
+  "zoom": 1.15,
   "pos": "50% 55%",
   "tint": "rgba(0,0,0,.15)",
   "linhas": [
    [
-    "TÉDIO",
+    "SUA HORTA",
     "osso"
    ],
    [
-    "TAMBÉM",
+    "VAI",
     "osso"
    ],
    [
-    "MATA",
+    "MORRER",
     "vermelho"
    ]
   ],
   "gancho": {
-   "tipo": "seq",
-   "itens": [
-    [
-     "LIVRO ✓",
-     "verde"
-    ],
-    [
-     "COMIDA ✓",
-     "verde"
-    ]
-   ]
+   "tipo": "selo",
+   "texto": "E A CULPA NÃO É DOS ZUMBIS",
+   "cor": "#e0263f"
   }
  },
  "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
  "post": {
-  "titulo": "Tédio e tristeza no Project Zomboid: como tirar (B42)",
-  "gancho": "Tédio e tristeza são moodles de verdade. Leitura, comida boa e antidepressivo resolvem.",
+  "titulo": "Horta no Project Zomboid: por que a sua morre",
+  "gancho": "Sua horta vai morrer no Project Zomboid. E a culpa não é dos zumbis:",
   "pontos": [
-   "Tédio: Um Pouco de Tédio até Tédio Extremo",
-   "Tristeza: Triste até Sem Esperança",
-   "Livro e quadrinhos tiram os dois",
-   "Comida tem Tédio e Tristeza no tooltip",
-   "Antidepressivo age devagar"
+   "Plante no mês certo: fora da época a planta já nasce condenada",
+   "Água nunca no zero depois de brotar; a chuva rega",
+   "Um fertilizante por estágio; composto pode à vontade",
+   "Míldio mata sozinho: spray de leite",
+   "Colha na hora: tomate apodrece em ~1 semana",
+   "Pesca: sem isca só lixo, fuja do vermelho, pesque de madrugada ou fim da tarde e sem barulho"
   ],
-  "pergunta": "O que você lê na base?",
+  "pergunta": "Você vive de horta ou de lata?",
   "tags": [
    "pzdicas",
    "projectzomboidbr",
@@ -174,20 +212,16 @@
    "survivalgame"
   ]
  },
- "roteiro": "[sério] No apocalipse, até ficar entediado é perigoso. [calmo] O tédio vai de Um Pouco de Tédio até Tédio Extremo. O jogo já avisa: ocupe-se ou procure alguma distração. [sério] A tristeza é outro moodle: vai de Triste até Sem Esperança. [confiante] Leitura tira os dois: livro e revista em quadrinhos tiram tédio e tristeza; revista tira tédio. [calmo] Comida também conta: olha o tooltip. Tem comida que deixa triste até ser cozida. [calmo] Fumante fica triste sem cigarro. E o antidepressivo reduz a tristeza devagar, ao longo de vários dias. [confiante] Base com livros, comida boa e cozida, e o humor segura.",
+ "roteiro": "[sério] Sua horta morre antes de dar fruto. E quase nunca é culpa do zumbi. Um: a água precisa estar no nível mínimo da planta. Abaixo dele, ela cresce mais devagar. Muito abaixo, morre. Dois: doença acima de trinta para de crescer. Acima de sessenta, a planta morre. Três: pulgão e lesma tiram uma colheita a cada dez pontos. Quatro: planta com saúde acima de cinquenta rende mais, uma colheita a mais a cada dez pontos. Segue o canal.",
  "fatos": [
-  "ted-niveis",
-  "tri-niveis",
-  "tri-leitura",
-  "tri-comida",
-  "est-fumante",
-  "tri-antidep"
- ],
- "itens": [
-  "Item_Book",
-  "Item_ComicBook",
-  "Item_Magazine",
-  "Item_Cigarette",
-  "Item_PillsAntidepressant"
+  "agri-mes-certo",
+  "agri-inverno-resistentes",
+  "agri-agua-zero",
+  "agri-fertilizante",
+  "agri-mildio",
+  "agri-colher",
+  "pesca-isca",
+  "pesca-tensao",
+  "pesca-horario"
  ]
 }
