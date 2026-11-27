@@ -1,13 +1,13 @@
-// EP 29 — Fome e Peso do Corpo — cenas 3D do rascunho automático (auto3d.js). Uma tomada por frase.
+// EP 29 — Fogo e Incêndio — cenas 3D do rascunho automático (auto3d.js). Uma tomada por frase.
 import { run } from './ep3d.js';
 import { shot } from './auto3d.js';
 run([
-  shot('quintal', {"hold": 0.6}),  // 0 — Come e emagrece,
-  shot('casa', {"slump": 0.4}),  // 1 — Fome tira suas forças,
-  shot('quintal', {"hold": 0.6}),  // 2 — Peso = calorias,
-  shot('casa', {}),  // 3 — Dieta balanceada,
-  shot('correr', {"slump": 0.3}),  // 4 — Peso errado cobra caro,
-  shot('quintal', {}),  // 5 — Cozida sacia mais,
-  shot('chuva', {"slump": 0.3}),  // 6 — Inverno gasta mais,
-  shot('quintal', {"hold": 0.6}),  // 7 — Fome é alarme, caloria é combustível
+  shot('fogo', {"s": 1}),  // 0 — Fogão esquecido queima tudo,
+  shot('fogo', {}),  // 1 — O fogo se espalha,
+  shot('casa', {}),  // 2 — Desliga o fogão,
+  shot('fogo', {"z": 1}),  // 3 — Zumbi em chamas espalha,
+  shot('fogo', {"s": 1, "hold": 0.8}),  // 4 — Extintor: apagar fogo,
+  shot('fogo', {"s": 1, "hold": 0.6}),  // 5 — Areia também apaga,
+  shot('quintal', {}),  // 6 — 3 pedras, até 8 horas,
+  shot('quintal', {"sit": 1}),  // 7 — Extintor sempre perto
 ]);

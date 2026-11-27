@@ -1,5 +1,5 @@
 ---
-ep: 25
+ep: 31
 tema: Agricultura
 responsavel: jose
 status: validado
@@ -8,9 +8,9 @@ fatos: [agr-meses-plantio, agr-fora-do-mes, agr-sem-nov-dez, agr-mes-batata, agr
 video: (sem rascunho ainda)
 ---
 
-# EP 25 — Agricultura · ROTEIRO v1 (aprovado pelo Jose 27/11; fatos a validar)
+# EP 31 — Agricultura · ROTEIRO v1 (aprovado pelo Jose 27/11; fatos a validar)
 
-F: [A] PinDrop 42.21/42.22 · [B] build42guide 42.20 (confirmar). Voz: `projeto/audio/n25.mp3`.
+F: [A] PinDrop 42.21/42.22 · [B] build42guide 42.20 (confirmar). Voz: `projeto/audio/n31.mp3`.
 
 **Capa:** SUA HORTA / VAI MORRER
 **Ambiente:** horta cercada atrás de casa rural; canteiros, regador, ferramentas, capim alto fora da cerca. 2–3 zumbis variados além da cerca.

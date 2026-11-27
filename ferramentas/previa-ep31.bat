@@ -1,6 +1,6 @@
 @echo off
 chcp 65001 >nul
-rem Manual Zomboid - PREVIA do EP25 (Agricultura). Saida: projeto\out\Video 25 - Agricultura\previa.mp4
+rem Manual Zomboid - PREVIA do EP31 (Agricultura). Saida: projeto\out\Video 31 - Agricultura\previa.mp4
 cd /d "%~dp0.."
 set "SKILL=%~dp0motionmaxxing"
 set PZ_GPU=1
@@ -15,18 +15,18 @@ set "PZ_CHROME=%CHROME_PATH%"
 set PY=python
 where py >nul 2>nul && set PY=py -3
 
-echo [1/2] Branch jose/ep25 atualizada...
+echo [1/2] Branch main atualizada...
 git fetch origin
-git switch jose/ep25 || goto :erro
-git pull --ff-only 2>nul
+git switch main || goto :erro
+git pull --ff-only || goto :erro
 
-echo [2/2] Previa do EP25 (fatos + audio + inspecao + previa)...
+echo [2/2] Previa do EP31 (fatos + audio + inspecao + previa)...
 cd projeto
 %PY% -m pip install -q scipy >nul 2>nul
-%PY% pipeline/build.py 25 rascunho || goto :erro
+%PY% pipeline/build.py 31 rascunho || goto :erro
 echo.
-echo PRONTO: projeto\out\Video 25 - Agricultura\previa.mp4
-start "" "%~dp0..\projeto\out\Video 25 - Agricultura"
+echo PRONTO: projeto\out\Video 31 - Agricultura\previa.mp4
+start "" "%~dp0..\projeto\out\Video 31 - Agricultura"
 pause
 exit /b 0
 :erro

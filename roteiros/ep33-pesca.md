@@ -1,5 +1,5 @@
 ---
-ep: 27
+ep: 33
 tema: Pesca
 responsavel: jose
 status: rascunho
@@ -8,9 +8,9 @@ fatos: []
 video: (sem rascunho ainda)
 ---
 
-# EP 27 — Pesca · ROTEIRO v1 (aprovado pelo Jose 27/11; fatos a validar)
+# EP 33 — Pesca · ROTEIRO v1 (aprovado pelo Jose 27/11; fatos a validar)
 
-F: [A] PinDrop 42.21/42.22 · [B] build42guide 42.20 (confirmar). Voz: `projeto/audio/n27.mp3`.
+F: [A] PinDrop 42.21/42.22 · [B] build42guide 42.20 (confirmar). Voz: `projeto/audio/n33.mp3`.
 
 **Capa:** O PEIXE NÃO / VAI MORDER
 **Ambiente:** margem de lago com píer, juncos, mochila no chão, ondulações na água. Mata ao fundo.

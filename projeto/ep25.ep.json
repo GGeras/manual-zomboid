@@ -1,179 +1,172 @@
 {
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 25   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
  "num": "25",
- "nome": "Agricultura",
+ "nome": "Tédio e Tristeza",
  "vo": "audio/n25.mp3",
  "vo_db": 1.5,
+ "musica": "saying_goodbye",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
  "sfx": [
   [
-   "ambientOutsideDayBirds",
+   "BH_MalePlayer_SubtleBoredSigh_01",
    {
     "f": 0,
-    "dt": 0
+    "dt": 0.5
+   },
+   -14
+  ],
+  [
+   "zombierand1",
+   {
+    "c": 0,
+    "k": 0.3
+   },
+   -22
+  ],
+  [
+   "PZ_WoodFoot_01",
+   {
+    "c": 1,
+    "dt": 0.2
+   },
+   -18
+  ],
+  [
+   "BH_MalePlayer_SubtleBoredSigh_02",
+   {
+    "c": 1,
+    "k": 0.6
+   },
+   -15
+  ],
+  [
+   "BH_MalePlayer_SubtleSadSigh_01",
+   {
+    "f": 2,
+    "dt": 0.3
+   },
+   -14
+  ],
+  [
+   "ambientOutsideCricketsNight",
+   {
+    "c": 2
    },
    -24
   ],
   [
-   "bushes1",
+   "player_reading_book_open_01",
    {
-    "f": 0,
-    "dt": 2.2
-   },
-   -16
-  ],
-  [
-   "shoveling",
-   {
-    "f": 1,
-    "dt": 0.6
-   },
-   -14
-  ],
-  [
-   "heart",
-   {
-    "f": 2,
-    "dt": 3.0
-   },
-   -18
-  ],
-  [
-   "ambientOutsideWindyDay",
-   {
-    "f": 3,
-    "dt": 0.3
-   },
-   -18
-  ],
-  [
-   "player_reading_book_page_flip_01",
-   {
-    "f": 4,
-    "dt": 0.4
-   },
-   -18
-  ],
-  [
-   "player_reading_book_page_flip_01",
-   {
-    "f": 4,
-    "dt": 2.4
-   },
-   -18
-  ],
-  [
-   "player_reading_book_page_flip_01",
-   {
-    "f": 4,
-    "dt": 4.0
-   },
-   -18
-  ],
-  [
-   "PZ_GetWater",
-   {
-    "f": 5,
-    "dt": 0.8
-   },
-   -14
-  ],
-  [
-   "waterdrip1",
-   {
-    "f": 6,
-    "dt": 0.4
-   },
-   -18
-  ],
-  [
-   "ambientOutsideLightRainWoods",
-   {
-    "f": 7,
-    "dt": 4.8
-   },
-   -14
-  ],
-  [
-   "bushes2",
-   {
-    "f": 8,
-    "dt": 1.6
-   },
-   -12
-  ],
-  [
-   "bushes1",
-   {
-    "f": 8,
-    "dt": 2.4
-   },
-   -14
-  ],
-  [
-   "heart",
-   {
-    "f": 9,
-    "dt": 0.5
-   },
-   -20
-  ],
-  [
-   "ambientOutsideWindyDay",
-   {
-    "f": 10,
+    "c": 3,
     "dt": 0.2
    },
    -16
   ],
   [
-   "shoveling",
+   "player_reading_book_page_flip_01",
    {
-    "f": 11,
+    "c": 3,
+    "k": 0.55
+   },
+   -16
+  ],
+  [
+   "campfire",
+   {
+    "c": 4
+   },
+   -19
+  ],
+  [
+   "PZ_Eating",
+   {
+    "c": 4,
+    "k": 0.56
+   },
+   -15
+  ],
+  [
+   "player_use_lighter_01",
+   {
+    "c": 5,
     "dt": 0.3
    },
    -16
   ],
   [
-   "levelup",
+   "PZ_Swallowing",
    {
-    "f": 11,
-    "dt": 2.5
+    "c": 5,
+    "k": 0.42,
+    "dt": 1.93
+   },
+   -14
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "c": 6,
+    "dt": 0.6
    },
    -16
+  ],
+  [
+   "BH_MalePlayer_SubtleReliefSigh_01",
+   {
+    "f": 6,
+    "dt": 0.3
+   },
+   -14
   ]
  ],
- "sem_sufixo": true,
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
  "capa": {
   "t": 8.0,
+  "opcoes": [],
   "zoom": 1.05,
   "pos": "50% 55%",
   "tint": "rgba(0,0,0,.15)",
   "linhas": [
    [
-    "SUA HORTA",
+    "TÉDIO",
     "osso"
    ],
    [
-    "VAI MORRER",
+    "TAMBÉM",
+    "osso"
+   ],
+   [
+    "MATA",
     "vermelho"
    ]
   ],
   "gancho": {
-   "tipo": "selo",
-   "texto": "AGRICULTURA",
-   "cor": "#b5562f"
+   "tipo": "seq",
+   "itens": [
+    [
+     "LIVRO ✓",
+     "verde"
+    ],
+    [
+     "COMIDA ✓",
+     "verde"
+    ]
+   ]
   }
  },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
  "post": {
-  "titulo": "Agricultura para iniciantes (B42)",
-  "gancho": "Sua horta pode morrer antes de te dar comida. E a culpa pode ser do calendário.",
+  "titulo": "Tédio e tristeza no Project Zomboid: como tirar (B42)",
+  "gancho": "Tédio e tristeza são moodles de verdade. Leitura, comida boa e antidepressivo resolvem.",
   "pontos": [
-   "Cada planta tem meses de plantio; fora deles ela fica condenada",
-   "Nenhuma planta tem novembro e dezembro",
-   "Água no nível certo; a chuva rega o que está ao ar livre",
-   "Arranque o mato",
-   "No inverno, lá fora, só as resistentes ao frio, como o repolho"
+   "Tédio: Um Pouco de Tédio até Tédio Extremo",
+   "Tristeza: Triste até Sem Esperança",
+   "Livro e quadrinhos tiram os dois",
+   "Comida tem Tédio e Tristeza no tooltip",
+   "Antidepressivo age devagar"
   ],
-  "pergunta": "Me conta: você começa pela batata ou pelo repolho?",
+  "pergunta": "O que você lê na base?",
   "tags": [
    "pzdicas",
    "projectzomboidbr",
@@ -181,20 +174,20 @@
    "survivalgame"
   ]
  },
- "roteiro": "[tense] Sua horta pode morrer antes de te dar comida. E a culpa pode ser do calendário. [calm] No jogo, cada planta tem os meses certos para ir para a terra. [serious] Plantou fora deles, ela pode ficar condenada e começar a perder saúde. [curious] Novembro e dezembro? Nenhuma planta tem esses meses no calendário de plantio. [calm] Batata vai de fevereiro a abril. Tomate, de abril a junho. Repolho e cenoura, de fevereiro a julho. [calm] Plantou certo? Agora é água. Cada planta pede um tanto de água no solo. [curious] O tomate quer o solo bem molhado. A cenoura, no fim do crescimento, aguenta bem mais seco. [serious] Faltou água, ela atrasa. Faltou muito, para de crescer e começa a se machucar. A chuva rega o que está ao ar livre. [tense] E arranca o mato. Planta condenada com mato no mesmo quadrado perde saúde em dobro. [serious] Se ela estiver doente, o mato faz a doença se espalhar duas vezes mais rápido. [serious] No inverno, lá fora, só escapam as plantas que aguentam frio, como o repolho. [excited] Antes de enterrar a semente, olha o mês. Me conta: você começa pela batata ou pelo repolho?",
+ "roteiro": "[sério] No apocalipse, até ficar entediado é perigoso. [calmo] O tédio vai de Um Pouco de Tédio até Tédio Extremo. O jogo já avisa: ocupe-se ou procure alguma distração. [sério] A tristeza é outro moodle: vai de Triste até Sem Esperança. [confiante] Leitura tira os dois: livro e revista em quadrinhos tiram tédio e tristeza; revista tira tédio. [calmo] Comida também conta: olha o tooltip. Tem comida que deixa triste até ser cozida. [calmo] Fumante fica triste sem cigarro. E o antidepressivo reduz a tristeza devagar, ao longo de vários dias. [confiante] Base com livros, comida boa e cozida, e o humor segura.",
  "fatos": [
-  "agr-meses-plantio",
-  "agr-fora-do-mes",
-  "agr-sem-nov-dez",
-  "agr-mes-batata",
-  "agr-mes-tomate",
-  "agr-mes-repolho-cenoura",
-  "agr-agua-nivel",
-  "agr-agua-tomate-cenoura",
-  "agr-agua-falta",
-  "agr-chuva",
-  "agr-mato-dobro",
-  "agr-mato-doenca",
-  "agr-inverno"
+  "ted-niveis",
+  "tri-niveis",
+  "tri-leitura",
+  "tri-comida",
+  "est-fumante",
+  "tri-antidep"
+ ],
+ "itens": [
+  "Item_Book",
+  "Item_ComicBook",
+  "Item_Magazine",
+  "Item_Cigarette",
+  "Item_PillsAntidepressant"
  ]
 }

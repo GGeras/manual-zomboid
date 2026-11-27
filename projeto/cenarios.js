@@ -206,7 +206,7 @@ export function luzInterior(C, o = {}) {
     [[26, 16], [104, 11], [176, 20], [232, 8]].forEach(([y, a]) => { x.fillRect(24, y, 96, a); x.fillRect(134, y + 3, 98, a * .8); }); });
   const lamina = o.frestas && gradTex((x, w, h) => { const g = x.createLinearGradient(0, 0, 0, h); const c = noite ? '170,200,255' : '255,220,160';
     g.addColorStop(0, `rgba(${c},1)`); g.addColorStop(.5, `rgba(${c},.45)`); g.addColorStop(1, `rgba(${c},0)`); x.filter = 'blur(5px)'; x.fillStyle = g; x.fillRect(14, 0, w - 28, h); });
-  // o.progressiva = n (EP28): a janela nº n de o.janelas está sendo tapada AO VIVO — set(f, tabuas) com 0 a 3 (fração = tábua entrando).
+  // o.progressiva = n (EP25): a janela nº n de o.janelas está sendo tapada AO VIVO — set(f, tabuas) com 0 a 3 (fração = tábua entrando).
   // Alturas medidas no desenho: vidro 0,91–1,85 · 1ª tábua cobre 1,12–1,60 · 2ª sobe até 1,76 · 3ª desce até 0,93 (sobram frestas).
   const ABERTO_H = [[[.9, 1.9]], [[.9, 1.12], [1.60, 1.9]], [[.9, 1.12], [1.76, 1.9]]];
   const parcial = n => gradTex((x, w, h) => { x.filter = 'blur(5px)'; x.fillStyle = noite ? 'rgba(165,195,255,.95)' : 'rgba(255,214,150,.95)';
@@ -457,7 +457,7 @@ export function quarto(x0, z0, o = {}) {
   return { C, at: C.at, cama, cadeira: CAD, porta: PORTA, colchao };
 }
 
-// ---------- HORTA (EP25): horta cercada atrás de casa rural — tudo sprite do jogo (B42.22) ----------
+// ---------- HORTA (EP31): horta cercada atrás de casa rural — tudo sprite do jogo (B42.22) ----------
 // Casa de madeira ao fundo (parede N em j = -5), quintal de grama, horta com cerca branca (fencing_01_4/5, portão aberto em i = 0 na frente),
 // 4 canteiros (vegetation_farming_01: o mesmo desenho do jogo para cada planta e estágio): tomate (escora), batata, repolho, cenoura.
 // Galpão de ferramentas (location_farm_accesories_01_42), barril de chuva com lona (carpentry_02_122), compostor (carpentry_02_117), espantalho.

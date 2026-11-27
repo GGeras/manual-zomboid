@@ -19,13 +19,13 @@ Regra do Jose (27/11/2026). Vale para todo episódio.
 ## Registro
 | lugar | código atual | episódios | status | próximo passo |
 |---|---|---|---|---|
-| horta | `horta()` (EP25: casa de madeira, cerca de estacas, 4 canteiros com sprites do jogo por estágio e estado, mato, galpão, barril de chuva, compostor, espantalho, capim alto; versão inverno) | 12, 25 | em construção (rodada 1 de fotos enviada 27/11) | ajustes do Jose na foto |
-| fazenda | `fazenda()` | 16, 26 | em construção | galinheiro, 2 cochos, balde |
-| lago/rio | `sets.js` `river()` (formas genéricas) | 09, 12, 27 | em construção | criar `lago()` com sprites do jogo |
-| casa | `casaDentro()` | 14, 15, 17–20, 22–24, 28 | em construção | |
-| quarto | `quarto()` | 20, 22, 24, 28 | em construção | |
+| horta | `horta()` (EP31: casa de madeira, cerca de estacas, 4 canteiros com sprites do jogo por estágio e estado, mato, galpão, barril de chuva, compostor, espantalho, capim alto; versão inverno) | 12, 31 | em construção (rodada 1 de fotos enviada 27/11) | ajustes do Jose na foto |
+| fazenda | `fazenda()` | 16, 32 | em construção | galinheiro, 2 cochos, balde |
+| lago/rio | `sets.js` `river()` (formas genéricas) | 09, 12, 33 | em construção | criar `lago()` com sprites do jogo |
+| casa | `casaDentro()` | 14, 15, 17–20, 22–25 | em construção | |
+| quarto | `quarto()` | 20, 22, 24, 25 | em construção | |
 | rua | `rua()` | 15, 18, 20, 22–24 | em construção | |
 | sobrado | `sobrado()` | 17 | em construção | |
-| floresta | `floresta()` | 21, 28 | em construção | |
+| floresta | `floresta()` | 21, 25 | em construção | |
 
 Lugares que só existem em outra cópia do código entram aqui quando chegarem ao repo.

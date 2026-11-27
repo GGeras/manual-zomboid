@@ -23,7 +23,7 @@ export function episodioDoVideo(id: string | null, titulo: string): Episodio | u
     // onde o tema aparece no título: o assunto vem primeiro ("Coleta ...: ache comida" é Coleta, não Comida)
     let pos = palavras.findIndex((p) => chaves.some((c) => casa(c, p)))
     const alias = (ALIAS[e.nn] ?? []).find((a) => tt.includes(a))
-    const na = alias && alias.includes(' ') ? 1 : 0.9   // alias de várias palavras ("horta e pesca") é o título exato: vence o tema de uma palavra só (EP27 Pesca)
+    const na = alias && alias.includes(' ') ? 1 : 0.9   // alias de várias palavras ("horta e pesca") é o título exato: vence o tema de uma palavra só (EP33 Pesca)
     if (alias && na >= n) { n = na; pos = tt.slice(0, tt.indexOf(alias)).split(/[^a-z0-9]+/).filter(Boolean).length }
     const final = n > 0 ? n - Math.max(0, pos) * 0.02 : 0
     if (final > nota) { nota = final; melhor = e }

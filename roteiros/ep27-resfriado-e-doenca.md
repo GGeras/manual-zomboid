@@ -1,5 +1,5 @@
 ---
-ep: 30
+ep: 27
 tema: Resfriado e Doença
 responsavel: jose
 status: validado
@@ -8,7 +8,7 @@ fatos: [resf-espirro, resf-causa, resf-niveis, resf-lenco, resf-malva, doe-nivei
 video: (sem rascunho ainda)
 ---
 
-# EP 30 — Resfriado e Doença · ROTEIRO v6 (revisado 23/11/2026)
+# EP 27 — Resfriado e Doença · ROTEIRO v6 (revisado 23/11/2026)
 
 **Ideia-guia:** Resfriado e doença não são a infecção zumbi — e cada um tem o seu remédio no mato.
 
@@ -94,7 +94,7 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 
 **Modelos 3D:** `PZ.SOBREVIVENTE` (roupa padrão) · zumbis `PZ.zumbiPZ(i)` variados · S agachado (noite), na chuva, se lavando; Z virando a cabeça; panela PZ.itemModel('cookingpot')
 
-**Manifesto:** `projeto/ep30.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep30.cfg.js` + `ep30.js` (cenas) na hora da prévia.
+**Manifesto:** `projeto/ep27.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep27.cfg.js` + `ep27.js` (cenas) na hora da prévia.
 
 ## Fatos
 Todos em `info-validada/` (ver tabela do tema `resfriado-e-doenca` e os ids citados).
