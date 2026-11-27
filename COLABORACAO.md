@@ -2,7 +2,7 @@
 
 ## 1. Nomes de arquivos
 - **Minúsculas, sem acento, sem espaço, palavras com hífen.** Ex.: `frio-e-calor.md`, `aba-saude-ferido.png`.
-- **Episódio:** `epNN-tema`, com NN de 2 dígitos. Ex.: `roteiros/ep20-sono.md`, Drive `final/ep20-sono/`.
+- **Episódio:** `epNN-tema`, com NN de 2 dígitos. Ex.: `roteiros/ep20-sono.md`.
 - **Série gravada:** `bases-NN-local`. Ex.: `bases-02-hospital-muldraugh`.
 - **Fato:** id `tema-assunto` com prefixo do tema. Ex.: `ani-cocho`, `barr-luz`, `temp-roupa`. Fica em `info-validada/<tema>.md`.
 - **Print de tela do jogo:** `referencias/telas-do-jogo/<tela>-<detalhe>.png`. Ex.: `menu-barricar.png`.
@@ -37,11 +37,10 @@ gh pr create --fill                         # 5. abre o Pull Request
    git switch main && git pull
    ```
 - **Commit direto na `main`** só para coisa pequena e sua: CHANGELOG, link de vídeo, ajuste no seu próprio roteiro.
-- **Todo push na `main`** (ou PR aceito) e todo PR aberto viram aviso no `#atualizações-projeto`, feito pelo seu Claude (`canal/processo/automacao-slack-drive.md`, fluxo C).
 - Fato novo e código compartilhado sempre via PR.
 
 ## 4. Mensagens de commit
-`tipo(escopo): o que mudou`, no presente e curto. **No corpo, sempre uma linha `Por quê: ...`.** Ela vira a justificativa no aviso do Slack:
+`tipo(escopo): o que mudou`, no presente e curto. **No corpo, sempre uma linha `Por quê: ...`.** Ela registra o motivo da mudança:
 ```bash
 git commit -m "fato(animais): adiciona ani-cocho" -m "Por quê: evita mostrar água no mesmo cocho da ração"
 ```

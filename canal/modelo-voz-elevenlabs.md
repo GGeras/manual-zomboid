@@ -6,7 +6,7 @@ _(convertido de `00 Referencias/10 Roteiro, Voz e Publicacao/02 Modelo de Voz El
 MODELO DE VOZ — ELEVENLABS
 
 CONFIGURAÇÃO
-  Voz: Jhony Tygas - Natural Mature | Modelo: Eleven v4 | Velocidade 1.00 | Estabilidade 40 | Similaridade 75
+  Voz: Jhony Tygas - Natural Mature | Modelo: Eleven v4 | Velocidade 1.00 | Estabilidade 45 | Similaridade 75
   Gerar 2 versões de cada texto e enviar as duas.
 
 TAGS DE EMOÇÃO (entre colchetes, antes da frase)
