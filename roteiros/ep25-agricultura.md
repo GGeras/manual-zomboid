@@ -2,9 +2,9 @@
 ep: 25
 tema: Agricultura
 responsavel: jose
-status: rascunho
+status: validado
 build: B42.22
-fatos: []
+fatos: [agr-meses-plantio, agr-fora-do-mes, agr-sem-nov-dez, agr-mes-batata, agr-mes-tomate, agr-mes-repolho-cenoura, agr-agua-nivel, agr-agua-tomate-cenoura, agr-agua-falta, agr-chuva, agr-mato-dobro, agr-mato-doenca, agr-inverno]
 video: (sem rascunho ainda)
 ---
 

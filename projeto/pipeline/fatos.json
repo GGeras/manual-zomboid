@@ -1,6 +1,110 @@
 {
  "_ajuda": "GERADO por ferramentas/validar.py a partir de info-validada/*.md. NÃO edite à mão. Todo roteiro lista em epNN.ep.json -> \"fatos\" só ids daqui.",
  "fatos": {
+  "agr-agua-falta": {
+   "texto": "Água um pouco abaixo: cresce mais devagar; bem abaixo: não cresce e perde saúde",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: farming_vegetableconf.lua calcWater (−10% atrasa, −30% não cresce, abaixo disso −2); SFarmingSystem.lua changeHealth",
+   "eps": [
+    "25"
+   ]
+  },
+  "agr-agua-nivel": {
+   "texto": "Cada planta pede um nível de água no solo (Nível de água na planta)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: props waterLvl / waterNeeded; PTBR Farming.json Farming_Water_levels",
+   "eps": [
+    "25"
+   ]
+  },
+  "agr-agua-tomate-cenoura": {
+   "texto": "Tomate pede água alta (70); a cenoura, depois do primeiro estágio, pede bem menos (30)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: Tomato waterLvl 70; Carrots waterNeeded 70 (início) e waterLvl 30 (demais estágios); farming_vegetableconf.lua grow()",
+   "eps": [
+    "25"
+   ]
+  },
+  "agr-chuva": {
+   "texto": "A chuva rega as plantas ao ar livre",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: SFarmingSystem.lua checkWater (isRaining and exterior)",
+   "eps": [
+    "25"
+   ]
+  },
+  "agr-fora-do-mes": {
+   "texto": "Plantou fora dos meses de plantio: a planta nasce condenada (cursed) e perde mais saúde (multiplicador ×2)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: SPlantGlobalObject.lua seed() (not isSowMonth → cursed); SFarmingSystem.lua changeHealth badMultiplier",
+   "eps": [
+    "25"
+   ]
+  },
+  "agr-inverno": {
+   "texto": "No inverno, ao ar livre, só as plantas resistentes ao frio escapam; o repolho é uma delas",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: SFarmingSystem.lua changeHealth (Winter and not coldHardy → cursed); Cabbages coldHardy = true",
+   "eps": [
+    "25"
+   ]
+  },
+  "agr-mato-dobro": {
+   "texto": "Mato (Ervas Daninhas) no quadrado dobra a perda de saúde; somado à planta condenada, o efeito se multiplica",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: SFarmingSystem.lua changeHealth (hasWeeds → badMultiplier ×2); PTBR Farming_Weeds",
+   "eps": [
+    "25"
+   ]
+  },
+  "agr-mato-doenca": {
+   "texto": "Planta doente com mato dá chance dupla de a doença passar para as plantas vizinhas",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: SFarmingSystem.lua diseaseClosePlant (hasWeeds → segunda rolagem)",
+   "eps": [
+    "25"
+   ]
+  },
+  "agr-mes-batata": {
+   "texto": "Batata: plantio de fevereiro a abril",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: farming_vegetableconf_vegetables.lua Potatoes sowMonth {2,3,4}",
+   "eps": [
+    "25"
+   ]
+  },
+  "agr-mes-repolho-cenoura": {
+   "texto": "Repolho e cenoura: plantio de fevereiro a julho",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: farming_vegetableconf_vegetables.lua Cabbages e Carrots sowMonth {2..7}",
+   "eps": [
+    "25"
+   ]
+  },
+  "agr-mes-tomate": {
+   "texto": "Tomate: plantio de abril a junho",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: farming_vegetableconf_vegetables.lua Tomato sowMonth {4,5,6}",
+   "eps": [
+    "25"
+   ]
+  },
+  "agr-meses-plantio": {
+   "texto": "Cada planta tem meses de plantio (Época de Plantio)",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: farming_vegetableconf_vegetables.lua sowMonth; PTBR Farming.json Farming_Tooltip_InSeason",
+   "eps": [
+    "25"
+   ]
+  },
+  "agr-sem-nov-dez": {
+   "texto": "Nenhuma planta tem novembro ou dezembro nos meses de plantio",
+   "build": "B42.22",
+   "fonte": "arquivos do jogo B42.22 do Jose: sowMonth de todas as plantas em farming_vegetableconf_vegetables.lua e _herbs.lua (meses 2 a 10)",
+   "eps": [
+    "25"
+   ]
+  },
   "agua-coletor-b42": {
    "texto": "Coletor de chuva: Carpintaria 3 (caixote) ou 5 (barril), tábuas, pregos e sacos de lixo ou lona; a chuva entra contaminada",
    "build": "B42.21",

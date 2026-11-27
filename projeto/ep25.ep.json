@@ -3,7 +3,144 @@
  "nome": "Agricultura",
  "vo": "audio/n25.mp3",
  "vo_db": 1.5,
- "sfx": [],
+ "sfx": [
+  [
+   "ambientOutsideDayBirds",
+   {
+    "f": 0,
+    "dt": 0
+   },
+   -24
+  ],
+  [
+   "bushes1",
+   {
+    "f": 0,
+    "dt": 2.2
+   },
+   -16
+  ],
+  [
+   "shoveling",
+   {
+    "f": 1,
+    "dt": 0.6
+   },
+   -14
+  ],
+  [
+   "heart",
+   {
+    "f": 2,
+    "dt": 3.0
+   },
+   -18
+  ],
+  [
+   "ambientOutsideWindyDay",
+   {
+    "f": 3,
+    "dt": 0.3
+   },
+   -18
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 4,
+    "dt": 0.4
+   },
+   -18
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 4,
+    "dt": 2.4
+   },
+   -18
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 4,
+    "dt": 4.0
+   },
+   -18
+  ],
+  [
+   "PZ_GetWater",
+   {
+    "f": 5,
+    "dt": 0.8
+   },
+   -14
+  ],
+  [
+   "waterdrip1",
+   {
+    "f": 6,
+    "dt": 0.4
+   },
+   -18
+  ],
+  [
+   "ambientOutsideLightRainWoods",
+   {
+    "f": 7,
+    "dt": 4.8
+   },
+   -14
+  ],
+  [
+   "bushes2",
+   {
+    "f": 8,
+    "dt": 1.6
+   },
+   -12
+  ],
+  [
+   "bushes1",
+   {
+    "f": 8,
+    "dt": 2.4
+   },
+   -14
+  ],
+  [
+   "heart",
+   {
+    "f": 9,
+    "dt": 0.5
+   },
+   -20
+  ],
+  [
+   "ambientOutsideWindyDay",
+   {
+    "f": 10,
+    "dt": 0.2
+   },
+   -16
+  ],
+  [
+   "shoveling",
+   {
+    "f": 11,
+    "dt": 0.3
+   },
+   -16
+  ],
+  [
+   "levelup",
+   {
+    "f": 11,
+    "dt": 2.5
+   },
+   -16
+  ]
+ ],
  "sem_sufixo": true,
  "capa": {
   "t": 8.0,
@@ -29,7 +166,13 @@
  "post": {
   "titulo": "Agricultura para iniciantes (B42)",
   "gancho": "Sua horta pode morrer antes de te dar comida. E a culpa pode ser do calendário.",
-  "pontos": [],
+  "pontos": [
+   "Cada planta tem meses de plantio; fora deles ela fica condenada",
+   "Nenhuma planta tem novembro e dezembro",
+   "Água no nível certo; a chuva rega o que está ao ar livre",
+   "Arranque o mato",
+   "No inverno, lá fora, só as resistentes ao frio, como o repolho"
+  ],
   "pergunta": "Me conta: você começa pela batata ou pelo repolho?",
   "tags": [
    "pzdicas",
@@ -39,5 +182,19 @@
   ]
  },
  "roteiro": "[tense] Sua horta pode morrer antes de te dar comida. E a culpa pode ser do calendário. [calm] No jogo, cada planta tem os meses certos para ir para a terra. [serious] Plantou fora deles, ela pode ficar condenada e começar a perder saúde. [curious] Novembro e dezembro? Nenhuma planta tem esses meses no calendário de plantio. [calm] Batata vai de fevereiro a abril. Tomate, de abril a junho. Repolho e cenoura, de fevereiro a julho. [calm] Plantou certo? Agora é água. Cada planta pede um tanto de água no solo. [curious] O tomate quer o solo bem molhado. A cenoura, no fim do crescimento, aguenta bem mais seco. [serious] Faltou água, ela atrasa. Faltou muito, para de crescer e começa a se machucar. A chuva rega o que está ao ar livre. [tense] E arranca o mato. Planta condenada com mato no mesmo quadrado perde saúde em dobro. [serious] Se ela estiver doente, o mato faz a doença se espalhar duas vezes mais rápido. [serious] No inverno, lá fora, só escapam as plantas que aguentam frio, como o repolho. [excited] Antes de enterrar a semente, olha o mês. Me conta: você começa pela batata ou pelo repolho?",
- "fatos": []
+ "fatos": [
+  "agr-meses-plantio",
+  "agr-fora-do-mes",
+  "agr-sem-nov-dez",
+  "agr-mes-batata",
+  "agr-mes-tomate",
+  "agr-mes-repolho-cenoura",
+  "agr-agua-nivel",
+  "agr-agua-tomate-cenoura",
+  "agr-agua-falta",
+  "agr-chuva",
+  "agr-mato-dobro",
+  "agr-mato-doenca",
+  "agr-inverno"
+ ]
 }
