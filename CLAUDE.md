@@ -65,7 +65,7 @@ Leia este arquivo inteiro, depois `README.md` e `COLABORACAO.md`, antes de qualq
 - Um chat por 1–2 vídeos; o contexto fica no repo.
 - Listar pasta grande do PC custa caro: peça arquivos pelo nome.
 - **Não peça o roteiro ao Jose:** está em `roteiros/epNN-*.md` e `projeto/epNN.ep.json`. O prompt do ElevenLabs é o campo `roteiro` do `epNN.ep.json`, com tags de emoção.
-- Voz: Jhony Tygas – Natural Mature, Eleven v4, velocidade 1.00, estabilidade 40–50, similaridade 75. **Não clonar a voz.** Provisória: Piper (`tts_rascunho.py`).
+- Voz: Jhony Tygas – Natural Mature, Eleven v4, velocidade 1.00, estabilidade 45, similaridade 75. **Não clonar a voz.** Provisória: Piper (`tts_rascunho.py`).
 - Música só entra com aprovação do Jose (`aprovadas.json`); Claude não ouve áudio.
 
 ## 5. Onde está cada coisa
