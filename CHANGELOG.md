@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-27 · jose · EP25 horta() rodada 2: casa de toras (walls_logs), galinheiro inteiro (farm_accesories_01_114), mais grama
 - 2026-11-27 · jose · EP25: horta() em cenarios.js (sprites do jogo), cenas, ícones, sons, ferramentas/previa-ep25.bat; align.py sem /tmp fixo
 - 2026-11-27 · jose · fatos de agricultura validados nos arquivos do jogo (info-validada/agricultura.md), EP25
 - 2026-11-27 · jose (Claude) · regra "lugares de gravação" (`canal/lugares-de-gravacao.md`, `CLAUDE.md`), EP25–33 renumerados, voz corrigida do EP26 (frase 8, `ani-produto`) com tempos novos e prompts dos chats em `rascunho/ep25-27-comece-aqui.md`. Por quê: pedido do Jose; cenários devem ficar cada vez mais fiéis ao jogo.
