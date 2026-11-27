@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-27 · jose (Claude) · Fluxo sem Slack e Drive (removida a seção 8 do CLAUDE.md, `automacao-slack-drive.md` e menções no README, COLABORACAO e videos/README); regra de música aprovada removida; CLAUDE.md compactado. Por quê: instruções do projeto atualizadas pelo Jose e economia de token.
 - 2026-11-27 · jose (Claude) · Voz: estabilidade fixa em 45 (era 40–50), igual às instruções do projeto.
 - 2026-11-27 · jose (Claude) · Regras de conteúdo por rede (`canal/regras-conteudo-redes.md`): gancho de surpresa ou perda (sem "5 regras"), texto adaptado por rede com Instagram como principal, duração pode passar de 60 s, horário 12h e 18h30 igual nas 3 redes, temas indicativos; ajustes em CLAUDE.md, doc 11, checklist, calendário, descrições e métricas. Por quê: análise das 3 redes de 26/11 e decisões do Jose.
 - 2026-11-26 · claude · Site sem textos de dev/IA: removidos avisos "Modo prévia" e "Rascunho" (jurídico), frase de dados conferidos e link "Código do site" do rodapé; links externos abrem em nova aba.

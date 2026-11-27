@@ -1,125 +1,60 @@
-# CLAUDE.md — regras para qualquer Claude que trabalhe neste repositório
+# CLAUDE.md — regras do repo Manual Zomboid
 
-Este repo é a fonte única do canal **Manual Zomboid**: YouTube Shorts com dicas de Project Zomboid (Build 42).
-Duas pessoas trabalham aqui, cada uma com seu Claude: **Jose** (dono do canal) e o **sócio**.
-Leia este arquivo inteiro, depois `README.md` e `COLABORACAO.md`, antes de qualquer trabalho.
+Fonte única do canal **Manual Zomboid** (Shorts de Project Zomboid, Build 42). Jose (dono) e Bruno (sócio), cada um com seu Claude.
+Ler este arquivo, `README.md` e `COLABORACAO.md` antes de trabalhar.
 
-## 1. Regra nº 1: nunca inventar dados do jogo
-- Todo dado do jogo usado em roteiro, tela, capa ou post vem **só** de `info-validada/`:
-  - regra, número, nome de item, habilidade, moodle ou menu;
-  - texto de ajuda do jogo.
-- Não achou em `info-validada/`? Então **não existe** para você. Não complete com memória, wiki antiga ou "deve ser assim".
-- Número só se estiver na tabela. Sem número validado: fale de forma qualitativa ou use barra sem escala.
-- Nomes em PT-BR: só os de `info-validada/nomes-ptbr.md`. Exemplos: "Pontaria" (não "Mira"), "Coleta" (não "Forrageamento").
-- O que está em `info-validada/_nao-usar.md` é proibido dizer.
-- **Não pergunte fatos do jogo ao Jose.** Ou você confirma (seção 3), ou corta a frase.
+## 1. Nunca inventar dados do jogo
+- Todo dado do jogo (regra, número, item, habilidade, moodle, menu, texto de ajuda) vem **só** de `info-validada/`. Não achou = não existe.
+- Número só se estiver na tabela; sem número: qualitativo ou barra sem escala.
+- Nomes PT-BR só de `info-validada/nomes-ptbr.md`. `info-validada/_nao-usar.md` é proibido.
+- Não perguntar fatos do jogo ao Jose: confirma (seção 3) ou corta a frase.
 
-## 2. Informação validada × rascunho
-| | `info-validada/` | `rascunho/` |
-|---|---|---|
-| O que é | fato conferido, pronto para vídeo | dúvida, fonte velha, ideia, pesquisa em andamento |
-| Exigência | build **B42.20+** ou arquivo do jogo + **fonte** escrita | nenhuma |
-| Pode ir para vídeo? | **sim** | **nunca** |
-| Exemplo | `animais.md`: `ani-cocho` (B42.22, arquivo PTBR do jogo) | `legado-b41.md`, `revalidar-b42-19.md`, `ep20-22-a-revalidar.md` |
+## 2. Validado × rascunho
+- `info-validada/`: fato com build **B42.20+** ou arquivo do jogo + fonte. Pode ir para vídeo.
+- `rascunho/`: dúvida, B41, sem build, ideia. **Nunca** vai para vídeo.
+- Linha de fato: `| id | fato | build | fonte | usado em |`. `projeto/pipeline/fatos.json` é gerado por `python ferramentas/validar.py --gerar` (nunca editar à mão). O `build.py` barra fato fora de `info-validada/`.
+- Status do roteiro: `rascunho → validado → aprovado → final → publicado`. Publicado não é reeditado.
 
-- Cada fato é uma linha de tabela: `| id | fato | build | fonte | usado em |`.
-- O `projeto/pipeline/fatos.json` é **gerado** dessas tabelas por `python ferramentas/validar.py --gerar`. Nunca edite o json à mão.
-- O build (`build.py NN`) **barra** episódio que cita fato fora de `info-validada/`. Isso é proposital.
-  - Re-render de episódio antigo com fato em rascunho (ex.: EP12, EP15): revalide o fato primeiro.
-- Status do roteiro (cabeçalho de `roteiros/epNN-*.md`): `rascunho → validado → aprovado → final → publicado`.
-  - `validado`: todos os fatos estão em `info-validada/`.
-  - `aprovado`: o Jose aprovou a prévia.
-  - `final`: o vídeo foi renderizado.
-  - `publicado`: o vídeo está no ar. **Vídeo publicado não é reeditado.**
+## 3. Validar um fato
+1. Fonte: arquivos do jogo (`media/scripts/generated` números; `lua/shared/Translate/PTBR` nomes; `lua/shared/Sandbox/Apocalypse.lua` padrões) → web com build 42.20+.
+2. Conflito = não afirma. B41 ou sem build = rascunho.
+3. Confirmado: mover para `info-validada/<tema>.md` com build e fonte → `validar.py --gerar` → PR. CI `validar` verde → quem abriu faz o merge (sem code review).
 
-## 3. Como um fato vira validado
-1. Pesquise nesta ordem:
-   1. arquivos do jogo instalado (`...\ProjectZomboid\media`):
-      - `scripts/generated/*` para números;
-      - `lua/shared/Translate/PTBR/*.json` para nomes e textos;
-      - `lua/shared/Sandbox/Apocalypse.lua` para padrões do modo;
-   2. web com build **42.20+** no texto (projectzomboid.wiki, pzfans, pindrop).
-2. Fontes em conflito = não afirma. Fonte B41 ou sem build = rascunho.
-3. Anote em `rascunho/` enquanto pesquisa. Confirmado: mova a linha para `info-validada/<tema>.md`, com build e fonte (arquivo + chave, ou URL + build).
-4. Rode `python ferramentas/validar.py --gerar`, depois commit e Pull Request. **Sem code review:** CI verde (`validar`) → quem abriu o PR (ou o Claude dele) faz o merge na hora (decisão do Jose, 23/11). Regras do merge: `COLABORACAO.md`, seção 3.
-
-## 4. Regras do canal (absolutas, do Jose)
-1. **Conteúdo SOBRE O JOGO.** Regras, sons e elementos são fiéis ao jogo.
-2. **Visual do jogo:**
-   - modelos originais (`pz: true`);
-   - ícones originais (`projeto/assets/items`, nome `Item_*`);
-   - moodles reais (`pz:Mood_*` / `pz:Status_*`);
-   - sons e músicas do jogo.
-3. **Personagem principal sempre com a mesma roupa** (`PZ.SOBREVIVENTE`): jaqueta verde, camiseta clara, jeans, bota e mochila marrons.
-4. **Tela do jogo no vídeo = réplica fiel** de um print real (`referencias/telas-do-jogo/`), com textos de `nomes-ptbr.md`. Sem print, use ícone ou chip, nunca tela inventada.
-5. **Rascunho (prévia) antes do render final.** O Jose aprova a prévia.
-6. Respostas ao Jose: **poucas palavras, diretas, em blocos, em português.**
-7. **Faça só o que foi pedido.** Não invente regra, fluxo, etapa ou extra que o Jose não pediu. Pediu X, entregue X.
-8. **Render é SEMPRE pelo `.bat`** (`ferramentas/rodar.bat` ou o `.bat` do episódio, que chama o `rodar.bat`). Ele detecta o hardware de cada PC (NVIDIA/NVENC, placa integrada ou só processador) e ajusta os renders em paralelo. Não renderize chamando `build.py` direto nem fixe GPU/jobs na mão.
-9. **Capas:** padrão v5 em `canal/padrao-capas.md` (arte própria por vídeo, grupos de 3 em ordem de publicação).
-10. **Depois de cada trabalho:** atualize o repositório (CHANGELOG + docs do que mudou). Vídeo/capa já entregue nunca é sobrescrito: a versão anterior vai para `versoes/`.
-11. **Gancho, texto por rede, horário e temas:** seguir `canal/regras-conteudo-redes.md` (REGRA obrigatória; INDICATIVO orienta, não veta). Roteiro, capa, post e ideias leem só esse doc, não os relatórios de métricas.
+## 4. Regras do canal (Jose)
+1. Conteúdo **sobre o jogo**, fiel em regras, sons e elementos.
+2. Visual original: modelos (`pz: true`), ícones `Item_*`, moodles `pz:Mood_*`/`pz:Status_*`, sons e músicas do jogo.
+3. Personagem sempre igual (`PZ.SOBREVIVENTE`): jaqueta verde, camiseta clara, jeans, bota e mochila marrons.
+4. Tela do jogo = réplica de print real (`referencias/telas-do-jogo/`) com textos de `nomes-ptbr.md`; sem print, ícone ou chip.
+5. Prévia antes do final; o Jose aprova a prévia.
+6. Respostas: poucas palavras, diretas, em blocos, em português.
+7. Faça só o que foi pedido.
+8. Render sempre pelo `.bat` (`ferramentas/rodar.bat` ou o do episódio): ele ajusta ao hardware. Não chamar `build.py` direto para render nem fixar GPU/jobs.
+9. Capas: v5, `canal/padrao-capas.md`.
+10. Depois de cada trabalho: CHANGELOG + docs do que mudou. Entregue nunca é sobrescrito: anterior vai para `versoes/`.
+11. Gancho, texto por rede, horário e temas: `canal/regras-conteudo-redes.md` (REGRA obriga; INDICATIVO orienta). Roteiro, capa, post e ideias leem só esse doc.
 
 ### Economia de tokens e voz
-- Render não gasta token: não fique checando, o sistema avisa quando termina.
-- Um chat por 1–2 vídeos; o contexto fica no repo.
-- Listar pasta grande do PC custa caro: peça arquivos pelo nome.
-- **Não peça o roteiro ao Jose:** está em `roteiros/epNN-*.md` e `projeto/epNN.ep.json`. O prompt do ElevenLabs é o campo `roteiro` do `epNN.ep.json`, com tags de emoção.
-- Voz: Jhony Tygas – Natural Mature, Eleven v4, velocidade 1.00, estabilidade 45, similaridade 75. **Não clonar a voz.** Provisória: Piper (`tts_rascunho.py`).
-- Música só entra com aprovação do Jose (`aprovadas.json`); Claude não ouve áudio.
+- Render não gasta token: não checar. Um chat por 1–2 vídeos. Pedir arquivos do PC pelo nome.
+- Roteiro está em `roteiros/epNN-*.md` e `projeto/epNN.ep.json` (campo `roteiro` = prompt do ElevenLabs): não pedir ao Jose.
+- Voz: Jhony Tygas – Natural Mature, Eleven v4, velocidade 1.00, estabilidade 45, similaridade 75. Não clonar. Provisória: Piper (`tts_rascunho.py`).
 
-## 5. Onde está cada coisa
+## 5. Pastas
 | pasta | conteúdo |
 |---|---|
-| `info-validada/` | fatos do jogo validados (1 `.md` por tema), `nomes-ptbr.md`, `_nao-usar.md` |
-| `rascunho/` | não validado: fatos B41, B42.19, EP20–22, dúvidas, roteiros antigos, ideias |
-| `roteiros/` | 1 arquivo por episódio, com cabeçalho (`ep`, `tema`, `responsavel`, `status`, `fatos`) |
-| `canal/` | padrões do canal (marca, capas, zumbis, voz, descrições, checklist, critérios de aceite, métricas); `canal/processo/` = método de produção |
-| `referencias/` | imagens de referência: marca, estilo, prints de telas do jogo, fichas dos modelos, capas |
-| `projeto/` | pipeline de vídeo (Three.js + render) e assets do jogo (`assets/items`, `moodles`, `pz`, `sfx`, `music`, `logo`). Guia: `projeto/README.md` |
-| `ferramentas/` | `instalar.bat`, `rodar.bat`, `env.sh`, `validar.py`, `publicar.py` + `resumo_push.py` (Slack/Drive), skill `motionmaxxing` (render) |
-| `videos/` | só links (Drive) — vídeo nunca entra no repo |
+| `info-validada/` | fatos validados, `nomes-ptbr.md`, `_nao-usar.md` |
+| `rascunho/` | não validado |
+| `roteiros/` | 1 por episódio (cabeçalho `ep`, `tema`, `responsavel`, `status`, `fatos`) |
+| `canal/` | padrões do canal; `canal/processo/` = método de produção |
+| `referencias/` | prints de telas, marca, fichas de modelos, capas |
+| `projeto/` | pipeline (Three.js + render) e assets do jogo. Guia: `projeto/README.md` |
+| `ferramentas/` | `instalar.bat`, `rodar.bat`, `env.sh`, `validar.py`, skill `motionmaxxing` |
+| `videos/` | só a tabela de status; vídeo nunca entra no repo |
 
-## 6. Produzir um vídeo (resumo)
-- Método completo: `canal/processo/11-regras-roteiro-e-pipeline.md`, `05-episodios-recentes-e-licoes.md`, `06-animacao-e-modelos.md` e `07-modelos-do-jogo-e-criterios.md`.
-- **Modelos aprovados:**
-  - `projeto/ep14.*`: painéis simples + 3D;
-  - `projeto/ep13.cfg.js`: réplica da tela de criação;
-  - `projeto/ep15.cfg.js`: réplica da aba Saúde.
-- **Comandos** (Git Bash, na raiz):
-  ```bash
-  source ferramentas/env.sh
-  py3 pipeline/tts_rascunho.py NN                         # voz provisória (Piper)
-  py3 pipeline/check_vo.py audio/nNN.mp3 audio/nsNN.json  # voz real do ElevenLabs
-  py3 pipeline/build.py NN rascunho                       # prévia + inspeção
-  py3 pipeline/build.py NN                                # final
-  ```
-  O `env.sh` já entra em `projeto/`. **Render (prévia e final) sempre pelo `.bat`** (regra 4.8): ele usa o hardware de cada um. Os comandos acima servem para voz e conferência; rode o final em segundo plano.
-- A saída vai para `projeto/out/` (ignorado pelo git). Depois de cada prévia ou final, faça a seção 8.
+## 6. Produzir um vídeo
+- Método: `canal/processo/11-regras-roteiro-e-pipeline.md`, `05-…`, `06-…`, `07-…`.
+- Modelos: `projeto/ep14.*` (painéis + 3D), `ep13.cfg.js` (tela de criação), `ep15.cfg.js` (aba Saúde).
+- Git Bash na raiz: `source ferramentas/env.sh`, depois `py3 pipeline/tts_rascunho.py NN` (voz provisória) e `py3 pipeline/check_vo.py audio/nNN.mp3 audio/nsNN.json` (voz real). Prévia e final: pelo `.bat`. Saída em `projeto/out/` (fora do git).
 
 ## 7. Antes de cada commit
-1. `git pull` (comece sempre atualizado).
-2. `python ferramentas/validar.py`: tem que terminar com **0 erro(s)**.
-3. Uma linha em `CHANGELOG.md`: data, quem e o quê.
-4. Commit pequeno, mensagem no padrão de `COLABORACAO.md`.
-- Nunca commite vídeo, zip, `projeto/out/` ou segredos. O `.gitignore` já bloqueia.
-- Arquivo pesado novo (imagem, som, modelo): confira com `git lfs ls-files` que entrou no LFS.
-
-## 8. Automação Slack + Google Drive (obrigatória)
-Regra completa: `canal/processo/automacao-slack-drive.md`. Canais e IDs: `ferramentas/automacao.json`.
-- **Prévia renderizada:**
-  1. `python ferramentas/publicar.py NN previa`.
-  2. Link público pelo conector **Google Drive** (`share_file`, `anyoneWithLink`, leitor).
-  3. Mensagem pelo conector **Slack** no `#links-rascunho`.
-- **Final renderizado:**
-  1. `python ferramentas/publicar.py NN final` (vídeo + capa).
-  2. Links públicos dos dois.
-  3. Mensagem no `#links-final`.
-  4. Link na tabela de `videos/README.md`.
-- **Push na `main`, ou PR aceito:**
-  1. Antes do push: `BASE=$(git rev-parse origin/main)`.
-  2. Depois: `python ferramentas/resumo_push.py $BASE..origin/main`.
-  3. Revise (o que — por quê, curto) e envie no `#atualizações-projeto`.
-- **PR aberto:** `python ferramentas/resumo_push.py --pr N`, no mesmo canal.
-- Os vídeos vão para o **Drive pessoal** de quem renderizou, nunca para o repo. Configuração pessoal: `python ferramentas/publicar.py --configurar`.
-- Um aviso por evento. Conector ou Drive falhou: avise a pessoa em uma linha e pare. Não poste em outros canais.
+1. `git pull`. 2. `python ferramentas/validar.py` com **0 erro(s)**. 3. Linha no `CHANGELOG.md`. 4. Commit no padrão de `COLABORACAO.md`.
+- Nunca commitar vídeo, zip, `projeto/out/` ou segredos. Arquivo pesado novo: conferir `git lfs ls-files`.
