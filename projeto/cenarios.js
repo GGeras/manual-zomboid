@@ -12,7 +12,7 @@ export const PISO = {
   madeira: ['floors_interior_tilesandwood_01_42'], cozinha: ['floors_interior_tilesandwood_01_0'], telhado: ['floors_exterior_street_01_16'],
 };
 // paredes do jogo: [W, N, canto, janela W, janela N] (walls_*_house_01: cada grupo de 16 tem duas cores)
-const PAR = { tora: [0, 1, 2, 9, 8].map(i => 'walls_logs_' + i), siding: [32, 33, 34, 40, 41].map(i => 'walls_exterior_house_01_' + i), tijolo: [4, 5, 6, 12, 13].map(i => 'walls_exterior_house_01_' + i),
+const PAR = { siding: [32, 33, 34, 40, 41].map(i => 'walls_exterior_house_01_' + i), tijolo: [4, 5, 6, 12, 13].map(i => 'walls_exterior_house_01_' + i),
   bege: [36, 37, 38, 44, 45].map(i => 'walls_interior_house_01_' + i), azul: [64, 65, 66, 72, 73].map(i => 'walls_interior_house_01_' + i) };
 
 // fachada de casa vista da rua: parede da frente (N do ladrilho j0) + lateral (W do ladrilho i1+1) + telhado plano. Janela nas posições dadas.
@@ -34,18 +34,23 @@ export function arvore(C, i, j, est = 'verao', k = 0) { if (est === 'inverno') r
 
 // ---------- RUA DE BAIRRO (EP18): estação = 'verao' | 'inverno' | 'chuva' | 'calor' (verão de seca: grama queimada, asfalto desbotado, sombras duras) ----------
 // estrada ao longo de x nas linhas j = 0..1, calçadas j = -1 e j = 2, jardins e duas casas ao fundo, grama, árvores e postes na frente.
-export function rua(x0, z0, est = 'verao', o = {}) {   // o.postes = posição dos postes (EP22: o da calçada da frente passava na frente do personagem)
+export function rua(x0, z0, est = 'verao', o = {}) {   // o.muro = [i0, i1]: muro alto de tábuas do jogo no lugar das cerquinhas (EP23); o.carro = [x, z]
+  // o.postes = posição dos postes (EP22: o da calçada da frente passava na frente do personagem)
   const C = cena(x0, z0), inv = est === 'inverno', chu = est === 'chuva', cal = est === 'calor';
   const gr = inv ? PISO.neve : PISO.grama, tA = inv ? '#e9eef6' : chu ? '#a9b2bc' : cal ? '#efe4cf' : null, tR = inv ? '#d8dde6' : cal ? '#fff4e2' : null;
   C.chao(gr, -16, -14, 16, 12, { seed: 3, tint: cal ? '#f2cf7e' : null });   // calor: grama do jogo queimada pelo sol (tinta amarelada)
-  C.chao(PISO.asfalto, -16, 0, 16, 1, { y: .02, tint: tA });
-  C.chao(PISO.calcada, -16, -1, 16, -1, { y: .025, tint: tR }); C.chao(PISO.calcada, -16, 2, 16, 2, { y: .025, tint: tR });
-  C.chao(PISO.calcada, -6, -4, -6, -2, { y: .025, tint: tR }); C.chao(PISO.calcada, 5, -4, 5, -2, { y: .025, tint: tR });   // caminhos até as portas
+  // o.bairro (EP24 v7): UM só modelo de calçada e de asfalto (sem sortear), cerca contínua e detalhes de bairro
+  const asf = o.bairro ? [PISO.asfalto[0]] : PISO.asfalto, calc = o.bairro ? [PISO.calcada[0]] : PISO.calcada;
+  C.chao(asf, -16, 0, 16, 1, { y: .02, tint: tA });
+  C.chao(calc, -16, -1, 16, -1, { y: .025, tint: tR }); C.chao(calc, -16, 2, 16, 2, { y: .025, tint: tR });
+  C.chao(calc, -6, -4, -6, -2, { y: .025, tint: tR }); C.chao(calc, 5, -4, 5, -2, { y: .025, tint: tR });   // caminhos até as portas
   const tetoNeve = inv ? '#f4f7fb' : null;
   casaFora(C, -11, -2, -12, -5, { parede: 'siding', janelas: [-9, -4, 'w-7', 'w-10'], tetoTint: tetoNeve, cortina: 'fixtures_windows_curtains_01_26' });
   casaFora(C, 2, 10, -12, -5, { parede: 'tijolo', janelas: [3, 8, 'w-8'], tetoTint: tetoNeve, cortina: 'fixtures_windows_curtains_01_10' });
   // cerquinhas brancas na frente das casas
-  for (let i = -11; i <= -2; i++) if (i !== -6) C.parede('N', 'fencing_01_5', i, -1, { tint: tR });
+  if (o.muro) for (let i = o.muro[0]; i <= o.muro[1]; i++) C.parede('N', 'walls_exterior_wooden_01_25', i, -1, { tint: tR });
+  else if (o.bairro) { for (let i = -16; i <= 16; i++) if (i !== -6 && i !== 5) C.parede('N', 'fencing_01_5', i, -1, { tint: tR }); bairro(C); }   // cerca em sequência; só abre nos caminhos
+  else for (let i = -11; i <= -2; i++) if (i !== -6) C.parede('N', 'fencing_01_5', i, -1, { tint: tR });
   // árvores (verão: verde cheio; inverno: galhos com neve) e arbustos
   const TREES = [[-13, -3], [0, -3], [12, -3], [-8, 5], [7, 6], [14, 4], [-15, 7], ...(cal ? [[-5, 4]] : [])];   // calor: árvore extra na frente = a sombra para onde se foge
   TREES.forEach(([i, j], k) => arvore(C, i, j, inv ? 'inverno' : 'verao', k));
@@ -58,10 +63,25 @@ export function rua(x0, z0, est = 'verao', o = {}) {   // o.postes = posição d
   if (!inv) [[-1, 6], [5, 9], [-6, 8]].forEach(([i, j], k) => C.obj('f_bushes_1_' + (64 + k * 3), i, j, { w: .5, d: .5 }));
   // postes de rua na calçada
   (o.postes ?? [[-9, 2], [6, 2]]).forEach(([i, j]) => C.obj('lighting_outdoor_01_1', i, j, { w: .3, d: .3 }));
-  if (!cal) C.obj('street_decoration_01_0', -4, 2, { w: .5, d: .5 });   // calor: sem a placa (ficava atrás dos textos)
+  if (!cal && !o.muro && !o.semPlaca) C.obj('street_decoration_01_0', -4, 2, { w: .5, d: .5 });   // calor: sem a placa (ficava atrás dos textos)
   // carro estacionado (modelo original do jogo)
-  const car = PZ.vehicle('normal', inv ? '#5a6f8a' : '#7a1f1c'); car.position.set(-11, 0, 1.15); car.scale.setScalar(1); C.G.add(car);
+  const car = PZ.vehicle('normal', inv ? '#5a6f8a' : '#7a1f1c'); car.position.set(o.carro?.[0] ?? -11, 0, o.carro?.[1] ?? 1.15); car.scale.setScalar(1); C.G.add(car);
   return { C, at: C.at, chao: { x: x0, z: z0 } };
+}
+
+// detalhes de bairro (EP24 v7): caixas de correio, lixeiras, hidrante, bueiro, arbustos junto à cerca, grama alta e flores — sprites do jogo.
+// Faixa do personagem e dos zumbis (j 0..1) fica livre.
+function bairro(C, correio = []) {
+  correio.forEach(([i, j]) => C.placa('street_decoration_01_18', i, j));   // caixa de correio só onde fizer sentido (portão de casa) — EP24 v8
+  [['trashcontainers_01_0', 1.5, -1.1], ['trashcontainers_01_16', 2.35, -1.1], ['trashcontainers_01_24', 6.4, -1.1], ['trashcontainers_01_0', -9, -1.1]].forEach(([n, i, j]) => C.placa(n, i, j));
+  C.placa('street_decoration_01_12', -2.6, 2.35);                                                                            // hidrante
+  C.chao('street_decoration_01_15', 4, 0, 4, 0, { y: .035 });                                                                // bueiro
+  [[-9, 101], [-4, 108], [-2.6, 64], [0, 101], [.8, 67], [3.2, 108], [7.3, 101], [9, 64]].forEach(([i, n]) => C.placa('f_bushes_1_' + n, i, -1.9, { fz: .2 }));
+  const capim = [40, 41, 42, 43, 16, 17, 18, 64, 65, 66];
+  for (let k = 0; k < 90; k++) { const i = -12 + U.R(k * 5 + 1) * 24, frente = k % 3 === 0, j = frente ? 2.9 + U.R(k * 7 + 2) * 3.4 : -4.2 + U.R(k * 7 + 2) * 2.2;
+    if (!frente && (Math.abs(i + 6) < .8 || Math.abs(i - 5) < .8)) continue;
+    C.placa('e_newgrass_1_' + capim[k % capim.length], i, j, { fz: .15 }); }
+  [[-3.5, 3.4, 28], [1.6, 4.2, 44], [5.6, 3.2, 28], [-.4, -3.1, 44]].forEach(([i, j, n]) => C.placa('d_plants_1_' + n, i, j, { fz: .2 }));
 }
 
 // ---------- FAZENDA (EP16): três cercados separados (vaca, ovelha, galinhas), celeiro, feno, cocho ----------
@@ -118,12 +138,17 @@ export function casaDentro(x0, z0, o = {}) {
   // mesa da cozinha com cadeiras viradas PARA a mesa (ao sul da mesa = frente N; a leste = frente W)
   C.obj('furniture_tables_high_01_29', 7, 4); C.obj('furniture_seating_indoor_01_58', 7, 5); C.obj('furniture_seating_indoor_01_59', 8, 4);   // mesa de 1 ladrilho INTEIRA (a _8 era só um canto: ficava cortada)
   // sala: estante e cômoda na parede N (frente S), TV na parede N, duas poltronas na parede W (frente E), abajur, planta, tapete
-  C.obj('furniture_shelving_01_40', 0, 0); C.obj('furniture_storage_01_13', 1, 0);
+  const estante = C.obj('furniture_shelving_01_40', 0, 0);
+  // o.estanteCheia (EP25 v8): sprite da estante do jogo com as lombadas pintadas nas prateleiras (assets/estante_cheia.png)
+  if (o.estanteCheia) { const t = new THREE.Texture(); t.colorSpace = THREE.SRGBColorSpace; t.generateMipmaps = false; t.minFilter = t.magFilter = THREE.LinearFilter;
+    window.__TILES.push(new Promise(res => { const im = new Image(); im.onload = () => { t.image = im; t.needsUpdate = true; res(); }; im.onerror = () => res(); im.src = './assets/estante_cheia.png'; })); estante.material.map = t; }
+  C.obj('furniture_storage_01_13', 1, 0);
   // vaso de planta EM CIMA da cômoda (mesmo ladrilho, caixa um pouco maior: não briga com a da cômoda) — antes flutuava ao lado dela
   if (!o.janelaLivre && !livreN(1)) C.obj('vegetation_indoor_01_0', 1, 0, { w: .96, d: .96 });
   // TV em cima de uma mesinha (no chão ela parecia caída)
   // o.rackTV = TV no rack do jogo (EP22, 25/11): a TV já é desenhada na altura de apoio; só sobe 7 px do desenho para assentar no meio do tampo
-  if (!livreN(5)) { if (o.rackTV) { C.obj('furniture_tables_low_01_13', 5, 0, { w: .96, d: .96 }); C.obj('appliances_television_01_1', 5, 0, { w: .96, d: .96, dy: 7 * PX_Y }); }
+  const tvI = o.tvI ?? 5;   // o.tvI: afasta a TV da bancada para o tampo não cortar o aparelho (EP24 v8)
+  if (!livreN(5)) { if (o.rackTV) { C.obj('furniture_tables_low_01_13', tvI, 0, { w: .96, d: .96 }); C.obj('appliances_television_01_1', tvI, 0, { w: .96, d: .96, dy: 7 * PX_Y }); }
     else { const TV = C.obj('furniture_tables_high_01_12', 5, 0, { w: .8, d: .8 }); C.obj('appliances_television_01_1', 5, 0, { w: .7, d: .7, dy: TV.userData.h * .86 }); } }
   if (!o.completa) C.placa('lighting_indoor_01_on_58', 0, 2, { fz: .2, solida: true });   // 25/11: abajur de pé = placa (sprite inteiro); antes era o interruptor (lighting_indoor_01_0) em pé no chão
   [4, 5].forEach(j => { if (j !== winW) C.obj('furniture_seating_indoor_01_8', 0, j); });
@@ -135,11 +160,13 @@ export function casaDentro(x0, z0, o = {}) {
     for (let j = 0; j <= 7; j++) if (j !== porta) C.parede('W', 'walls_interior_detailing_01_32', 0, j, { off: .012 });
     C.parede('W', 'fixtures_doors_01_4', 0, porta, { off: .02 });
     // quadros e relógio na parede (desenho da mesma borda — regra 4.4)
-    C.parede('N', 'walls_decoration_01_41', 4, 0, { off: .015 }); C.parede('N', 'walls_decoration_01_105', 1, 0, { off: .015 });
+    C.parede('N', 'walls_decoration_01_41', o.tvI ? 5.3 : 4, 0, { off: .015 }); C.parede('N', 'walls_decoration_01_105', 1, 0, { off: .015 });
     C.parede('W', 'walls_decoration_01_52', 0, 4.5, { off: .015 });
     // canto de leitura: poltrona de couro encostada na parede W (frente E) com abajur de pé aceso ao lado
     poltrona = C.assento('furniture_seating_indoor_02_45', 0, 2, { encosto: 'W', hs: .486 });   // assento na altura do jogo (Bob_SatChair: nádega a 0,486 — regra 4.7)
-    C.placa('lighting_indoor_01_on_58', 0, 1, { fz: .2, solida: true });   // 25/11: placa (antes a caixa de .35 cortava a base e a cúpula — EP23/EP24)
+    // 25/11: placa (antes a caixa de .35 cortava a base e a cúpula — EP23/EP24). o.abajurAceso (EP24 v7, padrão EP22): peça sólida + camada de luz por cima
+    if (o.abajurAceso) { C.placa('lighting_indoor_01_58', 0, 1, { fz: .2 }); C.placa('lighting_indoor_01_on_58', 0, 1, { fz: .21, op: .999 }); }
+    else C.placa('lighting_indoor_01_on_58', 0, 1, { fz: .2, solida: true });
     // mesa de centro na frente das poltronas, em cima do tapete
     C.obj('furniture_tables_low_01_16', 1.2, 4.5, { w: .8, d: .9 });
   }
@@ -171,7 +198,45 @@ export function luzInterior(C, o = {}) {
   // noite: o.lua = luar azulado entrando pela janela (EP20); sem o.lua a janela fica escura
   const lua = gradTex((x, w, h) => { const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, 'rgba(170,200,255,1)'); g.addColorStop(.55, 'rgba(140,175,240,.5)'); g.addColorStop(1, 'rgba(120,160,230,0)');
     x.fillStyle = g; x.fillRect(0, 0, w, h); x.globalCompositeOperation = 'destination-out'; x.fillStyle = 'rgba(0,0,0,.85)'; x.fillRect(w / 2 - 5, 0, 10, h); x.fillRect(0, h * .42, w, 9); x.fillRect(0, 0, 14, h); x.fillRect(w - 14, 0, 14, h); });
-  (o.janelas || []).forEach(([lado, n]) => { if (noite && !o.lua) return;
+  // o.facho (EP24 v8): o sol vem de UMA direção só (a·h, b·h por metro de altura) para as duas paredes; a mancha no chão é a projeção do
+  // vidro (começa afastada da parede, na largura da janela, com os vidros divididos e borda macia) e a própria janela fica clara.
+  const FA = .7, FB = 1.15, H0 = .9, H1 = 1.9, MEIA = .27;
+  // o.frestas (EP25 v8): janela TAPADA com tábuas — a luz só passa pelas frestas: riscos no chão, lâminas de luz no ar e cômodo mais escuro
+  const frestas = o.frestas && gradTex((x, w, h) => { x.filter = 'blur(4px)'; x.fillStyle = noite ? 'rgba(165,195,255,.95)' : 'rgba(255,214,150,.95)';
+    [[26, 16], [104, 11], [176, 20], [232, 8]].forEach(([y, a]) => { x.fillRect(24, y, 96, a); x.fillRect(134, y + 3, 98, a * .8); }); });
+  const lamina = o.frestas && gradTex((x, w, h) => { const g = x.createLinearGradient(0, 0, 0, h); const c = noite ? '170,200,255' : '255,220,160';
+    g.addColorStop(0, `rgba(${c},1)`); g.addColorStop(.5, `rgba(${c},.45)`); g.addColorStop(1, `rgba(${c},0)`); x.filter = 'blur(5px)'; x.fillStyle = g; x.fillRect(14, 0, w - 28, h); });
+  // o.progressiva = n (EP28): a janela nº n de o.janelas está sendo tapada AO VIVO — set(f, tabuas) com 0 a 3 (fração = tábua entrando).
+  // Alturas medidas no desenho: vidro 0,91–1,85 · 1ª tábua cobre 1,12–1,60 · 2ª sobe até 1,76 · 3ª desce até 0,93 (sobram frestas).
+  const ABERTO_H = [[[.9, 1.9]], [[.9, 1.12], [1.60, 1.9]], [[.9, 1.12], [1.76, 1.9]]];
+  const parcial = n => gradTex((x, w, h) => { x.filter = 'blur(5px)'; x.fillStyle = noite ? 'rgba(165,195,255,.95)' : 'rgba(255,214,150,.95)';
+    ABERTO_H[n].forEach(([a, b]) => { const y0 = (a - H0) / (H1 - H0) * h, y1 = (b - H0) / (H1 - H0) * h;
+      for (let y = Math.max(18, y0); y < Math.min(h - 18, y1); y += 2) { const v = 1 - .3 * y / h; x.globalAlpha = v; x.fillRect(22, y, 98, 2); x.fillRect(134, y, 98, 2); } }); x.globalAlpha = 1; });
+  const PARCIAL = o.progressiva !== undefined && [0, 1, 2].map(parcial);
+  const vidros = o.facho && gradTex((x, w, h) => { x.filter = 'blur(7px)'; for (let a = 0; a < 2; a++) for (let b = 0; b < 3; b++) {
+    x.fillStyle = noite ? `rgba(165,195,255,${.95 - b * .12})` : `rgba(255,214,150,${.95 - b * .12})`; x.fillRect(22 + a * 112, 22 + b * 72, 98, 60); } });
+  const brilho = o.facho && gradTex((x, w, h) => { const g = x.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2); const c = noite ? '170,200,255' : '255,225,170';
+    g.addColorStop(0, `rgba(${c},1)`); g.addColorStop(.5, `rgba(${c},.45)`); g.addColorStop(1, `rgba(${c},0)`); x.fillStyle = g; x.fillRect(0, 0, w, h); });
+  const prog = [];
+  if (o.facho && !(noite && !o.lua)) (o.janelas || []).forEach(([lado, n], nj) => { const viva = o.progressiva === nj;
+    const chaoP = (u, h) => lado === 'N' ? [X(n) + (u - .5) * 2 * MEIA + FA * h, .045, Z(0) - .5 + FB * h] : [X(0) - .5 + FA * h, .045, Z(n) + (u - .5) * 2 * MEIA + FB * h];
+    const g = new THREE.PlaneGeometry(1, 1), P = g.attributes.position;
+    for (let v = 0; v < 4; v++) { const u = P.getX(v) + .5, h = P.getY(v) < 0 ? H1 : H0; P.setXYZ(v, ...chaoP(u, h)); }
+    P.needsUpdate = true; const m = new THREE.Mesh(g, addMat(frestas || vidros, .3)); m.userData.op = o.frestas ? (noite ? .3 : .5) : noite ? .17 : .3; G.add(m); parts.push(m);
+    if (viva) { prog.push({ m, op: m.userData.op, peso: p => p[3] });
+      PARCIAL.forEach((t, k) => { const mk = new THREE.Mesh(g, addMat(t, .3)); mk.userData.op = [.5, .56, .56][k] * (noite ? .6 : 1); G.add(mk); parts.push(mk); prog.push({ m: mk, op: mk.userData.op, peso: p => p[k] }); }); }
+    if (o.frestas) [1.06, 1.38, 1.72].forEach((hs, n2) => { const q = new THREE.PlaneGeometry(1, 1), Q = q.attributes.position;
+      for (let v = 0; v < 4; v++) { const u = Q.getX(v) + .5, longe = Q.getY(v) < 0; const p = longe ? chaoP(u, hs) : lado === 'N' ? [X(n) + (u - .5) * 2 * MEIA, hs, Z(0) - .42] : [X(0) - .42, hs, Z(n) + (u - .5) * 2 * MEIA]; Q.setXYZ(v, ...p); }
+      Q.needsUpdate = true; const lm = new THREE.Mesh(q, addMat(lamina, .1)); lm.userData.op = (noite ? .09 : .15) * (n2 === 1 ? .75 : 1); lm.renderOrder = 3; G.add(lm); parts.push(lm);
+      // lâmina no ar: fica mais forte enquanto a altura dela ainda está aberta; some se a tábua tapar
+      if (viva) prog.push({ m: lm, op: lm.userData.op, peso: p => p[3] + p.slice(0, 3).reduce((t, v, k) => t + v * (ABERTO_H[k].some(([a, b]) => hs >= a && hs <= b) ? 1.8 : .15), 0) }); });
+    const gl = new THREE.Mesh(new THREE.PlaneGeometry(.85, 1.35), addMat(brilho, .2)); gl.userData.op = o.frestas ? (noite ? .04 : .08) : noite ? .09 : .2;
+    if (lado === 'N') gl.position.set(X(n), 1.4, Z(0) - .43); else { gl.rotation.y = Math.PI / 2; gl.position.set(X(0) - .43, 1.4, Z(n)); } G.add(gl); parts.push(gl);
+    if (viva) prog.push({ m: gl, op: gl.userData.op, peso: p => p[3] + p[0] * 3.4 + p[1] * 2.4 + p[2] * 1.7 });
+    const N = 45, dust = new THREE.Points(new THREE.BufferGeometry(), new THREE.PointsMaterial({ color: noite ? '#cfe0ff' : '#ffe8c0', size: .022, transparent: true, opacity: .55, depthWrite: false, blending: THREE.AdditiveBlending }));
+    dust.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N * 3), 3)); dust.userData = { N, feixe: (k, f) => { const r1 = U.R(k * 3 + 1), r2 = U.R(k * 7 + 2), r3 = U.R(k * 11 + 5), h = H0 + r2 * (H1 - H0), t = (r3 + f * .0012 * (1 + r1)) % 1;
+      const p = chaoP(r1, h); return lado === 'N' ? [p[0] - FA * h * (1 - t), h * (1 - t), Z(0) - .45 + (FB * h + .05) * t] : [X(0) - .45 + (FA * h + .05) * t, h * (1 - t), p[2] - FB * h * (1 - t)]; } }; G.add(dust); parts.push(dust); });
+  if (!o.facho) (o.janelas || []).forEach(([lado, n]) => { if (noite && !o.lua) return;
     // facho deitado no chão saindo da janela para dentro do cômodo, inclinado pelo sol da tarde
     const g = new THREE.PlaneGeometry(1, 1); const P = g.attributes.position, L = 2.6, sk = .9;
     for (let v = 0; v < 4; v++) { const u = P.getX(v) + .5, far = P.getY(v) < 0 ? 1 : 0;   // far = longe da janela
@@ -188,14 +253,20 @@ export function luzInterior(C, o = {}) {
     const parede = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 2.2), addMat(poca, .38 * q)); parede.rotation.y = Math.PI / 2; parede.position.set(X(0) - .48, 1.5, Z(j)); G.add(parede);
     const pl = new THREE.PointLight('#ffb870', 6 * q, 4.5, 1.6); pl.position.set(X(i) + .2, 1.55, Z(j) + .2); G.add(pl); lamp = { chao, parede, pl, q }; }
   const vin = layer('vinheta', 'mix-blend-mode:multiply;');
-  return { set(f) { tileLuz(noite ? '#9c8f82' : '#f0dfc6');
-      vin.style.background = `radial-gradient(ellipse at 45% 55%, rgba(255,255,255,1) 42%, rgba(${noite ? '40,30,30' : '120,95,75'},1) 100%)`; vin.style.opacity = noite ? .95 : .55;
-      parts.forEach(p => { if (!p.isPoints) { p.material.opacity = .42 + .06 * Math.sin(f * .02); return; }
+  return { set(f, tabuas = 3) {
+      // quanto do cômodo continua claro: 1 = janela livre, 0 = toda tapada
+      const t = Math.max(0, Math.min(3, tabuas)), peso = [0, 1, 2, 3].map(k => Math.max(0, 1 - Math.abs(t - k))), claro = o.progressiva === undefined ? 0 : peso[0] + peso[1] * .55 + peso[2] * .28;
+      const mist = (a, b) => '#' + new THREE.Color(a).lerp(new THREE.Color(b), claro).getHexString();
+      tileLuz(o.frestas ? (noite ? '#857a74' : mist('#d9c3a6', '#fff8ee')) : noite ? '#9c8f82' : '#f0dfc6');
+      vin.style.background = `radial-gradient(ellipse at 45% 55%, rgba(255,255,255,1) 42%, rgba(${noite ? '40,30,30' : '120,95,75'},1) 100%)`; vin.style.opacity = noite ? .95 : o.frestas ? .8 - .35 * claro : .55;
+      parts.forEach(p => { if (!p.isPoints) { p.material.opacity = p.userData.op ? p.userData.op * (1 + .08 * Math.sin(f * .02)) : .42 + .06 * Math.sin(f * .02); return; }
+        if (p.userData.feixe) { const a = p.geometry.attributes.position; for (let k = 0; k < p.userData.N; k++) a.setXYZ(k, ...p.userData.feixe(k, f)); a.needsUpdate = true; return; }
         const { lado, n, N } = p.userData, a = p.geometry.attributes.position;
         for (let k = 0; k < N; k++) { const r1 = U.R(k * 3 + 1), r2 = U.R(k * 7 + 2), r3 = U.R(k * 11 + 5), t = f * .004 + r3;
           const along = (r1 * 2.2), across = (r2 - .5) * .8 + Math.sin(t * 6 + k) * .05, y = .2 + ((r3 * 2.1 + f * .0025 * (1 + r1)) % 2.1);
           if (lado === 'N') a.setXYZ(k, X(n) + across + along * .35, y, Z(0) - .4 + along); else a.setXYZ(k, X(0) - .4 + along, y, Z(n) + across + along * .35); }
         a.needsUpdate = true; });
+      prog.forEach(q => { q.m.material.opacity = q.op * q.peso(peso) * (1 + .08 * Math.sin(f * .02)); });
       if (lamp) { const fl = 1 + .025 * Math.sin(f * .7) * Math.sin(f * .31); lamp.pl.intensity = 6 * lamp.q * fl; lamp.chao.material.opacity = .42 * lamp.q * fl; } },
     off() { if (vin) vin.style.opacity = 0; },
     // liga/desliga tudo desta luz (duas luzes no mesmo cômodo: noite com abajur e manhã com sol — EP20)
@@ -386,47 +457,120 @@ export function quarto(x0, z0, o = {}) {
   return { C, at: C.at, cama, cadeira: CAD, porta: PORTA, colchao };
 }
 
-// ---------- HORTA (EP25): horta cercada atrás de casa rural — tudo sprite do jogo (B42.22) ----------
-// Casa de madeira ao fundo (parede N em j = -5), quintal de grama, horta com cerca branca (fencing_01_4/5, portão aberto em i = 0 na frente),
-// 4 canteiros (vegetation_farming_01: o mesmo desenho do jogo para cada planta e estágio): tomate (escora), batata, repolho, cenoura.
-// Galpão de ferramentas (location_farm_accesories_01_42), barril de chuva com lona (carpentry_02_122), compostor (carpentry_02_117), espantalho.
-// Fora da cerca: capim alto (e_newgrass_1 24–29 / 48–51). Estado de cada canteiro: H.planta(nome, 'ok'|'unhealthy'|'dying'|'dead', estágio).
-// o.mato = ervas daninhas nos canteiros (e_newgrass_1 40–43, como no jogo: mato = capim no mesmo quadrado). o.inverno = grama com neve.
-const HORTA_SPR = { tomate: 64, batata: 40, repolho: 16, cenoura: 32 };   // primeiro sprite de cada planta (farming_vegetableconf_vegetables_sprites.lua)
-export function horta(x0, z0, o = {}) {
-  const C = cena(x0, z0), inv = !!o.inverno, tn = inv ? '#e6ecf4' : null;
-  C.chao(inv ? PISO.neve : PISO.grama, -22, -22, 22, 22, { seed: 25 });
-  casaFora(C, -10, 5, -15, -9, { parede: 'tora', janelas: [-6, 3, 'w-12'], tetoTint: inv ? '#f4f7fb' : '#c8a47c', cortina: 'fixtures_windows_curtains_01_10' });
-  C.chao(['blends_natural_01_96', 'blends_natural_01_101', 'blends_natural_01_102', 'blends_natural_01_103'], -4, -4, 4, 3, { y: .018, seed: 4, tint: inv ? '#c9c4bd' : null });   // chão de terra dentro da cerca
-  // cerca de estacas branca (portão aberto na frente, i = 0)
-  for (let i = -4; i <= 4; i++) { C.parede('N', 'fencing_01_5', i, -4, { tint: tn }); if (i !== 0) C.parede('N', 'fencing_01_5', i, 4, { tint: tn }); }
-  for (let j = -4; j <= 3; j++) { C.parede('W', 'fencing_01_4', -4, j, { tint: tn }); C.parede('W', 'fencing_01_4', 5, j, { tint: tn }); }
-  // canteiros: 2 quadrados por planta (colunas), fileiras j = -2 e 1
-  const POS = { tomate: [[-3, -2], [-2, -2]], batata: [[0, -2], [1, -2]], repolho: [[-3, 1], [-2, 1]], cenoura: [[0, 1], [1, 1]] };
-  const est = o.estagio || {}, P = {};
-  for (const nome in POS) { P[nome] = POS[nome].map(([i, j]) => {
-    const v = {}, base = HORTA_SPR[nome], st = est[nome] ?? 5;
-    v.ok = C.placa('vegetation_farming_01_' + (base + st), i, j, { fz: .2 });
-    const k = base + 4;   // estágio adulto nos desenhos unhealthy/dying/dead
-    for (const s of ['unhealthy', 'dying', 'dead']) { v[s] = C.placa(`vegetation_farming_${s}_01_${k}`, i, j, { fz: .2 }); v[s].visible = false; }
-    v.solo = C.placa('vegetation_farming_01_1', i, j, { fz: .15 }); v.solo.visible = false;   // terra arada (antes de plantar)
-    return v; }); }
-  // mato nos canteiros (opcional, ligado/desligado por cena)
-  const MATO = [[-3, -2], [0, 1], [1, -2], [-2, 1]].map(([i, j], k) => { const m = C.placa('e_newgrass_1_' + (40 + k), i + .25, j + .2, { fz: .3 }); m.visible = !!o.mato; return m; });
-  // galpão de ferramentas, barril de chuva, compostor, espantalho
-  C.placa('location_farm_accesories_01_114', -7, -5, { fz: .5, tint: tn });   // galpão de ferramentas, fora da cerca, encostado no quintal
-  C.obj('carpentry_02_122', -3, 3, { w: .55, d: .55, tint: tn }); C.obj('carpentry_02_117', 3, 3, { w: .9, d: .9, tint: tn });
-  C.placa('location_farm_accesories_01_36', 3, -3, { fz: .3 });
-  // capim alto fora da cerca + árvores
-  const CAP = [24, 25, 26, 27, 28, 29, 48, 49, 50, 51];
-  for (let k = 0; k < 90; k++) { const a = k * 2.399, r = 6 + (k % 7) * 1.1, i = Math.round(Math.cos(a) * r), j = Math.round(Math.sin(a) * r * .8 + 2);
-    if (j < -8 || (i >= -8 && i <= -6 && j >= -6 && j <= -4) || (Math.abs(i) <= 5 && j >= -5 && j <= 5)) continue; const m = C.placa('e_newgrass_1_' + CAP[k % CAP.length], i, j, { fz: .4, tint: tn }); if (inv) m.visible = false; }   // inverno: capim coberto de neve (o jogo esconde a relva)
-  // mais grama: tufos curtos em volta da casa, do galinheiro e junto da cerca
-  if (!inv) for (let i = -12; i <= 8; i++) for (const j of [-8, -4, 5, 6]) { if (Math.abs(i) <= 5 && j >= -4 && j <= 5) continue; if ((i * 7 + j * 3) % 3) C.placa('e_newgrass_1_' + CAP[Math.abs(i * 5 + j) % CAP.length], i + .3, j + .2, { fz: .35 }); }
-  [[-12, -4], [11, -6], [-11, 7], [12, 8]].forEach(([i, j], k) => arvore(C, i, j, inv ? 'inverno' : 'verao', k));
-  const H = { C, at: C.at, P, MATO,
-    planta(nome, s = 'ok', solo = false) { (nome === '*' ? Object.keys(P) : [nome]).forEach(n => P[n].forEach(v => { for (const k of ['ok', 'unhealthy', 'dying', 'dead']) v[k].visible = !solo && k === s; v.solo.visible = solo; })); return H; },
-    mato(on) { MATO.forEach(m => { m.visible = on; }); return H; },
-    canteiro: nome => C.at(...POS[nome][0]) };
-  return H;
+// ---------- EP23 v8 (26/11, Jose): um lugar diferente em cada take — centro, muro de condomínio, praça, academia e estrada ----------
+// Convenção: parede/cerca "N" no ladrilho j fica na borda z = j − 0,5; a câmera olha de +x,+z (o fundo da tela é −z).
+const T01 = (p, i) => p + '_' + i;
+const lixo = (C, lista) => lista.forEach(([n, i, j]) => C.placa(n, i, j));
+// plano escuro atrás de vitrines e janelas (o vidro do jogo é translúcido: sem isto aparecia o chão de trás)
+function fundoEscuro(C, i0, i1, z, h, y = 0, cor = '#16191b') { const m = new THREE.Mesh(new THREE.PlaneGeometry(i1 - i0 + 1, h), new THREE.MeshBasicMaterial({ color: cor }));
+  m.position.set((i0 + i1) / 2, y + h / 2, z); C.G.add(m); return m; }
+const CONCRETO = 'floors_exterior_tilesandstone_01_0', PEDRA = 'floors_exterior_tilesandstone_01_1';
+const posto = (C, lista) => lista.forEach(([i, j]) => C.obj('lighting_outdoor_01_1', i, j, { w: .3, d: .3 }));
+
+// CENTRO: rua comercial — vitrines no térreo, 2 andares com janelas em cima, calçada com caixas de jornal, correio, hidrante, banco; avenida de faixa dupla.
+export function centro(x0, z0) {
+  const C = cena(x0, z0), W3 = i => T01('walls_commercial_03', i), W1 = i => T01('walls_commercial_01', i), D = i => T01('street_decoration_01', i);
+  C.chao(CONCRETO, -26, -10, 26, 1, { y: .02 }); C.chao(PISO.asfalto, -26, 2, 26, 6, { y: .022 }); C.chao(CONCRETO, -26, 7, 26, 16, { y: .02 });
+  C.chao('street_trafficlines_01_26', -26, 5, 26, 5, { y: .032 }); C.chao('street_trafficlines_01_30', -26, 4, 26, 4, { y: .032 });
+  // prédios: [i0, i1, térreo (par de vitrine/parede), parede de cima, janela de cima]
+  const PRE = [[-26, -15, [W3(49), W3(57)], W3(49), W3(57)], [-14, -9, [W1(81), W1(65)], W3(1), W3(9)], [-6, 0, [W1(33), W1(17)], W3(17), W3(25)],
+    [1, 6, [W1(1), W1(81)], W3(33), W3(41)], [7, 13, [W3(1), W3(9)], W3(1), W3(9)], [14, 26, [W1(33), W1(17)], W3(49), W3(57)]];
+  PRE.forEach(([a, b, t, u, uj]) => { for (let i = a; i <= b; i++) { const k = (i - a) % 3; C.parede('N', t[k === 1 ? 1 : 0], i, 0);
+      C.parede('N', k === 1 ? uj : u, i, 0, { y: WALL_H }); C.parede('N', k === 2 ? uj : u, i, 0, { y: WALL_H * 2 }); }
+    fundoEscuro(C, a, b, -.74, WALL_H * 3 - .1); C.chao(PISO.telhado, a, -9, b, -1, { y: WALL_H * 3 + .02, tint: '#8f8579' }); });
+  // beco entre os prédios: caçambas e caixas
+  for (let i = -8; i <= -7; i++) { C.parede('N', W3(1), i, -3); C.parede('N', W3(9), i, -3, { y: WALL_H }); C.parede('N', W3(1), i, -3, { y: WALL_H * 2 }); }
+  C.obj('trashcontainers_01_8', -8, -2, { w: .9, d: .9 }); C.obj('trashcontainers_01_24', -7, -1, { w: .5, d: .5 });
+  // calçada de cá da vitrine (j = 0, encostados no prédio)
+  [[D(84), -12, -.12], [D(88), -4, -.12], [D(8), 3, -.1], [D(92), 9, -.12], ['trashcontainers_01_21', -1, -.1], ['trashcontainers_01_16', 12, -.1], ['trashcontainers_01_26', 5.6, -.15]].forEach(([n, i, j]) => C.obj(n, i, j - .08, { w: .45, d: .45 }));
+  C.obj(D(12), -9, 3.1, { w: .35, d: .35 });
+  // avenida e calçada da frente: cones, bueiro, parquímetros (baixos: não tapam o personagem)
+  C.chao(D(15), -3, 3, -3, 3, { y: .034 }); C.chao(D(15), 8, 5, 8, 5, { y: .034 });
+  [[D(26), -6, 3.4], [D(27), -5, 4.3], [D(26), 6.5, 3.1]].forEach(([n, i, j]) => C.obj(n, i, j, { w: .35, d: .35 }));
+  [-10, -4, 2, 8, 14].forEach(i => C.obj(D(4), i, 7, { w: .2, d: .2 }));
+  posto(C, [[-15, 7], [11, 7]]);
+  lixo(C, [['trash_01_27', -10, .3], ['d_trash_1_9', -6, 2.4], ['trash_01_24', -2, 2.2], ['d_trash_1_13', 1, .2], ['trash_01_33', 4, 2.8], ['d_trash_1_0', 7, 1.9], ['trash_01_18', 10, 3.6], ['d_trash_1_9', -4, 5.8], ['trash_01_27', 3, 6.4]]);
+  return { C, at: C.at };
+}
+
+// CONDOMÍNIO: a cerca alta de madeira do jogo (fencing_01_8/_9) fecha o estacionamento; prédios ao fundo; grama, calçada, grade de ferro preta e a rua na frente.
+export function condominio(x0, z0) {
+  const C = cena(x0, z0), W3 = i => T01('walls_commercial_03', i);
+  C.chao(PISO.asfalto, -28, -4, 28, -1, { y: .021 }); C.chao(CONCRETO, -28, -16, 28, -5, { y: .02 });
+  C.chao(PISO.grama, -28, 0, 28, 3, { seed: 7 }); C.chao(CONCRETO, -28, 4, 28, 5, { y: .022 }); C.chao(PISO.asfalto, -28, 6, 28, 12, { y: .02 }); C.chao(CONCRETO, -28, 13, 28, 18, { y: .02 });
+  for (let i = -26; i <= 26; i += 3) C.chao('street_trafficlines_01_8', i, -4, i, -2, { y: .031 });   // vagas do estacionamento
+  for (let i = -28; i <= 28; i++) C.parede('N', 'fencing_01_' + (((i % 2) + 2) % 2 === 0 ? 8 : 9), i, 0);   // muro de tábuas (print do Jose)
+  for (let i = -28; i <= 28; i++) C.parede('N', 'fencing_01_1', i, 5);   // grade de ferro preta
+  // prédios do condomínio/centro atrás do estacionamento
+  [[-28, -17, W3(1), W3(9), 3], [-14, -5, W3(17), W3(25), 3], [-2, 8, W3(1), W3(9), 3], [11, 28, W3(49), W3(57), 3]].forEach(([a, b, p, j, n]) => {
+    for (let i = a; i <= b; i++) for (let a2 = 0; a2 < n; a2++) C.parede('N', (i - a) % 2 ? j : p, i, -4, { y: WALL_H * a2 });
+    fundoEscuro(C, a, b, -4.74, WALL_H * n - .1); C.chao(PISO.telhado, a, -10, b, -5, { y: WALL_H * n + .02, tint: '#8f8579' }); });
+  C.obj('trashcontainers_01_8', -11, -2, { w: .9, d: .9 }); C.obj('trashcontainers_01_12', 1, -2, { w: .9, d: .9 }); C.obj('trashcontainers_01_11', 10, -2, { w: .9, d: .9 });
+  [[-16, -2], [-3.5, -2.4], [6.5, -2.2], [17, -2]].forEach(([i, j], k) => arvore(C, i, j, 'verao', k));
+  [[-15, 0], [-10, 3.4], [7, -.2], [13, 3.2], [-21, 2.8]].forEach(([i, j], k) => C.obj('f_bushes_1_' + [100, 103, 105, 101, 100][k], i, j, { w: .45, d: .45 }));
+  posto(C, [[-16, 4.6], [14, 4.6]]);
+  lixo(C, [['trash_01_27', -9, .5], ['d_trash_1_9', -6, 2.6], ['trash_01_24', -4, .3], ['d_trash_1_13', -1, 3.1], ['trash_01_33', 3, 2.9], ['d_trash_1_0', 5, .6], ['trash_01_18', -2.4, 4.1],
+    ['d_trash_1_9', 1.5, 3.8], ['trash_01_27', -12, 2.2], ['d_trash_1_13', 9, 2.0], ['trash_01_24', -5, 6.8], ['d_trash_1_0', 4, 7.4], ['trash_01_33', -14, .8]]);
+  return { C, at: C.at };
+}
+
+// PRAÇA: caminho de pedra no meio do parque, chafariz, bancos, brinquedos, grade de ferro e árvores.
+export function praca(x0, z0) {
+  const C = cena(x0, z0), P = i => T01('location_community_park_01', i);
+  C.chao(PISO.grama, -24, -14, 24, 14, { seed: 13 });
+  C.chao(PEDRA, -24, 0, 24, 1, { y: .022 }); C.chao(PEDRA, -3, -4, 1, -1, { y: .021 });
+  C.chao(PISO.terra, 5, -5, 11, -2, { y: .018, seed: 4 });   // areia do parquinho
+  for (let i = -24; i <= 24; i++) if (i < -2 || i > 0) C.parede('N', 'fencing_01_1', i, -6);
+  C.obj(P(48), -1, -2.6, { w: 1.3, d: 1.3 });
+  C.obj(P(17), 6, -3.4, { w: 1.1, d: .8 }); C.obj(P(21), 9, -3, { w: 1, d: 1 }); C.obj(P(49), 11.5, -3.6, { w: .9, d: .9 });
+  [[-8, -1], [-5, -1], [3.4, -1], [13, -1]].forEach(([i, j]) => C.obj('furniture_seating_outdoor_01_32', i, j - .1, { w: .8, d: .5 }));
+  C.obj('trashcontainers_01_21', -6.6, -1, { w: .4, d: .4 }); C.obj('trashcontainers_01_21', 4.8, -1, { w: .4, d: .4 });
+  posto(C, [[-11, -1.2], [8, -1.2]]);
+  [[-13, -4], [-9, -4], [-6, -3.4], [3.4, -5], [14, -4], [-15, -9], [-7, -9], [1, -9], [8, -9], [15, -9], [-11, 6], [-2, 8], [7, 6], [13, 5], [-15, 4]].forEach(([i, j], k) => arvore(C, i, j, 'verao', k));
+  [[-11, -2], [-7, -5], [-4, -5], [2.4, -3.6], [4, -3], [-10, 3], [-5, 3.6], [1, 3.2], [5, 4], [10, 3], [-1, 5]].forEach(([i, j], k) => C.obj('f_bushes_1_' + [100, 101, 103, 105, 108, 111][k % 6], i, j, { w: .55, d: .55 }));
+  for (let k = 0; k < 90; k++) { const i = (R(k + 3) - .5) * 34, j = (R(k + 50) - .5) * 18; if (j > -1.2 && j < 2.2) continue; C.placa('e_newgrass_1_' + [40, 41, 42, 43, 16, 17, 18, 64, 65, 66][k % 10], i, j); }
+  lixo(C, [['trash_01_27', -4, 2.1], ['d_trash_1_9', 2, -.6], ['trash_01_33', 7, 2.3], ['d_trash_1_13', -9, .4], ['trash_01_24', 11, -.3]]);
+  return { C, at: C.at };
+}
+
+// ACADEMIA: sala com parede de blocos e janelas, piso emborrachado, tatames, esteiras na parede do fundo e bancos de supino na lateral.
+export function academia(x0, z0) {
+  const C = cena(x0, z0), W3 = i => T01('walls_commercial_03', i), S1 = i => T01('recreational_sports_01', i);
+  C.chao(PISO.grama, -10, -10, 18, 16, { seed: 17 }); C.chao(S1(22), 0, 0, 11, 9, { y: .02 });
+  [[3, 4], [4, 4], [5, 4], [3, 5], [4, 5], [5, 5]].forEach(([i, j]) => C.chao(S1(34), i, j, i, j, { y: .03 }));
+  const JN = [2, 5, 8], JW = [2, 6];
+  for (let i = 0; i <= 11; i++) C.parede('N', W3(JN.includes(i) ? 25 : 17), i, 0);
+  for (let j = 0; j <= 9; j++) C.parede('W', W3(JW.includes(j) ? 24 : 16), 0, j);
+  for (let i = -3; i <= 14; i++) C.parede('N', 'fencing_01_1', i, -4);
+  [[1, -3], [6, -5], [10, -3], [-4, 2], [-5, 7]].forEach(([i, j], k) => arvore(C, i, j, 'verao', k));
+  C.obj(S1(36), 1, .05, { w: .85, d: .9 }); C.obj(S1(36), 3.4, .05, { w: .85, d: .9 }); C.obj(S1(36), 6.4, .05, { w: .85, d: .9 }); C.obj(S1(36), 8.8, .05, { w: .85, d: .9 });
+  C.obj(S1(44), .1, 3.2, { w: .85, d: .95 }); C.obj(S1(44), .1, 5.2, { w: .85, d: .95 }); C.obj(S1(40), .1, 7.2, { w: .8, d: .8 });
+  C.obj('vegetation_indoor_01_0', 10.8, .1, { w: .6, d: .6 }); C.obj('trashcontainers_01_21', .1, .1, { w: .4, d: .4 });
+  C.parede('N', 'walls_decoration_01_105', 4, 0, { off: .015 }); C.parede('W', 'walls_decoration_01_52', 0, 4, { off: .015 });
+  [[7.6, 7.2], [8.8, 4.4]].forEach(([i, j]) => C.obj(S1(43), i, j, { w: .8, d: .8 }));
+  // aparelhos em volta de onde ele treina (aparecem no quadro sem tapar o personagem)
+  C.obj(S1(44), 2.5, 4.7, { w: .85, d: .95 }); C.obj(S1(36), 4.6, 2.7, { w: .85, d: .9 }); C.obj(S1(44), 2.6, 2.6, { w: .85, d: .95 }); C.chao(S1(35), 6, 5, 6, 6, { y: .03 }); C.obj(S1(40), 6.1, 4.0, { w: .8, d: .8 });
+  C.chao(S1(35), 8, 2, 9, 3, { y: .03 });
+  lixo(C, [['trash_01_27', 6.6, 2.4], ['d_trash_1_9', 2.2, 7.4], ['d_trash_1_13', 9.6, 6.2]]);
+  return { C, at: C.at };
+}
+
+// ESTRADA: saída da cidade no meio da mata — faixa dupla, acostamento de terra, barreiras e cones de bloqueio, floresta dos dois lados.
+export function estrada(x0, z0) {
+  const C = cena(x0, z0), D = i => T01('street_decoration_01', i);
+  C.chao(PISO.grama, -30, -16, 30, 16, { seed: 31 });
+  C.chao(PISO.terra, -30, -1, 30, -1, { y: .018, seed: 2 }); C.chao(PISO.terra, -30, 4, 30, 4, { y: .018, seed: 5 });
+  C.chao(PISO.asfalto, -30, 0, 30, 3, { y: .022 });
+  C.chao('street_trafficlines_01_26', -30, 2, 30, 2, { y: .032 }); C.chao('street_trafficlines_01_30', -30, 1, 30, 1, { y: .032 });
+  [[-12, -.1], [-9.5, -.1], [-11, 3.2]].forEach(([i, j]) => C.obj(D(28), i, j, { w: .95, d: .4 }));
+  [[-7, .2], [-6, 2.9], [3, -.3], [9, 3.4]].forEach(([i, j]) => C.obj(D(26), i, j, { w: .35, d: .35 }));
+  C.obj(D(27), -4, -.2, { w: .4, d: .4 });
+  const tr = (i, j, k) => { const t = k % 3; if (t === 0) arvore(C, i, j, 'verao', k); else C.placa(t === 1 ? 'e_canadianhemlock_1_' + (k % 2 ? 3 : 2) : 'e_virginiapine_1_' + (k % 2 ? 3 : 2), i, j); };
+  for (let k = 0; k < 46; k++) tr(-28 + k * 1.25 + (R(k) - .5) * .8, -2.4 - R(k + 20) * 1.6, k);
+  for (let k = 0; k < 34; k++) tr(-28 + k * 1.7 + R(k + 40), -7.5 - R(k + 60) * 4, k + 1);
+  for (let k = 0; k < 24; k++) tr(-28 + k * 2.4 + R(k + 80), 7.6 + R(k + 90) * 4, k + 2);
+  for (let k = 0; k < 34; k++) C.obj('f_bushes_1_' + [100, 101, 103, 105, 108, 111, 114][k % 7], -27 + k * 1.65 + (R(k + 7) - .5), k % 2 ? -2.2 - R(k + 8) * .6 : 5.6 + R(k + 9) * .8, { w: .55, d: .55 });
+  for (let k = 0; k < 130; k++) { const i = (R(k + 301) - .5) * 52, j = k % 2 ? -1.2 - R(k + 302) * 4 : 4.4 + R(k + 303) * 4; C.placa('e_newgrass_1_' + [40, 41, 42, 43, 16, 17, 18, 64, 65, 66][k % 10], i, j); }
+  lixo(C, [['trash_01_27', -8, 1], ['d_trash_1_9', -3, 3.4], ['trash_01_33', 2, .1], ['d_trash_1_13', 7, 2.6], ['d_trash_1_0', 12, .4], ['trash_01_24', -14, 2.2]]);
+  return { C, at: C.at };
 }
