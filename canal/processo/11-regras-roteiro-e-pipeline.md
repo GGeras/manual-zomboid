@@ -40,11 +40,10 @@ Vale para todo vídeo novo. Em conflito com docs antigos, este manda no ROTEIRO 
 - A BASE tem que ser entendida por quem nunca jogou: uma ideia por frase, com o número na tela no mesmo momento.
 - Linguagem de leigo: todo termo do jogo é explicado na primeira vez.
 - Sem pontas soltas: se cita um efeito, diz a consequência.
-- **GANCHO (27/11, pelas métricas):** surpresa/contradição ou perda concreta. Proibido "5 regras", "5 coisas" e "aperta X e…" no gancho, título ou capa. Detalhes em `canal/regras-conteudo-redes.md`.
 
 ## 3. Duração
 - Quem manda é a necessidade de explicação, nunca uma meta de tempo.
-- Pode passar de 60 s se o tema pedir (27/11). Sem teto fixo.
+- Perto de 60 s pode arredondar para 60 s.
 
 ## 4. Edição imersiva
 - Telas simuladas do jogo, números e barras animados, splits, punch-ins; troca visual a cada 2–3 s.
@@ -142,8 +141,6 @@ O personagem **encosta** nas superfícies e fica **sempre por cima delas**: nunc
 - **Modo de busca (coleta)** = efeito do jogo (`busca.js`, valores de `ISSearchManager.lua`): fora do raio desfoca, tira cor e escurece, olho em cima da cabeça, marcadores `pinIcon*` nos itens; ele procura olhando em volta (`S.olhar`).
 - `inspect.mjs` confere em todo momento: **PERSONAGEM ATRAVESSANDO A SUPERFÍCIE**, **FLUTUANDO**, **NÁDEGA FORA DO ASSENTO**, **ATRAVESSANDO MÓVEL** (quadril, peito, joelhos e pés). `inspecao/sonda.json` guarda a medida de cada momento. Relatório tem de dar 0 avisos.
 
-> **Código:** as seções 4.9 e 4.10 citam a versão final dos EP23/24, que ainda está só no PC do Jose (inclui `sem_sufixo` no `post.py`).
-
 ## 4.9 PADRÕES APROVADOS NO EP24 FINAL (26/11, revisão do Jose) — vale para TODO vídeo novo
 Referência de código: `projeto/ep24.js`.
 - **Objeto só onde faz sentido.** Caixa de correio só junto de casa ou portão (`bairro(C, correio)`). Rua: um padrão de piso, cerca contínua, detalhes que combinam (lixeira, arbusto, capim alto).
@@ -179,7 +176,7 @@ Tela
 - **Exterior de dia:** brilho ≥ 95.
 
 Entrega
-- **Inspeção antes do final** (`ferramentas/rodar.bat NN rascunho` ou `inspecao`); o Claude lê o `relatorio.txt`. "Flutuando" só é aceito em corrida ou escalada conferida em foto.
+- **Inspeção antes do final** (`rascunho` ou `inspecao` no menu); o Claude lê o `relatorio.txt`. "Flutuando" só é aceito em corrida ou escalada conferida em foto.
 - **Post:** `"sem_sufixo": true` e título sem "Project Zomboid"; conferir no `instrucoes.txt`.
 
 ## 4.1 REGRA DAS TELAS (18/11, pedido do Jose) — tela do jogo = RÉPLICA
@@ -204,7 +201,7 @@ Entrega
 
 ## 5. Pipeline
 
-**Quem renderiza é o usuário**, no PC dele, sempre pelo `.bat` (`CLAUDE.md`, regra 4.8). O Claude prepara arquivos e áudio, faz as fotos de conferência e lê o relatório.
+**Quem renderiza é o usuário**, no PC com placa de vídeo, pelo menu `ferramentas/manual.bat`. O Claude prepara arquivos e áudio, faz as fotos de conferência e lê o relatório.
 
 1. Pesquisa (ordem do item 0) → `fatos.json`.
 2. Roteiro com coluna VISUAL por frase → Jose aprova.
