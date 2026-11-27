@@ -154,7 +154,8 @@ function clipPose(h, name, f, loop = true, up = null, mix = null) { const c = MO
       const nt = d.t.length / 3; if (nt) { const t = Math.min(i0, nt - 1), t2 = Math.min(i0 + 1, nt - 1); b.position.set(d.t[t * 3] + (d.t[t2 * 3] - d.t[t * 3]) * k, d.t[t * 3 + 1] + (d.t[t2 * 3 + 1] - d.t[t * 3 + 1]) * k, d.t[t * 3 + 2] + (d.t[t2 * 3 + 2] - d.t[t * 3 + 2]) * k); if (b.name === 'Bip01') { b.position.x = 0; b.position.y = 0; } } b.scale.setScalar(1); }
     if (cm && wm > 0 && cm.b[b.name]) { const tem = sample(cm.b[b.name], fm, _qm, _pm);
       if (mix[4] && b === h.pz.order[0]) { _qm.premultiply(_qd); _pm.applyQuaternion(_qd); }
-      b.quaternion.slerp(_qm, wm); if (tem) b.position.lerp(_pm, wm); }
+      b.quaternion.slerp(_qm, wm); if (tem) b.position.lerp(_pm, wm);
+      if (mix[5] && b.name === 'Bip01') { b.position.x = 0; b.position.y = 0; } }   // mix[5] = no lugar (EP24 v8)
     b.updateMatrix(); b.matrixWorld.multiplyMatrices(par.matrixWorld, b.matrix);
     if (h.olhar && OLHAR[b.name]) { _p.setFromMatrixPosition(b.matrixWorld); _m.makeRotationY(h.olhar * OLHAR[b.name]); _m.setPosition(_p.clone().sub(_p.clone().applyMatrix4(_m)));
       b.matrixWorld.premultiply(_m); } } }
