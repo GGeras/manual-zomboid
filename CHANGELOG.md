@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-27 · jose · EP25: horta() em cenarios.js (sprites do jogo), cenas, ícones, sons, ferramentas/previa-ep25.bat; align.py sem /tmp fixo
 - 2026-11-27 · jose · fatos de agricultura validados nos arquivos do jogo (info-validada/agricultura.md), EP25
 - 2026-11-27 · jose (Claude) · regra "lugares de gravação" (`canal/lugares-de-gravacao.md`, `CLAUDE.md`), EP25–33 renumerados, voz corrigida do EP26 (frase 8, `ani-produto`) com tempos novos e prompts dos chats em `rascunho/ep25-27-comece-aqui.md`. Por quê: pedido do Jose; cenários devem ficar cada vez mais fiéis ao jogo.
 - 2026-11-25 · jose · EP25 rascunho v4: ambientação nova por take (sala com estante de livros e óculos de leitura, quartinho com sacos de dormir + lixo + lua/abajur, floresta com fogueira/panela/tenda/flores, janela+cortina, zumbi lá fora no 1º take); comida que tira tristeza = Ensopado/Sorvete/Croissant (fato `tri-comida-bons`; carne crua não tem valor no jogo). Por quê: feedback do Jose no EP25 (vídeo vazio).

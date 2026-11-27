@@ -1,4 +1,5 @@
 import sys,json,re,subprocess,math,wave
+import os, tempfile
 import numpy as np
 from scipy.signal import find_peaks
 def syl(t):
@@ -19,8 +20,8 @@ def segs(mp3):
     if dur-t0>0.08: S.append(t0);E.append(dur)
     return S,E,dur
 def peaks(mp3):
-    subprocess.run(['ffmpeg','-v','error','-y','-i',mp3,'-ac','1','-ar','16000','/tmp/claude-0/a16.wav'])
-    w=wave.open('/tmp/claude-0/a16.wav');x=np.frombuffer(w.readframes(w.getnframes()),dtype=np.int16).astype(float)/32768
+    subprocess.run(['ffmpeg','-v','error','-y','-i',mp3,'-ac','1','-ar','16000',os.path.join(tempfile.gettempdir(),'a16.wav')])
+    w=wave.open(os.path.join(tempfile.gettempdir(),'a16.wav'));x=np.frombuffer(w.readframes(w.getnframes()),dtype=np.int16).astype(float)/32768
     hop=160;win=400;fr=np.lib.stride_tricks.sliding_window_view(x,win)[::hop]*np.hanning(win)
     sp=np.abs(np.fft.rfft(fr,axis=1));f=np.fft.rfftfreq(win,1/16000)
     e=sp[:,(f>300)&(f<2500)].sum(1);e=np.convolve(e,np.ones(5)/5,'same');e/=e.max()
