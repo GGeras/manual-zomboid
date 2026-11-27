@@ -1,0 +1,110 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 28   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "31",
+ "nome": "Helicóptero",
+ "vo": "audio/n31.mp3",
+ "vo_db": 1.5,
+ "musica": "wwl_tense",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "chopper1",
+   {
+    "f": 0,
+    "dt": 0
+   },
+   -16
+  ],
+  [
+   "chopper2",
+   {
+    "f": 3,
+    "dt": 0
+   },
+   -18
+  ],
+  [
+   "chopper3",
+   {
+    "f": 4,
+    "dt": 0
+   },
+   -16
+  ],
+  [
+   "zombierand1",
+   {
+    "f": 4,
+    "dt": 1.0
+   },
+   -18
+  ],
+  [
+   "zombieambient1",
+   {
+    "f": 6,
+    "dt": 0
+   },
+   -18
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 8.0,
+  "opcoes": [],
+  "zoom": 1.05,
+  "pos": "50% 55%",
+  "tint": "rgba(0,0,0,.15)",
+  "linhas": [
+   [
+    "ELE TE VÊ",
+    "osso"
+   ],
+   [
+    "E TE",
+    "osso"
+   ],
+   [
+    "SEGUE",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "selo",
+   "texto": "NOITE 6–9",
+   "cor": "#ffb020"
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Helicóptero no Project Zomboid: quando vem e o que fazer (B42)",
+  "gancho": "O helicóptero chama todos os zumbis da região. E se ele te vê, ele te segue.",
+  "pontos": [
+   "Apocalipse: vem uma vez, entre a 6ª e a 9ª noite",
+   "O rádio avisa atividade aérea no dia",
+   "Não dá para ver nem atirar nele",
+   "Se te vê, te segue",
+   "Fique dentro de casa, quieto e trancado"
+  ],
+  "pergunta": "Onde você estava quando o helicóptero veio?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "[tenso] Você vai ouvir um helicóptero. E todo zumbi da região também. [calmo] No modo Apocalipse, ele vem uma vez só. Em algum dia entre a sexta e a nona noite. [confiante] No dia, o rádio de emergência avisa atividade aérea. Escuta a previsão de manhã. [sério] Você nunca vê o helicóptero, e nem dá pra atirar nele. Ele procura um jogador, e o barulho puxa zumbi de uma área enorme. [tenso] E se ele te vê, ele te segue. E a horda vem junto. [calmo] Ele aparece de dia, entre nove da manhã e seis da tarde, e fica de uma a quatro horas. [tenso] Depois que ele vai embora, a região da sua base pode estar cheia de zumbi. [calmo] E tem outros eventos que chamam zumbi, como tiros ao longe. No Apocalipse, eles acontecem às vezes. [confiante] Ouviu o rádio? Fica dentro de casa, quieto e trancado, e espera passar.",
+ "fatos": [
+  "heli-invisivel",
+  "heli-config",
+  "heli-quando",
+  "heli-radio",
+  "heli-segue",
+  "heli-depois"
+ ],
+ "itens": [
+  "Item_Radio"
+ ]
+}

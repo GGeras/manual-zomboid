@@ -1,0 +1,120 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 29   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "32",
+ "nome": "Fogo e Incêndio",
+ "vo": "audio/n32.mp3",
+ "vo_db": 1.5,
+ "musica": "the_zombie_threat",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "PZ_Fire",
+   {
+    "f": 0,
+    "dt": 0.3
+   },
+   -16
+  ],
+  [
+   "player_on_fire_start_01",
+   {
+    "f": 3,
+    "dt": 0.3
+   },
+   -14
+  ],
+  [
+   "BH_MalePlayer_PainLoopFire_01",
+   {
+    "f": 3,
+    "dt": 0.9
+   },
+   -16
+  ],
+  [
+   "campfire",
+   {
+    "f": 6,
+    "dt": 0.3
+   },
+   -16
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 8.0,
+  "opcoes": [],
+  "zoom": 1.05,
+  "pos": "50% 55%",
+  "tint": "rgba(0,0,0,.15)",
+  "linhas": [
+   [
+    "FOGÃO",
+    "osso"
+   ],
+   [
+    "ESQUECIDO",
+    "osso"
+   ],
+   [
+    "QUEIMA TUDO",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "seq",
+   "itens": [
+    [
+     "EXTINTOR",
+     "vermelho"
+    ],
+    [
+     "AREIA",
+     "amarelo"
+    ],
+    [
+     "ÁGUA",
+     "verde"
+    ]
+   ]
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Fogo no Project Zomboid: como apagar e não perder a base (B42)",
+  "gancho": "Fogão esquecido queima a base inteira. Extintor, saco de areia ou água de balde apagam.",
+  "pontos": [
+   "No Apocalipse o fogo se espalha",
+   "Zumbi em chamas espalha fogo",
+   "Extintor: botão direito → Apagar Fogo",
+   "Saco de areia, cascalho ou terra também apagam",
+   "Fogueira guarda no máximo 8 horas de combustível"
+  ],
+  "pergunta": "Já perdeu uma base no fogo?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "[sério] Um fogão esquecido aceso pode queimar sua base inteira. [calmo] No modo Apocalipse, o fogo se espalha depois que começa. [tenso] O próprio jogo avisa: desliga o fogão quando terminar, a menos que queira cozinhar sua casa também. [sério] Gente e zumbi pegam fogo. E zumbi em chamas espalha o fogo por onde anda. [confiante] O extintor apaga incêndio em construção e em pessoa. Clica com o botão direito: Apagar Fogo. [calmo] Sem extintor? Saco de areia, de cascalho ou de terra também apagam. E água, mas de balde: um gole de garrafa não adianta. [calmo] Fogueira, na quarenta e dois, é com três pedras, pelo menu de construção. E ela guarda no máximo oito horas de combustível. [confiante] Fogueira longe da casa, fogão desligado e um extintor ou saco de areia sempre perto.",
+ "fatos": [
+  "fogo-fogao",
+  "fogo-espalha",
+  "fogo-pessoas",
+  "fogo-extintor",
+  "fogo-apagar",
+  "fogo-fogueira",
+  "fogo-combustivel"
+ ],
+ "itens": [
+  "Item_Extinguisher",
+  "Item_Sandbag",
+  "Item_Gravelbag",
+  "Item_Bucket_Water",
+  "Item_WaterBottle",
+  "Item_Rock"
+ ]
+}

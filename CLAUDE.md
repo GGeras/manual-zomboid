@@ -54,6 +54,7 @@ Leia este arquivo inteiro, depois `README.md` e `COLABORACAO.md`, antes de qualq
 4. **Tela do jogo no vídeo = réplica fiel** de um print real (`referencias/telas-do-jogo/`), com textos de `nomes-ptbr.md`. Sem print, use ícone ou chip, nunca tela inventada.
 5. **Rascunho (prévia) antes do render final.** O Jose aprova a prévia.
 6. Respostas ao Jose: **poucas palavras, diretas, em blocos, em português.**
+7. **Lugares de gravação** (`canal/lugares-de-gravacao.md`): lugar fixo, melhorado a cada episódio com detalhes fiéis ao jogo. Aprovado = travado, nunca trocar. Ler antes de mexer em cenário.
 
 ## 5. Onde está cada coisa
 | pasta | conteúdo |

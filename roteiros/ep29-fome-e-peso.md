@@ -1,5 +1,5 @@
 ---
-ep: 26
+ep: 29
 tema: Fome e Peso do Corpo
 responsavel: jose
 status: validado
@@ -8,7 +8,7 @@ fatos: [peso-calorias, fome-niveis, peso-dieta, peso-sistema, peso-tracos, peso-
 video: (sem rascunho ainda)
 ---
 
-# EP 26 — Fome e Peso do Corpo · ROTEIRO v6 (revisado 23/11/2026)
+# EP 29 — Fome e Peso do Corpo · ROTEIRO v6 (revisado 23/11/2026)
 
 **Ideia-guia:** Fome e peso são duas contas diferentes: a fome é o moodle, o peso são as calorias.
 
@@ -77,7 +77,7 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 
 **Modelos 3D:** `PZ.SOBREVIVENTE` (roupa padrão) · zumbis `PZ.zumbiPZ(i)` variados · S comendo; panela PZ.itemModel('cookingpot'); neve
 
-**Manifesto:** `projeto/ep26.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep26.cfg.js` + `ep26.js` (cenas) na hora da prévia.
+**Manifesto:** `projeto/ep29.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep29.cfg.js` + `ep29.js` (cenas) na hora da prévia.
 
 ## Fatos
 Todos em `info-validada/` (ver tabela do tema `fome-e-peso` e os ids citados).

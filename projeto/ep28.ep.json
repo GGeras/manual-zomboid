@@ -1,52 +1,44 @@
 {
- "_ajuda": "Preencha e rode: python3 pipeline/build.py 28   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 25   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
  "num": "28",
- "nome": "Helicóptero",
+ "nome": "Tédio e Tristeza",
  "vo": "audio/n28.mp3",
  "vo_db": 1.5,
- "musica": "wwl_tense",
+ "musica": "saying_goodbye",
  "musica_lufs": -30,
  "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
  "sfx": [
   [
-   "chopper1",
+   "BH_MalePlayer_SubtleBoredSigh_01",
    {
     "f": 0,
-    "dt": 0
+    "dt": 0.5
+   },
+   -14
+  ],
+  [
+   "BH_MalePlayer_SubtleSadSigh_01",
+   {
+    "f": 2,
+    "dt": 0.3
+   },
+   -14
+  ],
+  [
+   "PZ_Eating",
+   {
+    "f": 4,
+    "dt": 0.4
    },
    -16
   ],
   [
-   "chopper2",
-   {
-    "f": 3,
-    "dt": 0
-   },
-   -18
-  ],
-  [
-   "chopper3",
-   {
-    "f": 4,
-    "dt": 0
-   },
-   -16
-  ],
-  [
-   "zombierand1",
-   {
-    "f": 4,
-    "dt": 1.0
-   },
-   -18
-  ],
-  [
-   "zombieambient1",
+   "BH_MalePlayer_SubtleReliefSigh_01",
    {
     "f": 6,
-    "dt": 0
+    "dt": 0.3
    },
-   -18
+   -14
   ]
  ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
@@ -58,36 +50,44 @@
   "tint": "rgba(0,0,0,.15)",
   "linhas": [
    [
-    "ELE TE VÊ",
+    "TÉDIO",
     "osso"
    ],
    [
-    "E TE",
+    "TAMBÉM",
     "osso"
    ],
    [
-    "SEGUE",
+    "MATA",
     "vermelho"
    ]
   ],
   "gancho": {
-   "tipo": "selo",
-   "texto": "NOITE 6–9",
-   "cor": "#ffb020"
+   "tipo": "seq",
+   "itens": [
+    [
+     "LIVRO ✓",
+     "verde"
+    ],
+    [
+     "COMIDA ✓",
+     "verde"
+    ]
+   ]
   }
  },
  "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
  "post": {
-  "titulo": "Helicóptero no Project Zomboid: quando vem e o que fazer (B42)",
-  "gancho": "O helicóptero chama todos os zumbis da região. E se ele te vê, ele te segue.",
+  "titulo": "Tédio e tristeza no Project Zomboid: como tirar (B42)",
+  "gancho": "Tédio e tristeza são moodles de verdade. Leitura, comida boa e antidepressivo resolvem.",
   "pontos": [
-   "Apocalipse: vem uma vez, entre a 6ª e a 9ª noite",
-   "O rádio avisa atividade aérea no dia",
-   "Não dá para ver nem atirar nele",
-   "Se te vê, te segue",
-   "Fique dentro de casa, quieto e trancado"
+   "Tédio: Um Pouco de Tédio até Tédio Extremo",
+   "Tristeza: Triste até Sem Esperança",
+   "Livro e quadrinhos tiram os dois",
+   "Comida tem Tédio e Tristeza no tooltip",
+   "Antidepressivo age devagar"
   ],
-  "pergunta": "Onde você estava quando o helicóptero veio?",
+  "pergunta": "O que você lê na base?",
   "tags": [
    "pzdicas",
    "projectzomboidbr",
@@ -95,16 +95,20 @@
    "survivalgame"
   ]
  },
- "roteiro": "[tenso] Você vai ouvir um helicóptero. E todo zumbi da região também. [calmo] No modo Apocalipse, ele vem uma vez só. Em algum dia entre a sexta e a nona noite. [confiante] No dia, o rádio de emergência avisa atividade aérea. Escuta a previsão de manhã. [sério] Você nunca vê o helicóptero, e nem dá pra atirar nele. Ele procura um jogador, e o barulho puxa zumbi de uma área enorme. [tenso] E se ele te vê, ele te segue. E a horda vem junto. [calmo] Ele aparece de dia, entre nove da manhã e seis da tarde, e fica de uma a quatro horas. [tenso] Depois que ele vai embora, a região da sua base pode estar cheia de zumbi. [calmo] E tem outros eventos que chamam zumbi, como tiros ao longe. No Apocalipse, eles acontecem às vezes. [confiante] Ouviu o rádio? Fica dentro de casa, quieto e trancado, e espera passar.",
+ "roteiro": "[sério] No apocalipse, até ficar entediado é perigoso. [calmo] O tédio vai de Um Pouco de Tédio até Tédio Extremo. O jogo já avisa: ocupe-se ou procure alguma distração. [sério] A tristeza é outro moodle: vai de Triste até Sem Esperança. [confiante] Leitura tira os dois: livro e revista em quadrinhos tiram tédio e tristeza; revista tira tédio. [calmo] Comida também conta: olha o tooltip. Tem comida que deixa triste até ser cozida. [calmo] Fumante fica triste sem cigarro. E o antidepressivo reduz a tristeza devagar, ao longo de vários dias. [confiante] Base com livros, comida boa e cozida, e o humor segura.",
  "fatos": [
-  "heli-invisivel",
-  "heli-config",
-  "heli-quando",
-  "heli-radio",
-  "heli-segue",
-  "heli-depois"
+  "ted-niveis",
+  "tri-niveis",
+  "tri-leitura",
+  "tri-comida",
+  "est-fumante",
+  "tri-antidep"
  ],
  "itens": [
-  "Item_Radio"
+  "Item_Book",
+  "Item_ComicBook",
+  "Item_Magazine",
+  "Item_Cigarette",
+  "Item_PillsAntidepressant"
  ]
 }
