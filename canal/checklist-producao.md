@@ -8,7 +8,8 @@ CHECKLIST DE PRODUÇÃO — por vídeo (v3, do 11 em diante)
 1. ROTEIRO (Claude)
   [ ] Fatos tirados da base do canal (fatos.json) ou conferidos em fonte build 42.20+
   [ ] Nenhum fato contradiz vídeo anterior (lista "não usar" da base)
-  [ ] Gancho -> base -> exemplo -> armadilhas -> fecho/CTA | duração que a explicação pedir | tags de emoção
+  [ ] Gancho -> base -> exemplo -> armadilhas -> fecho/CTA | duração que a explicação pedir (pode passar de 60 s) | tags de emoção
+  [ ] Gancho de surpresa ou perda concreta; nada de "5 regras" (canal/regras-conteudo-redes.md)
 
 2. VOZ (Jose)
   [ ] 2 versões no ElevenLabs, enviadas
@@ -23,7 +24,7 @@ CHECKLIST DE PRODUÇÃO — por vídeo (v3, do 11 em diante)
 
 4. FINAL (automático)
   [ ] video.mp4 (versão anterior guardada em "versoes", nunca sobrescrita)
-  [ ] capa.jpg (v5) | instrucoes.txt (YouTube, Reels, TikTok) | legendas.srt
+  [ ] capa.jpg (v5) | instrucoes.txt (um bloco por rede, adaptado; horário 12h ou 18h30) | legendas.srt
 
 5. ANTES DE POSTAR (Jose)
   [ ] Assistir com som (Claude não ouve): volume da música, sons no tempo certo

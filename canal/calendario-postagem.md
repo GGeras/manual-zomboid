@@ -5,8 +5,10 @@ _(convertido de `00 Referencias/10 Roteiro, Voz e Publicacao/05 Calendario de Po
 ```text
 CALENDÁRIO DE POSTAGEM
 
-RITMO: 3 vídeos por semana — segunda, quarta e sexta, entre 18h e 20h.
-  Mesmo dia nas 3 plataformas: YouTube Shorts primeiro; Reels e TikTok em seguida.
+HORÁRIO (27/11, regra): 12h e 18h30 (Brasília), MESMO horário nas 3 redes. Nunca entre 0h e 8h.
+  Teste de 2 semanas; terça e quarta são os dias mais ativos (indicativo). Ver canal/regras-conteudo-redes.md.
+
+RITMO (antigo, ainda não revisto): 3 vídeos por semana — segunda, quarta e sexta.
   Só passar para 1 por dia com 7 vídeos prontos de reserva.
 
 RESERVA: manter sempre pelo menos 3 vídeos prontos na pasta Final antes de postar o próximo.

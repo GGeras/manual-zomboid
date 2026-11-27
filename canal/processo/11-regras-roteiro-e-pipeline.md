@@ -40,10 +40,11 @@ Vale para todo vídeo novo. Em conflito com docs antigos, este manda no ROTEIRO 
 - A BASE tem que ser entendida por quem nunca jogou: uma ideia por frase, com o número na tela no mesmo momento.
 - Linguagem de leigo: todo termo do jogo é explicado na primeira vez.
 - Sem pontas soltas: se cita um efeito, diz a consequência.
+- **GANCHO (27/11, pelas métricas):** surpresa/contradição ou perda concreta. Proibido "5 regras", "5 coisas" e "aperta X e…" no gancho, título ou capa. Detalhes em `canal/regras-conteudo-redes.md`.
 
 ## 3. Duração
 - Quem manda é a necessidade de explicação, nunca uma meta de tempo.
-- Perto de 60 s pode arredondar para 60 s.
+- Pode passar de 60 s se o tema pedir (27/11). Sem teto fixo.
 
 ## 4. Edição imersiva
 - Telas simuladas do jogo, números e barras animados, splits, punch-ins; troca visual a cada 2–3 s.

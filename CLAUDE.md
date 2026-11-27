@@ -58,6 +58,7 @@ Leia este arquivo inteiro, depois `README.md` e `COLABORACAO.md`, antes de qualq
 8. **Render é SEMPRE pelo `.bat`** (`ferramentas/rodar.bat` ou o `.bat` do episódio, que chama o `rodar.bat`). Ele detecta o hardware de cada PC (NVIDIA/NVENC, placa integrada ou só processador) e ajusta os renders em paralelo. Não renderize chamando `build.py` direto nem fixe GPU/jobs na mão.
 9. **Capas:** padrão v5 em `canal/padrao-capas.md` (arte própria por vídeo, grupos de 3 em ordem de publicação).
 10. **Depois de cada trabalho:** atualize o repositório (CHANGELOG + docs do que mudou). Vídeo/capa já entregue nunca é sobrescrito: a versão anterior vai para `versoes/`.
+11. **Gancho, texto por rede, horário e temas:** seguir `canal/regras-conteudo-redes.md` (REGRA obrigatória; INDICATIVO orienta, não veta). Roteiro, capa, post e ideias leem só esse doc, não os relatórios de métricas.
 
 ### Economia de tokens e voz
 - Render não gasta token: não fique checando, o sistema avisa quando termina.
