@@ -1,44 +1,36 @@
 {
- "_ajuda": "Preencha e rode: python3 pipeline/build.py 29   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 26   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
  "num": "29",
- "nome": "Fogo e Incêndio",
+ "nome": "Fome e Peso do Corpo",
  "vo": "audio/n29.mp3",
  "vo_db": 1.5,
- "musica": "the_zombie_threat",
+ "musica": "what_was_lost",
  "musica_lufs": -30,
  "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
  "sfx": [
   [
-   "PZ_Fire",
+   "PZ_Eating",
    {
     "f": 0,
-    "dt": 0.3
-   },
-   -16
-  ],
-  [
-   "player_on_fire_start_01",
-   {
-    "f": 3,
     "dt": 0.3
    },
    -14
   ],
   [
-   "BH_MalePlayer_PainLoopFire_01",
+   "PZ_FoodSlicing",
    {
-    "f": 3,
-    "dt": 0.9
+    "f": 5,
+    "dt": 0.3
    },
-   -16
+   -14
   ],
   [
-   "campfire",
+   "BH_MalePlayer_FreezingShivers_01",
    {
     "f": 6,
     "dt": 0.3
    },
-   -16
+   -14
   ]
  ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
@@ -50,15 +42,15 @@
   "tint": "rgba(0,0,0,.15)",
   "linhas": [
    [
-    "FOGÃO",
+    "COME",
     "osso"
    ],
    [
-    "ESQUECIDO",
+    "E MESMO ASSIM",
     "osso"
    ],
    [
-    "QUEIMA TUDO",
+    "EMAGRECE",
     "vermelho"
    ]
   ],
@@ -66,15 +58,11 @@
    "tipo": "seq",
    "itens": [
     [
-     "EXTINTOR",
-     "vermelho"
-    ],
-    [
-     "AREIA",
+     "FOME",
      "amarelo"
     ],
     [
-     "ÁGUA",
+     "CALORIA",
      "verde"
     ]
    ]
@@ -82,16 +70,16 @@
  },
  "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
  "post": {
-  "titulo": "Fogo no Project Zomboid: como apagar e não perder a base (B42)",
-  "gancho": "Fogão esquecido queima a base inteira. Extintor, saco de areia ou água de balde apagam.",
+  "titulo": "Fome e peso no Project Zomboid: calorias na B42",
+  "gancho": "Matar a fome não é engordar. O peso depende das calorias.",
   "pontos": [
-   "No Apocalipse o fogo se espalha",
-   "Zumbi em chamas espalha fogo",
-   "Extintor: botão direito → Apagar Fogo",
-   "Saco de areia, cascalho ou terra também apagam",
-   "Fogueira guarda no máximo 8 horas de combustível"
+   "Fome: Fome Leve até Morrendo de Fome",
+   "Caldo, fruta e legume quase não engordam",
+   "Manteiga, banha, chocolate e carne gorda engordam",
+   "Abaixo do Peso = pouca força; Acima = corre devagar",
+   "Comida cozida sacia mais"
   ],
-  "pergunta": "Já perdeu uma base no fogo?",
+  "pergunta": "Seu personagem está no peso certo?",
   "tags": [
    "pzdicas",
    "projectzomboidbr",
@@ -99,22 +87,19 @@
    "survivalgame"
   ]
  },
- "roteiro": "[sério] Um fogão esquecido aceso pode queimar sua base inteira. [calmo] No modo Apocalipse, o fogo se espalha depois que começa. [tenso] O próprio jogo avisa: desliga o fogão quando terminar, a menos que queira cozinhar sua casa também. [sério] Gente e zumbi pegam fogo. E zumbi em chamas espalha o fogo por onde anda. [confiante] O extintor apaga incêndio em construção e em pessoa. Clica com o botão direito: Apagar Fogo. [calmo] Sem extintor? Saco de areia, de cascalho ou de terra também apagam. E água, mas de balde: um gole de garrafa não adianta. [calmo] Fogueira, na quarenta e dois, é com três pedras, pelo menu de construção. E ela guarda no máximo oito horas de combustível. [confiante] Fogueira longe da casa, fogão desligado e um extintor ou saco de areia sempre perto.",
+ "roteiro": "[sério] Você pode comer o dia inteiro e mesmo assim emagrecer. [calmo] A fome é um moodle: de Fome Leve até Morrendo de Fome. E ela tira suas forças. [confiante] Mas o peso do corpo depende das calorias. Caldo, fruta e legume matam a fome e quase não engordam. Manteiga, banha, chocolate e carne gorda engordam. [sério] O próprio jogo avisa: sem dieta balanceada, você ganha ou perde peso. [tenso] Abaixo do Peso: pouca força, pouca resistência, mais lesão. Acima do Peso: corre mais devagar e cansa rápido. [calmo] Cozinhar ajuda: comida cozida é mais nutritiva e segura a fome por mais tempo. [calmo] E no inverno você gasta mais. Bem alimentado aguenta melhor o frio. [confiante] Fome é o alarme. Caloria é o combustível.",
  "fatos": [
-  "fogo-fogao",
-  "fogo-espalha",
-  "fogo-pessoas",
-  "fogo-extintor",
-  "fogo-apagar",
-  "fogo-fogueira",
-  "fogo-combustivel"
+  "peso-calorias",
+  "fome-niveis",
+  "peso-dieta",
+  "peso-sistema",
+  "peso-tracos",
+  "peso-cozida",
+  "peso-inverno"
  ],
  "itens": [
-  "Item_Extinguisher",
-  "Item_Sandbag",
-  "Item_Gravelbag",
-  "Item_Bucket_Water",
-  "Item_WaterBottle",
-  "Item_Rock"
+  "Item_BerryBlue",
+  "Item_Butter",
+  "Item_Lard"
  ]
 }

@@ -1,5 +1,5 @@
 ---
-ep: 25
+ep: 28
 tema: Tédio e Tristeza
 responsavel: jose
 status: validado
@@ -8,7 +8,7 @@ fatos: [ted-niveis, tri-niveis, tri-leitura, tri-comida, tri-comida-bons, est-fu
 video: (sem rascunho ainda)
 ---
 
-# EP 25 — Tédio e Tristeza · ROTEIRO v6 (revisado 23/11/2026)
+# EP 28 — Tédio e Tristeza · ROTEIRO v6 (revisado 23/11/2026)
 
 **Ideia-guia:** Tédio e tristeza são moodles de verdade — e o jogo te dá as ferramentas pra tirar os dois.
 
@@ -75,7 +75,7 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 
 **Modelos 3D:** `PZ.SOBREVIVENTE` (roupa padrão) · zumbis `PZ.zumbiPZ(i)` variados · S parado na janela, lendo; ícones de leitura e comida
 
-**Manifesto:** `projeto/ep25.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep25.cfg.js` + `ep25.js` (cenas) na hora da prévia.
+**Manifesto:** `projeto/ep28.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep28.cfg.js` + `ep28.js` (cenas) na hora da prévia.
 
 ## Fatos
 Todos em `info-validada/` (ver tabela do tema `tedio-e-tristeza` e os ids citados).

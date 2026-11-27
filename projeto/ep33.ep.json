@@ -1,0 +1,124 @@
+{
+ "_ajuda": "Preencha e rode: python3 pipeline/build.py 30   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
+ "num": "33",
+ "nome": "Cadáveres e Mau Cheiro",
+ "vo": "audio/n33.mp3",
+ "vo_db": 1.5,
+ "musica": "they_were_once_here",
+ "musica_lufs": -30,
+ "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
+ "sfx": [
+  [
+   "JL_MalePlayer_Coughing_02",
+   {
+    "f": 3,
+    "dt": 0.5
+   },
+   -14
+  ],
+  [
+   "shoveling",
+   {
+    "f": 6,
+    "dt": 0.3
+   },
+   -14
+  ],
+  [
+   "player_use_lighter_01",
+   {
+    "f": 7,
+    "dt": 0.5
+   },
+   -12
+  ],
+  [
+   "PZ_Fire",
+   {
+    "f": 7,
+    "dt": 1.0
+   },
+   -16
+  ]
+ ],
+ "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "capa": {
+  "t": 8.0,
+  "opcoes": [],
+  "zoom": 1.05,
+  "pos": "50% 55%",
+  "tint": "rgba(0,0,0,.15)",
+  "linhas": [
+   [
+    "MATOU",
+    "osso"
+   ],
+   [
+    "TEM QUE",
+    "osso"
+   ],
+   [
+    "LIMPAR",
+    "vermelho"
+   ]
+  ],
+  "gancho": {
+   "tipo": "seq",
+   "itens": [
+    [
+     "QUANTIDADE",
+     "amarelo"
+    ],
+    [
+     "DECOMPOSIÇÃO",
+     "amarelo"
+    ],
+    [
+     "TEMPO",
+     "vermelho"
+    ]
+   ]
+  }
+ },
+ "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
+ "post": {
+  "titulo": "Cadáveres no Project Zomboid B42: doença, mau cheiro e como limpar",
+  "gancho": "Os zumbis que você mata continuam te matando. Corpo apodrecendo deixa doente.",
+  "pontos": [
+   "Doença = quantidade + decomposição + tempo perto",
+   "Moscas são o sinal",
+   "Mau Cheiro impede dormir",
+   "Cova da pá cabe 5 corpos",
+   "Queimar: gasolina e fogo, longe da casa"
+  ],
+  "pergunta": "Você enterra ou queima?",
+  "tags": [
+   "pzdicas",
+   "projectzomboidbr",
+   "dicasdejogos",
+   "survivalgame"
+  ]
+ },
+ "roteiro": "[sério] Os zumbis que você mata continuam te matando. [calmo] A doença vem de três coisas juntas: quantos corpos, o quanto já apodreceram, e quanto tempo você fica perto. Não tem número mágico. [sério] O sinal de perigo são as moscas zumbindo. [tenso] Aparece o moodle Mau Cheiro. Ele vai até Vapores Mortais: você não consegue respirar, saia daí. [calmo] E com Mau Cheiro você nem consegue dormir. [confiante] Arrasta o corpo para longe. Dá até pra jogar por cima da cerca ou pela janela. [confiante] Com a pá, cava uma cova: cabem cinco corpos em cada uma. [confiante] Ou queima: gasolina e uma fonte de fogo, longe da casa e com saco de areia por perto. O jogo diz que é melhor pras suas costas. [calmo] E máscara protege: de gás, respirador, cirúrgica ou de pó. A de gás precisa de filtro. [confiante] Matou, limpou.",
+ "fatos": [
+  "cad-doenca",
+  "cad-combinacao",
+  "cad-moscas",
+  "cad-niveis",
+  "sono-bloqueio",
+  "cad-arrastar",
+  "cad-cova",
+  "cad-queimar",
+  "fogo-apagar",
+  "cad-mascara"
+ ],
+ "itens": [
+  "Item_Shovel",
+  "Item_Petrol",
+  "Item_Lighter",
+  "Item_Sandbag",
+  "Item_GasMask",
+  "Item_SurgicalMaskBlue",
+  "Item_DustMask"
+ ]
+}

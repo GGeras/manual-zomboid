@@ -1,5 +1,5 @@
 ---
-ep: 30
+ep: 33
 tema: Cadáveres e Mau Cheiro
 responsavel: jose
 status: validado
@@ -8,7 +8,7 @@ fatos: [cad-doenca, cad-combinacao, cad-moscas, cad-niveis, sono-bloqueio, cad-a
 video: (sem rascunho ainda)
 ---
 
-# EP 30 — Cadáveres e Mau Cheiro · ROTEIRO v6 (revisado 23/11/2026)
+# EP 33 — Cadáveres e Mau Cheiro · ROTEIRO v6 (revisado 23/11/2026)
 
 **Ideia-guia:** Na B42, pilha de corpo deixa doente — enterre, queime ou fique longe.
 
@@ -92,7 +92,7 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 
 **Modelos 3D:** `PZ.SOBREVIVENTE` (roupa padrão) · zumbis `PZ.zumbiPZ(i)` variados · S arrastando corpo, com pá, galão PZ.itemModel('gascan'); pilha de Z caídos
 
-**Manifesto:** `projeto/ep30.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep30.cfg.js` + `ep30.js` (cenas) na hora da prévia.
+**Manifesto:** `projeto/ep33.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep33.cfg.js` + `ep33.js` (cenas) na hora da prévia.
 
 ## Fatos
 Todos em `info-validada/` (ver tabela do tema `cadaveres` e os ids citados).

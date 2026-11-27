@@ -8,7 +8,7 @@ export const noAr = (nn: string) => episodio(nn)?.status === 'publicado'
 
 // Título do YouTube -> episódio do repo (o RSS do canal não traz o número). Primeiro o id do vídeo (campo `youtube:` do roteiro),
 // depois as palavras do tema no título. ALIAS: episódios cujo título publicado não usa o nome do tema.
-const ALIAS: Record<string, string[]> = { '13': ['personagem'], '12': ['horta', 'pesca'], '01': ['dia 1'], '06': ['comida'], '09': ['agua', 'sede'], '08': ['corpo a corpo'] }
+const ALIAS: Record<string, string[]> = { '13': ['personagem'], '12': ['horta e pesca', 'horta', 'pesca'], '01': ['dia 1'], '06': ['comida'], '09': ['agua', 'sede'], '08': ['corpo a corpo'] }
 const norm = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
 const raiz = (p: string) => p.replace(/(oes|aes|s)$/, '')
 export function episodioDoVideo(id: string | null, titulo: string): Episodio | undefined {
@@ -23,7 +23,8 @@ export function episodioDoVideo(id: string | null, titulo: string): Episodio | u
     // onde o tema aparece no título: o assunto vem primeiro ("Coleta ...: ache comida" é Coleta, não Comida)
     let pos = palavras.findIndex((p) => chaves.some((c) => casa(c, p)))
     const alias = (ALIAS[e.nn] ?? []).find((a) => tt.includes(a))
-    if (alias && 0.9 >= n) { n = 0.9; pos = tt.slice(0, tt.indexOf(alias)).split(/[^a-z0-9]+/).filter(Boolean).length }
+    const na = alias && alias.includes(' ') ? 1 : 0.9   // alias de várias palavras ("horta e pesca") é o título exato: vence o tema de uma palavra só (EP27 Pesca)
+    if (alias && na >= n) { n = na; pos = tt.slice(0, tt.indexOf(alias)).split(/[^a-z0-9]+/).filter(Boolean).length }
     const final = n > 0 ? n - Math.max(0, pos) * 0.02 : 0
     if (final > nota) { nota = final; melhor = e }
   }
