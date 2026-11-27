@@ -1,5 +1,5 @@
 ---
-ep: 32
+ep: 29
 tema: Fogo e Incêndio
 responsavel: jose
 status: validado
@@ -8,7 +8,7 @@ fatos: [fogo-fogao, fogo-espalha, fogo-pessoas, fogo-extintor, fogo-apagar, fogo
 video: (sem rascunho ainda)
 ---
 
-# EP 32 — Fogo e Incêndio · ROTEIRO v6 (revisado 23/11/2026)
+# EP 29 — Fogo e Incêndio · ROTEIRO v6 (revisado 23/11/2026)
 
 **Ideia-guia:** O fogo se espalha sozinho — cozinhar esquecendo o fogão já queimou muita base.
 
@@ -79,7 +79,7 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 
 **Modelos 3D:** `PZ.SOBREVIVENTE` (roupa padrão) · zumbis `PZ.zumbiPZ(i)` variados · S com extintor; Z em chamas; fogueira de pedras; PZ.itemModel('waterbottle')
 
-**Manifesto:** `projeto/ep32.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep32.cfg.js` + `ep32.js` (cenas) na hora da prévia.
+**Manifesto:** `projeto/ep29.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep29.cfg.js` + `ep29.js` (cenas) na hora da prévia.
 
 ## Fatos
 Todos em `info-validada/` (ver tabela do tema `fogo` e os ids citados).

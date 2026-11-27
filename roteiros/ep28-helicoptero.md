@@ -1,5 +1,5 @@
 ---
-ep: 31
+ep: 28
 tema: Helicóptero
 responsavel: jose
 status: validado
@@ -8,7 +8,7 @@ fatos: [heli-invisivel, heli-config, heli-quando, heli-radio, heli-segue, heli-d
 video: (sem rascunho ainda)
 ---
 
-# EP 31 — Helicóptero · ROTEIRO v6 (revisado 23/11/2026)
+# EP 28 — Helicóptero · ROTEIRO v6 (revisado 23/11/2026)
 
 **Ideia-guia:** Um dia, um helicóptero invisível chama todos os zumbis da região — saiba quando e se prepare.
 
@@ -80,7 +80,7 @@ Regras: selo `BUILD 42.22`; número só o que está nos fatos; nomes exatos do j
 
 **Modelos 3D:** `PZ.SOBREVIVENTE` (roupa padrão) · zumbis `PZ.zumbiPZ(i)` variados · S dentro de casa/correndo na rua; Z em multidão; mapa simples; ícone Item_Radio
 
-**Manifesto:** `projeto/ep31.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep31.cfg.js` + `ep31.js` (cenas) na hora da prévia.
+**Manifesto:** `projeto/ep28.ep.json` pronto (roteiro, fatos, sons, música, capa, post). Falta só `ep28.cfg.js` + `ep28.js` (cenas) na hora da prévia.
 
 ## Fatos
 Todos em `info-validada/` (ver tabela do tema `helicoptero` e os ids citados).

@@ -1,93 +1,179 @@
 {
- "_ajuda": "Preencha e rode: python3 pipeline/build.py 28   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
  "num": "31",
- "nome": "Helicóptero",
+ "nome": "Agricultura",
  "vo": "audio/n31.mp3",
  "vo_db": 1.5,
- "musica": "wwl_tense",
- "musica_lufs": -30,
- "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
  "sfx": [
   [
-   "chopper1",
+   "ambientOutsideDayBirds",
    {
     "f": 0,
     "dt": 0
    },
+   -24
+  ],
+  [
+   "bushes1",
+   {
+    "f": 0,
+    "dt": 2.2
+   },
    -16
   ],
   [
-   "chopper2",
+   "shoveling",
+   {
+    "f": 1,
+    "dt": 0.6
+   },
+   -14
+  ],
+  [
+   "heart",
+   {
+    "f": 2,
+    "dt": 3.0
+   },
+   -18
+  ],
+  [
+   "ambientOutsideWindyDay",
    {
     "f": 3,
-    "dt": 0
+    "dt": 0.3
    },
    -18
   ],
   [
-   "chopper3",
+   "player_reading_book_page_flip_01",
    {
     "f": 4,
-    "dt": 0
+    "dt": 0.4
+   },
+   -18
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 4,
+    "dt": 2.4
+   },
+   -18
+  ],
+  [
+   "player_reading_book_page_flip_01",
+   {
+    "f": 4,
+    "dt": 4.0
+   },
+   -18
+  ],
+  [
+   "PZ_GetWater",
+   {
+    "f": 5,
+    "dt": 0.8
+   },
+   -14
+  ],
+  [
+   "waterdrip1",
+   {
+    "f": 6,
+    "dt": 0.4
+   },
+   -18
+  ],
+  [
+   "ambientOutsideLightRainWoods",
+   {
+    "f": 7,
+    "dt": 4.8
+   },
+   -14
+  ],
+  [
+   "bushes2",
+   {
+    "f": 8,
+    "dt": 1.6
+   },
+   -12
+  ],
+  [
+   "bushes1",
+   {
+    "f": 8,
+    "dt": 2.4
+   },
+   -14
+  ],
+  [
+   "heart",
+   {
+    "f": 9,
+    "dt": 0.5
+   },
+   -20
+  ],
+  [
+   "ambientOutsideWindyDay",
+   {
+    "f": 10,
+    "dt": 0.2
    },
    -16
   ],
   [
-   "zombierand1",
+   "shoveling",
    {
-    "f": 4,
-    "dt": 1.0
+    "f": 11,
+    "dt": 0.3
    },
-   -18
+   -16
   ],
   [
-   "zombieambient1",
+   "levelup",
    {
-    "f": 6,
-    "dt": 0
+    "f": 11,
+    "dt": 2.5
    },
-   -18
+   -16
   ]
  ],
- "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "sem_sufixo": true,
  "capa": {
   "t": 8.0,
-  "opcoes": [],
   "zoom": 1.05,
   "pos": "50% 55%",
   "tint": "rgba(0,0,0,.15)",
   "linhas": [
    [
-    "ELE TE VÊ",
+    "SUA HORTA",
     "osso"
    ],
    [
-    "E TE",
-    "osso"
-   ],
-   [
-    "SEGUE",
+    "VAI MORRER",
     "vermelho"
    ]
   ],
   "gancho": {
    "tipo": "selo",
-   "texto": "NOITE 6–9",
-   "cor": "#ffb020"
+   "texto": "AGRICULTURA",
+   "cor": "#b5562f"
   }
  },
- "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
  "post": {
-  "titulo": "Helicóptero no Project Zomboid: quando vem e o que fazer (B42)",
-  "gancho": "O helicóptero chama todos os zumbis da região. E se ele te vê, ele te segue.",
+  "titulo": "Agricultura para iniciantes (B42)",
+  "gancho": "Sua horta pode morrer antes de te dar comida. E a culpa pode ser do calendário.",
   "pontos": [
-   "Apocalipse: vem uma vez, entre a 6ª e a 9ª noite",
-   "O rádio avisa atividade aérea no dia",
-   "Não dá para ver nem atirar nele",
-   "Se te vê, te segue",
-   "Fique dentro de casa, quieto e trancado"
+   "Cada planta tem meses de plantio; fora deles ela fica condenada",
+   "Nenhuma planta tem novembro e dezembro",
+   "Água no nível certo; a chuva rega o que está ao ar livre",
+   "Arranque o mato",
+   "No inverno, lá fora, só as resistentes ao frio, como o repolho"
   ],
-  "pergunta": "Onde você estava quando o helicóptero veio?",
+  "pergunta": "Me conta: você começa pela batata ou pelo repolho?",
   "tags": [
    "pzdicas",
    "projectzomboidbr",
@@ -95,16 +181,20 @@
    "survivalgame"
   ]
  },
- "roteiro": "[tenso] Você vai ouvir um helicóptero. E todo zumbi da região também. [calmo] No modo Apocalipse, ele vem uma vez só. Em algum dia entre a sexta e a nona noite. [confiante] No dia, o rádio de emergência avisa atividade aérea. Escuta a previsão de manhã. [sério] Você nunca vê o helicóptero, e nem dá pra atirar nele. Ele procura um jogador, e o barulho puxa zumbi de uma área enorme. [tenso] E se ele te vê, ele te segue. E a horda vem junto. [calmo] Ele aparece de dia, entre nove da manhã e seis da tarde, e fica de uma a quatro horas. [tenso] Depois que ele vai embora, a região da sua base pode estar cheia de zumbi. [calmo] E tem outros eventos que chamam zumbi, como tiros ao longe. No Apocalipse, eles acontecem às vezes. [confiante] Ouviu o rádio? Fica dentro de casa, quieto e trancado, e espera passar.",
+ "roteiro": "[tense] Sua horta pode morrer antes de te dar comida. E a culpa pode ser do calendário. [calm] No jogo, cada planta tem os meses certos para ir para a terra. [serious] Plantou fora deles, ela pode ficar condenada e começar a perder saúde. [curious] Novembro e dezembro? Nenhuma planta tem esses meses no calendário de plantio. [calm] Batata vai de fevereiro a abril. Tomate, de abril a junho. Repolho e cenoura, de fevereiro a julho. [calm] Plantou certo? Agora é água. Cada planta pede um tanto de água no solo. [curious] O tomate quer o solo bem molhado. A cenoura, no fim do crescimento, aguenta bem mais seco. [serious] Faltou água, ela atrasa. Faltou muito, para de crescer e começa a se machucar. A chuva rega o que está ao ar livre. [tense] E arranca o mato. Planta condenada com mato no mesmo quadrado perde saúde em dobro. [serious] Se ela estiver doente, o mato faz a doença se espalhar duas vezes mais rápido. [serious] No inverno, lá fora, só escapam as plantas que aguentam frio, como o repolho. [excited] Antes de enterrar a semente, olha o mês. Me conta: você começa pela batata ou pelo repolho?",
  "fatos": [
-  "heli-invisivel",
-  "heli-config",
-  "heli-quando",
-  "heli-radio",
-  "heli-segue",
-  "heli-depois"
- ],
- "itens": [
-  "Item_Radio"
+  "agr-meses-plantio",
+  "agr-fora-do-mes",
+  "agr-sem-nov-dez",
+  "agr-mes-batata",
+  "agr-mes-tomate",
+  "agr-mes-repolho-cenoura",
+  "agr-agua-nivel",
+  "agr-agua-tomate-cenoura",
+  "agr-agua-falta",
+  "agr-chuva",
+  "agr-mato-dobro",
+  "agr-mato-doenca",
+  "agr-inverno"
  ]
 }

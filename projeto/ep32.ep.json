@@ -1,97 +1,36 @@
 {
- "_ajuda": "Preencha e rode: python3 pipeline/build.py 29   | tempos: numero = segundos no video final, {\"c\": i, \"dt\": s} = corte da frase i, {\"f\": i} = inicio da frase i",
  "num": "32",
- "nome": "Fogo e Incêndio",
+ "nome": "Animais Produção",
  "vo": "audio/n32.mp3",
  "vo_db": 1.5,
- "musica": "the_zombie_threat",
- "musica_lufs": -30,
- "_musicas": "calmo: where_is_everyone, what_was_lost, they_were_once_here, alone, low, long_ambient | tenso: the_zombie_threat, wwl_tense, the_inevitable | acao: chase, run, the_horde | trabalho: barricading, work_fast | triste: saying_goodbye, piano",
- "sfx": [
-  [
-   "PZ_Fire",
-   {
-    "f": 0,
-    "dt": 0.3
-   },
-   -16
-  ],
-  [
-   "player_on_fire_start_01",
-   {
-    "f": 3,
-    "dt": 0.3
-   },
-   -14
-  ],
-  [
-   "BH_MalePlayer_PainLoopFire_01",
-   {
-    "f": 3,
-    "dt": 0.9
-   },
-   -16
-  ],
-  [
-   "campfire",
-   {
-    "f": 6,
-    "dt": 0.3
-   },
-   -16
-  ]
- ],
- "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",
+ "sfx": [],
+ "sem_sufixo": true,
  "capa": {
   "t": 8.0,
-  "opcoes": [],
   "zoom": 1.05,
   "pos": "50% 55%",
   "tint": "rgba(0,0,0,.15)",
   "linhas": [
    [
-    "FOGÃO",
+    "ELAS PODEM",
     "osso"
    ],
    [
-    "ESQUECIDO",
-    "osso"
-   ],
-   [
-    "QUEIMA TUDO",
+    "MORRER",
     "vermelho"
    ]
   ],
   "gancho": {
-   "tipo": "seq",
-   "itens": [
-    [
-     "EXTINTOR",
-     "vermelho"
-    ],
-    [
-     "AREIA",
-     "amarelo"
-    ],
-    [
-     "ÁGUA",
-     "verde"
-    ]
-   ]
+   "tipo": "selo",
+   "texto": "ANIMAIS PRODUÇÃO",
+   "cor": "#b5562f"
   }
  },
- "_capa": "gancho.tipo: selo {texto, cor} | pcts {itens:[[texto,cor]], legenda} | seq {itens:[[texto,cor]]} ; ondas: true desenha ondas de som ; cores: vermelho verde amarelo osso",
  "post": {
-  "titulo": "Fogo no Project Zomboid: como apagar e não perder a base (B42)",
-  "gancho": "Fogão esquecido queima a base inteira. Extintor, saco de areia ou água de balde apagam.",
-  "pontos": [
-   "No Apocalipse o fogo se espalha",
-   "Zumbi em chamas espalha fogo",
-   "Extintor: botão direito → Apagar Fogo",
-   "Saco de areia, cascalho ou terra também apagam",
-   "Fogueira guarda no máximo 8 horas de combustível"
-  ],
-  "pergunta": "Já perdeu uma base no fogo?",
+  "titulo": "Animais Produção para iniciantes (B42)",
+  "gancho": "Deixa o galinheiro sujo, e as suas galinhas adoecem e morrem.",
+  "pontos": [],
+  "pergunta": "Qual você criaria primeiro: galinha, vaca ou ovelha?",
   "tags": [
    "pzdicas",
    "projectzomboidbr",
@@ -99,22 +38,11 @@
    "survivalgame"
   ]
  },
- "roteiro": "[sério] Um fogão esquecido aceso pode queimar sua base inteira. [calmo] No modo Apocalipse, o fogo se espalha depois que começa. [tenso] O próprio jogo avisa: desliga o fogão quando terminar, a menos que queira cozinhar sua casa também. [sério] Gente e zumbi pegam fogo. E zumbi em chamas espalha o fogo por onde anda. [confiante] O extintor apaga incêndio em construção e em pessoa. Clica com o botão direito: Apagar Fogo. [calmo] Sem extintor? Saco de areia, de cascalho ou de terra também apagam. E água, mas de balde: um gole de garrafa não adianta. [calmo] Fogueira, na quarenta e dois, é com três pedras, pelo menu de construção. E ela guarda no máximo oito horas de combustível. [confiante] Fogueira longe da casa, fogão desligado e um extintor ou saco de areia sempre perto.",
+ "roteiro": "[tense] Deixa o galinheiro sujo, e as suas galinhas adoecem e morrem. [calm] Limpe com água e um item de limpeza. Seu sítio começa aí. [calm] Os bichos precisam de uma área de animais, um espaço marcado com comida, água e abrigo. [curious] Comida e água vão no cocho. Mas cada cocho leva só uma coisa. Então tenha dois. [calm] Para a água, clique nele com o botão direito. Vazio e sem telhado, ele junta chuva. [excited] Agora o lucro: galinha adulta bota um ovo por dia. E um galinheiro abriga até vinte aves. [curious] Com um galo na área, pode sair ovo fertilizado. É dele que nasce o pintinho. [serious] Vaca sem leite? O leite só aparece alguns dias depois que ela emprenha. Para ordenhar, use um balde. [serious] Se ninguém ordenhar e o bezerro não mamar, o leite seca em poucos dias. [calm] A ovelha dá lã na tosquia. E só cruza de setembro a fevereiro. A vaca, o ano inteiro. [tense] Cuidado: zumbi, barulho e correria estressam os bichos, e eles podem fugir da área. [excited] Começa pequeno e deixa tudo limpo. Qual você criaria primeiro: galinha, vaca ou ovelha?",
  "fatos": [
-  "fogo-fogao",
-  "fogo-espalha",
-  "fogo-pessoas",
-  "fogo-extintor",
-  "fogo-apagar",
-  "fogo-fogueira",
-  "fogo-combustivel"
- ],
- "itens": [
-  "Item_Extinguisher",
-  "Item_Sandbag",
-  "Item_Gravelbag",
-  "Item_Bucket_Water",
-  "Item_WaterBottle",
-  "Item_Rock"
+  "ani-cocho",
+  "ani-ovo",
+  "ani-produto",
+  "ani-estresse"
  ]
 }

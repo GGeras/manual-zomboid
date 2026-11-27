@@ -1,5 +1,5 @@
 ---
-ep: 26
+ep: 32
 tema: Animais Produção
 responsavel: jose
 status: rascunho
@@ -8,9 +8,9 @@ fatos: [ani-cocho, ani-ovo, ani-produto, ani-estresse]
 video: (sem rascunho ainda)
 ---
 
-# EP 26 — Animais Produção · ROTEIRO v1 (aprovado pelo Jose 27/11; fatos a validar)
+# EP 32 — Animais Produção · ROTEIRO v1 (aprovado pelo Jose 27/11; fatos a validar)
 
-F: [A] PinDrop 42.21/42.22 · [B] build42guide 42.20 (confirmar). Voz: `projeto/audio/n26.mp3`.
+F: [A] PinDrop 42.21/42.22 · [B] build42guide 42.20 (confirmar). Voz: `projeto/audio/n32.mp3`.
 
 **Capa:** ELAS PODEM / MORRER
 **Ambiente:** sítio: galinheiro, 2 cochos separados, cercado, celeiro ao fundo, feno e balde.

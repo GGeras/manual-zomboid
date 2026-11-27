@@ -6,7 +6,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: farming_vegetableconf.lua calcWater (−10% atrasa, −30% não cresce, abaixo disso −2); SFarmingSystem.lua changeHealth",
    "eps": [
-    "25"
+    "31"
    ]
   },
   "agr-agua-nivel": {
@@ -14,7 +14,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: props waterLvl / waterNeeded; PTBR Farming.json Farming_Water_levels",
    "eps": [
-    "25"
+    "31"
    ]
   },
   "agr-agua-tomate-cenoura": {
@@ -22,7 +22,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: Tomato waterLvl 70; Carrots waterNeeded 70 (início) e waterLvl 30 (demais estágios); farming_vegetableconf.lua grow()",
    "eps": [
-    "25"
+    "31"
    ]
   },
   "agr-chuva": {
@@ -30,7 +30,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: SFarmingSystem.lua checkWater (isRaining and exterior)",
    "eps": [
-    "25"
+    "31"
    ]
   },
   "agr-fora-do-mes": {
@@ -38,7 +38,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: SPlantGlobalObject.lua seed() (not isSowMonth → cursed); SFarmingSystem.lua changeHealth badMultiplier",
    "eps": [
-    "25"
+    "31"
    ]
   },
   "agr-inverno": {
@@ -46,7 +46,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: SFarmingSystem.lua changeHealth (Winter and not coldHardy → cursed); Cabbages coldHardy = true",
    "eps": [
-    "25"
+    "31"
    ]
   },
   "agr-mato-dobro": {
@@ -54,7 +54,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: SFarmingSystem.lua changeHealth (hasWeeds → badMultiplier ×2); PTBR Farming_Weeds",
    "eps": [
-    "25"
+    "31"
    ]
   },
   "agr-mato-doenca": {
@@ -62,7 +62,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: SFarmingSystem.lua diseaseClosePlant (hasWeeds → segunda rolagem)",
    "eps": [
-    "25"
+    "31"
    ]
   },
   "agr-mes-batata": {
@@ -70,7 +70,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: farming_vegetableconf_vegetables.lua Potatoes sowMonth {2,3,4}",
    "eps": [
-    "25"
+    "31"
    ]
   },
   "agr-mes-repolho-cenoura": {
@@ -78,7 +78,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: farming_vegetableconf_vegetables.lua Cabbages e Carrots sowMonth {2..7}",
    "eps": [
-    "25"
+    "31"
    ]
   },
   "agr-mes-tomate": {
@@ -86,7 +86,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: farming_vegetableconf_vegetables.lua Tomato sowMonth {4,5,6}",
    "eps": [
-    "25"
+    "31"
    ]
   },
   "agr-meses-plantio": {
@@ -94,7 +94,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: farming_vegetableconf_vegetables.lua sowMonth; PTBR Farming.json Farming_Tooltip_InSeason",
    "eps": [
-    "25"
+    "31"
    ]
   },
   "agr-sem-nov-dez": {
@@ -102,7 +102,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: sowMonth de todas as plantas em farming_vegetableconf_vegetables.lua e _herbs.lua (meses 2 a 10)",
    "eps": [
-    "25"
+    "31"
    ]
   },
   "agua-coletor-b42": {
@@ -134,7 +134,8 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22 do Jose: Translate/PTBR ContextMenu_FeedingTrough_RemoveItemForWater + IGUI_Animal_TroughLinkedTo + pindrop B42.22.2",
    "eps": [
-    "16"
+    "16",
+    "32"
    ]
   },
   "ani-corda": {
@@ -150,7 +151,8 @@
    "build": "B42.22.2",
    "fonte": "pindrop.gg animals (B42.22.2) + slashskill B42",
    "eps": [
-    "16"
+    "16",
+    "32"
    ]
   },
   "ani-fome": {
@@ -166,7 +168,8 @@
    "build": "B42.22.2",
    "fonte": "pindrop.gg animals (B42.22.2) + slashskill B42",
    "eps": [
-    "16"
+    "16",
+    "32"
    ]
   },
   "ani-produto": {
@@ -174,7 +177,8 @@
    "build": "B42.22.2",
    "fonte": "pindrop.gg animals + animals/sheep (B42.22.2) + PTBR ContextMenu_Milk/ContextMenu_Shear, ItemName SheepShears",
    "eps": [
-    "16"
+    "16",
+    "32"
    ]
   },
   "ani-zona": {
@@ -286,7 +290,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: SurvivalGuide_burn_corpse_description + ContextMenu_Grab_Corpse/ThrowCorpseOverFence/ThrowCorpseThroughWindow",
    "eps": [
-    "33"
+    "30"
    ]
   },
   "cad-carro": {
@@ -294,7 +298,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: SurvivalGuide_vehicle_storage_description",
    "eps": [
-    "33"
+    "30"
    ]
   },
   "cad-combinacao": {
@@ -302,7 +306,7 @@
    "build": "B42.22",
    "fonte": "confirmado no jogo pelo Jose (B42.22, 23/11/2026) + projectzomboid.wiki/guides/corpse-disposal (42.20.4: a doença escala com o tempo perto de corpos em decomposição)",
    "eps": [
-    "33"
+    "30"
    ]
   },
   "cad-config": {
@@ -310,7 +314,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: Apocalypse.lua DecayingCorpseHealthImpact = 3, HoursForCorpseRemoval = 216 + Sandbox tooltips",
    "eps": [
-    "33"
+    "30"
    ]
   },
   "cad-cova": {
@@ -318,7 +322,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: ContextMenu_DigGraves/BuryCorpse/FillGrave + ItemName Base.Shovel",
    "eps": [
-    "33"
+    "30"
    ]
   },
   "cad-doenca": {
@@ -326,7 +330,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: SurvivalGuide_burn_corpse_description + SurvivalGuide_bad_smells_description",
    "eps": [
-    "33"
+    "30"
    ]
   },
   "cad-mascara": {
@@ -334,7 +338,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: clothing.txt CorpseSicknessDefense + ItemName (Sem Filtro)",
    "eps": [
-    "33"
+    "30"
    ]
   },
   "cad-moscas": {
@@ -342,7 +346,7 @@
    "build": "B42.20",
    "fonte": "build42guide.wiki/survival/build-42-corpse-sickness (reconferido 42.20)",
    "eps": [
-    "33"
+    "30"
    ]
   },
   "cad-niveis": {
@@ -350,7 +354,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_NoxiousSmell_*",
    "eps": [
-    "33"
+    "30"
    ]
   },
   "cad-queimar": {
@@ -358,7 +362,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: SurvivalGuide_burn_corpse_description + ContextMenu_Burn_Corpse/CampfireCorpse",
    "eps": [
-    "33"
+    "30"
    ]
   },
   "carga-correr": {
@@ -598,7 +602,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: Tooltip_LemonGrass + ItemName Base.LemonGrass",
    "eps": [
-    "30"
+    "27"
    ]
   },
   "doe-limpeza": {
@@ -606,7 +610,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: SurvivalGuide_clean_self_description",
    "eps": [
-    "30"
+    "27"
    ]
   },
   "doe-niveis": {
@@ -614,7 +618,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_Sick_*",
    "eps": [
-    "30"
+    "27"
    ]
   },
   "doe-tracos": {
@@ -622,7 +626,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: UI.json UI_trait_resilient/pronetoillness desc",
    "eps": [
-    "30"
+    "27"
    ]
   },
   "est-fumante": {
@@ -631,7 +635,7 @@
    "fonte": "arquivos do jogo B42.22: UI.json UI_trait_SmokerDesc",
    "eps": [
     "24",
-    "28"
+    "25"
    ]
   },
   "est-leitura": {
@@ -640,7 +644,7 @@
    "fonte": "arquivos do jogo B42.22: scripts/generated/items/literature.txt (StressChange, BoredomChange) + Tooltip_literature_*",
    "eps": [
     "24",
-    "28"
+    "25"
    ]
   },
   "est-niveis": {
@@ -721,8 +725,8 @@
    "build": "B42.20.4",
    "fonte": "projectzomboid.wiki/guides/corpse-disposal (42.20.4) + arquivos do jogo B42.22: drainable.txt Base.Sandbag/Gravelbag/Dirtbag",
    "eps": [
-    "32",
-    "33"
+    "29",
+    "30"
    ]
   },
   "fogo-combustivel": {
@@ -730,7 +734,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: Apocalypse.lua MaximumFireFuelHours = 8 + Sandbox_MaximumFireFuelHours_tooltip",
    "eps": [
-    "32"
+    "29"
    ]
   },
   "fogo-espalha": {
@@ -738,7 +742,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: Sandbox/Apocalypse.lua FireSpread = true + Sandbox_FireSpread_tooltip",
    "eps": [
-    "32"
+    "29"
    ]
   },
   "fogo-extintor": {
@@ -746,7 +750,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: Tooltip_Extinguisher + ContextMenu_ExtinguishFire",
    "eps": [
-    "32"
+    "29"
    ]
   },
   "fogo-fogao": {
@@ -754,7 +758,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: SurvivalGuide_entrie8moreinfo",
    "eps": [
-    "32"
+    "29"
    ]
   },
   "fogo-fogueira": {
@@ -762,7 +766,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: ContextMenu_CampfireKit_tooltip",
    "eps": [
-    "32"
+    "29"
    ]
   },
   "fogo-pessoas": {
@@ -770,7 +774,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: IG_UI IGUI_StatsAndBody_IsOnFire + UI.json UI_ServerOption_NoFireSpread_tooltip",
    "eps": [
-    "32"
+    "29"
    ]
   },
   "fome-niveis": {
@@ -778,7 +782,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_Hungry_* e Moodles_FoodEaten_*",
    "eps": [
-    "29"
+    "26"
    ]
   },
   "heli-config": {
@@ -786,7 +790,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: Sandbox/Apocalypse.lua Helicopter = 2, MetaEvent = 2 + Sandbox.json opções e tooltips",
    "eps": [
-    "31"
+    "28"
    ]
   },
   "heli-depois": {
@@ -794,7 +798,7 @@
    "build": "B42.22",
    "fonte": "pindrop.gg/project-zomboid/helicopter-event (código do servidor B42, nov/2026)",
    "eps": [
-    "31"
+    "28"
    ]
   },
   "heli-invisivel": {
@@ -802,7 +806,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: UI.json UI_quick_tip_joke8 + UI_ServerOptionDesc_Chopper + pindrop.gg/project-zomboid/helicopter-event (código do servidor B42, nov/2026)",
    "eps": [
-    "31"
+    "28"
    ]
   },
   "heli-quando": {
@@ -810,7 +814,7 @@
    "build": "B42.22",
    "fonte": "pindrop.gg/project-zomboid/helicopter-event (código do servidor B42, nov/2026)",
    "eps": [
-    "31"
+    "28"
    ]
   },
   "heli-radio": {
@@ -818,7 +822,7 @@
    "build": "B42.22",
    "fonte": "pindrop.gg/project-zomboid/helicopter-event (código do servidor B42, nov/2026)",
    "eps": [
-    "31"
+    "28"
    ]
   },
   "heli-segue": {
@@ -826,7 +830,7 @@
    "build": "B42.22",
    "fonte": "confirmado no jogo pelo Jose (B42.22, 23/11/2026) + pindrop.gg/project-zomboid/helicopter-event (código do servidor B42, nov/2026)",
    "eps": [
-    "31"
+    "28"
    ]
   },
   "livro-acima": {
@@ -1026,7 +1030,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: SurvivalGuide_eating_drinking_description",
    "eps": [
-    "29"
+    "26"
    ]
   },
   "peso-calorias": {
@@ -1034,7 +1038,7 @@
    "build": "B42.20.3",
    "fonte": "projectzomboid.wiki/guides/nutrition-weight (42.20.3)",
    "eps": [
-    "29"
+    "26"
    ]
   },
   "peso-cozida": {
@@ -1042,8 +1046,8 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: SurvivalGuide_entrie8moreinfo",
    "eps": [
-    "29",
-    "30"
+    "26",
+    "27"
    ]
   },
   "peso-dieta": {
@@ -1051,7 +1055,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: SurvivalGuide_eating_drinking_description",
    "eps": [
-    "29"
+    "26"
    ]
   },
   "peso-inverno": {
@@ -1059,7 +1063,7 @@
    "build": "B42.22",
    "fonte": "projectzomboid.wiki/guides/nutrition-weight (42.20.3) + arquivos do jogo B42.22: SurvivalGuide_entrie11moreinfo",
    "eps": [
-    "29"
+    "26"
    ]
   },
   "peso-sistema": {
@@ -1067,7 +1071,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: Sandbox/Apocalypse.lua Nutrition = true + Sandbox_Nutrition_tooltip",
    "eps": [
-    "29"
+    "26"
    ]
   },
   "peso-tracos": {
@@ -1075,7 +1079,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: UI.json UI_trait_underweight/veryunderweight/emaciated/overweight/obese desc",
    "eps": [
-    "29"
+    "26"
    ]
   },
   "resf-causa": {
@@ -1083,7 +1087,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: SurvivalGuide_seasons_and_weather_description + pzfans sickness guide (42.19) + supercraft cure-sickness (arquivos B42 stable)",
    "eps": [
-    "30"
+    "27"
    ]
   },
   "resf-espirro": {
@@ -1091,7 +1095,7 @@
    "build": "B42.22",
    "fonte": "confirmado no jogo pelo Jose (B42.22, 23/11/2026) + arquivos do jogo B42.22: Tooltip_tissue_tooltip",
    "eps": [
-    "30"
+    "27"
    ]
   },
   "resf-lenco": {
@@ -1099,7 +1103,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: Tooltip_tissue_tooltip + ItemName Base.Tissue",
    "eps": [
-    "30"
+    "27"
    ]
   },
   "resf-malva": {
@@ -1107,7 +1111,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: Tooltip_Mallow + ItemName Base.CommonMallow",
    "eps": [
-    "30"
+    "27"
    ]
   },
   "resf-niveis": {
@@ -1115,7 +1119,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_HasACold_*",
    "eps": [
-    "30"
+    "27"
    ]
   },
   "sono-bloqueio": {
@@ -1124,7 +1128,7 @@
    "fonte": "projectzomboid.wiki/guides/sleep-rest (42.22) + notas 42.22.2 (patched.gg/games/project-zomboid/42222-stable-released)",
    "eps": [
     "20",
-    "33"
+    "30"
    ]
   },
   "sono-cafeina": {
@@ -1196,7 +1200,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_Bored_*",
    "eps": [
-    "28"
+    "25"
    ]
   },
   "temp-calor": {
@@ -1252,7 +1256,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: Tooltip_PillsAntidepressant + ItemName Base.PillsAntiDep",
    "eps": [
-    "28"
+    "25"
    ]
   },
   "tri-comida": {
@@ -1260,7 +1264,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: Tooltip.json Tooltip_food_Boredom/Unhappiness + Tooltip_food_CookToRemoveUnhappiness",
    "eps": [
-    "28"
+    "25"
    ]
   },
   "tri-comida-bons": {
@@ -1268,7 +1272,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: media/scripts/generated/items/food.txt (PotForgedStew/PotOfStew −20, Icecream −10, Croissant −15; Steak/Chicken sem UnhappyChange); PTBR ItemName.json Base.PotOfStew \"Panela de Ensopado\", Base.Icecream \"Sorvete\", Base.Croissant \"Croissant\"",
    "eps": [
-    "28"
+    "25"
    ]
   },
   "tri-leitura": {
@@ -1276,7 +1280,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: literature.txt (UnhappyChange, StressChange, BoredomChange)",
    "eps": [
-    "28"
+    "25"
    ]
   },
   "tri-niveis": {
@@ -1284,7 +1288,7 @@
    "build": "B42.22",
    "fonte": "arquivos do jogo B42.22: media/lua/shared/Translate/PTBR/Moodles.json Moodles_Unhappy_*",
    "eps": [
-    "28"
+    "25"
    ]
   }
  },
