@@ -8,8 +8,7 @@ CHECKLIST DE PRODUÇÃO — por vídeo (v3, do 11 em diante)
 1. ROTEIRO (Claude)
   [ ] Fatos tirados da base do canal (fatos.json) ou conferidos em fonte build 42.20+
   [ ] Nenhum fato contradiz vídeo anterior (lista "não usar" da base)
-  [ ] Gancho -> base -> exemplo -> armadilhas -> fecho/CTA | duração que a explicação pedir (pode passar de 60 s) | tags de emoção
-  [ ] Gancho de surpresa ou perda concreta; nada de "5 regras" (canal/regras-conteudo-redes.md)
+  [ ] Gancho -> base -> exemplo -> armadilhas -> fecho/CTA | duração que a explicação pedir | tags de emoção
 
 2. VOZ (Jose)
   [ ] 2 versões no ElevenLabs, enviadas
@@ -24,13 +23,20 @@ CHECKLIST DE PRODUÇÃO — por vídeo (v3, do 11 em diante)
 
 4. FINAL (automático)
   [ ] video.mp4 (versão anterior guardada em "versoes", nunca sobrescrita)
-  [ ] capa.jpg (v5) | instrucoes.txt (um bloco por rede, adaptado; horário 12h ou 18h30) | legendas.srt
+  [ ] capa.jpg + 2 opções de capa | instrucoes.txt (YouTube, Reels, TikTok) | legendas.srt
 
 5. ANTES DE POSTAR (Jose)
   [ ] Assistir com som (Claude não ouve): volume da música, sons no tempo certo
   [ ] Escolher a capa | Subir legendas.srt no YouTube e TikTok
   [ ] Vídeo já publicado: nunca substituir o arquivo; correção vira "video_v2"
 ```
+
+## Menu único (sem prompt)
+
+`ferramentas/manual.bat` (dois cliques): prévia, final, voz provisória, publicar no Drive, enviar ao GitHub, relatório para o Claude, atualizar a pasta.
+
+- O Claude não cria `.bat` por ajuste. Se faltar uma função, ela entra em `ferramentas/manual.py`.
+- Depois de um ajuste, o Claude responde só com a opção do menu e o número do episódio.
 
 ## Pedido de revisão
 
@@ -40,8 +46,7 @@ Uma mensagem só, com todos os pontos: `EPNN · tempo · o que está errado · c
 
 1. Voz final recebida e tempos refeitos.
 2. Cada ponto da revisão conferido em foto.
-3. Antes do render final: rodar a inspeção e ler `inspecao/relatorio.txt`.
-4. Depois do render: olhar os trechos revisados no `video.mp4`.
+3. Depois do render: ler `inspecao/relatorio.txt` e olhar os trechos revisados no `video.mp4`.
 
 ## Economia nos ajustes
 

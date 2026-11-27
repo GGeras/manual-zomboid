@@ -50,7 +50,7 @@ CRITÉRIOS DE ACEITE — um vídeo só é entregue se passar em TODOS (vale do v
 5. ENTREGA
 [ ] Prévia aprovada pelo Jose quando houve dúvida
 [ ] Título sem "Project Zomboid" ("sem_sufixo": true, conferido no instrucoes.txt); capa com no máximo 2 linhas
-[ ] video.mp4 + capa.jpg (v5) + instrucoes.txt + legendas.srt na pasta Final
+[ ] video.mp4 + 3 capas + instrucoes.txt + legendas.srt na pasta Final
 [ ] Vídeo anterior guardado em versoes (nunca sobrescrito)
 [ ] Repositório atualizado (branch + PR) e documento do projeto atualizado
 
