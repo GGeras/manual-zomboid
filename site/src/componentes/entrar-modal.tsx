@@ -15,7 +15,7 @@ export function EntrarModal({ fechar, motivo }: { fechar: () => void; motivo?: s
   useEffect(() => { ref.current?.showModal() }, [])
 
   async function provedor(p: 'discord' | 'google') {
-    if (!comunidadeAtiva) return setAviso('Login com Discord e Google chega quando a Comunidade abrir. Por enquanto, teste com uma conta de prévia aqui embaixo.')
+    if (!comunidadeAtiva) return setAviso('Login com Discord e Google chega em breve. Por enquanto, crie uma conta aqui embaixo.')
     setEnviando(true)
     const { entrarCom } = await import('@/lib/comunidade/cliente-real')
     const { error } = await entrarCom(p)
@@ -58,8 +58,8 @@ export function EntrarModal({ fechar, motivo }: { fechar: () => void; motivo?: s
 
         {!comunidadeAtiva && (
           <form onSubmit={contaTeste} className="mt-5 rounded-xl border border-dashed border-alerta/40 bg-alerta/[.04] p-4">
-            <p className="hud text-alerta">Modo prévia</p>
-            <p className="mt-1.5 text-[.83rem] leading-snug text-osso-2">Crie uma conta de teste para experimentar. Fica só neste navegador; nada vai para servidor.</p>
+            <p className="hud text-alerta">Conta de teste</p>
+            <p className="mt-1.5 text-[.83rem] leading-snug text-osso-2">Crie uma conta para experimentar. Fica só neste navegador.</p>
             <div className="mt-3 flex gap-2">
               <label className="sr-only" htmlFor="entrar-usuario">Nome de usuário</label>
               <input id="entrar-usuario" autoComplete="off" spellCheck={false} placeholder="seu_usuario" value={usuario} maxLength={20}

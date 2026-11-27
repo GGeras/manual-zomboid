@@ -6,6 +6,30 @@ export const EPISODIOS = episodiosJson as Episodio[]
 export const episodio = (nn: string | null | undefined) => EPISODIOS.find((e) => e.nn === nn)
 export const noAr = (nn: string) => episodio(nn)?.status === 'publicado'
 
+// Título do YouTube -> episódio do repo (o RSS do canal não traz o número). Primeiro o id do vídeo (campo `youtube:` do roteiro),
+// depois as palavras do tema no título. ALIAS: episódios cujo título publicado não usa o nome do tema.
+const ALIAS: Record<string, string[]> = { '13': ['personagem'], '12': ['horta', 'pesca'], '01': ['dia 1'], '06': ['comida'], '09': ['agua', 'sede'], '08': ['corpo a corpo'] }
+const norm = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+const raiz = (p: string) => p.replace(/(oes|aes|s)$/, '')
+export function episodioDoVideo(id: string | null, titulo: string): Episodio | undefined {
+  const porId = id ? EPISODIOS.find((e) => e.youtube === id) : undefined
+  if (porId) return porId
+  const tt = norm(titulo).split('|')[0], palavras = tt.split(/[^a-z0-9]+/).filter(Boolean).map(raiz)
+  let melhor: Episodio | undefined, nota = 0
+  const casa = (c: string, p: string) => p.startsWith(c) || (c.startsWith(p) && p.length >= 4)
+  for (const e of EPISODIOS) {
+    const chaves = norm(e.tema).split(/[^a-z0-9]+/).filter((p) => p.length >= 4).map(raiz)
+    let n = chaves.length ? chaves.filter((c) => palavras.some((p) => casa(c, p))).length / chaves.length : 0
+    // onde o tema aparece no título: o assunto vem primeiro ("Coleta ...: ache comida" é Coleta, não Comida)
+    let pos = palavras.findIndex((p) => chaves.some((c) => casa(c, p)))
+    const alias = (ALIAS[e.nn] ?? []).find((a) => tt.includes(a))
+    if (alias && 0.9 >= n) { n = 0.9; pos = tt.slice(0, tt.indexOf(alias)).split(/[^a-z0-9]+/).filter(Boolean).length }
+    const final = n > 0 ? n - Math.max(0, pos) * 0.02 : 0
+    if (final > nota) { nota = final; melhor = e }
+  }
+  return nota >= 0.45 ? melhor : undefined
+}
+
 /** Temas do canal para a seção "O que você aprende". Agrupamento do canal (não é dado do jogo). */
 export const TEMAS: { nome: string; texto: string; moodle: string; eps: string[]; guia?: string }[] = [
   { nome: 'Primeiros dias', texto: 'O que fazer (e não fazer) quando tudo começa.', moodle: 'moodles/Mood_Panicked', eps: ['01', '02'] },

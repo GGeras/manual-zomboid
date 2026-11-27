@@ -40,10 +40,11 @@ Vale para todo vídeo novo. Em conflito com docs antigos, este manda no ROTEIRO 
 - A BASE tem que ser entendida por quem nunca jogou: uma ideia por frase, com o número na tela no mesmo momento.
 - Linguagem de leigo: todo termo do jogo é explicado na primeira vez.
 - Sem pontas soltas: se cita um efeito, diz a consequência.
+- **GANCHO (27/11, pelas métricas):** surpresa/contradição ou perda concreta. Proibido "5 regras", "5 coisas" e "aperta X e…" no gancho, título ou capa. Detalhes em `canal/regras-conteudo-redes.md`.
 
 ## 3. Duração
 - Quem manda é a necessidade de explicação, nunca uma meta de tempo.
-- Perto de 60 s pode arredondar para 60 s.
+- Pode passar de 60 s se o tema pedir (27/11). Sem teto fixo.
 
 ## 4. Edição imersiva
 - Telas simuladas do jogo, números e barras animados, splits, punch-ins; troca visual a cada 2–3 s.
@@ -141,6 +142,46 @@ O personagem **encosta** nas superfícies e fica **sempre por cima delas**: nunc
 - **Modo de busca (coleta)** = efeito do jogo (`busca.js`, valores de `ISSearchManager.lua`): fora do raio desfoca, tira cor e escurece, olho em cima da cabeça, marcadores `pinIcon*` nos itens; ele procura olhando em volta (`S.olhar`).
 - `inspect.mjs` confere em todo momento: **PERSONAGEM ATRAVESSANDO A SUPERFÍCIE**, **FLUTUANDO**, **NÁDEGA FORA DO ASSENTO**, **ATRAVESSANDO MÓVEL** (quadril, peito, joelhos e pés). `inspecao/sonda.json` guarda a medida de cada momento. Relatório tem de dar 0 avisos.
 
+> **Código:** as seções 4.9 e 4.10 citam a versão final dos EP23/24, que ainda está só no PC do Jose (inclui `sem_sufixo` no `post.py`).
+
+## 4.9 PADRÕES APROVADOS NO EP24 FINAL (26/11, revisão do Jose) — vale para TODO vídeo novo
+Referência de código: `projeto/ep24.js`.
+- **Objeto só onde faz sentido.** Caixa de correio só junto de casa ou portão (`bairro(C, correio)`). Rua: um padrão de piso, cerca contínua, detalhes que combinam (lixeira, arbusto, capim alto).
+- **Móvel inteiro em todo zoom.** Nada cortado por outro móvel, ícone, chip ou borda da tela; conferir no quadro mais fechado da cena. Ao tirar um elemento da frente do móvel, ele não pode ir para a área dos botões (4.3).
+- **Luz de janela** (`luzInterior(..., { facho: true })`): um só sentido de sol na cena; a mancha no chão é a projeção do vidro (não começa colada na parede); poeira dentro do facho.
+- **Nenhuma troca seca de animação.** Guarda → golpe → guarda, andar → atacar e andar → cair sempre com mistura (`mix`; `taco`, `chega`, `cai`, `corpoACorpo`), com a raiz parada na mistura.
+- **Posição contínua.** Uma só conta de posição do começo ao fim da ação. Zumbi só mexe as pernas quando se desloca, chega ao alcance no instante do golpe ou tiro e cai ali. Proibido correr parado ou teleportar.
+- **Voz antes do acabamento.** Com a voz final: refazer `T`/`END` e todas as frações de chip, moodle, cartão e som (`check_vo.py`).
+- **Roteiro:** efeito que muda o combate é dito para **atirar e bater**, quando houver fonte para os dois. Fecho com recomendação clara e pergunta.
+- **Conferência:** fotos paradas dos trechos citados, antes/durante/depois da ação, no máximo 2 rodadas.
+- **Post:** título sem "Project Zomboid" (`"sem_sufixo": true` no `epNN.ep.json`). **Capa:** no máximo 2 linhas.
+
+## 4.10 PADRÕES APROVADOS NO EP23 FINAL (26/11, aprovado pelo Jose) — vale para TODO vídeo novo
+Referência de código: `projeto/ep23.js`, `ep23.cfg.js` e `cenarios.js` (`centro`, `condominio`, `praca`, `academia`, `estrada`).
+
+Cenário
+- **Um lugar por assunto.** O take muda de lugar quando a fala muda de assunto; não repetir a rua do take anterior nem de outro vídeo.
+- **Objeto grande só com função.** Carro ou móvel sem papel na cena sai.
+- **Lugar reconhecível,** com 3 ou mais elementos do jogo: condomínio (cerca alta de tábuas `fencing_01_8/_9`, grade, estacionamento, prédios); centro (vitrines, avenida, hidrante, caixa de jornal); academia (esteiras, bancos, colchonetes, janelas). Um piso por área (sem xadrez). Tudo aparece no quadro.
+- **Print do Jose manda:** usar o sprite igual, tirado dos arquivos do jogo.
+
+Ação
+- **Fuga:** horda desde o primeiro quadro, vinda de mais de um lado (EP23: 16 zumbis), sem objeto no caminho deles.
+- **Curva correndo:** nunca girar o boneco no próprio eixo. Trajeto calculado antes, a cabeça olha primeiro, curva do jogo (`s_runturn90l/r`) misturada à corrida, passo medido pela distância.
+- **Levantar, agachar, sentar:** `seq()` com mistura suave (levantar ≈ 26 quadros).
+- **Escalada que falha:** `Bob_ClimbFence_Start → Loop → Fail`; câmera acompanha; corte na queda com a horda chegando.
+- **Passos:** som do piso certo, no quadro em que o pé toca.
+
+Tela
+- **Lista falada** (características, itens): um cartão por nome, no instante da palavra, com ícone original, nome do jogo, pontos (verde ganha, vermelho gasta) e efeito. Grade 2×2. Valor só de `info-validada/`.
+- **Selo da build livre:** nada em x ≥ 840, y 515–565. A inspeção não acusa; conferir em foto.
+- **Painel no meio da tela:** os pés continuam até y 1580.
+- **Exterior de dia:** brilho ≥ 95.
+
+Entrega
+- **Inspeção antes do final** (`ferramentas/rodar.bat NN rascunho` ou `inspecao`); o Claude lê o `relatorio.txt`. "Flutuando" só é aceito em corrida ou escalada conferida em foto.
+- **Post:** `"sem_sufixo": true` e título sem "Project Zomboid"; conferir no `instrucoes.txt`.
+
 ## 4.1 REGRA DAS TELAS (18/11, pedido do Jose) — tela do jogo = RÉPLICA
 - Toda tela/menu do jogo que aparece no vídeo é **réplica fiel da tela real**: mesmo layout, mesmas colunas, cores, fonte simples do jogo, botões e ordem dos elementos.
   - Nada de painel genérico "estilo jogo".
@@ -163,7 +204,7 @@ O personagem **encosta** nas superfícies e fica **sempre por cima delas**: nunc
 
 ## 5. Pipeline
 
-**Render SEMPRE na placa de vídeo do Bruno (22/11)**: prévias, finais, imagens de teste e inspeção rodam no PC (`Vídeos\\rodar-job (GPU).bat` executa o `_gpu\\job.bat` preparado; `PZ_GPU=1`). A nuvem só prepara arquivos, áudio e confere números.
+**Quem renderiza é o usuário**, no PC dele, sempre pelo `.bat` (`CLAUDE.md`, regra 4.8). O Claude prepara arquivos e áudio, faz as fotos de conferência e lê o relatório.
 
 1. Pesquisa (ordem do item 0) → `fatos.json`.
 2. Roteiro com coluna VISUAL por frase → Jose aprova.

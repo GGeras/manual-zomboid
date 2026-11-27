@@ -17,10 +17,82 @@
    -14
   ],
   [
+   "PZ_OpenBag",
+   {
+    "c": 0,
+    "dt": 2.2
+   },
+   -14
+  ],
+  [
+   "PZ_PutInBag",
+   {
+    "c": 0,
+    "dt": 3.2
+   },
+   -14
+  ],
+  [
+   "male_outofbreath_01",
+   {
+    "c": 1,
+    "dt": 1.3
+   },
+   -17
+  ],
+  [
+   "PZ_FootSteps_Concrete_01",
+   {
+    "c": 2,
+    "dt": 0.1
+   },
+   -16
+  ],
+  [
+   "zombierand4",
+   {
+    "c": 2,
+    "dt": 0.5
+   },
+   -16
+  ],
+  [
+   "PZ_MaleZombie_02",
+   {
+    "c": 2,
+    "k": 0.4
+   },
+   -16
+  ],
+  [
+   "fzombierand1",
+   {
+    "c": 2,
+    "k": 0.7
+   },
+   -16
+  ],
+  [
    "male_outofbreath_01",
    {
     "f": 2,
     "dt": 1.5
+   },
+   -16
+  ],
+  [
+   "PZ_FootSteps_Concrete_01",
+   {
+    "c": 3,
+    "dt": 0.2
+   },
+   -17
+  ],
+  [
+   "male_outofbreath_01",
+   {
+    "c": 3,
+    "k": 0.6
    },
    -16
   ],
@@ -31,6 +103,86 @@
     "dt": 0.3
    },
    -14
+  ],
+  [
+   "PZ_PutInBag",
+   {
+    "c": 4,
+    "k": 0.3
+   },
+   -14
+  ],
+  [
+   "PZ_OpenBag",
+   {
+    "c": 5,
+    "dt": 0.3
+   },
+   -14
+  ],
+  [
+   "PZ_PutInBag",
+   {
+    "c": 5,
+    "k": 0.33
+   },
+   -14
+  ],
+  [
+   "PZ_OpenBag",
+   {
+    "c": 5,
+    "k": 0.66
+   },
+   -14
+  ],
+  [
+   "PZ_FootSteps_Concrete_01",
+   {
+    "c": 6,
+    "dt": 0.2
+   },
+   -17
+  ],
+  [
+   "zombierand5",
+   {
+    "c": 6,
+    "dt": 0.4
+   },
+   -16
+  ],
+  [
+   "PZ_Female_zombie_01",
+   {
+    "c": 6,
+    "k": 0.5
+   },
+   -16
+  ],
+  [
+   "JL_MalePlayer_ExerciseGrunts_01",
+   {
+    "c": 7,
+    "dt": 0.5
+   },
+   -16
+  ],
+  [
+   "PZ_FootSteps_Concrete_01",
+   {
+    "c": 8,
+    "dt": 0.1
+   },
+   -16
+  ],
+  [
+   "zombierand6",
+   {
+    "c": 8,
+    "dt": 0.5
+   },
+   -17
   ]
  ],
  "_sfx": "[\"nome do arquivo sem extensao\", tempo, volume em dB, {trim:[ini,fim], ate: tempo (loop), fin, fout}] - nomes no indice de sons",

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Avatar } from '@/componentes/avatar'
 import { CartaoTopico } from '@/componentes/comunidade/cartao-topico'
 import { PerfilLocal } from '@/componentes/comunidade/perfil-local'
+import { PreferenciaVoto } from '@/componentes/tierlist/preferencia'
 import { comunidade } from '@/lib/comunidade/dados'
 import { dataCurta } from '@/lib/util'
 
@@ -28,6 +29,7 @@ export default async function PerfilPagina({ params }: { params: Promise<{ usuar
           </p>
         </div>
       </header>
+      <PreferenciaVoto usuario={usuario} />
       <h2 className="mt-8 px-1 text-lg font-extrabold">Tópicos</h2>
       <div className="mt-3 grid gap-2.5">
         {topicos.length ? topicos.map((t) => <CartaoTopico key={t.id} t={t} />) : <p className="rounded-xl border border-dashed border-white/10 p-8 text-center text-osso-2">Nenhum tópico ainda.</p>}

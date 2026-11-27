@@ -1,4 +1,11 @@
-// EP 24 — Pânico e Estresse (B42.22) — RASCUNHO v3 (24/11, Jose): falas mais longas (v7) e cada bloco com a sua ação.
+// EP 24 — Pânico e Estresse (B42.22) — RASCUNHO v5 (25/11, Bruno):
+// • corpo a corpo (fala 2) REFEITO: o zumbi vem ANDANDO de verdade (pés na velocidade do corpo), ele espera com o taco em guarda e bate quando o zumbi
+//   entra no alcance; o golpe é fraco: o zumbi só cambaleia para trás (Zombie_HitReact_HeadTop) e volta; 2º golpe, mesma coisa — o zumbi segue de pé;
+//   os outros vêm de longe andando, sem parar no lugar;
+// • abajur inteiro (placa com alfa sólido, cenarios/tiles); remédio: frasco só durante Bob_IdleTakePills e câmera fechando no tronco;
+// • cigarro com a brasa para FORA (malha girada 180°) e fumaça clara e fina (antes eram bolas escuras que pareciam sombra);
+// • final: bala visível até a cabeça, câmera lenta no 3º tiro, recarrega com calma (Bob_Reload_Handgun) antes de abaixar a arma.
+// RASCUNHO v3 (24/11, Jose): falas mais longas (v7) e cada bloco com a sua ação.
 // • pistola do jogo (Handgun.x) presa no osso da mão, com as animações originais de pistola: Bob_IdleAimHandgun, Bob_AttackHandgun (tiro),
 //   Bob_WalkBwdAimHandgun (recuando mirando), Bob_Reload_Handgun, Bob_Idle_HeavyBreathing_Hgun;
 // • pânico = recua tremendo e ERRA (impacto no chão / na cerca, poeira), a horda continua vindo; o 3º tiro acerta; taco fraco não derruba;
@@ -30,6 +37,7 @@ solto(KC, 'cigpack', 'cigarettepack', 7.1, 3.95, .4, 1.02);   // em cima da mesa
 const GUN = PZ.attach(S, 'Bip01_Prop1', PZ.propMesh('w_handgun', 'handgun'));
 const BAT = PZ.attach(S, 'Bip01_Prop1', PZ.propMesh('w_bat', 'baseballbat'));
 const CIG = PZ.attach(S, 'Bip01_Prop2', PZ.propMesh('cigarette', 'cigarette_lit'));   // Bob_IdleSmoke leva a mão ESQUERDA (Prop2) à boca
+CIG.rotation.y = Math.PI;   // v5: a malha vinha com a brasa virada para a boca — gira 180° (filtro na boca, brasa para fora)
 const PILL = PZ.attach(S, 'Bip01_Prop2', PZ.propMesh('pillbottle', 'pillbottle')); PILL.scale.setScalar(.45);   // embalagem pequena (≈ 5 cm), como o ícone Item_PillsBetablocker — antes era maior que uma lata
 const BOOK = new THREE.Group();
 { const me = PZ.propMesh('w_bookhand', 'bookred'); me.material.side = THREE.DoubleSide;
@@ -80,6 +88,27 @@ const tiros = (lf, lista) => { let age = -1; lista.forEach(t => { if (lf >= t) a
 const SEAT = K(.22, 2), CH_RY = Math.PI / 2;
 const sentado = (lf, up, o = {}) => { CASA.poltrona.sobrepor(true); clip('s_satchair', lf, Object.assign({ x: SEAT.x, z: SEAT.z, ry: CH_RY, up, assento: CASA.poltrona.userData.hs }, o)); };
 
+// v5: corpo a corpo (fala 2). O zumbi (Z[1]) vem andando a 0,85 m/s (= ritmo do Zombie_Walk, pés sem patinar). Quando chega a ~1,2 m o personagem
+// bate (Bob_AttackBat01_Hit; impacto no quadro 12): o zumbi recebe (Zombie_HitReact_HeadTop), recua ~0,35 m e volta a andar. Dois golpes; ele não cai.
+// Devolve a idade do último impacto (tremida da câmera).
+const corpoACorpo = (l, f, x, z, len) => { const VZ = V_ZW, D0 = 3.1, IMP = 12, ALC = 1.2;
+  // simula a distância quadro a quadro (determinístico): anda até o alcance, apanha, recua, volta
+  let d = D0, ataque = [], reage = -1, golpes = 0, ultimo = -99;
+  for (let t = 0; t <= l; t++) {
+    if (reage >= 0) { const a = t - reage; if (a < 14) d += .35 / 14; if (a >= 40) reage = -1; }
+    else { d = Math.max(ALC - .05, d - VZ / 30); }
+    if (reage < 0 && golpes < 2 && d <= ALC + .35 && t - ultimo > 39 && !ataque.some(h => t < h + 31)) { ataque.push(t); }
+    const hb = ataque.find(h => t === h + IMP); if (hb !== undefined) { reage = t; golpes++; ultimo = t; }
+  }
+  const h = ataque.filter(h => l >= h && l < h + 31).pop();
+  clip(h !== undefined ? 's_attackbat' : 's_idlebat', h !== undefined ? l - h : l, { x, z, bat: true });
+  const a = reage >= 0 ? l - reage : -1;
+  if (a >= 0 && a < 40) zClip(Z[1], 'z_hit', a * 1.2, { x: x + d, z, ry: -Math.PI / 2, loop: false });
+  else if (d > ALC - .04) zClip(Z[1], 'z_walk', (f + 3) * (VZ / V_ZW), { x: x + d, z, ry: -Math.PI / 2 });
+  else zClip(Z[1], 'z_lunge', f, { x: x + d, z, ry: -Math.PI / 2 });   // chegou nele depois de 2 golpes fracos: avança com os braços (nunca anda parado)
+  Z[1].g.visible = true;
+  const imp = ataque.map(h => h + IMP).filter(t => l >= t).pop(); return imp === undefined ? -1 : l - imp; };
+
 run([
   // 0 — "sua mão treme, o tiro sai torto": recua mirando, horda vindo; 3 tiros ERRADOS com a bala visível: no chão, na cerca, por cima do ombro do zumbi — ele continua vindo
   (lf, f, len, c) => { rua0(f); const x0 = R(2, 1.2).x, z = R(0, 1.2).z, x = x0 - lf / 30 * V_BWD, T = [40, 110, 175], age = tiros(lf, T);
@@ -108,50 +137,68 @@ run([
       const alvo = [[x + 3.6, .05, z + .9], [x + 4.4, .05, z - .9]]; let k = -1; T.forEach((t, i) => { if (lf >= t && i < 2) k = i; });
       if (k >= 0 && age < 9) bala(age, ...alvo[k]); else bala(-1); alvo.forEach((a, i) => impacto(...a, lf - T[i] - 4));
       c.shake(age, .06); camOn(c, x + 1.3, z, 6.6, SY); }
-    else { const l = lf - k2, H = 72, zx0 = x + 5.0 - V * 140 / 30; flash(-1); bala(-1);
-      zClip(Z[0], 'z_deathleft', 45, { x: zx0, z, ry: -Math.PI / 2, loop: false }); splat(zx0 + .9, z + .2, .35);
-      clip(l >= H && l < H + 40 ? 's_attackbat' : 's_idlebat', l >= H && l < H + 40 ? l - H : l, { x, z, bat: true });
-      lado.forEach(([i, dd, lat, dm]) => { const lt = lf; if (i === 1 && l >= H + 14 && l < H + 25) zClip(Z[1], 'z_headreact_back', l - H - 14, { x: x + 1.15, z: z + lat, ry: -Math.PI / 2, loop: false }); else chega(i, f, lt, x, z, dd, V, dm, lat); });
-      c.shake(l - H - 14, .05); camOn(c, x + .7, z, 5.9, SY); }
+    else { // v5: corpo a corpo com lógica — outro trecho da rua (o corte em preto esconde a troca), taco em guarda, o zumbi vem andando de verdade
+      const l = lf - k2, xm = R(-1.5, 1.2).x, zm = z; flash(-1); bala(-1);   // longe da placa PARE (i -4)
+      const sw = corpoACorpo(l, f, xm, zm, len - k2);
+      [[2, 6.2, .8], [3, 7.6, -.75]].forEach(([i, d0, lat]) => zClip(Z[i], i % 2 ? 'z_walk3' : 'z_walk', f * (.45 / V_ZW) + i * 7, { x: xm + d0 - .45 * l / 30, z: zm + lat, ry: -Math.PI / 2 }));
+      [0, 4, 5].forEach(i => { Z[i].g.visible = false; });
+      c.shake(sw, .05); camOn(c, xm + .75, zm, lerp(6.2, 5.4, easeOut(clamp(l / 60))), SY); }
     clarao(Math.max(1 - Math.abs(lf - k2) / 5, 0) * .8, '#000'); },
   // 3 — estresse: casa de sobrevivente à noite, na poltrona, curvado e depois com a mão na cabeça
   (lf, f, len, c) => { casaN(f); const k = lf < len * .5; sentado(lf, k ? ['s_satbent', lf] : ['s_satwipehead', (lf - len * .5) % 86]);
     camOn(c, SEAT.x + .6, SEAT.z + .2, lerp(6.4, 5.0, easeOut(clamp(lf / len))), SYI); },
   // 4 — Calmantes: na cozinha, pega o frasco e toma o remédio; depois respira aliviado
   (lf, f, len, c) => { casaT(f); const p = K(7.4, 1.6);
-    if (lf < 20) clip('s_breath', lf, { x: p.x, z: p.z, ry: .7 });
-    else if (lf < 20 + 110) clip('s_pills', lf - 20, { x: p.x, z: p.z, ry: .7, pill: true, loop: false });
-    else clip('s_idle', lf, { x: p.x, z: p.z, ry: .7 });
-    camOn(c, p.x - .2, p.z + .1, lerp(6.0, 5.0, easeOut(clamp(lf / len))), SYI); },
+    // v5: Bob_IdleTakePills inteiro, frasco só durante a ação (abre, leva à boca, guarda); câmera fecha no tronco e depois abre (alívio)
+    const P0 = 16, P1 = P0 + 101;
+    if (lf < P0) clip('s_breath', lf, { x: p.x, z: p.z, ry: .7 });
+    else if (lf < P1) clip('s_pills', lf - P0, { x: p.x, z: p.z, ry: .7, pill: lf - P0 > 4 && lf - P0 < 96, loop: false });
+    else clip('s_idle', lf - P1, { x: p.x, z: p.z, ry: .7 });
+    const zk = easeOut(clamp((lf - P0 + 6) / 14)) * (1 - easeOut(clamp((lf - P1) / 18)));
+    camOn(c, p.x - .2, p.z + .1, lerp(6.0, 4.5, zk), lerp(SYI, .56, zk)); },
   // 5 — leitura: livro do jogo, sentado na poltrona com o abajur aceso
   (lf, f, len, c) => { casaT(f); sentado(lf, ['s_read', lf * .8], { book: true }); camOn(c, SEAT.x + .55, SEAT.z + .15, 5.2, SYI); },
   // 6 — Fumante: de frente para a janela (com caixilho e cortina), cigarro aceso na MÃO CERTA (a que a animação leva à boca), fumaça sai do cigarro e da boca ao soltar a tragada
   (lf, f, len, c) => { casaT(f); const p = K(3.1, 1.0); clip('s_smoke', lf, { x: p.x, z: p.z, ry: .5, cig: true });
     CIG.updateMatrixWorld(true); _v.set(0, 0, 0).applyMatrix4(CIG.matrixWorld);
-    for (let i = 0; i < 3; i++) puff(_v.x, _v.y + .05, _v.z, (lf + i * 9) % 28, { n: 1, seed: i + 5, life: 28, size: .07, rise: .5, color: '#d8d8d8', op: .45 });
-    const m = lf % 91; if (m > 52 && m < 84) { S.pz.bones.Bip01_Head.getWorldPosition(_v); puff(_v.x + .12, _v.y - .1, _v.z, m - 52, { n: 6, seed: 17 + Math.floor(lf / 91), life: 30, size: .13, rise: .35, color: '#e8e8e8', op: .5 }); }
+    // v5: fumaça fina e clara (antes: bolas grandes e escuras que pareciam sombra flutuando) — fiapo da brasa + baforada curta na frente da boca
+    _v.set(-.045, 0, 0).applyMatrix4(CIG.matrixWorld);
+    for (let i = 0; i < 3; i++) puff(_v.x, _v.y + .03, _v.z, (lf + i * 9) % 28, { n: 1, seed: i + 5, life: 28, size: .035, spread: .06, rise: .45, color: '#f4f4f4', op: .3 });
+    const m = lf % 91; if (m > 52 && m < 80) { S.pz.bones.Bip01_Head.getWorldPosition(_v); const fx = Math.sin(S.g.rotation.y) * .14, fz = Math.cos(S.g.rotation.y) * .14;
+      puff(_v.x + fx, _v.y - .08, _v.z + fz, m - 52, { n: 4, seed: 17 + Math.floor(lf / 91), life: 26, size: .06, spread: .12, rise: .3, color: '#f4f4f4', op: .28 }); }
     camOn(c, p.x + .15, p.z + .45, 4.5, SYI); },
-  // 7 — traços: Corajoso fica firme mirando; Covarde recua (cartões com pontos no cfg)
+  // 7 — traços: Corajoso fica firme mirando; Covarde recua (cartões com pontos no cfg). v6: o recuo começa em i 1,6 (antes passava pela placa PARE em i −4; em 3,5 o poste em i 6 tampava a cena)
   (lf, f, len, c) => { rua0(f); const k = len * .5, z = R(0, 1.2).z;
     if (lf < k) { const x = R(0, 1.2).x; clip('s_aimhg', lf, { x, z, gun: true }); tremor(f, .1); horda(f, lf, x, z, 3, 3.6, len * .5, 2.2); camOn(c, x + 1.2, z, 6.8, SY); }
-    else { const l = lf - k, x = R(0, 1.2).x - l / 30 * V_BWD * 1.4; clip('s_bwdaimhg', l * 1.4, { x, z, gun: true }); tremor(f, 1.6); horda(f, l, R(0, 1.2).x - len * .5 / 30 * V_BWD * 1.4, z, 3, 3.0 + len * .5 / 30 * V_BWD * 1.4, len * .5, 1.6); camOn(c, x + 1.2, z, 6.8, SY); }
+    else { const l = lf - k, x = R(1.6, 1.2).x - l / 30 * V_BWD * 1.0; clip('s_bwdaimhg', l, { x, z, gun: true }); tremor(f, 1.6); horda(f, l, R(1.6, 1.2).x - len * .5 / 30 * V_BWD * 1.0, z, 3, 3.0 + len * .5 / 30 * V_BWD * 1.0, len * .5, 1.6); camOn(c, x + 1.2, z, 6.8, SY); }
     flash(-1); clarao(Math.max(1 - Math.abs(lf - k) / 5, 0) * .8, '#000'); },
   // 8 — Agorafóbico: rua aberta com horda ao longe; Claustrofóbico: quartinho escuro, fechado
   (lf, f, len, c) => { const k = len * .5; flash(-1);
     if (lf < k) { rua0(f); const x = R(0, 1.2).x, z = R(0, 1.2).z; clip('s_breathhg', lf, { x, z, gun: true, olhar: Math.sin(lf * .05) * .5 }); tremor(f, 1);
       horda(f, lf, x, z, 9, 5, len * .5, 3.2); camOn(c, x + 2.2, z, lerp(9.4, 8.2, clamp(lf / k)), SY); }
     else { const l = lf - k; light('dawn'); clima('', 0); QC.show(); QN.set(f); clarao(0); tileLuz('#e2d8c8'); const p = A(3.3, 2.3);
-      clip('s_painhead1', l, { x: p.x, z: p.z, ry: .6 }); camOn(c, p.x - .1, p.z, lerp(5.2, 4.6, clamp(l / k)), .66); }
+      clip('s_painhead1', l, { x: p.x, z: p.z, ry: .6 }); camOn(c, p.x - .1, p.z, lerp(5.6, 5.0, clamp(l / k)), .60); }
     clarao(Math.max(1 - Math.abs(lf - k) / 5, 0) * .8, '#000'); },
   // 9 — FINAL: "calma na mão, mira firme, tiro na cabeça" — mão firme (sem tremor), três zumbis em fila: cada tiro certeiro na cabeça (clarão, sangue, queda para trás),
   //     a câmera aperta a cada tiro e no fim abre mostrando os três caídos; ele abaixa a arma e solta o ar. Zumbis vêm a 0,5 m/s e nunca chegam perto.
-  (lf, f, len, c) => { rua0(f); const x = R(0, 1.2).x, z = R(0, 1.2).z, V = .5, TS = [Math.round(len * .2), Math.round(len * .47), Math.round(len * .72)], age = tiros(lf, TS), atirando = age >= 0 && age < 18;
-    clip(atirando ? 's_shoothg' : (lf > TS[2] + 24 ? 's_idlehg' : 's_aimhg'), atirando ? age : lf, { x, z, gun: true }); tremor(f, 0); if (atirando) flash(age); else flash(-1); bala(-1);
-    [[0, 3.1, 0, 'z_deathleft'], [1, 4.6, -.65, 'z_death'], [2, 6.0, .6, 'z_deathleft']].forEach(([i, d0, lat, dk], n) => { const T = TS[n], dT = d0 - V * T / 30, zx = x + dT;
+  // v5: + bala visível até a cabeça em cada tiro; CÂMERA LENTA no 3º tiro (tempo a 35% por ~1,5 s, câmera fecha); depois recarrega com calma
+  //     (Bob_Reload_Handgun) e abaixa a arma — "calma na mão".
+  (lf0, f, len, c) => { rua0(f); const x = R(0, 1.2).x, z = R(0, 1.2).z, V = .5, TS = [Math.round(len * .14), Math.round(len * .33), Math.round(len * .50)];
+    const SA = TS[2] - 8, SD = 46, SK = .35, lf = lf0 < SA ? lf0 : lf0 < SA + SD ? SA + (lf0 - SA) * SK : SA + SD * SK + (lf0 - SA - SD);   // tempo da ação (câmera lenta)
+    const lento = lf0 >= SA && lf0 < SA + SD ? Math.sin(Math.PI * (lf0 - SA) / SD) : 0;
+    const age = tiros(lf, TS), atirando = age >= 0 && age < 18, RL = TS[2] + 20;
+    if (atirando) clip('s_shoothg', age, { x, z, gun: true });
+    else if (lf >= RL && lf < RL + 58) clip('s_reloadhg', (lf - RL) * 1.3, { x, z, gun: true, loop: false });
+    else clip(lf >= RL + 58 ? 's_idlehg' : 's_aimhg', lf, { x, z, gun: true });
+    tremor(f, 0); if (atirando) flash(age); else flash(-1);
+    const ZS = [[0, 3.1, 0, 'z_deathleft'], [1, 4.6, -.65, 'z_death'], [2, 6.0, .6, 'z_deathleft']];
+    let bk = -1; TS.forEach((t, n) => { if (lf >= t) bk = n; });
+    if (bk >= 0 && age < 9) { const [, d0, lat] = ZS[bk], zx = x + d0 - V * TS[bk] / 30; bala(age, zx - .05, 1.62, z + lat); } else bala(-1);   // bala até a cabeça do zumbi (≈1,6 m)
+    ZS.forEach(([i, d0, lat, dk], n) => { const T = TS[n], dT = d0 - V * T / 30, zx = x + dT;
       if (lf < T) chega(i, f, lf, x, z, d0, V, 1.6, lat);
       else { const a = lf - T; zClip(Z[i], dk, Math.min(a * .6, 44), { x: zx, z: z + lat, ry: -Math.PI / 2, loop: false });
-        puff(zx - .05, 2.8, z + lat, a, { n: 10, seed: 31 + n, life: 22, size: .11, rise: -.15, color: '#8c0d18', op: .9 }); splat(zx + .9, z + lat + .15, .4 * clamp((a - 10) / 18)); } });
+        puff(zx - .05, 1.62, z + lat, a, { n: 8, seed: 31 + n, life: 18, size: .07, spread: .25, rise: -.25, color: '#8c0d18', op: .85 }); splat(zx + .9, z + lat + .15, .4 * clamp((a - 10) / 18)); } });   // v5: sangue na altura da cabeça (antes 2,8 m: nuvem solta no ar)
     const punch = Math.max(0, ...TS.map(t => lf >= t ? .55 * clamp(1 - (lf - t) / 9) : 0)), fim = clamp((lf - TS[2] - 18) / (len - TS[2] - 18));
-    c.shake(age, .1); clarao(atirando && age < 3 ? .28 * (1 - age / 3) : 0, '#fff2c0');
-    camOn(c, x + 2.3 + 1.2 * easeOut(fim), z, lerp(6.6, 5.4, easeOut(clamp(lf / TS[0]))) - punch + 2.2 * easeOut(fim), SY); },
+    c.shake(age, .1 * (1 - .6 * lento)); clarao(atirando && age < 3 ? .28 * (1 - age / 3) : 0, '#fff2c0');
+    camOn(c, x + 2.0 + .3 * easeOut(fim) - .3 * lento, z + .25, lerp(8.4, 7.6, easeOut(clamp(lf / TS[0]))) - punch - 1.0 * lento + 1.0 * easeOut(fim), SY); },   // v5: personagem sempre no quadro
 ]);

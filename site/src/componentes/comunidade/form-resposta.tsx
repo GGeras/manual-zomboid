@@ -38,7 +38,7 @@ export function FormResposta({ topico, pai, fechar }: { topico: string; pai: str
       }
       fechar()
     } catch (x) {
-      setErro(x instanceof ErroEspaco ? 'No modo prévia o navegador guarda pouco. Tente sem imagem.' : (x as Error).message)
+      setErro(x instanceof ErroEspaco ? 'O navegador guarda pouco. Tente sem imagem.' : (x as Error).message)
     } finally { setEnviando(false) }
   }
 

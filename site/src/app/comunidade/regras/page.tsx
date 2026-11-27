@@ -5,7 +5,7 @@ export const metadata: Metadata = { title: 'Regras da Comunidade', description: 
 
 export default function Regras() {
   return (
-    <PaginaTexto rotulo="Comunidade" titulo="Regras de" destaque="sobrevivência" rascunho>
+    <PaginaTexto rotulo="Comunidade" titulo="Regras de" destaque="sobrevivência">
       <p>A Comunidade é para quem joga Project Zomboid trocar ideia em português. Poucas regras, levadas a sério.</p>
       <h2>1. Respeito</h2>
       <ul><li>Zoeira sim, ofensa não. Nada de xingamento, preconceito, assédio ou ameaça.</li><li>Critique a ideia, não a pessoa. Todo mundo já morreu no dia 1.</li></ul>

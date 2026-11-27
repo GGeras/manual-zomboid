@@ -1,4 +1,7 @@
-// EP 28 — Tédio e Tristeza (B42.22) — v4 (25/11, Jose): cada take com ambiente próprio, feito só com sprites e modelos do jogo.
+// EP 28 — Tédio e Tristeza (B42.22) — v5 (25/11, Bruno): sem livros de caixinha (ficavam fora da estante) e sem óculos desenhados (bugados; não
+//   estão na fala); sacos de dormir como objeto (não piso achatado); floresta com UMA fogueira (3D com pedras), toras no chão e a tenda perto do personagem;
+//   cigarro com a brasa para fora; abajur inteiro (cenarios/tiles).
+// v4 (25/11, Jose): cada take com ambiente próprio, feito só com sprites e modelos do jogo.
 // 0 tédio: casa, sentado no tapete olhando a janela; um zumbi passa lá fora (o perigo) · 1 anda de um lado a outro (ocupe-se)
 // 2 tristeza: quartinho escuro com sacos de dormir no chão, lixo, luz da lua + abajur quente · 3 leitura: poltrona, estante com livros, óculos de leitura
 // 4 floresta: fogueira, panela de ensopado, árvores/arbustos/pedras/flores do jogo; come a tigela · 5 fumante (janela) + antidepressivo (dias passando) · 6 base: livros e comida
@@ -14,27 +17,26 @@ const solto = (C, m, t, i, j, ry = 0, y = .03, deitar = false) => { const me = P
 // ---------- casa (sala/cozinha) ----------
 const CASA = casaDentro(-60, 80, { completa: true }), KC = CASA.C, K = KC.at;
 [['d_trash_1_13', 1.6, 6.4], ['trash_01_33', 8.4, 6.5], ['trash_01_27', 4.6, 6.7]].forEach(([n, i, j]) => KC.placa(n, i, j));
-// estante de livros: a estante do jogo (shelving_01_40) já está em (0,0); sobre ela, os livros do jogo (books&misc)
-// livros na estante do jogo: lombadas em pé nas prateleiras (caixas finas coloridas, como os livros do jogo)
-{ const COR = ['#8a2a2a', '#2c4a7a', '#3f6b3a', '#6b4a2a', '#7a6a2a', '#4a2a5a', '#a8a090', '#2a2a2e'], g = new THREE.Group(), SX = window.SX ?? .5, SZ = window.SZ ?? .52, YS = window.YS || [.3, .8, 1.3, 1.82];
-  YS.forEach((y, r) => { let x = -.3; for (let k = 0; k < 8; k++) { const w = .04 + ((k * 7 + r * 3) % 5) * .008, h = .22 + ((k * 5 + r) % 4) * .035, b = new THREE.Mesh(new THREE.BoxGeometry(w, h, .2), new THREE.MeshLambertMaterial({ color: COR[(k + r * 3) % 8] }));
-    b.position.set(x + w / 2, y + h / 2, 0); x += w + .004; g.add(b); } }); g.position.set(SX, 0, SZ); KC.G.add(g); }
+// v5 (25/11, Bruno): sem os livros "de caixinha" — ficavam fora da estante; a estante é a do jogo (furniture_shelving_01_40) como no jogo.
 solto(KC, 'bag_alice', 'alicepack_green', 1.2, 3.1, .5); solto(KC, 'bag_school', 'schoolbag_black', 1.5, 5.6, -.6); solto(KC, 'cigpack', 'cigarettepack', 7.1, 3.95, .4, 1.02);
 const NOITE = luzInterior(KC, { janelas: [['N', 3], ['W', 3]], abajur: [0, 1], hora: 'noite', lua: true });
 const TARDE = luzInterior(KC, { janelas: [['N', 3], ['W', 3]], abajur: [0, 1], hora: 'tarde' });
 // ---------- quartinho triste: sacos de dormir no chão (camping_02), lixo, lua azul + abajur quente ----------
 const Q = quarto(-120, 60, { sacos: true, semCadeira: true }), QC = Q.C, A = QC.at;
-QC.chao('camping_02_41', 2, 1, 2, 1, { y: .035 }); QC.chao('camping_02_44', 3, 1, 3, 1, { y: .035 }); QC.chao('camping_02_47', 2, 2, 2, 2, { y: .035 });
+// v5: saco de dormir é OBJETO do jogo (tem volume): na caixa baixa o desenho fica inteiro; como piso (chao) ele saía achatado/torto
+QC.obj('camping_02_41', 2, 1, { h: .25 }); QC.obj('camping_02_44', 3, 1, { h: .25 }); QC.obj('camping_02_47', 2, 2, { h: .25 });
 [['d_trash_1_13', 4.4, 3.8], ['trash_01_33', 1.2, 3.6], ['trash_01_27', 5.2, 2.4], ['d_trash_1_9', 3.9, 4.2]].forEach(([n, i, j]) => QC.placa(n, i, j));
 solto(QC, 'bag_duffel', 'duffelbaggreen', 4.6, 1.4, 1.3, .03, true); solto(QC, 'bag_school', 'schoolbag_black', 1.2, 2.8, .4);
 const QN = luzInterior(QC, { janelas: [['N', 4]], abajur: [1, 0], hora: 'noite', lua: true });
 // ---------- floresta ----------
 const FL = floresta(150, 150, { livre: [[0, 0], [1, 0], [0, 1], [-1, 0], [0, -1], [1, 1], [-1, 1], [2, 0], [-2, 0]] }), FC = FL.C, F = FC.at;
 // fogueira do jogo (camping_01_4, lenha) + rochas, toras de sentar, tenda, mesa de piquenique; flores no capim
-FC.placa('camping_01_4', 0, 0); FC.placa('camping_01_32', -1.6, .6); FC.placa('camping_01_34', 1.7, -.5); FC.placa('camping_01_0', -3.4, -2.4); FC.placa('camping_01_13', 3.6, -1.8);
+// v5: a fogueira é só a 3D (fire + pedras + panela) — o sprite camping_01_4 no mesmo lugar fazia DUAS fogueiras; toras = objeto no chão (como placa
+//     elas saíam cortadas pela metade); tenda perto (atrás da fogueira, no quadro), mesa de piquenique onde estava
+FC.obj('camping_01_32', -1.4, .7, { w: .8, d: .5 }); FC.obj('camping_01_34', 1.2, -1.3, { w: .8, d: .5 }); FC.placa('camping_01_0', -1.7, -1.5); FC.placa('camping_01_13', 3.6, -1.8);
 [[-2.2, 1.2, 42], [2.4, 1.6, 20], [.9, -2.1, 24], [-.6, 2.4, 21]].forEach(([i, j, n]) => FC.placa('d_generic_1_' + n, i, j));
 // ---------- itens/props na mão ----------
-const CIG = PZ.attach(S, 'Bip01_Prop2', PZ.propMesh('cigarette', 'cigarette_lit'));
+const CIG = PZ.attach(S, 'Bip01_Prop2', PZ.propMesh('cigarette', 'cigarette_lit')); CIG.rotation.y = Math.PI;   // v5: brasa para fora (vinha virada para a boca)
 const PILL = PZ.attach(S, 'Bip01_Prop2', PZ.propMesh('pillbottle', 'pillbottle')); PILL.scale.setScalar(.45);
 const BOOK = new THREE.Group();
 { const me = PZ.propMesh('w_bookhand', 'bookred'); me.material.side = THREE.DoubleSide;
@@ -43,10 +45,10 @@ const BOOK = new THREE.Group();
 PZ.attach(S, 'Bip01_Prop2', BOOK);
 // óculos de leitura (Glasses_Reading do jogo: armação redonda fina) — preso à cabeça
 const OCULOS = new THREE.Group();   // eixos da cabeça (medidos): −y = para onde o rosto olha, +z = para baixo (queixo), x = lado a lado
-{ const G2 = new THREE.Group(), mt = new THREE.MeshBasicMaterial({ color: window.GC || '#1e1a17', depthTest: false }), ring = new THREE.TorusGeometry(.03, .005, 6, 18);
-  [-.04, .04].forEach(x => { const r = new THREE.Mesh(ring, mt); r.position.set(x, 0, 0); G2.add(r); });
-  const br = new THREE.Mesh(new THREE.BoxGeometry(.03, .006, .006), mt); G2.add(br);
-  [-1, 1].forEach(s => { const h = new THREE.Mesh(new THREE.BoxGeometry(.006, .006, .06), mt); h.position.set(s * .072, 0, -.03); G2.add(h); });
+{ const G2 = new THREE.Group(), mt = new THREE.MeshBasicMaterial({ color: window.GC || '#2a2420' }), ring = new THREE.TorusGeometry(.021, .0028, 6, 20);   // v5: armação fina, no tamanho do rosto e SEM depthTest:false (antes parecia óculos de mergulho por cima de tudo)
+  [-.031, .031].forEach(x => { const r = new THREE.Mesh(ring, mt); r.position.set(x, 0, 0); G2.add(r); });
+  const br = new THREE.Mesh(new THREE.BoxGeometry(.02, .003, .003), mt); G2.add(br);
+  [-1, 1].forEach(s => { const h = new THREE.Mesh(new THREE.BoxGeometry(.003, .003, .07), mt); h.position.set(s * .053, 0, -.035); G2.add(h); });
   G2.rotation.x = Math.PI / 2; G2.traverse(o => { o.renderOrder = 20; }); OCULOS.add(G2); }
 const og = window.OG || { x: 0, y: -.022, z: .008, ry: 0 };
 OCULOS.position.set(og.x, og.y, og.z); OCULOS.rotation.y = og.ry; PZ.attach(S, 'Bip01_Head', OCULOS);
@@ -62,7 +64,7 @@ const casaT = f => { light('dawn'); clima('', 0); KC.show(); TARDE.set(f); clara
 const casaN = f => { light('dark'); clima('', 0); KC.show(); NOITE.set(f); clarao(0); tileLuz('#a99f90'); CASA.poltrona.sobrepor(false); pot.visible = false; };
 const SEAT = K(.22, 2);
 const sentado = (lf, up, o = {}) => { CASA.poltrona.sobrepor(true); clip('s_satchair', lf, Object.assign({ x: SEAT.x, z: SEAT.z, ry: Math.PI / 2, up, assento: CASA.poltrona.userData.hs }, o)); };
-const lendo = (lf, f, c, cx, cz, h) => { casaT(f); sentado(lf, ['s_read', lf * .8], { book: true, oculos: true }); camOn(c, SEAT.x + cx, SEAT.z + cz, h, SYI); };
+const lendo = (lf, f, c, cx, cz, h) => { casaT(f); sentado(lf, ['s_read', lf * .8], { book: true, oculos: false }); camOn(c, SEAT.x + cx, SEAT.z + cz, h, SYI); };   // v5: sem óculos (o desenho ficava bugado no rosto)
 
 run([
   // 0 — tédio: sentado no tapete (sem fazer nada), pela janela passa um zumbi lá fora — até o tédio é perigoso
@@ -71,7 +73,7 @@ run([
     camOn(c, K(3.6, 1.6).x, K(3.6, 1.6).z, 7.8, SYI); },
   // 1 — ocupe-se: anda devagar de um lado ao outro da sala, sem rumo
   (lf, f, len, c) => { casaT(f); const L = 3.2, v = .75, d = (lf / 30 * v) % (2 * L), u = d < L ? d : 2 * L - d, dir = d < L ? 1 : -1, p = K(1.8 + u, 3.6);
-    clip('s_walkslow', lf, { x: p.x, z: p.z, ry: dir > 0 ? Math.PI / 2 : -Math.PI / 2 }); camOn(c, K(3.4, 3.6).x, K(3.4, 3.6).z, 7.4, SY); },
+    clip('s_walkslow', lf, { x: p.x, z: p.z, ry: dir > 0 ? Math.PI / 2 : -Math.PI / 2 }); camOn(c, K(3.4, 3.6).x, K(3.4, 3.6).z, 7.4, .58); },
   // 2 — tristeza: quartinho à noite, sacos de dormir no chão, lixo; sentado, cabeça baixa, a lua azul e o abajur quente
   (lf, f, len, c) => { light('dark'); clima('', 0); Q.C.show(); QN.set(f); clarao(0); tileLuz('#6c7486'); pot.visible = false; const p = A(3.4, 2.4);
     clip('s_sitground', lf, { x: p.x, z: p.z, ry: Math.PI / 2 + .3, up: ['s_painhead1', lf % 120] }); camOn(c, p.x + .2, p.z + .2, 5.8, SYI); },

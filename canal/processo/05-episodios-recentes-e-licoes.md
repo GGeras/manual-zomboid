@@ -55,6 +55,15 @@ Do EP13 em diante vale o formato v4 (doc 11).
 - Limitador do áudio em 0.84 (true peak abaixo de −1 dBTP). Já está no build.
 - Campos `capa` e `post` do `epNN.ep.json` precisam estar preenchidos antes do final (para 16–19 já estão; falta só `capa.t`/`opcoes`).
 - A classe `.t` colide com o CSS do ep-core: em telas réplica use outro nome (`.gt`).
+- (25/11, EP22–25 v5) Arma de 2 mãos (machado) vai no `Bip01_Prop1` SEM rotação extra: as animações 2H do jogo põem a mão esquerda no cabo sozinhas. No `Prop2` girado ela fica numa mão só e "voando".
+- (25/11) Abajur de pé e outros sprites finos e altos = `C.placa(..., { solida: true })`: na caixa fina (`C.obj` w .35) a base e a cúpula saem cortadas, e o pé do abajur do jogo tem alfa fraco que o alphaTest apagava.
+- (25/11) Perseguição na rua da cidade do engine (x ≈ −8…8): o carro fica em (−8,5; 1,2), NA faixa z 1,2. Quem passa por ele DESVIA (EP23: `faixa()`/`rumo()`), personagem e zumbis — ninguém atravessa carro.
+- (25/11) Corpo a corpo: o zumbi vem andando de verdade e o golpe sai quando ele entra no alcance; reação = `z_hit` (de pé) — `z_headreact_back` é para zumbi DEITADO. Zumbi nunca "anda parado" no lugar.
+- (25/11) Remédio na mão: frasco `.45` (embalagem), visível só durante `Bob_IdleTakePills` e câmera fechando no tronco. Cigarro: malha com `rotation.y = π` (brasa para fora). Fumaça: fina e clara (bolas grandes escuras parecem sombra).
+- (25/11) Comentário `//` no MEIO de uma linha apaga o código que vem depois dela: ponha o comentário só no fim da linha (o Claude quebrou o EP24 assim e o render travou).
+- (25/11) Voz provisória Piper com `--noise-w 0`: a duração de cada fala é sempre a mesma, então o T/END feito em qualquer PC bate com a voz gerada no outro. Sem isso cada geração mudava ~0,5 s.
+- (25/11) Som de ação que depende de `len * k` na cena: use `{"c": i, "k": fração, "dt": s}` no ep.json — acompanha a cena quando a voz muda de tamanho.
+- (25/11) `cauda: N` no cfg = quadros depois da última fala (padrão 24) — usado no final de tiros do EP24 (câmera lenta + recarga).
 
 ## Erros antigos (não repetir)
 - Objeto na mão sem rotação YXZ vira de cabeça para baixo.

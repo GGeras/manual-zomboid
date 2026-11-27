@@ -5,7 +5,8 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const SITE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-const pub = JSON.parse(fs.readFileSync(path.join(SITE, 'config.publico.json'), 'utf8'))
+const textoPub = fs.readFileSync(path.join(SITE, 'config.publico.json'), 'utf8')
+const pub = JSON.parse(textoPub)
 const { integracoes } = JSON.parse(fs.readFileSync(path.join(SITE, 'integracoes.json'), 'utf8'))
 const valor = (k) => k.split('.').reduce((o, p) => (o == null ? o : o[p]), pub)
 
@@ -18,8 +19,11 @@ const FORMATO = {
   'comunidade.supabaseChavePublica': /^(sb_publishable_[\w-]+|eyJ[\w-]+\.[\w-]+\.[\w-]+)$/,
   'comunidade.turnstileSiteKey': /^0x[\w-]+$/,
   'site.url': /^https:\/\/[^/]+$/,
+  'discord.appId': /^\d{17,20}$/,
+  'discord.canais.jogarJunto': /^\d{17,20}$/, 'discord.canais.dicas': /^\d{17,20}$/, 'discord.canais.bases': /^\d{17,20}$/, 'discord.canais.regras': /^\d{17,20}$/,
 }
-const SEGREDO = /^(sb_secret_|xoxb-|xoxp-|re_[A-Za-z0-9]{8,}|0x4AAAAAAA[\w-]*secret)/
+// segredos conhecidos: Supabase, Slack, Resend, Turnstile, token de bot do Discord (3 partes com ponto) e URL de webhook do Discord
+const SEGREDO = /^(sb_secret_|xoxb-|xoxp-|re_[A-Za-z0-9]{8,}|0x4AAAAAAA[\w-]*secret|[MN][\w-]{23,}\.[\w-]{6}\.[\w-]{27,}|https:\/\/(ptb\.|canary\.)?discord(app)?\.com\/api\/webhooks\/)/
 
 let erros = 0
 for (const i of integracoes) {
@@ -37,4 +41,6 @@ for (const i of integracoes) {
     console.log(`   ${marca} ${c.nome}${c.onde ? ` → ${c.onde}` : ''}${c.ok ? ` (${c.ok})` : ''}`)
   }
 }
+// varredura do arquivo inteiro: segredo colado em qualquer campo (até fora da lista acima)
+for (const [, v] of textoPub.matchAll(/"([^"]{20,})"/g)) if (SEGREDO.test(v)) { console.log(`ERRO config.publico.json tem um SEGREDO ("${v.slice(0, 12)}…"). Tire daqui, gere outro e cole só no painel.`); erros++ }
 process.exit(erros ? 1 : 0)

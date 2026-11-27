@@ -75,3 +75,37 @@ export async function sincronizarConta(): Promise<import('./tipos').Perfil | nul
   if (!p) return null
   return { usuario: p.usuario ?? '', nome: p.nome ?? '', avatar: p.avatar_url, bio: p.bio ?? '', papel: p.papel, criadoEm: p.criado_em }
 }
+
+// ---------- tierlists (migração 20261125000000_tierlists.sql) ----------
+type TierRpc = import('../tierlist/tipos').Tier
+export async function votarTier(tierlist: string, item: string, tier: TierRpc | null, anonimo: boolean) {
+  const { error } = await supabase().rpc('votar_tier', { p_tierlist: tierlist, p_item: item, p_tier: tier, p_anonimo: anonimo })
+  if (error) throw new Error(traduzir(error.message))
+}
+export async function definirVisibilidade(valor: import('../tierlist/tipos').Visibilidade, aplicarAosAntigos: boolean) {
+  const { error } = await supabase().rpc('definir_visibilidade_voto', { p_valor: valor, p_aplicar_aos_antigos: aplicarAosAntigos })
+  if (error) throw new Error(traduzir(error.message))
+}
+export async function sugerirTierlist(dados: { titulo: string; descricao: string; itens: string[] }) {
+  const { data, error } = await supabase().rpc('sugerir_tierlist', { dados })
+  if (error) throw new Error(traduzir(error.message))
+  return data as string
+}
+export async function comentarTierlist(tierlist: string, corpo: string, pai: string | null) {
+  const { data, error } = await supabase().rpc('comentar_tierlist', { p_tierlist: tierlist, p_corpo: corpo, p_pai: pai })
+  if (error) throw new Error(traduzir(error.message))
+  return data as string
+}
+export async function apoiarTierlist(alvo: string, ligar: boolean) {
+  const { error } = await supabase().rpc('apoiar_tierlist', { p_alvo: alvo, ligar })
+  if (error) throw new Error(traduzir(error.message))
+}
+/** quem votou (só votos visíveis; a view só responde para quem está logado) */
+export async function votantes(tierlist: string) {
+  const { data } = await supabase().from('tierlist_votantes').select('item,tier,usuario,criado_em').eq('tierlist', tierlist)
+  return (data ?? []) as { item: string; tier: TierRpc; usuario: string; criado_em: string }[]
+}
+export async function meusVotos(tierlist: string) {
+  const { data } = await supabase().from('tierlist_votos').select('item,tier,anonimo').eq('tierlist', tierlist)
+  return (data ?? []) as { item: string; tier: TierRpc; anonimo: boolean }[]
+}

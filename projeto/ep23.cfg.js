@@ -7,7 +7,7 @@ window.EP = {
   itens: ["Item_Duffelbag", "Item_Backpack_Black", "Item_Hiking_Green", "Item_BigHiking_Green", "Item_AliceBag"],
   OFF: 1.3,
   luz: { padrao: 'interior-tarde', 2: 'exterior-dia', 3: 'exterior-dia', 6: 'exterior-dia', 8: 'exterior-dia' },
-  T: [0, 3.5, 10, 20, 25, 32, 41, 47, 52], END: 57,
+  T: [0.0, 4.11, 11.48, 21.9, 26.23, 32.9, 41.89, 47.89, 53.6], END: 58.49,
   scenes: [{ at: 0 }, { at: 1, lab: LAB }, { at: 2, lab: LAB }, { at: 3, lab: LAB }, { at: 4, lab: LAB }, { at: 5, lab: LAB }, { at: 6, lab: LAB }, { at: 7, lab: LAB }, { at: 8 }],
   titles: [
     { i: 0, a: "Pegar tudo", b: "te mata", aSize: 110, size: 128 },
@@ -56,7 +56,7 @@ window.EP = {
       ['Item_BigHiking_Green', 'Mochila Grande de Trilha', 22, 80], ['Item_AliceBag', 'Mochila Militar', 28, 85]];
     const bt = el('div', 'bt', `<h4>MOCHILAS (VESTIDAS NAS COSTAS)</h4><div class="hd"><span></span><span>MOCHILA</span><span class="v" style="text-align:center">CAPACIDADE</span><span style="text-align:center">REDUZ PESO</span></div>`, H.sc(5)); bt.id = nid('bt');
     M.enter('#' + bt.id, { at: P(5, 0.04), frames: 12, ease: 'snapSettle', from: { y: 60, opacity: 0 } });
-    rows.forEach(([ic, nm, cap, red], i) => { const r = el('div', 'r' + (i === 4 ? ' top' : ''), `<img src="assets/items/${ic}.png"><span>${nm}</span><span class="v">${cap}</span><span class="v g">${red}%</span>`, bt); r.id = nid('r');
+    rows.forEach(([ic, nm, cap, red], i) => { const r = el('div', 'r ins' + (i === 4 ? ' top' : ''), `<img src="assets/items/${ic}.png"><span>${nm}</span><span class="v">${cap}</span><span class="v g">${red}%</span>`, bt); r.id = nid('r');
       M.enter('#' + r.id, { at: P(5, 0.10 + i * 0.09), frames: 9, ease: 'snapSettle', from: { x: -40, opacity: 0 } }); });
     // 6 — não corre
     H.moodle(6, 'pz:Status_MovementRestricted', "MOVIMENTO RESTRITO", P(6, 0.20), false, null, 560);

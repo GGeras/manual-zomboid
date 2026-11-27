@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: 'Termos de uso', robots: { index: fal
 export default function Termos() {
   const idade = CONFIG.legal.idadeMinima
   return (
-    <PaginaTexto rotulo="Legal" titulo="Termos de" destaque="uso" rascunho>
+    <PaginaTexto rotulo="Legal" titulo="Termos de" destaque="uso">
       <p>Estes termos valem para o site Manual Zomboid e a Comunidade. Ao criar uma conta você concorda com eles e com as <a href="/comunidade/regras">regras da Comunidade</a>.</p>
       <h2>Quem somos</h2>
       <p>Manual Zomboid é um canal de fã sobre Project Zomboid, sem ligação com a The Indie Stone. Project Zomboid é marca da The Indie Stone.</p>

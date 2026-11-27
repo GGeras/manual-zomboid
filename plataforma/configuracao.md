@@ -9,6 +9,13 @@ Fez um item? Marque `[x]` e avise o Claude (o seu ou o do Bruno). Ele segue daí
 
 Etapas (C3, S3...): `plataforma/plano.md`.
 
+## Próximos passos, em ordem (atualizado 25/11)
+1. 🔒 **Trocar os segredos do Discord que foram parar num .txt** (bot token e os 2 webhooks): §6.2 e §6.3. Depois de trocar, cole os novos só no Supabase.
+2. 📋 Escrever o **#regras** do Discord e mandar o resumo (o site mostra em "Discord").
+3. §1 e §2 (fechar a Central e dar acesso ao Claude do Bruno), se ainda faltar.
+4. §7 Domínio → §8 Comunidade (projeto Supabase, logins, anti-spam, imagens). Com isso a Comunidade e as **tierlists** saem do modo prévia.
+5. §4 Métricas e §9 quando chegar a etapa.
+
 ---
 
 ## 0. Já feito
@@ -31,51 +38,41 @@ Sem isso, o Claude do Bruno não consegue mexer no banco nem publicar.
 - [ ] Bruno conecta, no Claude dele: **Supabase**, **Slack**, **GitHub** e **Google Drive** (claude.ai > Settings > Connectors).
 - [ ] **Cloudflare** (opcional): Manage Account > Members > Invite, e-mail do Bruno. O deploy já roda pela Action; isso é só para ele ver os logs.
 
-## 3. Slack: feed ao vivo (etapa C3)
-- [ ] https://api.slack.com/apps > **Create New App** > From scratch > nome `Central` > workspace do canal.
-- [ ] **OAuth & Permissions > Bot Token Scopes**:
-  - `channels:history`
-  - `channels:read`
-  - `users:read`
-  - `groups:history` e `groups:read` (só se algum dos 3 canais for privado)
-- [ ] **Install to Workspace** > Allow.
-- [ ] 🔒 **Bot User OAuth Token** (`xoxb-...`) → Supabase > Edge Functions > Secrets > `SLACK_BOT_TOKEN`
-- [ ] 🔒 **Basic Information > Signing Secret** → Supabase > Edge Functions > Secrets > `SLACK_SIGNING_SECRET`
-- [ ] Nos 3 canais (`#links-rascunho`, `#links-final`, `#atualizações-projeto`), digite `/invite @Central`.
-- [ ] **Depois** que o Claude publicar a função `slack-eventos`:
-  - Event Subscriptions > ligar.
-  - Request URL: `https://tephnuzsuoamhfukeqsi.supabase.co/functions/v1/slack-eventos`
-  - Subscribe to bot events: `message.channels` (e `message.groups` se houver canal privado).
-  - Save. O Slack pede para reinstalar o app: aceite.
+## 3. ~~Slack: feed ao vivo~~ (cancelado em 25/11)
+Não precisa mais criar app no Slack. Tudo que essa etapa faria (feed ao vivo, prévias e finais, histórico) a **Central faz sozinha** (etapa C3 nova, `plano.md`): fica num lugar só e é mais fácil entender o que aconteceu no projeto.
+- Nada a configurar. Se já criou o app `Central` no Slack, pode apagar.
+- Os avisos que o `publicar.py` e o `resumo_push.py` mandam no Slack continuam funcionando como hoje.
 
 ## 4. Métricas (etapa C5)
 - [ ] No chat de análises: conector **Supabase** ligado, com acesso ao projeto `manual-zomboid`.
 - Nada mais. O formato das tabelas sai na C5.
 
 ## 5. YouTube (etapas S3 e futuro)
-- [ ] 📋 **ID do canal** (`UC...`): https://www.youtube.com/account_advanced
+- [x] 📋 **ID do canal**: `UClX3FcUESD8WJe9sxF-T8VA` (no site desde 25/11: Shorts recentes com capa e resumo)
+- [ ] 📋 (opcional) **@ do canal** (ex.: `@manualzomboid`): o botão "Ver o canal" passa a usar o endereço bonito.
 - [ ] (Futuro: métricas automáticas, grátis) Google Cloud > novo projeto > ativar **YouTube Data API v3** e **YouTube Analytics API**. Não gere chave ainda: o Claude diz qual tipo quando chegar lá.
 
 ## 6. Discord (etapas S3, S4 e integração futura)
 ### 6.1 Servidor (para o site)
-- [ ] Discord > Configurações do usuário > Avançado > **Modo desenvolvedor**: ligar (para copiar IDs).
-- [ ] 📋 **ID do servidor**: botão direito no ícone do servidor > Copiar ID do servidor.
-- [ ] **Configurações do servidor > Widget > Ativar widget do servidor**. Em "Canal de convite", escolha o canal de boas-vindas.
-- [ ] 📋 **Convite que não expira**: botão direito no canal de boas-vindas > Convidar pessoas > Editar link > Expirar: **Nunca**, Usos: **Sem limite**. Copie o link.
-- [ ] Canal **#regras** com as regras escritas (o site mostra um resumo).
-- [ ] 📋 IDs dos canais que vão receber avisos (ex.: `#novos-videos`, `#novidades-do-zomboid`): botão direito > Copiar ID do canal.
+- [x] Modo desenvolvedor ligado.
+- [x] 📋 **ID do servidor**: `1574466784935940106`
+- [x] **Widget do servidor** ativado (o site mostra "N online agora").
+- [x] 📋 **Convite**: https://discord.gg/gxsn9SYPFu (confira se está como Expirar: **Nunca**, Usos: **Sem limite**)
+- [x] 📋 IDs dos canais (viram atalhos na seção Discord do site): Jogar junto `1574880090465112114` · Dicas e truques `1574878469727195336` · Bases `1574878536626344087` · Regras `1574877331527303229`
+- [ ] Canal **#regras** com as regras escritas → 📋 mande o resumo (hoje o site mostra um rascunho).
 
 ### 6.2 Avisos automáticos (simples, sem bot)
 Um webhook por canal que recebe aviso (vídeo novo, post novo no blog, notícia do PZ aprovada).
-- [ ] Configurações do canal > Integrações > Webhooks > **Novo webhook** > nome `Manual Zomboid` > Copiar URL.
-- [ ] 🔒 URL do webhook → Supabase > Edge Functions > Secrets:
+- [x] Webhooks criados: **Anúncios** e **Vídeos**.
+- [ ] ⚠️ **Gerar de novo**: as URLs foram escritas num `.txt` e passadas no chat, então valem como vazadas (quem tem a URL posta no canal). Configurações do canal > Integrações > Webhooks > abra o webhook > **Excluir** e crie outro (ou "Copiar URL" de um novo).
+- [ ] 🔒 URL nova → Supabase (projeto `manual-zomboid`, da Central) > Edge Functions > Secrets:
+  - `DISCORD_WEBHOOK_ANUNCIOS` (canal de anúncios)
   - `DISCORD_WEBHOOK_VIDEOS` (canal de vídeos novos)
-  - `DISCORD_WEBHOOK_NOTICIAS` (canal de novidades)
 
 ### 6.3 App do Discord (login na Comunidade na S4; bot no futuro)
 - [ ] https://discord.com/developers/applications > **New Application** > `Manual Zomboid`.
-- [ ] 📋 General Information: **Application ID** e **Public Key**.
-- [ ] Bot > **Reset Token** > 🔒 → Supabase > Edge Functions > Secrets > `DISCORD_BOT_TOKEN`.
+- [x] 📋 **Application ID**: `1575043022515609712` (é o Client ID do login com Discord na §8) · **Public Key**: `c07d1f3ebd244a3178fe76cdb853924b6ca98dfc3642445e6f8477c26411a580`
+- [ ] ⚠️ Bot > **Reset Token**: o token atual foi escrito num `.txt` e passado no chat. Gere outro (o antigo para de funcionar na hora) e cole 🔒 só em Supabase > Edge Functions > Secrets > `DISCORD_BOT_TOKEN`.
 - [ ] Bot > Privileged Gateway Intents: deixe **tudo desligado** por enquanto.
 - [ ] OAuth2 > URL Generator:
   - scopes: `bot` e `applications.commands`;
@@ -128,22 +125,23 @@ O site já está no ar em modo prévia: https://manual-zomboid-site.mundomix.wor
 
 | campo em `config.publico.json` | vem de (seção) | o que liga no site |
 |---|---|---|
-| `youtube.canalId`, `youtube.handle` | §5 | Shorts com player (RSS do canal) e botão "Assistir" |
-| `discord.convite`, `discord.servidorId` | §6.1 | botão "Entrar no Discord" e contador de online (widget) |
-| `site.url`, `site.dominioImagens` | §7 | domínio, SEO liberado (hoje o `robots` bloqueia indexação) e `img.<dominio>` |
-| `comunidade.supabaseUrl`, `comunidade.supabaseChavePublica` | §8 | sai do modo prévia: contas, posts e votos de verdade |
+| `youtube.canalId` ✅, `youtube.handle` | §5 | Shorts com a capa de cada vídeo e a modal com o resumo conferido |
+| `discord.convite`, `discord.servidorId` ✅ | §6.1 | botão "Entrar no Discord", contador de online (widget) e o zumbi "Discord" da abertura |
+| `discord.canais.*`, `discord.appId` ✅ | §6.1, §6.3 | atalhos para Jogar junto, Dicas e truques, Bases e Regras |
+| `redes.instagram`, `redes.tiktok`, `redes.threads`, `redes.facebook` | — | URL completa do perfil: aparece em `/links` e no rodapé (vazio = escondido) |
+| `site.url` ✅ (`https://manualzomboid.site`), `site.dominioImagens` | §7 | domínio, SEO liberado (hoje o `robots` bloqueia indexação) e `img.<dominio>` |
+| `comunidade.supabaseUrl`, `comunidade.supabaseChavePublica` | §8 | sai do modo prévia: contas, posts, votos e **tierlists** de verdade |
 | `comunidade.turnstileSiteKey` | §8 | anti-spam no cadastro e no 1º post |
 | `legal.emailContato`, `legal.idadeMinima` | §8 | termos e privacidade |
 
-Ordem sugerida: §6.1 (convite) e §5 (ID do canal) já deixam a landing completa; §7 + §8 abrem a Comunidade.
+§5 e §6.1 já estão no site (25/11): a landing está completa. Falta §7 + §8 para abrir a Comunidade e as tierlists.
 
 ---
 
 ## Resumo: o que mandar no chat × o que colar direto
 | item | tipo | vai para |
 |---|---|---|
-| Slack Bot Token, Signing Secret | 🔒 | Supabase Edge Functions Secrets |
-| Discord webhooks, Bot Token | 🔒 | Supabase Edge Functions Secrets |
+| Discord webhooks (anúncios, vídeos), Bot Token | 🔒 | Supabase Edge Functions Secrets (Central) |
 | Resend API key | 🔒 | Supabase (SMTP do projeto comunidade; Edge Functions Secrets na newsletter) |
 | Client Secret do Discord e do Google (login) | 🔒 | Supabase comunidade > Authentication > Providers |
 | Turnstile Secret Key | 🔒 | Supabase comunidade > Attack Protection |
@@ -155,4 +153,4 @@ Ordem sugerida: §6.1 (convite) e §5 (ID do canal) já deixam a landing complet
 | domínio | 📋 | chat |
 
 ## Para o Claude do Bruno (colar no início da conversa)
-> Você é o dev da plataforma do Manual Zomboid. Leia, nesta ordem: `CLAUDE.md`, `plataforma/plano.md`, `plataforma/arquitetura.md`, `plataforma/site.md` (site, Comunidade estilo Reddit e padrão de qualidade), `plataforma/README.md` e `plataforma/configuracao.md`. Use a skill `manual-zomboid-landing-blog` no site. A Central (C1) está no ar. Siga o plano: C3 (Slack ao vivo + prévias e finais), C4 (tarefas), C5 (métricas), C6 (notícias PZ), depois o site (S0 a S8). O `site.md` manda: a Comunidade só vale se for muito fácil de usar. 1 etapa = 1 PR, merge automático com o CI verde. Itens já configurados: [cole aqui os 📋 e diga quais 🔒 já estão colados].
+> Você é o dev da plataforma do Manual Zomboid. Leia, nesta ordem: `CLAUDE.md`, `plataforma/plano.md`, `plataforma/arquitetura.md`, `plataforma/site.md` (site, Comunidade estilo Reddit e padrão de qualidade), `plataforma/README.md` e `plataforma/configuracao.md`. Use a skill `manual-zomboid-landing-blog` no site. A Central (C1) está no ar. Siga o plano: C3 (ao vivo + prévias e finais, nativo na Central, sem Slack), C4 (tarefas), C5 (métricas), C6 (notícias PZ), depois o site (S0 a S8). O `site.md` manda: a Comunidade só vale se for muito fácil de usar. 1 etapa = 1 PR, merge automático com o CI verde. Itens já configurados: [cole aqui os 📋 e diga quais 🔒 já estão colados].

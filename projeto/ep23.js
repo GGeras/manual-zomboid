@@ -1,4 +1,6 @@
-// EP 23 — Carga e Peso (B42.22) — RASCUNHO v3 (24/11, Jose):
+// EP 23 — Carga e Peso (B42.22) — RASCUNHO v5 (25/11, Bruno): ninguém atravessa o carro estacionado — personagem e zumbis DESVIAM dele
+//   (sobem para a calçada norte e voltam, virando o corpo na curva); agachado na cômoda sem enfiar a cabeça nela; abajur inteiro (cenarios/tiles).
+// RASCUNHO v3 (24/11, Jose):
 // • abertura: casa saqueada no fim da tarde (sol baixo pela janela, abajur aceso, lixo e papéis), personagem saqueando a estante e mochilas jogadas no chão;
 // • corrida com peso: trote LENTO e pesado (Bob_Run original a 70%, corpo andando na mesma velocidade dos pés, sem deslizar) com zumbis atrás
 //   ganhando pouco — ele corre só um pouco mais que eles (tensão); depois para ofegante;
@@ -32,26 +34,33 @@ const V_SPRINT = 2.8, V_WALK = 1.35, V_SLOW = .75, V_ZS = 1.78;
 const clip = (name, lf, o = {}) => { pose(S, Object.assign({ ry: Math.PI / 2, clip: [name, lf, o.loop !== false, o.up] }, o)); S.bat.visible = false; S.hammer.visible = false;
   S.olhar = 0; PZ.apoiar(S, o.base ?? 0); };
 const zClip = (z, name, lf, o = {}) => { pose(z, Object.assign({ clip: [name, lf, o.loop !== false] }, o)); PZ.apoiar(z, 0); };
-const rua0 = (k = 'dawn') => { light(k); clima('', 0); RC.show(); clarao(0); tileLuz('#fff0dc'); };
+const rua0 = (k = 'day') => { light(k); clima('', 0); RC.show(); clarao(0); tileLuz(k === 'day' ? '#ffffff' : '#fffaf0'); };   // v6: sprites um pouco mais claros (inspeção: exterior-dia 90, mín 95)
 const casa0 = f => { light('dawn'); clima('', 0); KC.show(); TARDE.set(f); clarao(0); tileLuz('#fff2e0'); };
 // perseguidores: corpo e pés na mesma velocidade (sem deslizar). x = posição do personagem; gap = distância do 1º zumbi até ele; os outros ficam atrás (+0,9 m cada).
 // só corredores (z_sprint 1,78 m/s): a distância muda com o tempo, então o chamador passa o gap já calculado.
-const atras = (f, x, z, gap, n = 3) => { for (let i = 0; i < n; i++)
-  zClip(Z[i], 'z_sprint', f + i * 5, { x: x - gap - i * .95, z: z + (i % 2 ? .45 : -.4), ry: Math.PI / 2 }); };
+const atras = (f, x, z, gap, n = 3) => { for (let i = 0; i < n; i++) { const zx = x - gap - i * .95, k = curva(zx), lado = (i % 2 ? .45 : -.4) * (1 - .55 * k);   // no desvio a fila aperta (cabe na calçada)
+  zClip(Z[i], 'z_sprint', f + i * 5, { x: zx, z: faixa(zx, z) + lado, ry: rumo(zx, z) }); } };
 // perseguição que se fecha: personagem a V (m/s) termina em xEnd; zumbi a V_ZS termina a gapEnd dele (o take troca quando está QUASE alcançando)
+// v5: desvio do carro estacionado. As perseguições (cenas 2, 6 e 8) correm na rua da cidade do engine.js (x ≈ −8…8), cujo carro fica em
+//     (−8,5; 1,2) — 4,7 m × 1,9 m, na MESMA faixa (z 1,2). Quem passa por ele muda para a outra faixa (z −0,45) com rampa de 1,6 m e volta;
+//     o corpo vira na direção do caminho (ry pela derivada), sem patinar.
+const CARX = -8.5, CAR_HL = 2.35 + .75, RAMPA = 1.6, ZDESVIO = -.45;
+const curva = x => { const d = Math.abs(x - CARX) - CAR_HL; if (d <= 0) return 1; if (d >= RAMPA) return 0; const t = 1 - d / RAMPA; return t * t * (3 - 2 * t); };
+const faixa = (x, z0) => lerp(z0, ZDESVIO, curva(x));
+const rumo = (x, z0) => { const e = .05, dz = faixa(x + e, z0) - faixa(x - e, z0); return Math.atan2(2 * e, dz); };   // ry do movimento em +x
 const perseg = (lf, len, xEnd, V, gapEnd, z) => { const r = (len - lf) / 30, x = xEnd - V * r, gap = gapEnd + (V_ZS - V) * r; return { x, z, gap }; };
 
 run([
   // 0 — "Pegar tudo que vê...": sala saqueada no fim da tarde; ele enche a mochila na estante
-  (lf, f, len, c) => { casa0(f); const p = K(1.05, .95);
+  (lf, f, len, c) => { casa0(f); const p = K(1.05, 1.3);   // v5: um passo para trás (em .95 a cabeça entrava na cômoda ao agachar)
     clip(lf % 90 < 60 ? 's_lootlow' : 's_makinglow', lf % 90, { x: p.x, z: p.z, ry: Math.PI });
     const k = lf / len; camOn(c, lerp(p.x + 1.4, p.x + .7, k), lerp(p.z + 1.2, p.z + .6, k), lerp(7.6, 6.2, k), SY); },
   // 1 — "Força e moodles": em pé, ofegante, carregado
   (lf, f, len, c) => { casa0(f); const p = K(2.2, 2.2); clip(lf < 40 ? 's_idle' : 's_breath', lf, { x: p.x, z: p.z, ry: FRENTE }); camOn(c, p.x + .3, p.z, 6.4, SY); },
   // 2 — sobrecarga: ele está PESADO, então anda curvado e lento (Bob_Walk 1,35 m/s); os zumbis correm (1,78 m/s) um pouco mais rápido e se aproximam;
   //     o take acaba quando o primeiro está quase nele
-  (lf, f, len, c) => { rua0(); const q = perseg(lf, len, 7, V_WALK, .85, R(0, 1.2).z);
-    clip('s_walk', lf, { x: q.x, z: q.z }); atras(f, q.x, q.z, q.gap); camOn(c, q.x - .9, q.z, 7.6, .6); },
+  (lf, f, len, c) => { rua0(); const q = perseg(lf, len, 5.2, V_WALK, .85, R(0, 1.2).z);   // v5: termina antes do poste da rua (em 7 passava atrás dele)
+    clip('s_walk', lf, { x: q.x, z: faixa(q.x, q.z), ry: rumo(q.x, q.z) }); atras(f, q.x, q.z, q.gap); camOn(c, q.x - .9, faixa(q.x, q.z), 7.6, .6); },
   // 3 — costas e cerca: de costas, curvado, anda devagar até a cerca branca do quintal (a mesma da rua); chega, para ofegante e encara a cerca alta sem conseguir passar
   (lf, f, len, c) => { rua0(); const k = .6, z = R(0, -.2).z, x1 = R(-7.2, 0).x, x0 = x1 - V_SLOW * len * k / 30;
     if (lf < len * k) { const x = x0 + V_SLOW * lf / 30; clip('s_walkslow', lf, { x, z, ry: Math.PI / 2 }); camOn(c, x + .1, z - .1, 5.4, SY); }
@@ -62,14 +71,14 @@ run([
   // 5 — as 5 mochilas do jogo no chão; ele agachado mexendo nelas (tabela no cfg)
   (lf, f, len, c) => { casa0(f); BAGM.forEach(m => m.visible = true); const p = K(3.05, 4.85), q = Math.floor(lf / 80) % 3;
     const ry = [-.5, 0, .6][q]; clip(q === 1 ? 's_makinglow' : 's_lootlow', lf % 80, { x: p.x, z: p.z, ry });
-    camOn(c, p.x + .15, p.z + .75, 5.2, .66); },
+    camOn(c, p.x + .15, p.z + .75, 6.0, .74); },   // v6: personagem mais baixo no quadro (a tabela das mochilas cobria a cabeça)
   // 6 — Movimento Restrito: NÃO corre — só anda (Bob_Walk 1,35 m/s); a horda corre e fecha o cerco, take troca quando está quase nele
   (lf, f, len, c) => { rua0(); const q = perseg(lf, len, 8, V_WALK, 1.1, R(0, 1.2).z);
-    clip('s_walk', lf, { x: q.x, z: q.z }); atras(f, q.x, q.z, q.gap); camOn(c, q.x - .9, q.z, 7.6, .6); },
+    clip('s_walk', lf, { x: q.x, z: faixa(q.x, q.z), ry: rumo(q.x, q.z) }); atras(f, q.x, q.z, q.gap); camOn(c, q.x - .9, faixa(q.x, q.z), 7.6, .6); },
   // 7 — traços: em casa, alonga e respira
   (lf, f, len, c) => { casa0(f); BAGM.forEach(m => m.visible = true); const p = K(PX7, PZ7);
     clip(lf < 70 ? 's_stretch' : 's_idle', lf, { x: p.x, z: p.z, ry: FRENTE, loop: lf >= 70 }); camOn(c, p.x, p.z, 6.0, SY); },
   // 8 — mochila nas costas, só o necessário: corre em disparada (2,8 m/s) e deixa os zumbis (1,78 m/s) para trás
   (lf, f, len, c) => { rua0(); const r = (len - lf) / 30, x = 8 - V_SPRINT * r, z = R(0, 1.2).z, gap = 2.4 + (V_SPRINT - V_ZS) * (lf / 30);
-    clip(lf < 10 ? 's_run' : 's_sprint', lf, { x, z }); atras(f, x, z, gap, 3); camOn(c, x - .7, z, 7.4, SY); },
+    clip(lf < 10 ? 's_run' : 's_sprint', lf, { x, z: faixa(x, z), ry: rumo(x, z) }); atras(f, x, z, gap, 3); camOn(c, x - .7, faixa(x, z), 7.4, .59); },
 ]);

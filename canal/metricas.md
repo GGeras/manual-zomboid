@@ -11,5 +11,8 @@ Vídeo | Visualizações | % que continuou assistindo (Shorts: "viewed vs swiped
 Exemplo:
 07 Carros | 1.240 | 68% | 74% | +12 | Feed de Shorts
 
+Resultado da análise vira REGRA ou INDICATIVO em canal/regras-conteudo-redes.md (seções 3 e 4).
+Análise de 26/11 (YouTube, Instagram e TikTok): ver esse doc.
+
 Com isso o Claude ajusta: temas que seguram mais, ganchos que funcionam, duração ideal e horário de postagem.
 ```

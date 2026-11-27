@@ -27,7 +27,7 @@ jobs:
       - name: Lista curada do LFS
         id: lfs
         run: |
-          node -e "const a=require('./assets.json');const p=[...Object.values(a.logos).map(x=>x.de),...a.moodles.map(m=>'projeto/assets/moodles/'+m+'.png'),...a.itens.map(i=>'projeto/assets/items/'+i+'.png'),...Object.values(a.cenas).map(x=>x.de)];console.log('include='+p.join(','))" >> "$GITHUB_OUTPUT"
+          node -e "const a=require('./assets.json');const p=[...Object.values(a.logos).map(x=>x.de),...a.moodles.map(m=>'projeto/assets/moodles/'+m+'.png'),...a.itens.map(i=>'projeto/assets/items/'+i+'.png'),...Object.values(a.cenas).map(x=>x.de),...(a.modelos||[]),...(a.capas?[a.capas+'/*.jpg']:[]),...(a.tiles?[a.tiles+'/*.png']:[])];console.log('include='+p.join(','))" >> "$GITHUB_OUTPUT"
           echo "chave=$(sha1sum assets.json | cut -c1-12)" >> "$GITHUB_OUTPUT"
       - uses: actions/cache@v4
         with:

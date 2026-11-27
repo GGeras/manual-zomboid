@@ -1,25 +1,35 @@
 // Dados externos públicos, todos opcionais: se a chave pública não existir ou a fonte cair, a seção mostra o estado "em breve".
 import { CONFIG, discord, youtube } from '@/config/publico'
-import { EPISODIOS } from './repo'
+import CAPAS from '@/gerado/capas.json'
+import { EPISODIOS, episodioDoVideo } from './repo'
 
-export interface Short { id: string | null; titulo: string; nn: string | null; publicado: string | null }
+/** capa = imagem 9:16; srcSet só existe na capa oficial (referencias/capas/oficiais), que já traz o título e o número do EP. */
+export interface Capa { src: string; srcSet: string | null; oficial: boolean }
+export interface Short { id: string | null; titulo: string; nn: string | null; publicado: string | null; capa: Capa | null }
+
+const OFICIAIS = new Set<string>(CAPAS)
+/** Capa oficial do episódio quando existe; senão a hqdefault do YouTube (4:3 com o quadro vertical no meio: cortada em 9:16 = a capa). */
+export function capaDe(nn: string | null, id: string | null): Capa | null {
+  if (nn && OFICIAIS.has(nn)) return { src: `/jogo/capas/ep${nn}-720.webp`, srcSet: `/jogo/capas/ep${nn}-360.webp 360w, /jogo/capas/ep${nn}-720.webp 720w`, oficial: true }
+  return id ? { src: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`, srcSet: null, oficial: false } : null
+}
 
 /** Shorts recentes: RSS público do canal (sem chave). Sem o ID do canal: os episódios publicados do repo, sem player. */
 export async function shortsRecentes(limite = 8): Promise<{ fonte: 'youtube' | 'repo'; lista: Short[] }> {
   if (youtube.rss) {
     try {
       const xml = await (await fetch(youtube.rss, { next: { revalidate: 3600 } })).text()
-      const lista = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)].slice(0, limite).map(([, e]) => ({
-        id: e.match(/<yt:videoId>([^<]+)/)?.[1] ?? null,
-        titulo: decode(e.match(/<title>([^<]+)/)?.[1] ?? ''),
-        nn: null,
-        publicado: e.match(/<published>([^<]+)/)?.[1] ?? null,
-      }))
+      const lista = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)].slice(0, limite).map(([, e]) => {
+        const id = e.match(/<yt:videoId>([^<]+)/)?.[1] ?? null
+        const titulo = decode(e.match(/<title>([^<]+)/)?.[1] ?? '').replace(/\s*\|\s*Project Zomboid\s*$/i, '').replace(/\s*#shorts\s*$/i, '').trim()
+        const nn = episodioDoVideo(id, titulo)?.nn ?? null
+        return { id, titulo, nn, publicado: e.match(/<published>([^<]+)/)?.[1] ?? null, capa: capaDe(nn, id) }
+      })
       if (lista.length) return { fonte: 'youtube', lista }
     } catch { /* cai para o repo */ }
   }
   const lista = EPISODIOS.filter((e) => e.status === 'publicado').reverse().slice(0, limite)
-    .map((e) => ({ id: e.youtube, titulo: e.titulo ?? e.tema, nn: e.nn, publicado: null }))
+    .map((e) => ({ id: e.youtube, titulo: e.titulo ?? e.tema, nn: e.nn, publicado: null, capa: capaDe(e.nn, e.youtube) }))
   return { fonte: 'repo', lista }
 }
 const decode = (s: string) => s.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>')

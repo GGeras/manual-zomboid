@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { CartaoGuia } from '@/componentes/landing/secoes'
 import { Jogo, Relogio, Seta } from '@/componentes/icones'
 import { LiteYoutube } from '@/componentes/lite-youtube'
+import { capaDe } from '@/lib/externos'
 import { SITE_URL } from '@/config/publico'
 import { Markdown } from '@/componentes/markdown'
 import { blocosDoGuia, episodio, FATOS, guia, guias } from '@/lib/conteudo'
@@ -63,7 +64,7 @@ export default async function GuiaPagina({ params }: { params: Promise<{ slug: s
           <span className="inline-flex items-center gap-1.5"><Relogio className="size-4" />{g.minutos} min de leitura</span>
           <time dateTime={g.data}>{dataCurta(g.data)}</time>
         </div>
-        {ep?.youtube && <LiteYoutube id={ep.youtube} titulo={ep.titulo ?? ep.tema} vertical className="mx-auto mt-8 max-w-[18rem]" />}
+        {ep?.youtube && <LiteYoutube id={ep.youtube} titulo={ep.titulo ?? ep.tema} vertical capa={capaDe(ep.nn, ep.youtube)} className="mx-auto mt-8 max-w-[18rem]" />}
       </header>
 
       <div className="prosa mx-auto max-w-3xl px-4 pb-6 pt-8 sm:px-6">

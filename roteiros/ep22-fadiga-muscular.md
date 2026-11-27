@@ -2,7 +2,7 @@
 ep: 22
 tema: Fadiga Muscular
 responsavel: jose
-status: validado
+status: final
 build: B42.22
 fatos: [fad-nome, fad-perna, fad-carga, fad-arma, fad-pisao, fad-reduz, fad-analgesico, fad-exercicio]
 video: (sem rascunho ainda)

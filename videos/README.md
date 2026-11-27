@@ -2,26 +2,10 @@
 
 Os vídeos **não** vão para o GitHub: ocupam ~1,2 GB e cada download gasta a cota do LFS.
 
-## Onde guardar
-No **Google Drive pessoal de quem renderizou**, pasta `Manual Zomboid/` (criada pelo `ferramentas/publicar.py`).
-- Cada arquivo fica público para quem tiver o link (leitor).
-- O link sai sozinho no Slack: prévias em `#links-rascunho`, finais em `#links-final`.
-- Regra completa: `canal/processo/automacao-slack-drive.md`.
-- Abaixo, a estrutura recomendada (as subpastas `rascunhos/` e `finais/` são automáticas):
-
-```
-Manual Zomboid/
-├─ finais/       ep16-animais-final-v1.mp4 + ep16-animais-capa-v1.jpg
-├─ rascunhos/    ep16-animais-previa-v1.mp4
-├─ brutos/       gravações de gameplay (série Bases)
-└─ referencias/  video-referencia-bases01.mp4, ref-video-estilo-animacao.mp4
-```
-
-Os nomes seguem o mesmo padrão do repo: `epNN-tema`.
-Os textos de cada vídeo (`instrucoes.txt`, `legendas.srt`, `sons.txt`) podem ficar junto no Drive. O roteiro oficial está em `roteiros/`.
+Ficam no PC de quem renderizou (`projeto/out/` e pasta `Final\`).
 
 ## Links
-Só os **finais** entram nesta tabela; quem cola o link é o Claude, no fluxo B. As prévias ficam só no Slack.
+Só os **finais** entram nesta tabela.
 
 | vídeo | status | final | prévia |
 |---|---|---|---|
