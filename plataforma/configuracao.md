@@ -86,8 +86,9 @@ A Comunidade precisa do domínio: login com Google, imagens (`img.<dominio>`) e 
 - [ ] Cloudflare > **Web Analytics**: ligar para o domínio (grátis, sem cookie).
 
 ## 8. Comunidade: contas, imagens e anti-spam (etapa S4)
+**Mínimo para abrir (28/11):** só login por e-mail. Falta: Supabase > Authentication > URL Configuration (Site URL `https://manualzomboid.site`, Redirect `https://manualzomboid.site/**`) e SMTP próprio (Resend). Discord, Google, Turnstile e R2 ficam para depois.
 Especificação: `plataforma/site.md`.
-- [ ] **Projeto Supabase novo** `manual-zomboid-comunidade` (separado da Central, grátis). Diga "pode criar" ao Claude: ele cria pelo conector.
+- [x] **Projeto Supabase novo** `manual-zomboid-comunidade` (criado em 28/11, ref `uzwfsaclfisywijoqppq`, migrações aplicadas) (separado da Central, grátis). Diga "pode criar" ao Claude: ele cria pelo conector.
   - O plano grátis permite 2 projetos ativos. Se já tiver outro, avise.
 - [ ] **Login com Discord** (usa o mesmo app do 6.3):
   - Developer Portal > OAuth2 > Redirects > adicionar `https://<ref-do-projeto-comunidade>.supabase.co/auth/v1/callback` (o Claude passa o `<ref>`).

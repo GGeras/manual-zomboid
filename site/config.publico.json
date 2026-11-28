@@ -7,7 +7,7 @@
     "canais": { "jogarJunto": "1574880090465112114", "dicas": "1574878469727195336", "bases": "1574878536626344087", "regras": "1574877331527303229" }
   },
   "redes": { "instagram": "https://www.instagram.com/manualzomboid/", "tiktok": "https://www.tiktok.com/@manualzomboid", "threads": "https://www.threads.com/@manualzomboid", "facebook": "https://www.facebook.com/profile.php?id=61596850956151" },
-  "comunidade": { "supabaseUrl": null, "supabaseChavePublica": null, "turnstileSiteKey": null },
+  "comunidade": { "supabaseUrl": "https://uzwfsaclfisywijoqppq.supabase.co", "supabaseChavePublica": "sb_publishable_2t36gi6WXKE1mjbNsRAB_Q_GQ_TEKRu", "turnstileSiteKey": null },
   "central": { "supabaseUrl": "https://tephnuzsuoamhfukeqsi.supabase.co", "supabaseChavePublica": "sb_publishable_I47KkhnRvLrfDjow0yZv3w_IFZS-S1H" },
   "legal": { "emailContato": null, "idadeMinima": null }
 }

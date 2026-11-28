@@ -2,9 +2,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { comunidadeAtiva } from '@/config/publico'
 import { criarContaTeste, USUARIO_OK } from '@/lib/comunidade/local'
-import { Discord, Email, Fechar, Google } from './icones'
+import { Email, Fechar } from './icones'
 
-/** Entrar em 1 clique (Discord, Google ou link por e-mail). Sem senha. No modo prévia: conta de teste só neste navegador. */
+/** Entrar com link por e-mail. Sem senha. No modo prévia: conta de teste só neste navegador. */
 export function EntrarModal({ fechar, motivo }: { fechar: () => void; motivo?: string }) {
   const ref = useRef<HTMLDialogElement>(null)
   const [email, setEmail] = useState('')
@@ -14,13 +14,6 @@ export function EntrarModal({ fechar, motivo }: { fechar: () => void; motivo?: s
 
   useEffect(() => { ref.current?.showModal() }, [])
 
-  async function provedor(p: 'discord' | 'google') {
-    if (!comunidadeAtiva) return setAviso('Login com Discord e Google chega em breve. Por enquanto, crie uma conta aqui embaixo.')
-    setEnviando(true)
-    const { entrarCom } = await import('@/lib/comunidade/cliente-real')
-    const { error } = await entrarCom(p)
-    if (error) { setEnviando(false); setAviso('A conexão caiu como a energia no dia 7. Tente de novo.') }
-  }
   async function porEmail(e: React.FormEvent) {
     e.preventDefault()
     if (!comunidadeAtiva) return setAviso('O link por e-mail chega quando a Comunidade abrir.')
@@ -44,15 +37,11 @@ export function EntrarModal({ fechar, motivo }: { fechar: () => void; motivo?: s
         <button type="button" onClick={() => ref.current?.close()} className="absolute right-3 top-3 rounded-lg p-2 text-apagado hover:bg-white/5 hover:text-osso" aria-label="Fechar"><Fechar /></button>
         <p className="hud text-sangue">Comunidade</p>
         <h2 id="entrar-titulo" className="titulo mt-2 text-3xl">Entre e <span className="text-vivo">poste</span></h2>
-        <p className="mt-2 text-sm text-osso-2">{motivo ?? 'Ler não precisa de conta. Para postar, votar e comentar, entre em 1 clique. Sem senha.'}</p>
+        <p className="mt-2 text-sm text-osso-2">{motivo ?? 'Ler não precisa de conta. Para postar, votar e comentar, entre com o seu e-mail. Sem senha.'}</p>
 
-        <div className="mt-5 grid gap-2.5">
-          <button type="button" disabled={enviando} onClick={() => provedor('discord')} className="botao w-full bg-[#5865F2] text-white hover:bg-[#6873f5]"><Discord /> Entrar com Discord</button>
-          <button type="button" disabled={enviando} onClick={() => provedor('google')} className="botao w-full bg-osso text-noite hover:bg-white"><Google /> Entrar com Google</button>
-        </div>
-        <form onSubmit={porEmail} className="mt-4 flex gap-2">
+        <form onSubmit={porEmail} className="mt-5 flex gap-2">
           <label className="sr-only" htmlFor="entrar-email">E-mail</label>
-          <input id="entrar-email" type="email" required autoComplete="email" placeholder="ou receba um link no e-mail" value={email} onChange={(e) => setEmail(e.target.value)} className="campo !py-2.5 text-sm" />
+          <input id="entrar-email" type="email" required autoComplete="email" placeholder="seu e-mail" value={email} onChange={(e) => setEmail(e.target.value)} className="campo !py-2.5 text-sm" />
           <button className="botao botao-contorno !min-h-0 shrink-0 !px-3" aria-label="Mandar link por e-mail" disabled={enviando}><Email /></button>
         </form>
 

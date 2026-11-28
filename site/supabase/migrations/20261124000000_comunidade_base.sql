@@ -1,5 +1,5 @@
 -- Comunidade v1 (plataforma/site.md §4–6) — projeto Supabase `manual-zomboid-comunidade` (SEPARADO da Central).
--- Ainda NÃO aplicada: o projeto não existe (configuracao.md §8). Aplicar pelo conector do Supabase quando o Jose disser "pode criar".
+-- Aplicada em 28/11 no projeto uzwfsaclfisywijoqppq (sa-east-1).
 -- Princípios: RLS em tudo; anônimo lê só o publicado; escrita só por função (limites e anti-spam no banco, o cliente não burla).
 
 create extension if not exists unaccent with schema extensions;
@@ -167,17 +167,18 @@ begin
 end $$;
 
 create function public.criar_topico(dados jsonb) returns text language plpgsql security definer set search_path = '' as $$
-declare p public.perfis := public.conferir_autor(); novo text; hoje int; conta_nova boolean; corpo text := coalesce(dados ->> 'corpo', '');
+declare p public.perfis := public.conferir_autor(); novo text; hoje int; limite int; conta_nova boolean; v_corpo text := coalesce(dados ->> 'corpo', '');
 begin
   if p.usuario is null then raise exception 'sem_usuario'; end if;
   conta_nova := p.criado_em > now() - interval '24 hours';
   select count(*) into hoje from public.topicos where autor = p.id and criado_em > now() - interval '24 hours';
-  if hoje >= case when conta_nova then 3 else 10 end then raise exception 'limite_topicos'; end if;
-  if conta_nova and public.tem_link(corpo) then raise exception 'links_conta_nova'; end if;
+  limite := case when conta_nova then 3 else 10 end;
+  if hoje >= limite then raise exception 'limite_topicos'; end if;
+  if conta_nova and public.tem_link(v_corpo) then raise exception 'links_conta_nova'; end if;
   insert into public.topicos (autor, categoria, titulo, corpo, imagens, build, modo, dia, episodio, estado, quente)
-  values (p.id, dados ->> 'categoria', trim(dados ->> 'titulo'), corpo, coalesce(dados -> 'imagens', '[]'), dados ->> 'build', dados ->> 'modo',
+  values (p.id, dados ->> 'categoria', trim(dados ->> 'titulo'), v_corpo, coalesce(dados -> 'imagens', '[]'), dados ->> 'build', dados ->> 'modo',
           (dados ->> 'dia')::int, dados ->> 'episodio',
-          case when public.tem_palavra_bloqueada((dados ->> 'titulo') || ' ' || corpo) then 'revisao' else 'publicado' end,
+          case when public.tem_palavra_bloqueada((dados ->> 'titulo') || ' ' || v_corpo) then 'revisao' else 'publicado' end,
           public.nota_quente(1, now()))
   returning id into novo;
   insert into public.votos (usuario, topico) values (p.id, novo); -- o autor já dá Brabo no próprio tópico (como no Reddit)

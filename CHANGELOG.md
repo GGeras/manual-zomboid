@@ -3,6 +3,7 @@
 Formato: `- AAAA-MM-DD · nome · o que entrou`. A linha mais nova fica em cima. Uma linha por entrega.
 
 ## 2026-11
+- 2026-11-28 · claude · Comunidade: projeto Supabase `manual-zomboid-comunidade` criado (sa-east-1), migrações aplicadas (base, tierlists, endurecer funções), `config.publico.json` ligado; login só por e-mail (Discord e Google ficam para depois); corrigido `criar_topico` (erro de sintaxe no plpgsql).
 - 2026-11-26 · claude · Site sem textos de dev/IA: removidos avisos "Modo prévia" e "Rascunho" (jurídico), frase de dados conferidos e link "Código do site" do rodapé; links externos abrem em nova aba.
 - 2026-11-26 · claude · `/links`: removida a frase "Cada dado conferido antes de virar vídeo".
 - 2026-11-26 · claude · `/links` imersiva: ícones das redes, cartões com a cor de cada rede, neblina, grão, vinheta e lanterna que segue o ponteiro.
